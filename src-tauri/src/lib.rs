@@ -13,7 +13,8 @@ pub fn run() {
       open_sophy_folder,
       open_url,
       download_media,
-      check_for_updates
+      check_for_updates,
+      install_update
     ])
     .setup(|app| {
       if let Some(window) = app.get_webview_window("main") {

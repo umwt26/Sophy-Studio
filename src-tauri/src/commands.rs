@@ -256,6 +256,7 @@ pub struct UpdateCheckResult {
     pub latest_version: String,
     pub release_notes: String,
     pub url: String,
+    pub download_url: Option<String>,
 }
 
 fn compare_semver(latest: &str, current: &str) -> bool {
@@ -315,12 +316,24 @@ pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult
                             .to_string();
                         let notes = json["body"].as_str().unwrap_or("").to_string();
 
+                        let download_url = json["assets"].as_array().and_then(|arr| {
+                            arr.iter().find_map(|asset| {
+                                let name = asset["name"].as_str().unwrap_or("").to_lowercase();
+                                if name.ends_with(".exe") {
+                                    asset["browser_download_url"].as_str().map(|s| s.to_string())
+                                } else {
+                                    None
+                                }
+                            })
+                        });
+
                         return Ok(UpdateCheckResult {
                             has_update: is_newer,
                             current_version: current_version.clone(),
                             latest_version: tag,
                             release_notes: notes,
                             url: release_url,
+                            download_url,
                         });
                     }
                 }
@@ -334,5 +347,47 @@ pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult
         latest_version: current_version,
         release_notes: String::new(),
         url: format!("https://github.com/{}/releases", target_repo),
+        download_url: None,
     })
+}
+
+#[tauri::command]
+pub async fn install_update(app: tauri::AppHandle, download_url: String) -> Result<(), String> {
+    let client = reqwest::Client::builder()
+        .user_agent("Sophy-App/0.1.0")
+        .build()
+        .map_err(|e| e.to_string())?;
+
+    let resp = client.get(&download_url).send().await.map_err(|e| format!("İndirme hatası: {}", e))?;
+    if !resp.status().is_success() {
+        return Err(format!("Dosya sunucudan alınamadı: HTTP {}", resp.status()));
+    }
+
+    let bytes = resp.bytes().await.map_err(|e| format!("İndirilen veri okunamadı: {}", e))?;
+    let temp_dir = std::env::temp_dir();
+    let installer_path = temp_dir.join("Sophy_Update_Setup.exe");
+    std::fs::write(&installer_path, bytes).map_err(|e| format!("Dosya yazılamadı: {}", e))?;
+
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NEW_PROCESS_GROUP: u32 = 0x00000200;
+        let mut cmd = std::process::Command::new(&installer_path);
+        cmd.creation_flags(CREATE_NEW_PROCESS_GROUP);
+        cmd.spawn().map_err(|e| format!("Kurulum sihirbazı başlatılamadı: {}", e))?;
+    }
+
+    #[cfg(not(target_os = "windows"))]
+    {
+        std::process::Command::new(&installer_path)
+            .spawn()
+            .map_err(|e| format!("Kurulum başlatılamadı: {}", e))?;
+    }
+
+    std::thread::spawn(move || {
+        std::thread::sleep(std::time::Duration::from_millis(600));
+        app.exit(0);
+    });
+
+    Ok(())
 }

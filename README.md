@@ -104,10 +104,11 @@ Distraction-free dark mode interface designed for maximum productivity:
 
 ## 🧑‍💻 Developer & Credits
 
-Crafted with ❤️ by **Beli! (Umut)**.
+Crafted with ❤️ by **Beli! (Discord: @umw35t)**.
 
 - 📸 **Instagram:** [@umw26t](https://www.instagram.com/umw26t/)
 - 🌐 **GitHub:** [umwt26](https://github.com/umwt26)
+- ⚡ **Discord Server:** [Filera](https://discord.gg/vwzjuhnpyP)
 
 ---
 

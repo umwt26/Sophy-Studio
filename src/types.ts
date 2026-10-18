@@ -34,5 +34,6 @@ export interface UpdateInfo {
   latest_version: string;
   release_notes: string;
   url: string;
+  download_url?: string | null;
 }
 

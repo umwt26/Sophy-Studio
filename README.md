@@ -11,7 +11,7 @@
 
 <br />
 
-🌐 **Language / Dil:** **English** | [Türkçe](README_TR.md)
+🌐 **Language / Dil:** [English](README.md) • [Türkçe](README_TR.md) • [Deutsch](README_DE.md) • [Français](README_FR.md) • [Español](README_ES.md) • [Русский](README_RU.md) • [Português](README_PT.md) • [日本語](README_JA.md)
 
 </div>
 

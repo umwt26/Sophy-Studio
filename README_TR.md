@@ -11,7 +11,7 @@
 
 <br />
 
-🌐 **Dil / Language:** [English](README.md) | **Türkçe**
+🌐 **Language / Dil:** [English](README.md) • [Türkçe](README_TR.md) • [Deutsch](README_DE.md) • [Français](README_FR.md) • [Español](README_ES.md) • [Русский](README_RU.md) • [Português](README_PT.md) • [日本語](README_JA.md)
 
 </div>
 
@@ -102,12 +102,13 @@ Göz yormayan karanlık tema ile tasarlanmış modern karşılama ekranı:
 
 ---
 
-## 🧑‍💻 Geliştirici
+## 🧑‍💻 Geliştirici & Katkıda Bulunanlar
 
-**Beli! (Umut)** tarafından sevgiyle geliştirildi.
+Crafted with ❤️ by **Beli! (Discord: @umw35t)**.
 
 - 📸 **Instagram:** [@umw26t](https://www.instagram.com/umw26t/)
 - 🌐 **GitHub:** [umwt26](https://github.com/umwt26)
+- ⚡ **Discord Server:** [Filera](https://discord.gg/vwzjuhnpyP)
 
 ---
 

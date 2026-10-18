@@ -1,0 +1,47 @@
+# Dependencies & Build artifacts
+node_modules/
+dist/
+dist-ssr/
+dist-portable/
+dist-installer/
+
+# Rust / Cargo artifacts
+target/
+src-tauri/target/
+crates/*/target/
+**/*.rs.bk
+*.pdb
+
+# Tauri build artifacts
+src-tauri/gen/
+
+# Logs & temp files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.tmp
+*.temp
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE & OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# AI & Workspace metadata
+.gemini/

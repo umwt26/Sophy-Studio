@@ -287,7 +287,7 @@ pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult
         .build()
         .map_err(|e| e.to_string())?;
 
-    let default_repo = "YungWBeli/sophy-suno-downloader";
+    let default_repo = "umwt26/sophy-suno-downloader";
     let target_repo = repo.as_deref().unwrap_or(default_repo);
 
     let endpoints = [

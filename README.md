@@ -4,8 +4,8 @@
 
 **The Ultimate High-Performance Desktop Downloader & Toolkit for Suno AI Media.**
 
-[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/YungWBeli/sophy-suno-downloader/releases)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/YungWBeli/sophy-suno-downloader)
+[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/sophy-suno-downloader/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/sophy-suno-downloader)
 [![Built With](https://img.shields.io/badge/Built%20With-Tauri%202%20%7C%20Rust%20%7C%20React%2019-teal.svg?style=for-the-badge)](https://tauri.app)
 [![Developer](https://img.shields.io/badge/Developer-Beli!%20(@umw26t)-E4405F.svg?style=for-the-badge&logo=instagram)](https://www.instagram.com/umw26t/)
 
@@ -85,7 +85,7 @@ Distraction-free dark mode interface designed for maximum productivity:
 ## 📥 Installation
 
 ### Windows Installer (Setup)
-1. Download the latest `Sophy_Setup.exe` from the [Releases](https://github.com/YungWBeli/sophy-suno-downloader/releases) page.
+1. Download the latest `Sophy_Setup.exe` from the [Releases](https://github.com/umwt26/sophy-suno-downloader/releases) page.
 2. Run the installer and follow the modern setup wizard.
 3. Launch **Sophy** from your Desktop or Start Menu!
 
@@ -107,7 +107,7 @@ Distraction-free dark mode interface designed for maximum productivity:
 Crafted with ❤️ by **Beli! (Umut)**.
 
 - 📸 **Instagram:** [@umw26t](https://www.instagram.com/umw26t/)
-- 🌐 **GitHub:** [YungWBeli](https://github.com/YungWBeli)
+- 🌐 **GitHub:** [umwt26](https://github.com/umwt26)
 
 ---
 

@@ -4,8 +4,8 @@
 
 **Suno AI Medyaları İçin Yeni Nesil, Yüksek Performanslı Masaüstü İndirme Aracı.**
 
-[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/YungWBeli/sophy-suno-downloader/releases)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/YungWBeli/sophy-suno-downloader)
+[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/sophy-suno-downloader/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/sophy-suno-downloader)
 [![Built With](https://img.shields.io/badge/Built%20With-Tauri%202%20%7C%20Rust%20%7C%20React%2019-teal.svg?style=for-the-badge)](https://tauri.app)
 [![Developer](https://img.shields.io/badge/Geliştirici-Beli!%20(@umw26t)-E4405F.svg?style=for-the-badge&logo=instagram)](https://www.instagram.com/umw26t/)
 
@@ -85,7 +85,7 @@ Göz yormayan karanlık tema ile tasarlanmış modern karşılama ekranı:
 ## 📥 Kurulum
 
 ### Windows Kurulum Sihirbazı (Setup)
-1. En güncel `Sophy_Setup.exe` dosyasını [Releases](https://github.com/YungWBeli/sophy-suno-downloader/releases) sayfasından indirin.
+1. En güncel `Sophy_Setup.exe` dosyasını [Releases](https://github.com/umwt26/sophy-suno-downloader/releases) sayfasından indirin.
 2. Kurulum sihirbazını çalıştırarak kolayca kurulumu tamamlayın.
 3. Masaüstündeki veya Başlat Menüsündeki **Sophy** simgesine tıklayarak hemen kullanmaya başlayın!
 
@@ -107,7 +107,7 @@ Göz yormayan karanlık tema ile tasarlanmış modern karşılama ekranı:
 **Beli! (Umut)** tarafından sevgiyle geliştirildi.
 
 - 📸 **Instagram:** [@umw26t](https://www.instagram.com/umw26t/)
-- 🌐 **GitHub:** [YungWBeli](https://github.com/YungWBeli)
+- 🌐 **GitHub:** [umwt26](https://github.com/umwt26)
 
 ---
 

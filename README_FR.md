@@ -34,7 +34,6 @@
 - **📦 Tout télécharger (.zip) :** Emballez le MP3 320k, la pochette HD (.jpg) et les paroles (.txt) dans un fichier `.zip` ordonné en un seul clic.
 - **🕒 Historique de recherche local :** Ne perdez plus jamais un morceau. Vos recherches sont mémorisées localement et rechargeables instantanément.
 - **🌍 8 langues d'interface :** English, Türkçe, Deutsch, Français, Español, Русский, Português et 日本語 avec changement dynamique.
-- **🔕 Traitement 100 % discret :** Aucune fenêtre de terminal noire ni invite de commande intempestive – tout s'exécute silencieusement en arrière-plan.
 - **🚀 Mises à jour automatiques intégrées :** Détecte les nouvelles versions au démarrage et installe la mise à jour directement dans l'application !
 - **📁 Bibliothèque locale organisée :** Vos fichiers sont classés proprement dans `Documents\Sophy\` avec des sous-dossiers dédiés (`Audio`, `Cover Art`, `Lyrics`, `All`).
 

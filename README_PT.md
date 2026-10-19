@@ -34,7 +34,6 @@
 - **📦 Baixar Tudo (.zip):** Agrupe o MP3 de 320k, a capa em HD (.jpg) e as letras (.txt) em um arquivo `.zip` organizado com um só clique.
 - **🕒 Histórico local de buscas:** Nunca mais perca uma música. Suas pesquisas ficam salvas localmente para você recarregá-las a qualquer momento.
 - **🌍 8 idiomas de interface:** English, Türkçe, Deutsch, Français, Español, Русский, Português e 日本語 com alternância em tempo real.
-- **🔕 Processamento 100% silencioso:** Sem janelas pretas de terminal ou prompts de comando pulando na tela — tudo roda em segundo plano.
 - **🚀 Atualizador automático integrado:** Identifica novas versões ao iniciar e instala atualizações direto no próprio aplicativo!
 - **📁 Biblioteca local organizada:** Seus downloads são salvos em `Documentos\Sophy\` divididos em subpastas limpas (`Audio`, `Cover Art`, `Lyrics`, `All`).
 

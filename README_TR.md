@@ -34,7 +34,6 @@
 - **📦 Tümünü İndir (.zip):** 320kbps MP3 sesini, yüksek çözünürlüklü kapak görselini (.jpg) ve şarkı sözlerini (.txt) tek bir tıklamayla şık bir `.zip` paketi halinde indirin.
 - **🕒 Arama Geçmişi:** Tarattığınız şarkılar kaybolmaz! Yerel geçmiş listesinden istediğiniz önceki şarkıyı tek tıkla tekrar ekrana yükleyin.
 - **🌍 8 Farklı Dil Desteği:** Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, Rusça, Portekizce ve Japonca dilleri arasında canlı geçiş yapın.
-- **🔕 %100 Sessiz Çalışma:** Ekranda aniden fırlayan sinir bozucu siyah terminal/komut istemi pencereleri yoktur; tüm dönüştürme işlemleri arka planda sessizce yürütülür.
 - **🚀 Uzaktan Güncelleme Kontrolcüsü:** Yeni bir sürüm çıktığında GitHub Releases üzerinden sistemi otomatik algılar ve sizi uyarır ("Aa yeni sürüm var, hadi güncelle beni!").
 - **📁 Düzenli Klasör Mimarisi:** İndirmeleriniz `Belgeler\Sophy\` altında otomatik olarak kategorize edilir (`Audio`, `Cover Art`, `Lyrics`, `All`).
 

@@ -34,7 +34,6 @@
 - **📦 Alles herunterladen (.zip):** 320kbps MP3, hochauflösendes Coverbild (.jpg) und Songtexte (.txt) gebündelt in einem praktischen `.zip`-Paket mit einem Klick.
 - **🕒 Lokaler Suchverlauf:** Verlieren Sie keinen Track mehr. Gesuchte Songs werden lokal gespeichert und können jederzeit mit einem Klick neu geladen werden.
 - **🌍 8 UI-Sprachen:** English, Türkçe, Deutsch, Français, Español, Русский, Português und 日本語 mit sofortiger Umschaltung.
-- **🔕 Lautlose Hintergrundverarbeitung:** Keine störenden schwarzen Terminal- oder CMD-Fenster – alle Prozesse laufen diskret im Hintergrund.
 - **🚀 Integrierter Auto-Updater:** Prüft beim Start automatisch auf neue Versionen und kann Aktualisierungen direkt in der App herunterladen und installieren!
 - **📁 Strukturierte lokale Bibliothek:** Sortiert Downloads automatisch unter `Dokumente\Sophy\` in saubere Unterordner (`Audio`, `Cover Art`, `Lyrics`, `All`).
 

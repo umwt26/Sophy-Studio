@@ -34,7 +34,6 @@
 - **📦 Download All (.zip):** Package the 320kbps MP3, original high-res cover art (.jpg), and lyrics (.txt) into an organized `.zip` file in a single click.
 - **🕒 Local Search History:** Never lose a track again. Sophy stores your analyzed tracks locally so you can reload any previous song instantly.
 - **🌍 8 Interface Languages:** English, Türkçe, Deutsch, Français, Español, Русский, Português, and 日本語 with dynamic real-time switching.
-- **🔕 100% Silent Processing:** No disruptive black terminal or command prompt windows — all conversions run quietly in the background.
 - **🚀 Automatic Remote Update Checker:** Directly checks GitHub Releases on startup to alert you as soon as a new version is released.
 - **📁 Organized Local Library:** Automatically manages your downloads under `Documents\Sophy\` sorted into clean subdirectories (`Audio`, `Cover Art`, `Lyrics`, `All`).
 

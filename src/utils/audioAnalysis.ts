@@ -111,19 +111,19 @@ export async function analyzeAudio(
   onProgress?: (stage: string) => void
 ): Promise<KeyBpmResult> {
   // 1. Decode Web Audio Buffer
-  onProgress?.("Ses dalgaları ve frekans katmanları çözülüyor...");
+  onProgress?.("decoding");
   const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
   const decodedBuffer = await audioCtx.decodeAudioData(arrayBuffer);
 
   // 2. Resample to 44.1kHz mono Float32Array
-  onProgress?.("44.1kHz stüdyo frekansına dönüştürülüyor...");
+  onProgress?.("resampling");
   const monoPcm = await getMonoPcm44100(decodedBuffer);
 
   // Artificial smooth pacing for user experience if processing is sub-second
   await new Promise((r) => setTimeout(r, 400));
 
   // 3. Initialize Essentia WASM Engine
-  onProgress?.("Harmonik 12-Chroma HPCP & Ton profili çıkarılıyor...");
+  onProgress?.("chroma");
   const essentia = getEssentiaInstance();
   const audioVector = essentia.arrayToVector(monoPcm);
 
@@ -146,7 +146,7 @@ export async function analyzeAudio(
     await new Promise((r) => setTimeout(r, 400));
 
     // 5. Extract BPM with Essentia RhythmExtractor2013 (industry standard multifeature)
-    onProgress?.("Ritim örüntüsü & vuruş aralıkları taranıyor...");
+    onProgress?.("rhythm");
     const rhythmData = essentia.RhythmExtractor2013(audioVector, 208, "multifeature", 40);
 
     // Format Key
@@ -173,7 +173,7 @@ export async function analyzeAudio(
     if (finalBpm < 55 && finalBpm > 0) finalBpm *= 2;
     if (finalBpm > 210) finalBpm = Math.round(finalBpm / 2);
 
-    onProgress?.("Tunebat Camelot & tempo tespiti tamamlandı!");
+    onProgress?.("complete");
     await new Promise((r) => setTimeout(r, 300));
 
     return {

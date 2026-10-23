@@ -173,6 +173,7 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
           removeCover,
         },
       });
+      await loadFileMetadata(metadata.filePath);
       onShowToast(t("metadata.saveSuccess", "Metadata başarıyla kaydedildi!"));
     } catch (err: any) {
       onShowToast(`${t("metadata.errorSave", "Kaydetme hatası")}: ${err?.toString()}`);

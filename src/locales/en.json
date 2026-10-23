@@ -42,7 +42,13 @@
     "updatingDesc": "Downloading update and launching setup. Please wait...",
     "releaseNotes": "Release Notes:",
     "downloadingUpdate": "Downloading and preparing setup...",
-    "manualDownload": "Manual Download"
+    "manualDownload": "Manual Download",
+    "autoUpdateFailed": "Could not download automatic update.",
+    "manualWebNotice": "You can directly download the setup file from our website.",
+    "startDownload": "Start Download",
+    "errorTitle": "An Interface Error Occurred",
+    "errorDesc": "An unexpected condition occurred while loading the interface component. You can safely restart the studio.",
+    "errorReset": "Restart Studio"
   },
   "nav": {
     "home": "Home",
@@ -94,7 +100,13 @@
     "rel3Title": "Essentia Key & BPM Analysis",
     "rel3Desc": "12-Chroma HPCP with Camelot wheel, harmonic mixing pairs, and fine BPM adjustments.",
     "rel4Title": "UI Polish & Official v1.0",
-    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0 release."
+    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0 release.",
+    "tagCoverArt": "Cover Art",
+    "tagTagEditor": "Tag Editor",
+    "tagRhythmAnalysis": "Rhythm Analysis",
+    "tagOffline": "Offline",
+    "tagSunoCutter": "Suno Cutter",
+    "tagLyrics": "Lyrics"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -124,7 +136,9 @@
     "allPlatforms": "All",
     "noFilteredResults": "No media found matching criteria.",
     "emptyHistory": "No downloaded media history yet.",
-    "loadAndDownload": "Load & Download"
+    "loadAndDownload": "Load & Download",
+    "otherPlatform": "Other",
+    "readyToDownload": "Media ready to download"
   },
   "metadata": {
     "title": "Audio Metadata Editor",
@@ -186,7 +200,12 @@
     "halfBpm": "/2",
     "doubleBpm": "x2",
     "errorFailed": "Analysis failed",
-    "errorOpenFile": "Could not open file"
+    "errorOpenFile": "Could not open file",
+    "stageDecoding": "Decoding audio waveform & frequency layers...",
+    "stageResampling": "Resampling to 44.1kHz studio frequency...",
+    "stageChroma": "Extracting harmonic 12-Chroma HPCP & pitch profile...",
+    "stageRhythm": "Scanning rhythm patterns & beat intervals...",
+    "stageComplete": "Camelot wheel & tempo detection complete!"
   },
   "settings": {
     "title": "Settings",
@@ -245,7 +264,12 @@
     "relMetaTitle": "Advanced Metadata & Cover Editor",
     "relMetaDesc": "Edit song title, artist, album, and year for MP3, WAV, FLAC, and M4A files; swap album art instantly and embed tags via ID3v2.4 directly.",
     "relFolderTitle": "Independent Folder Routing & Custom Themes",
-    "relFolderDesc": "Separate destination paths for All (.zip), Audio, Cover Art, Lyrics, and Universal Media. Offline Manrope typography, 6 accent colors, 3 theme modes, and 8 languages."
+    "relFolderDesc": "Separate destination paths for All (.zip), Audio, Cover Art, Lyrics, and Universal Media. Offline Manrope typography, 6 accent colors, 3 theme modes, and 8 languages.",
+    "dialogSelectAudioFolder": "Select Audio Folder",
+    "dialogSelectAllFolder": "Select Batch Downloads Folder",
+    "dialogSelectCoverFolder": "Select Cover Art Folder",
+    "dialogSelectLyricsFolder": "Select Lyrics Folder",
+    "dialogSelectUniversalFolder": "Select Universal Media Folder"
   },
   "suno": {
     "emptyTitle": "Download Suno Track",
@@ -307,7 +331,9 @@
     "successToast": "Your feedback has been successfully sent, thank you!",
     "activationSent": "Feedback sent! An activation email was delivered to umutszg46@gmail.com.",
     "errEmptyMessage": "Please enter a message or description.",
-    "errFailed": "Failed to send: "
+    "errFailed": "Failed to send: ",
+    "placeholderEmail": "name@example.com",
+    "anonymousUser": "User"
   },
   "common": {
     "close": "Close",

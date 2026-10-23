@@ -64,15 +64,14 @@ export function Header({
         <button
           type="button"
           onClick={onNavigateHome}
-          title={t("nav.home", "Ana Sayfa")}
-          className="flex items-center gap-2 pr-2.5 border-r border-[var(--color-app-border-soft)] hover:opacity-80 transition-opacity cursor-pointer group"
+          className="flex items-center gap-2 pr-2.5 border-r border-[var(--color-app-border-soft)] cursor-pointer group"
         >
           <img
             src={logoImg}
             alt="Sophy Studio"
             className="h-6 w-6 rounded-md object-contain group-hover:scale-105 transition-transform"
           />
-          <span className="text-sm font-bold tracking-tight text-[var(--color-text-primary)] hidden sm:inline">
+          <span className="text-sm font-bold tracking-tight text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors hidden sm:inline">
             Sophy Studio
           </span>
         </button>

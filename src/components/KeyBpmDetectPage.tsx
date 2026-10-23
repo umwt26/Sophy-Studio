@@ -31,8 +31,16 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       setPendingResult(null);
       setAnalysisStage(t("detector.readingAudio", "Ses dosyası taranıyor..."));
 
+      const stageLabels: Record<string, string> = {
+        decoding: t("detector.stageDecoding", "Ses dalgaları ve frekans katmanları çözülüyor..."),
+        resampling: t("detector.stageResampling", "44.1kHz stüdyo frekansına dönüştürülüyor..."),
+        chroma: t("detector.stageChroma", "Harmonik 12-Chroma HPCP & Ton profili çıkarılıyor..."),
+        rhythm: t("detector.stageRhythm", "Ritim örüntüsü & vuruş aralıkları taranıyor..."),
+        complete: t("detector.stageComplete", "Tunebat Camelot & tempo tespiti tamamlandı!"),
+      };
+
       const res = await analyzeAudio(buffer, (stage) => {
-        setAnalysisStage(stage);
+        setAnalysisStage(stageLabels[stage] || stage);
       });
 
       setPendingResult(res);

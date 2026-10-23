@@ -42,7 +42,13 @@
     "updatingDesc": "Yeni sürüm indiriliyor ve kurulum başlatılıyor. Lütfen bekleyin...",
     "releaseNotes": "Sürüm Notları:",
     "downloadingUpdate": "İndiriliyor ve hazırlanıyor...",
-    "manualDownload": "Manuel İndir"
+    "manualDownload": "Manuel İndir",
+    "autoUpdateFailed": "Otomatik güncelleme indirilemedi.",
+    "manualWebNotice": "Web sayfasından kurulum dosyasını doğrudan indirebilirsiniz.",
+    "startDownload": "İndirmeyi Başlat",
+    "errorTitle": "Bir Arayüz Hatası Oluştu",
+    "errorDesc": "İstenen arayüz bileşeni yüklenirken beklenmeyen bir durum oluştu. Stüdyoyu güvenle sıfırlayabilirsiniz.",
+    "errorReset": "Stüdyoyu Yeniden Başlat"
   },
   "nav": {
     "home": "Ana Sayfa",
@@ -94,7 +100,13 @@
     "rel3Title": "Essentia Key & BPM Analizi",
     "rel3Desc": "12-Chroma HPCP ile Camelot çarkı, harmonik miksleme tonları ve BPM ince ayarı.",
     "rel4Title": "Arayüz İyileştirmeleri & v1.0",
-    "rel4Desc": "Arama çubuğu metin çakışması düzeltildi, bağımsız klasör yolları ve resmi v1.0 sürümüne geçiş."
+    "rel4Desc": "Arama çubuğu metin çakışması düzeltildi, bağımsız klasör yolları ve resmi v1.0 sürümüne geçiş.",
+    "tagCoverArt": "Albüm Kapağı",
+    "tagTagEditor": "Etiket Düzenleme",
+    "tagRhythmAnalysis": "Ritim Analizi",
+    "tagOffline": "Çevrimdışı",
+    "tagSunoCutter": "Suno Kesici",
+    "tagLyrics": "Şarkı Sözü"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -124,7 +136,9 @@
     "allPlatforms": "Tümü",
     "noFilteredResults": "Seçilen kriterde medya bulunamadı.",
     "emptyHistory": "Henüz indirilen medya geçmişi yok.",
-    "loadAndDownload": "Yükle & İndir"
+    "loadAndDownload": "Yükle & İndir",
+    "otherPlatform": "Diğer",
+    "readyToDownload": "Medya indirme işlemi hazır"
   },
   "metadata": {
     "title": "Audio Metadata Editor",
@@ -186,7 +200,12 @@
     "halfBpm": "/2",
     "doubleBpm": "x2",
     "errorFailed": "Analiz başarısız",
-    "errorOpenFile": "Dosya açılamadı"
+    "errorOpenFile": "Dosya açılamadı",
+    "stageDecoding": "Ses dalgaları ve frekans katmanları çözülüyor...",
+    "stageResampling": "44.1kHz stüdyo frekansına dönüştürülüyor...",
+    "stageChroma": "Harmonik 12-Chroma HPCP & Ton profili çıkarılıyor...",
+    "stageRhythm": "Ritim örüntüsü & vuruş aralıkları taranıyor...",
+    "stageComplete": "Tunebat Camelot & tempo tespiti tamamlandı!"
   },
   "settings": {
     "title": "Ayarlar",
@@ -245,7 +264,12 @@
     "relMetaTitle": "Gelişmiş Metadata & Kapak Düzenleyici",
     "relMetaDesc": "MP3, WAV, FLAC ve M4A dosyalarının şarkı adı, sanatçı, albüm ve yıl bilgilerini düzenleme; albüm kapağını anında değiştirme ve ID3v2.4 formatında doğrudan dosyaya kaydetme.",
     "relFolderTitle": "Bağımsız Klasör Yönetimi & Özelleştirilebilir Temalar",
-    "relFolderDesc": "All (.zip), Audio, Cover Art, Lyrics ve Universal Media için ayrı ayrı kayıt konumu belirleme. Çevrimdışı Manrope yazı tipi, 6 farklı vurgu rengi, karanlık/aydınlık/Windows tema modları ve 8 dil seçeneği."
+    "relFolderDesc": "All (.zip), Audio, Cover Art, Lyrics ve Universal Media için ayrı ayrı kayıt konumu belirleme. Çevrimdışı Manrope yazı tipi, 6 farklı vurgu rengi, karanlık/aydınlık/Windows tema modları ve 8 dil seçeneği.",
+    "dialogSelectAudioFolder": "Audio Klasörü Seç",
+    "dialogSelectAllFolder": "Toplu İndirme Klasörü Seç",
+    "dialogSelectCoverFolder": "Cover Art Klasörü Seç",
+    "dialogSelectLyricsFolder": "Lyrics Klasörü Seç",
+    "dialogSelectUniversalFolder": "Universal Media Klasörü Seç"
   },
   "suno": {
     "emptyTitle": "Suno Parçası İndir",
@@ -307,7 +331,9 @@
     "successToast": "Geri bildiriminiz başarıyla iletildi, teşekkürler!",
     "activationSent": "Geri bildirim gönderildi! Aktivasyon maili umutszg46@gmail.com adresine iletildi.",
     "errEmptyMessage": "Lütfen bir mesaj veya açıklama yazın.",
-    "errFailed": "Gönderilemedi: "
+    "errFailed": "Gönderilemedi: ",
+    "placeholderEmail": "ornek@gmail.com",
+    "anonymousUser": "Kullanıcı"
   },
   "common": {
     "close": "Kapat",

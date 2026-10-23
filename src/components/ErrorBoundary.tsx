@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import i18n from "../i18n";
 
 interface Props {
   children: ReactNode;
@@ -47,10 +48,13 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             
             <h2 className="text-base font-bold text-white mb-1">
-              Bir Arayüz Hatası Oluştu
+              {i18n.t("app.errorTitle", "Bir Arayüz Hatası Oluştu")}
             </h2>
             <p className="text-xs text-slate-400 mb-4 leading-relaxed">
-              İstenen arayüz bileşeni yüklenirken beklenmeyen bir durum oluştu. Stüdyoyu güvenle sıfırlayabilirsiniz.
+              {i18n.t(
+                "app.errorDesc",
+                "İstenen arayüz bileşeni yüklenirken beklenmeyen bir durum oluştu. Stüdyoyu güvenle sıfırlayabilirsiniz."
+              )}
             </p>
 
             {this.state.error && (
@@ -64,7 +68,7 @@ export class ErrorBoundary extends Component<Props, State> {
               onClick={this.handleReset}
               className="w-full py-2.5 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-black font-bold text-xs transition-colors shadow-lg shadow-sky-500/20"
             >
-              Stüdyoyu Yeniden Başlat
+              {i18n.t("app.errorReset", "Stüdyoyu Yeniden Başlat")}
             </button>
           </div>
         </div>

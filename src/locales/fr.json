@@ -42,7 +42,13 @@
     "updatingDesc": "Téléchargement en cours et lancement de l'installation. Veuillez patienter...",
     "releaseNotes": "Notes de Version :",
     "downloadingUpdate": "Téléchargement et préparation...",
-    "manualDownload": "Télécharger Manuellement"
+    "manualDownload": "Télécharger Manuellement",
+    "autoUpdateFailed": "Could not download automatic update.",
+    "manualWebNotice": "You can directly download the setup file from our website.",
+    "startDownload": "Start Download",
+    "errorTitle": "An Interface Error Occurred",
+    "errorDesc": "An unexpected condition occurred while loading the interface component. You can safely restart the studio.",
+    "errorReset": "Restart Studio"
   },
   "nav": {
     "home": "Accueil",
@@ -50,7 +56,8 @@
     "universal": "Universal Downloader",
     "metadata": "Éditeur de Métadonnées",
     "detector": "Détection Clé & BPM",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "cutter": "Sample Cutter"
   },
   "header": {
     "openMenu": "Ouvrir Menu"
@@ -63,7 +70,8 @@
     "detectorDesc": "Tonalité Camelot & tempo précis",
     "settingsDesc": "Dossiers, thèmes et langues",
     "toolsSection": "Outils Studio",
-    "quickAccess": "Accès Rapide"
+    "quickAccess": "Accès Rapide",
+    "cutterDesc": "8-second audio sample cutter"
   },
   "home": {
     "heroSubtitle": "Boîte à outils de bureau pour le téléchargement audio IA, la capture média, l'édition de tags et l'analyse Clé/BPM.",
@@ -80,7 +88,25 @@
     "workflowTitle": "Conseils & Raccourcis",
     "tipDragDrop": "Vous pouvez glisser-déposer des fichiers audio directement dans la fenêtre.",
     "tipCoverArt": "Utilisez des images JPG ou PNG pour la pochette dans l'éditeur de métadonnées.",
-    "tipOffline": "Toutes les analyses et conversions s'exécutent localement sur votre appareil sans envoi vers Internet."
+    "tipOffline": "Toutes les analyses et conversions s'exécutent localement sur votre appareil sans envoi vers Internet.",
+    "cutterTitle": "Sample Cutter (8s)",
+    "cutterDesc": "Trim seamless 8-second audio samples from your tracks for Suno and music production.",
+    "releaseNotesTitle": "v1.0 Official Release & Updates",
+    "releaseMonth": "October 2026",
+    "rel1Title": "Sample Cutter (8s Waveform Slicer)",
+    "rel1Desc": "Interactive audio waveform with a fixed 8-second sliding window for seamless Suno sample trims (320k MP3 / WAV).",
+    "rel2Title": "Suno 2.0 & Universal Downloader",
+    "rel2Desc": "Studio 320k MP3, WAV, cover art, and lyrics. Universal media capture with categorizable history.",
+    "rel3Title": "Essentia Key & BPM Analysis",
+    "rel3Desc": "12-Chroma HPCP with Camelot wheel, harmonic mixing pairs, and fine BPM adjustments.",
+    "rel4Title": "UI Polish & Official v1.0",
+    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0 release.",
+    "tagCoverArt": "Cover Art",
+    "tagTagEditor": "Tag Editor",
+    "tagRhythmAnalysis": "Rhythm Analysis",
+    "tagOffline": "Offline",
+    "tagSunoCutter": "Suno Cutter",
+    "tagLyrics": "Lyrics"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -99,7 +125,20 @@
     "downloadError": "Erreur de téléchargement",
     "untitled": "Média sans titre",
     "downloadMp4": "Télécharger Vidéo (MP4)",
-    "downloadMp3": "Télécharger Audio (MP3 320k)"
+    "downloadMp3": "Télécharger Audio (MP3 320k)",
+    "historyTitle": "Media History",
+    "historyCount": "downloaded items",
+    "searchHistory": "Search title or URL...",
+    "sortBy": "Sort by:",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "az": "A-Z",
+    "allPlatforms": "All",
+    "noFilteredResults": "No media found matching criteria.",
+    "emptyHistory": "No downloaded media history yet.",
+    "loadAndDownload": "Load & Download",
+    "otherPlatform": "Other",
+    "readyToDownload": "Media ready to download"
   },
   "metadata": {
     "title": "Éditeur de Métadonnées",
@@ -161,7 +200,12 @@
     "halfBpm": "/2",
     "doubleBpm": "x2",
     "errorFailed": "Analyse échouée",
-    "errorOpenFile": "Impossible d'ouvrir le fichier"
+    "errorOpenFile": "Impossible d'ouvrir le fichier",
+    "stageDecoding": "Decoding audio waveform & frequency layers...",
+    "stageResampling": "Resampling to 44.1kHz studio frequency...",
+    "stageChroma": "Extracting harmonic 12-Chroma HPCP & pitch profile...",
+    "stageRhythm": "Scanning rhythm patterns & beat intervals...",
+    "stageComplete": "Camelot wheel & tempo detection complete!"
   },
   "settings": {
     "title": "Paramètres",
@@ -200,7 +244,32 @@
     "aboutTitle": "À Propos",
     "aboutDesc": "Boîte à outils de bureau pour le téléchargement audio et média.",
     "developer": "Développeur",
-    "rights": "Tous droits réservés."
+    "rights": "Tous droits réservés.",
+    "foldersTitle": "Download & Output Folders",
+    "foldersDesc": "Customize destination folders individually for each download type.",
+    "socialMedia": "Social Media",
+    "theme": "Theme",
+    "themeDesc": "Customize your UI theme.",
+    "appearance": "Appearance",
+    "accentColor": "Accent Color",
+    "accentColorDesc": "Pick any custom color via the color wheel.",
+    "swatchesTitle": "Presets & Recent Colors",
+    "releaseNotesTitle": "v1.0 Release Notes",
+    "relSunoTitle": "Suno Downloader 2.0 & Side Drawer History",
+    "relSunoDesc": "Download Suno tracks as 320k MP3, uncompressed WAV, original stream, cover art, and synced lyrics (.lrc/.txt). Left slide-over history drawer with instant search.",
+    "relUniTitle": "Universal Media Downloader & Categorization",
+    "relUniDesc": "One-click MP4 video & MP3 audio conversion from YouTube, Instagram, TikTok, Facebook, Twitter/X and more. Sortable (A-Z, date) and filterable media history.",
+    "relEssentiaTitle": "Essentia.js Key & BPM Detector",
+    "relEssentiaDesc": "High-accuracy Camelot key detection with 12-Chroma HPCP, harmonic mixing matches, half/double tempo, and precision BPM fine-tuning.",
+    "relMetaTitle": "Advanced Metadata & Cover Editor",
+    "relMetaDesc": "Edit song title, artist, album, and year for MP3, WAV, FLAC, and M4A files; swap album art instantly and embed tags via ID3v2.4 directly.",
+    "relFolderTitle": "Independent Folder Routing & Custom Themes",
+    "relFolderDesc": "Separate destination paths for All (.zip), Audio, Cover Art, Lyrics, and Universal Media. Offline Manrope typography, 6 accent colors, 3 theme modes, and 8 languages.",
+    "dialogSelectAudioFolder": "Select Audio Folder",
+    "dialogSelectAllFolder": "Select Batch Downloads Folder",
+    "dialogSelectCoverFolder": "Select Cover Art Folder",
+    "dialogSelectLyricsFolder": "Select Lyrics Folder",
+    "dialogSelectUniversalFolder": "Select Universal Media Folder"
   },
   "suno": {
     "emptyTitle": "Télécharger un Morceau Suno",
@@ -223,5 +292,53 @@
     "delete": "Supprimer",
     "cancel": "Annuler",
     "save": "Enregistrer"
+  },
+  "cutter": {
+    "title": "Sample Cutter (8s Waveform Slicer)",
+    "subtitle": "Slice precise 8-second audio loops for Suno AI and music production.",
+    "openFolder": "Open Sample Folder",
+    "dropPrompt": "Drag & drop an audio file here to slice",
+    "formats": "MP3, WAV, FLAC, M4A, OGG or AAC",
+    "selectFile": "Select File",
+    "decoding": "Decoding waveform...",
+    "changeFile": "Choose Another File",
+    "dragInstruction": "Drag the 8-second highlight box horizontally across the waveform to select your slice range.",
+    "play": "Play Sample",
+    "pause": "Pause",
+    "loopOn": "Loop On",
+    "loopOff": "Loop Off",
+    "start": "Start",
+    "end": "End",
+    "fineTune": "Fine Tune",
+    "exportMp3": "Slice & Export 320k MP3",
+    "exportWav": "Slice & Export Lossless WAV",
+    "noFileToExport": "No audio file loaded to export.",
+    "exportSuccess": "Sample cut & saved successfully!",
+    "exportError": "Failed to cut sample: {{error}}",
+    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample."
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Directly submit your suggestions, feedback, or report bugs.",
+    "drawerButton": "Send Feedback",
+    "drawerSub": "Report a bug or suggest ideas",
+    "labelType": "Subject / Notification Type",
+    "typeBug": "Report a Bug / Issue",
+    "typeIdea": "Suggestion / Idea",
+    "typeOther": "Other",
+    "labelName": "Full Name",
+    "placeholderName": "e.g. Jack Smith",
+    "labelEmail": "Email Address",
+    "labelMessage": "Message / Description",
+    "placeholderMessage": "Describe your feedback, the issue you faced, or a new feature request...",
+    "orMailto": "or send via default email app",
+    "sendBtn": "Send",
+    "sending": "Sending...",
+    "successToast": "Your feedback has been successfully sent, thank you!",
+    "activationSent": "Feedback sent! An activation email was delivered to umutszg46@gmail.com.",
+    "errEmptyMessage": "Please enter a message or description.",
+    "errFailed": "Failed to send: ",
+    "placeholderEmail": "name@example.com",
+    "anonymousUser": "User"
   }
 }

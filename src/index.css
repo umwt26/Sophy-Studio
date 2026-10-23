@@ -250,8 +250,8 @@ textarea {
 }
 
 .icon-btn:hover {
-  background: var(--color-app-hover);
-  color: var(--color-text-primary);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
 .icon-btn svg {

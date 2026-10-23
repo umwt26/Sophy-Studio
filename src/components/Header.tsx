@@ -15,6 +15,7 @@ import type { AppTab } from "../types";
 interface HeaderProps {
   activeTab: AppTab;
   onOpenMenu: () => void;
+  onNavigateHome?: () => void;
   onOpenSettings?: () => void;
   updateVersion?: string;
   onOpenUpdate?: () => void;
@@ -23,6 +24,7 @@ interface HeaderProps {
 export function Header({
   activeTab,
   onOpenMenu,
+  onNavigateHome,
   onOpenSettings,
   updateVersion,
   onOpenUpdate,
@@ -57,16 +59,21 @@ export function Header({
           <MenuIcon />
         </button>
 
-        <div className="flex items-center gap-2 pr-1 border-r border-[var(--color-app-border-soft)]">
+        <button
+          type="button"
+          onClick={onNavigateHome}
+          title={t("nav.home", "Ana Sayfa")}
+          className="flex items-center gap-2 pr-2.5 border-r border-[var(--color-app-border-soft)] hover:opacity-80 transition-opacity cursor-pointer group"
+        >
           <img
             src={logoImg}
             alt="Sophy Studio"
-            className="h-6 w-6 rounded-md object-contain"
+            className="h-6 w-6 rounded-md object-contain group-hover:scale-105 transition-transform"
           />
           <span className="text-sm font-bold tracking-tight text-[var(--color-text-primary)] hidden sm:inline">
             Sophy Studio
           </span>
-        </div>
+        </button>
 
         {/* Current Active Tool Pill */}
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[var(--color-app-surface-2)] text-xs font-semibold text-[var(--color-text-primary)]">

@@ -16,6 +16,8 @@ interface SunoDownloaderPageProps {
   onCoverClick: () => void;
   onLyricsClick: () => void;
   onDownloadAllClick: () => void;
+  onOpenHistory?: () => void;
+  historyCount?: number;
 }
 
 export const SunoDownloaderPage: React.FC<SunoDownloaderPageProps> = ({
@@ -27,13 +29,20 @@ export const SunoDownloaderPage: React.FC<SunoDownloaderPageProps> = ({
   onCoverClick,
   onLyricsClick,
   onDownloadAllClick,
+  onOpenHistory,
+  historyCount,
 }) => {
   const { t } = useTranslation();
 
   return (
     <div className="page pb-8">
       {/* Search Input Bar */}
-      <SearchBar onFetch={onFetch} loading={loading} />
+      <SearchBar
+        onFetch={onFetch}
+        loading={loading}
+        onOpenHistory={onOpenHistory}
+        historyCount={historyCount}
+      />
 
       {!song && !loading && (
         <div className="dropzone">

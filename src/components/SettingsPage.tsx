@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { useTranslation } from "react-i18next";
-import { RefreshIcon, SettingsIcon } from "./icons";
+import {
+  DiscordIcon,
+  GitHubIcon,
+  InstagramIcon,
+  RefreshIcon,
+  SettingsIcon,
+  SparklesIcon,
+  SpotifyIcon,
+  TikTokIcon,
+  TwitterXIcon,
+  YouTubeIcon,
+} from "./icons";
 import { ACCENT_COLORS, loadSavedTheme, saveTheme } from "../utils/theme";
 import type { AppThemeConfig, FolderSettings, ThemeColor, ThemeMode } from "../types";
 
@@ -430,55 +441,155 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
         </div>
       )}
 
-      {/* Category 4: About */}
+      {/* Category 4: About & Release Notes */}
       {activeCategory === "about" && (
-        <div className="section section-pad flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] font-bold text-sm border border-[var(--color-accent)]/20">
-              SS
-            </div>
-            <div>
-              <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">Sophy Studio</h2>
-              <p className="text-xs text-[var(--color-text-secondary)]">
-                v0.2.0 • Audio & Media Toolkit
-              </p>
-            </div>
-          </div>
+        <div className="flex flex-col gap-4">
+          <div className="section section-pad flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] font-bold text-sm border border-[var(--color-accent)]/20">
+                  SS
+                </div>
+                <div>
+                  <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">Sophy Studio</h2>
+                  <p className="text-xs text-[var(--color-text-secondary)]">
+                    v0.2.0 • Audio & Media Toolkit
+                  </p>
+                </div>
+              </div>
 
-          <div className="space-y-2 border-t border-[var(--color-app-border)] pt-4 text-xs text-[var(--color-text-secondary)] leading-relaxed">
-            <p>
-              <strong className="text-[var(--color-text-primary)] font-medium">
-                {t("settings.developer", "Geliştirici")}:
-              </strong>{" "}
-              Beli! (
-              <a
-                href="https://www.instagram.com/umw26t/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--color-accent)] hover:underline"
-              >
-                @umw26t
-              </a>
-              )
-            </p>
-            <p>
-              <strong className="text-[var(--color-text-primary)] font-medium">GitHub:</strong>{" "}
-              <a
-                href="https://github.com/umwt26/Sophy-Studio"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--color-accent)] hover:underline"
-              >
-                github.com/umwt26/Sophy-Studio
-              </a>
-            </p>
-            <p>
-              <strong className="text-[var(--color-text-primary)] font-medium">Core:</strong> Tauri 2 • Rust
-              Core • React 19 • yt-dlp & FFmpeg
-            </p>
-            <p className="text-[11px] text-[var(--color-text-tertiary)] pt-2">
+              <span className="chip text-[11px] font-mono">2026.10</span>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="border-t border-[var(--color-app-border)] pt-3.5">
+              <p className="eyebrow mb-2">Geliştirici & Sosyal Medya (Beli!):</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <a
+                  href="https://www.instagram.com/umw26t/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all"
+                >
+                  <InstagramIcon className="h-4 w-4 shrink-0 text-pink-400" />
+                  <span className="truncate">@umw26t</span>
+                </a>
+                <a
+                  href="https://www.instagram.com/_beli26/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all"
+                >
+                  <InstagramIcon className="h-4 w-4 shrink-0 text-pink-400" />
+                  <span className="truncate">@_beli26</span>
+                </a>
+                <a
+                  href="https://www.tiktok.com/@belionthebeat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all"
+                >
+                  <TikTokIcon className="h-4 w-4 shrink-0 text-cyan-400" />
+                  <span className="truncate">@belionthebeat</span>
+                </a>
+                <a
+                  href="https://x.com/_beli26"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all"
+                >
+                  <TwitterXIcon className="h-4 w-4 shrink-0 text-zinc-300" />
+                  <span className="truncate">@_beli26</span>
+                </a>
+                <a
+                  href="https://www.youtube.com/@beli26"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all"
+                >
+                  <YouTubeIcon className="h-4 w-4 shrink-0 text-rose-500" />
+                  <span className="truncate">YouTube</span>
+                </a>
+                <a
+                  href="https://open.spotify.com/intl-tr/artist/0abGcEf1RCkROklu9iYoR7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all"
+                >
+                  <SpotifyIcon className="h-4 w-4 shrink-0 text-emerald-400" />
+                  <span className="truncate">Spotify</span>
+                </a>
+                <a
+                  href="https://github.com/umwt26"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all"
+                >
+                  <GitHubIcon className="h-4 w-4 shrink-0 text-zinc-300" />
+                  <span className="truncate">GitHub</span>
+                </a>
+                <a
+                  href="https://discord.gg/vwzjuhnpyP"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all"
+                >
+                  <DiscordIcon className="h-4 w-4 shrink-0 text-indigo-400" />
+                  <span className="truncate">Discord</span>
+                </a>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-[var(--color-text-tertiary)] pt-1 border-t border-[var(--color-app-border)]">
               Sophy Studio © 2026 Beli! (@umw26t). {t("settings.rights", "Tüm hakları saklıdır.")}
             </p>
+          </div>
+
+          {/* Detailed Release Notes Card */}
+          <div className="section section-pad flex flex-col gap-3">
+            <div className="flex items-center gap-2 pb-2 border-b border-[var(--color-app-border)]">
+              <SparklesIcon className="h-4 w-4 text-[var(--color-accent)]" />
+              <h3 className="text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
+                v0.2.0 Güncelleme Notları
+              </h3>
+            </div>
+
+            <div className="space-y-3 text-xs text-[var(--color-text-secondary)] leading-relaxed">
+              <div className="border-l-2 border-[var(--color-accent)] pl-3">
+                <strong className="text-[var(--color-text-primary)] block">🎵 Suno Downloader 2.0 & Yan Geçmiş Menüsü</strong>
+                <span>
+                  Suno şarkılarını 320k MP3, uncompressed WAV, orijinal akış, kapak görseli ve senkronize şarkı sözleriyle (.lrc/.txt) indirme. Soldan açılan şık arama geçmişi ile önceki parçaları tek tıkla geri getirme.
+                </span>
+              </div>
+
+              <div className="border-l-2 border-emerald-500 pl-3">
+                <strong className="text-[var(--color-text-primary)] block">🌐 Universal Media Downloader & Sınıflandırma</strong>
+                <span>
+                  YouTube, Instagram, TikTok, Facebook, Twitter/X ve diğer platformlardan tek tıkla MP4 video ve MP3 ses dönüştürme. Platformlara göre filtrelenebilir ve sıralanabilir (A-Z, tarih) özel medya geçmişi.
+                </span>
+              </div>
+
+              <div className="border-l-2 border-purple-500 pl-3">
+                <strong className="text-[var(--color-text-primary)] block">🎹 Essentia.js Key & BPM Dedektörü</strong>
+                <span>
+                  12-Chroma HPCP ve ritim analizi ile yüksek doğrulukta ton (Camelot çarkı), DJ miksleme için harmonik uyumlu tonlar, yarı/çift tempo ve hassas BPM düzeltme kontrolleri.
+                </span>
+              </div>
+
+              <div className="border-l-2 border-amber-500 pl-3">
+                <strong className="text-[var(--color-text-primary)] block">🏷️ Gelişmiş Metadata & Kapak Düzenleyici</strong>
+                <span>
+                  MP3, WAV, FLAC ve M4A dosyalarının şarkı adı, sanatçı, albüm ve yıl bilgilerini düzenleme; albüm kapağını anında değiştirme ve ID3v2.4 formatında doğrudan dosyaya kaydetme.
+                </span>
+              </div>
+
+              <div className="border-l-2 border-blue-500 pl-3">
+                <strong className="text-[var(--color-text-primary)] block">📁 Bağımsız Klasör Yönetimi & Özelleştirilebilir Temalar</strong>
+                <span>
+                  All (.zip), Audio, Cover Art, Lyrics ve Universal Media için ayrı ayrı kayıt konumu belirleme. Çevrimdışı Manrope yazı tipi, 6 farklı vurgu rengi, karanlık/aydınlık/Windows tema modları ve 8 dil seçeneği.
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       )}

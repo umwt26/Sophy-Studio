@@ -7,6 +7,14 @@ import {
   SunoIcon,
   TagIcon,
   ChevronRightIcon,
+  SparklesIcon,
+  InstagramIcon,
+  TikTokIcon,
+  TwitterXIcon,
+  YouTubeIcon,
+  SpotifyIcon,
+  GitHubIcon,
+  DiscordIcon,
 } from "./icons";
 import type { AppTab } from "../types";
 
@@ -60,11 +68,22 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
       title: t("home.detectorTitle", "Key & BPM Detect"),
       desc: t(
         "home.detectorDesc",
-        "Essentia.js harmonik 12-Chroma HPCP ve ritim analiziyle parçanın müzikal tonunu (Camelot) ve BPM değerini ölçün."
+        "Essentia harmonik 12-Chroma ve ritim analiziyle parçanın müzikal tonunu (Camelot) ve BPM değerini ölçün."
       ),
       Icon: PianoIcon,
       tags: ["Camelot Wheel", "BPM", "Ritim Analizi", "Çevrimdışı"],
     },
+  ];
+
+  const socialLinks = [
+    { label: "Instagram (@umw26t)", href: "https://www.instagram.com/umw26t/", Icon: InstagramIcon },
+    { label: "Instagram (@_beli26)", href: "https://www.instagram.com/_beli26/", Icon: InstagramIcon },
+    { label: "TikTok (@belionthebeat)", href: "https://www.tiktok.com/@belionthebeat", Icon: TikTokIcon },
+    { label: "X / Twitter (@_beli26)", href: "https://x.com/_beli26", Icon: TwitterXIcon },
+    { label: "YouTube (@beli26)", href: "https://www.youtube.com/@beli26", Icon: YouTubeIcon },
+    { label: "Spotify (Beli!)", href: "https://open.spotify.com/intl-tr/artist/0abGcEf1RCkROklu9iYoR7", Icon: SpotifyIcon },
+    { label: "GitHub (@umwt26)", href: "https://github.com/umwt26", Icon: GitHubIcon },
+    { label: "Discord", href: "https://discord.gg/vwzjuhnpyP", Icon: DiscordIcon },
   ];
 
   return (
@@ -134,7 +153,58 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
         })}
       </div>
 
-      {/* Quick Tips / Workflow Bar */}
+      {/* Release Notes Card */}
+      <div className="section section-pad flex flex-col gap-3">
+        <div className="flex items-center justify-between border-b border-[var(--color-app-border)] pb-2.5">
+          <div className="flex items-center gap-2">
+            <SparklesIcon className="h-4 w-4 text-[var(--color-accent)]" />
+            <h2 className="text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
+              {t("home.releaseNotesTitle", "v0.2.0 Güncelleme Notları & Yenilikler")}
+            </h2>
+          </div>
+          <span className="chip text-[10px] font-mono">Ekim 2026</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 pt-1 text-xs text-[var(--color-text-secondary)]">
+          <div className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/60 p-2.5">
+            <span className="font-bold text-[var(--color-text-primary)] block mb-1">
+              🎵 Suno 2.0 & Geçmiş Paneli
+            </span>
+            <p className="text-[11px] leading-relaxed">
+              320k MP3, stüdyo WAV, albüm kapağı, senkronize sözler ve soldan açılan hızlı arama geçmişi.
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/60 p-2.5">
+            <span className="font-bold text-[var(--color-text-primary)] block mb-1">
+              🌐 Universal Downloader
+            </span>
+            <p className="text-[11px] leading-relaxed">
+              YouTube, Instagram, TikTok ve Facebook videolarını tek tıkla MP4 ve MP3 olarak kaydetme ve sıralı geçmiş.
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/60 p-2.5">
+            <span className="font-bold text-[var(--color-text-primary)] block mb-1">
+              🎹 Key & BPM Dedektörü
+            </span>
+            <p className="text-[11px] leading-relaxed">
+              Essentia motoru ile Camelot çarkı, göreceli ve harmonik tonlar, tempo ince ayarı (-1, +1, /2, x2).
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/60 p-2.5">
+            <span className="font-bold text-[var(--color-text-primary)] block mb-1">
+              🏷️ Metadata & Manrope UI
+            </span>
+            <p className="text-[11px] leading-relaxed">
+              ID3v2.4 etiket ve kapak resmi gömme, çevrimdışı Manrope fontu, 6 renk teması ve 8 dil desteği.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Tips */}
       <div className="section section-pad">
         <p className="eyebrow mb-2.5">{t("home.workflowTitle", "İpuçları & Kısayollar")}</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-[var(--color-text-secondary)]">
@@ -153,30 +223,34 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
         </div>
       </div>
 
-      {/* Clean Footer */}
-      <footer className="flex items-center justify-between border-t border-[var(--color-app-border)] pt-4 text-xs text-[var(--color-text-secondary)]">
-        <p>
-          <strong className="text-[var(--color-text-primary)]">Sophy Studio</strong> © 2026{" "}
-          <strong className="text-[var(--color-accent)]">Beli!</strong>
-        </p>
-        <div className="flex items-center gap-3">
-          <a
-            href="https://instagram.com/umw26t"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[var(--color-accent)] transition-colors"
-          >
-            @umw26t
-          </a>
-          <span>•</span>
-          <a
-            href="https://github.com/umwt26/Sophy-Studio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[var(--color-accent)] transition-colors"
-          >
-            GitHub
-          </a>
+      {/* Clean Footer with Social Links */}
+      <footer className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-[var(--color-app-border)] pt-4 text-xs text-[var(--color-text-secondary)]">
+        <div className="flex items-center gap-2">
+          <p>
+            <strong className="text-[var(--color-text-primary)]">Sophy Studio</strong> © 2026{" "}
+            <strong className="text-[var(--color-accent)]">Beli!</strong>
+          </p>
+          <span className="text-[var(--color-text-tertiary)]">•</span>
+          <span className="text-[11px] text-[var(--color-text-tertiary)]">All rights reserved</span>
+        </div>
+
+        {/* Social media icons */}
+        <div className="flex flex-wrap items-center gap-1.5">
+          {socialLinks.map((item) => {
+            const SocialIcon = item.Icon;
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={item.label}
+                className="icon-btn h-7 w-7 text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all"
+              >
+                <SocialIcon className="h-3.5 w-3.5" />
+              </a>
+            );
+          })}
         </div>
       </footer>
     </div>

@@ -4,6 +4,7 @@ import { getCurrentWebview } from "@tauri-apps/api/webview";
 import { useTranslation } from "react-i18next";
 import { analyzeAudio } from "../utils/audioAnalysis";
 import { FolderIcon, MusicalNoteIcon, PianoIcon } from "./icons";
+import { AdModal } from "./AdModal";
 import type { KeyBpmResult } from "../types";
 
 interface KeyBpmDetectPageProps {
@@ -16,6 +17,8 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
   const [analysisStage, setAnalysisStage] = useState<string>("");
   const [fileName, setFileName] = useState<string | null>(null);
   const [result, setResult] = useState<KeyBpmResult | null>(null);
+  const [pendingResult, setPendingResult] = useState<KeyBpmResult | null>(null);
+  const [showAdModal, setShowAdModal] = useState(false);
   const [currentBpm, setCurrentBpm] = useState<number | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [selecting, setSelecting] = useState(false);
@@ -25,20 +28,29 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       setAnalyzing(true);
       setFileName(name);
       setResult(null);
+      setPendingResult(null);
       setAnalysisStage(t("detector.readingAudio", "Ses dosyası taranıyor..."));
 
       const res = await analyzeAudio(buffer, (stage) => {
         setAnalysisStage(stage);
       });
 
-      setResult(res);
-      setCurrentBpm(res.bpm);
-      onShowToast(t("detector.analyzed", "Key & BPM analizi tamamlandı!"));
+      setPendingResult(res);
+      setShowAdModal(true);
     } catch (err: any) {
       onShowToast(`${t("detector.errorFailed", "Analiz başarısız")}: ${err?.toString()}`);
     } finally {
       setAnalyzing(false);
       setAnalysisStage("");
+    }
+  };
+
+  const handleAdConfirm = () => {
+    if (pendingResult) {
+      setResult(pendingResult);
+      setCurrentBpm(pendingResult.bpm);
+      setPendingResult(null);
+      onShowToast(t("detector.analyzed", "Key & BPM analizi tamamlandı!"));
     }
   };
 
@@ -341,6 +353,19 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
             </div>
           </div>
         </div>
+      )}
+
+      {showAdModal && (
+        <AdModal
+          actionTitle={t("detector.showResults", "Sonuçları Göster")}
+          actionDesc={t("detector.readyResults", "Key & BPM analiz sonuçları hazır.")}
+          lockSeconds={5}
+          onClose={() => {
+            setShowAdModal(false);
+            setPendingResult(null);
+          }}
+          onConfirm={handleAdConfirm}
+        />
       )}
     </div>
   );

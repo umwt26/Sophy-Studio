@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { hexToRgb, rgbToHex } from "../utils/theme";
 
 interface ColorWheelPickerProps {
@@ -94,6 +95,7 @@ export const ColorWheelPicker: React.FC<ColorWheelPickerProps> = ({
   color,
   onChange,
 }) => {
+  const { t } = useTranslation();
   const initialHsv = hexToHsv(color);
   const [hue, setHue] = useState(initialHsv.h);
   const [sat, setSat] = useState(initialHsv.s);
@@ -329,7 +331,7 @@ export const ColorWheelPicker: React.FC<ColorWheelPickerProps> = ({
       <div className="mt-4 border-t border-[var(--color-app-border)] pt-3">
         <div className="flex items-center justify-between mb-2.5">
           <span className="text-[11px] font-semibold tracking-wider uppercase text-[var(--color-text-secondary)]">
-            Hazır & Son Renkler
+            {t("settings.swatchesTitle", "Hazır & Son Renkler")}
           </span>
           <span
             className="h-3 w-3 rounded-full border border-white/20"

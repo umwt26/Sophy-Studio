@@ -513,3 +513,34 @@ pub async fn download_universal_media(
     let _ = app.emit("download-status", "Medya indiriliyor...");
     sophy_core::UniversalDownloader::download(&url, &resolved_format, &target_dir).await
 }
+
+#[tauri::command]
+pub async fn cut_audio_sample(
+    app: tauri::AppHandle,
+    input_path: String,
+    start_sec: f64,
+    duration_sec: f64,
+    target_format: String, // "mp3" or "wav"
+) -> Result<String, String> {
+    let in_path = std::path::PathBuf::from(&input_path);
+    if !in_path.exists() {
+        return Err("Kaynak ses dosyası bulunamadı.".to_string());
+    }
+
+    let paths = SophyPaths::init()?;
+    let file_stem = in_path
+        .file_stem()
+        .and_then(|s| s.to_str())
+        .unwrap_or("sample");
+
+    let sanitized_stem = SophyPaths::sanitize_filename(file_stem);
+    let start_int = (start_sec * 10.0).round() as u64;
+    let ext = if target_format.to_lowercase() == "wav" { "wav" } else { "mp3" };
+    let out_filename = format!("{}_sample_{}s_8s.{}", sanitized_stem, start_int as f64 / 10.0, ext);
+    let out_path = paths.audio.join(out_filename);
+
+    let _ = app.emit("download-status", "8 saniyelik sample kesiliyor...");
+    MediaConverter::cut_audio_sample(&in_path, &out_path, start_sec, duration_sec, &target_format).await?;
+
+    Ok(out_path.to_string_lossy().to_string())
+}

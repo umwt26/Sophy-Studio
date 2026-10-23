@@ -8,6 +8,7 @@ import {
   SettingsIcon,
   SunoIcon,
   TagIcon,
+  ScissorsIcon,
 } from "./icons";
 import logoImg from "../assets/logo.png";
 import type { AppTab } from "../types";
@@ -63,6 +64,12 @@ export const StudioDrawer: React.FC<StudioDrawerProps> = ({
       title: t("nav.universal", "Universal Downloader"),
       desc: t("drawer.universalDesc", "YouTube, Insta, TikTok MP4 & MP3"),
       Icon: GlobeDownloadIcon,
+    },
+    {
+      id: "sample-cutter",
+      title: t("nav.cutter", "Sample Kesici"),
+      desc: t("drawer.cutterDesc", "8 saniyelik hassas sample kırpıcı"),
+      Icon: ScissorsIcon,
     },
     {
       id: "metadata",

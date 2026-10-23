@@ -37,7 +37,8 @@ export function SearchBar({
             "app.inputPlaceholder",
             "Suno şarkı linki yapıştırın (https://suno.com/s/... veya UUID)..."
           )}
-          className="input input-lg pl-10"
+          className="input input-lg has-icon-left !pl-11"
+          style={{ paddingLeft: "42px" }}
         />
       </div>
       <button

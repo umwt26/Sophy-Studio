@@ -20,6 +20,7 @@ import {
 } from "./icons";
 import { ACCENT_COLORS, loadSavedTheme, saveTheme } from "../utils/theme";
 import type { AppThemeConfig, FolderSettings, ThemeColor, ThemeMode } from "../types";
+import logoImg from "../assets/logo.png";
 
 interface SettingsPageProps {
   onShowToast: (msg: string) => void;
@@ -451,19 +452,24 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
         <div className="flex flex-col gap-4">
           <div className="section section-pad flex flex-col gap-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] font-bold text-sm border border-[var(--color-accent)]/20">
-                  SS
+              <div className="flex items-center gap-3.5">
+                <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-app-surface-2)] to-black/70 p-1.5 shadow-xl border border-[var(--color-app-border)] overflow-hidden">
+                  <img src={logoImg} alt="Sophy Studio Logo" className="h-full w-full object-contain rounded-xl" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">Sophy Studio</h2>
-                  <p className="text-xs text-[var(--color-text-secondary)]">
-                    v0.2.0 • Audio & Media Toolkit
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-base font-bold text-[var(--color-text-primary)]">Sophy Studio</h2>
+                    <span className="chip text-[10px] font-bold px-2 py-0.5 bg-[var(--color-accent)] text-black border-transparent">
+                      v1.0.0
+                    </span>
+                  </div>
+                  <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">
+                    All-in-One Audio & Media Production Suite • by Beli!
                   </p>
                 </div>
               </div>
 
-              <span className="chip text-[11px] font-mono">2026.10</span>
+              <span className="chip text-[11px] font-mono">v1.0.0</span>
             </div>
 
             {/* Social Media Links */}

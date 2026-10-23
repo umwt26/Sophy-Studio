@@ -26,7 +26,8 @@ pub fn run() {
       select_folder,
       open_folder_path,
       fetch_universal_media_info,
-      download_universal_media
+      download_universal_media,
+      cut_audio_sample
     ])
     .setup(|app| {
       if let Some(window) = app.get_webview_window("main") {

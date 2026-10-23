@@ -245,4 +245,47 @@ impl MediaConverter {
             Err(format!("FFmpeg video rendering failed: {}", stderr.trim()))
         }
     }
+
+    pub async fn cut_audio_sample(
+        input_path: &Path,
+        output_path: &Path,
+        start_sec: f64,
+        duration_sec: f64,
+        format: &str, // "mp3" or "wav"
+    ) -> Result<(), String> {
+        let ffmpeg_path = Self::ensure_ffmpeg_binary().await?;
+
+        let start_str = format!("{:.3}", start_sec.max(0.0));
+        let dur_str = format!("{:.3}", duration_sec.max(0.1));
+
+        let mut cmd = create_silent_command(&ffmpeg_path);
+        cmd.arg("-y");
+        cmd.arg("-ss");
+        cmd.arg(&start_str);
+        cmd.arg("-t");
+        cmd.arg(&dur_str);
+        cmd.arg("-i");
+        cmd.arg(input_path.to_str().unwrap());
+        cmd.arg("-vn");
+
+        let fmt = format.to_lowercase();
+        if fmt == "wav" {
+            cmd.args(["-c:a", "pcm_s16le", "-ar", "44100"]);
+        } else {
+            cmd.args(["-c:a", "libmp3lame", "-b:a", "320k"]);
+        }
+
+        cmd.arg(output_path.to_str().unwrap());
+
+        let output = cmd
+            .output()
+            .map_err(|e| format!("FFmpeg sample kesme komutu çalıştırılamadı: {}", e))?;
+
+        if output.status.success() {
+            Ok(())
+        } else {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            Err(format!("Sample kesme hatası: {}", stderr.trim()))
+        }
+    }
 }

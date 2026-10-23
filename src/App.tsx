@@ -9,6 +9,7 @@ import { SunoDownloaderPage } from "./components/SunoDownloaderPage";
 import { UniversalDownloaderPage } from "./components/UniversalDownloaderPage";
 import { MetadataEditorPage } from "./components/MetadataEditorPage";
 import { KeyBpmDetectPage } from "./components/KeyBpmDetectPage";
+import { SampleCutterPage } from "./components/SampleCutterPage";
 import { SettingsPage } from "./components/SettingsPage";
 import { AudioFormatModal } from "./components/AudioFormatModal";
 import { SunoHistoryDrawer } from "./components/SunoHistoryDrawer";
@@ -287,6 +288,13 @@ export default function App() {
 
           {activeTab === "detector" && (
             <KeyBpmDetectPage onShowToast={showToast} />
+          )}
+
+          {activeTab === "sample-cutter" && (
+            <SampleCutterPage
+              onShowToast={showToast}
+              onOpenFolder={handleOpenFolder}
+            />
           )}
 
           {activeTab === "settings" && (

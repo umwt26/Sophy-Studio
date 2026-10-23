@@ -12,6 +12,7 @@ import { KeyBpmDetectPage } from "./components/KeyBpmDetectPage";
 import { SampleCutterPage } from "./components/SampleCutterPage";
 import { SettingsPage } from "./components/SettingsPage";
 import { AudioFormatModal } from "./components/AudioFormatModal";
+import { FeedbackModal } from "./components/FeedbackModal";
 import { SunoHistoryDrawer } from "./components/SunoHistoryDrawer";
 import { AdModal } from "./components/AdModal";
 import { UpdateModal } from "./components/UpdateModal";
@@ -36,6 +37,7 @@ export default function App() {
   const [downloading, setDownloading] = useState(false);
   const [audioModalOpen, setAudioModalOpen] = useState(false);
   const [sunoDrawerOpen, setSunoDrawerOpen] = useState(false);
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
 
   // Ad interstitial modal state for Suno downloads
   const [pendingSunoFormat, setPendingSunoFormat] = useState<
@@ -249,6 +251,7 @@ export default function App() {
         onClose={() => setDrawerOpen(false)}
         activeTab={activeTab}
         onSelectTab={setActiveTab}
+        onOpenFeedback={() => setFeedbackModalOpen(true)}
       />
 
       <main
@@ -312,6 +315,13 @@ export default function App() {
           onSelect={handleAudioFormatSelect}
         />
       )}
+
+      {/* User Feedback Modal */}
+      <FeedbackModal
+        isOpen={feedbackModalOpen}
+        onClose={() => setFeedbackModalOpen(false)}
+        onShowToast={showToast}
+      />
 
       {/* Suno History Slide-over Drawer (1/4 screen) */}
       <SunoHistoryDrawer

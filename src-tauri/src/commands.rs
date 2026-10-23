@@ -546,3 +546,65 @@ pub async fn cut_audio_sample(
 
     Ok(out_path.to_string_lossy().to_string())
 }
+
+#[tauri::command]
+pub async fn send_feedback(
+    category: String,
+    name: String,
+    email: String,
+    message: String,
+) -> Result<String, String> {
+    if message.trim().is_empty() {
+        return Err("Lütfen mesaj alanını doldurun.".to_string());
+    }
+
+    let client = reqwest::Client::builder()
+        .timeout(std::time::Duration::from_secs(15))
+        .build()
+        .map_err(|e| format!("HTTP istemcisi başlatılamadı: {}", e))?;
+
+    let sender_name = if name.trim().is_empty() {
+        "Anonim Kullanıcı".to_string()
+    } else {
+        name.trim().to_string()
+    };
+
+    let sender_email = if email.trim().is_empty() {
+        "belirtilmedi@sophy.studio".to_string()
+    } else {
+        email.trim().to_string()
+    };
+
+    let payload = serde_json::json!({
+        "_subject": format!("[Sophy Studio v1.0] {}: {}", category, sender_name),
+        "Bildirim Türü": category,
+        "Ad Soyad": sender_name,
+        "E-posta": sender_email,
+        "Mesaj": message.trim(),
+        "Sürüm": "Sophy Studio v1.0 (Windows x64)",
+        "_template": "table"
+    });
+
+    let resp = client
+        .post("https://formsubmit.co/ajax/umutszg46@gmail.com")
+        .header("User-Agent", "SophyStudio/1.0")
+        .header("Accept", "application/json")
+        .header("Content-Type", "application/json")
+        .header("Origin", "https://sophy.studio")
+        .header("Referer", "https://sophy.studio/feedback")
+        .json(&payload)
+        .send()
+        .await
+        .map_err(|e| format!("Geri bildirim sunucusuna bağlanılamadı: {}", e))?;
+
+    let text = resp
+        .text()
+        .await
+        .map_err(|e| format!("Sunucu yanıtı okunamadı: {}", e))?;
+
+    if text.contains("needs Activation") {
+        Ok("activation_needed".to_string())
+    } else {
+        Ok("success".to_string())
+    }
+}

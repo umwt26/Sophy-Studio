@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { invoke } from "@tauri-apps/api/core";
-import { CloseIcon, ExternalLinkIcon, MusicIcon } from "./icons";
+import { ArrowDownTrayIcon, CloseIcon, ExternalLinkIcon, MusicIcon } from "./icons";
 import sponsorFilerawave from "../assets/sponsor_filerawave.jpg";
 import sponsorFileraLabel from "../assets/sponsor_filera_label.png";
 
-interface AdModalProps {
+export interface AdModalProps {
   onClose: () => void;
+  onConfirm: () => void;
+  actionTitle?: string;
+  actionDesc?: string;
+  lockSeconds?: number;
 }
 
 type Sponsor =
@@ -101,28 +105,34 @@ const SPONSORS: Sponsor[] = [
   },
 ];
 
-const AUTO_CLOSE_MS = 10000;
-
-export function AdModal({ onClose }: AdModalProps) {
+export function AdModal({
+  onClose,
+  onConfirm,
+  actionTitle = "İndirmeyi Başlat",
+  actionDesc,
+  lockSeconds = 5,
+}: AdModalProps) {
   const { t } = useTranslation();
+  // Fixed random sponsor for this impression instance
   const [sponsor] = useState(() => SPONSORS[Math.floor(Math.random() * SPONSORS.length)]);
-  const [progress, setProgress] = useState(100);
+  const [secondsRemaining, setSecondsRemaining] = useState(lockSeconds);
+  const startTimeRef = useRef<number>(Date.now());
 
+  // Fixed countdown timer - immune to hover, re-renders or pointer events
   useEffect(() => {
-    const startTime = Date.now();
+    startTimeRef.current = Date.now();
     const interval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const remaining = Math.max(0, 100 - (elapsed / AUTO_CLOSE_MS) * 100);
-      setProgress(remaining);
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      const remaining = Math.max(0, lockSeconds - elapsed);
+      setSecondsRemaining(remaining);
 
-      if (elapsed >= AUTO_CLOSE_MS) {
+      if (remaining <= 0) {
         clearInterval(interval);
-        onClose();
       }
-    }, 40);
+    }, 250);
 
     return () => clearInterval(interval);
-  }, [onClose]);
+  }, [lockSeconds]);
 
   const handleOpenLink = (url: string) => {
     invoke("open_url", { url }).catch(() => {
@@ -130,29 +140,41 @@ export function AdModal({ onClose }: AdModalProps) {
     });
   };
 
+  const handleConfirmAction = () => {
+    if (secondsRemaining > 0) return;
+    onConfirm();
+    onClose();
+  };
+
+  const isUnlocked = secondsRemaining <= 0;
+
   return (
-    <div className="fixed right-5 top-16 z-50 w-full max-w-[340px] animate-slide-in-right sm:right-6">
-      <div className="relative overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-4 shadow-2xl backdrop-blur-md">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-[var(--color-app-border)] pb-2.5">
-          <span className="chip font-medium text-[10px] text-[var(--color-accent)] border-[var(--color-accent)]/20 bg-[var(--color-accent-subtle)]">
-            {t("app.sponsorTag", "SPONSOR")}
-          </span>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 animate-fade-in">
+      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-2xl animate-scale-in">
+        {/* Header Bar */}
+        <div className="flex items-center justify-between border-b border-[var(--color-app-border)] pb-3">
+          <div className="flex items-center gap-2">
+            <span className="chip font-medium text-[10px] text-[var(--color-accent)] border-[var(--color-accent)]/20 bg-[var(--color-accent-subtle)]">
+              {t("app.sponsorTag", "SPONSOR")}
+            </span>
+            <span className="text-xs text-[var(--color-text-secondary)]">
+              {actionDesc || t("app.sponsorSupport", "Sponsorlarımızın desteğiyle sunulmaktadır")}
+            </span>
+          </div>
 
           <button
             type="button"
             onClick={onClose}
             aria-label={t("common.close", "Kapat")}
-            className="flex h-6 w-6 items-center justify-center rounded-lg border border-[var(--color-app-border)] text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
+            className="icon-btn h-7 w-7"
           >
-            <CloseIcon className="h-3 w-3" />
+            <CloseIcon className="h-3.5 w-3.5" />
           </button>
         </div>
 
-        {/* Sponsor Content */}
+        {/* Sponsor Content Area */}
         {sponsor.type === "image" ? (
-          <div className="mt-3">
-            {/* Clickable Image Banner */}
+          <div className="mt-4">
             <div
               onClick={() => handleOpenLink(sponsor.url)}
               className="group relative cursor-pointer overflow-hidden rounded-xl border border-[var(--color-app-border)] bg-black/40"
@@ -160,61 +182,50 @@ export function AdModal({ onClose }: AdModalProps) {
               <img
                 src={sponsor.image}
                 alt={t(sponsor.titleKey, sponsor.id)}
-                className="h-32 w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                className="h-36 w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-md bg-black/70 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm">
+              <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 rounded-md bg-black/70 px-2 py-0.5 text-xs font-medium text-white backdrop-blur-sm">
                 <span>{t(sponsor.titleKey, sponsor.id)}</span>
                 <ExternalLinkIcon className="h-3 w-3 text-[var(--color-accent)]" />
               </div>
             </div>
 
-            {/* Description & Link */}
             <div className="mt-2.5">
               <p className="text-xs leading-relaxed text-[var(--color-text-secondary)]">
                 {t(sponsor.descKey, "")}
               </p>
-
-              <div className="mt-3 flex items-center justify-between gap-2 border-t border-[var(--color-app-border)] pt-2.5">
-                <button
-                  type="button"
-                  onClick={() => handleOpenLink(sponsor.url)}
-                  className="flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline"
-                >
-                  <span>{sponsor.displayUrl}</span>
-                  <ExternalLinkIcon className="h-3 w-3" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleOpenLink(sponsor.url)}
-                  className="btn btn-primary text-xs px-3 py-1"
-                >
-                  {t("app.sponsorCta", "Ziyaret Et")}
-                </button>
-              </div>
             </div>
           </div>
         ) : (
-          /* Spotify Artist Embed */
-          <div className="mt-3">
-            <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#1DB954]/15 text-[#1DB954]">
-                <MusicIcon className="h-3.5 w-3.5" />
+          <div className="mt-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#1DB954]/15 text-[#1DB954]">
+                  <MusicIcon className="h-3.5 w-3.5" />
+                </div>
+                <h4 className="text-xs font-semibold text-[var(--color-text-primary)]">
+                  {t(sponsor.titleKey, "")}
+                </h4>
               </div>
-              <h4 className="text-xs font-semibold text-[var(--color-text-primary)]">
-                {t(sponsor.titleKey, "")}
-              </h4>
+
+              <button
+                type="button"
+                onClick={() => handleOpenLink(sponsor.url)}
+                className="flex items-center gap-1 text-[11px] font-medium text-[#1DB954] hover:underline"
+              >
+                <span>Spotify</span>
+                <ExternalLinkIcon className="h-3 w-3" />
+              </button>
             </div>
 
-            {/* Spotify Embed Player */}
-            <div className="mt-2 overflow-hidden rounded-xl border border-[var(--color-app-border)]">
+            <div className="overflow-hidden rounded-xl border border-[var(--color-app-border)]">
               <iframe
                 data-testid="embed-iframe"
                 style={{ borderRadius: "12px" }}
                 src={sponsor.embedUrl}
                 width="100%"
-                height="320"
+                height="152"
                 frameBorder="0"
                 allowFullScreen
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
@@ -222,35 +233,46 @@ export function AdModal({ onClose }: AdModalProps) {
                 className="w-full"
               />
             </div>
-
-            {/* Link & Spotify CTA */}
-            <div className="mt-2.5 flex items-center justify-between gap-2 border-t border-[var(--color-app-border)] pt-2.5">
-              <button
-                type="button"
-                onClick={() => handleOpenLink(sponsor.url)}
-                className="flex items-center gap-1 text-xs font-medium text-[#1DB954] hover:underline"
-              >
-                <span>{sponsor.displayUrl}</span>
-                <ExternalLinkIcon className="h-3 w-3" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleOpenLink(sponsor.url)}
-                className="btn text-xs px-3 py-1 font-semibold text-black bg-[#1DB954] hover:brightness-110"
-              >
-                <span>{t("app.openInSpotify", "Spotify'da Dinle")}</span>
-              </button>
-            </div>
           </div>
         )}
 
-        {/* Linear Progress Countdown Bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--color-app-surface-2)] overflow-hidden">
-          <div
-            className="h-full bg-[var(--color-accent)] transition-all duration-75 ease-linear"
-            style={{ width: `${progress}%` }}
-          />
+        {/* Action Button & Timer Area */}
+        <div className="mt-5 pt-3 border-t border-[var(--color-app-border)] flex flex-col gap-2">
+          {isUnlocked ? (
+            <button
+              type="button"
+              onClick={handleConfirmAction}
+              className="btn btn-primary w-full py-2.5 text-xs font-bold shadow-lg animate-pulse"
+            >
+              <ArrowDownTrayIcon className="h-4 w-4" />
+              <span>{actionTitle}</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="btn btn-secondary w-full py-2.5 text-xs font-semibold opacity-60 cursor-not-allowed"
+            >
+              <span>
+                {actionTitle} ({secondsRemaining}s)
+              </span>
+            </button>
+          )}
+
+          <div className="flex items-center justify-between text-[11px] text-[var(--color-text-tertiary)] px-1">
+            <span>
+              {isUnlocked
+                ? t("app.adReady", "Hazır! Butona basarak devam edebilirsiniz.")
+                : t("app.adWait", `${secondsRemaining} saniye sonra aktifleşecek...`)}
+            </span>
+            <button
+              type="button"
+              onClick={onClose}
+              className="hover:text-[var(--color-text-secondary)] transition-colors"
+            >
+              {t("common.cancel", "İptal")}
+            </button>
+          </div>
         </div>
       </div>
     </div>

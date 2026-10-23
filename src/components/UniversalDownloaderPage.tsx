@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { useTranslation } from "react-i18next";
 import {
@@ -6,12 +6,27 @@ import {
   VideoCameraIcon,
   MusicalNoteIcon,
   FolderIcon,
+  HistoryIcon,
 } from "./icons";
-import type { UniversalMediaInfo } from "../types";
+import { AdModal } from "./AdModal";
+import { UniversalHistoryDrawer } from "./UniversalHistoryDrawer";
+import type { UniversalHistoryItem, UniversalMediaInfo } from "../types";
+
+const UNIVERSAL_HISTORY_KEY = "sophy_universal_history";
 
 interface UniversalDownloaderPageProps {
   onShowToast: (msg: string) => void;
   onOpenFolder?: () => void;
+}
+
+function detectPlatform(rawUrl: string): string {
+  const u = rawUrl.toLowerCase();
+  if (u.includes("youtube.com") || u.includes("youtu.be")) return "YouTube";
+  if (u.includes("instagram.com")) return "Instagram";
+  if (u.includes("tiktok.com")) return "TikTok";
+  if (u.includes("facebook.com") || u.includes("fb.watch")) return "Facebook";
+  if (u.includes("twitter.com") || u.includes("x.com")) return "Twitter";
+  return "Diğer";
 }
 
 export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = ({
@@ -24,9 +39,56 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
   const [downloading, setDownloading] = useState(false);
   const [mediaInfo, setMediaInfo] = useState<UniversalMediaInfo | null>(null);
 
-  const handleFetchInfo = async () => {
-    const trimmed = url.trim();
-    if (!trimmed) {
+  // History & Drawer state
+  const [history, setHistory] = useState<UniversalHistoryItem[]>([]);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // Ad Modal state for downloads
+  const [pendingDownloadFormat, setPendingDownloadFormat] = useState<"mp4" | "mp3" | null>(null);
+  const [adModalOpen, setAdModalOpen] = useState(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(UNIVERSAL_HISTORY_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          setHistory(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to load universal history", e);
+    }
+  }, []);
+
+  const saveHistory = (items: UniversalHistoryItem[]) => {
+    setHistory(items);
+    try {
+      localStorage.setItem(UNIVERSAL_HISTORY_KEY, JSON.stringify(items));
+    } catch (e) {
+      console.warn("Failed to persist universal history", e);
+    }
+  };
+
+  const addToHistory = (item: UniversalHistoryItem) => {
+    const filtered = history.filter((h) => h.id !== item.id && h.url !== item.url);
+    const updated = [item, ...filtered].slice(0, 50);
+    saveHistory(updated);
+  };
+
+  const handleClearHistory = () => {
+    saveHistory([]);
+    onShowToast(t("app.clearHistory", "Geçmiş temizlendi."));
+  };
+
+  const handleRemoveHistoryItem = (id: string) => {
+    const updated = history.filter((h) => h.id !== id);
+    saveHistory(updated);
+  };
+
+  const handleFetchInfo = async (fetchUrl?: string) => {
+    const targetUrl = (fetchUrl || url).trim();
+    if (!targetUrl) {
       onShowToast(t("universal.errorEmpty", "Lütfen bir medya bağlantısı yapıştırın."));
       return;
     }
@@ -35,7 +97,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
       setLoading(true);
       setMediaInfo(null);
       const info = await invoke<UniversalMediaInfo>("fetch_universal_media_info", {
-        url: trimmed,
+        url: targetUrl,
       });
       setMediaInfo(info);
       onShowToast(t("universal.infoLoaded", "Medya bilgisi başarıyla alındı!"));
@@ -48,8 +110,16 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
     }
   };
 
-  const handleDownload = async (format: "mp4" | "mp3") => {
+  // Called when user clicks MP4 or MP3 button: opens 5s ad modal first
+  const requestDownload = (format: "mp4" | "mp3") => {
     if (!mediaInfo) return;
+    setPendingDownloadFormat(format);
+    setAdModalOpen(true);
+  };
+
+  const executeDownload = async (format: "mp4" | "mp3") => {
+    if (!mediaInfo) return;
+    const downloadTargetUrl = mediaInfo.webpageUrl || url.trim();
     try {
       setDownloading(true);
       onShowToast(
@@ -57,13 +127,28 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
           ? t("universal.downloadingVideo", "Video indiriliyor...")
           : t("universal.downloadingAudio", "Ses dönüştürülüp indiriliyor...")
       );
+
       const savedPath = await invoke<string>("download_universal_media", {
-        url: mediaInfo.webpageUrl || url.trim(),
+        url: downloadTargetUrl,
         formatType: format,
         customDir: null,
       });
+
+      // Add to history
+      const platform = detectPlatform(downloadTargetUrl);
+      addToHistory({
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 6)}`,
+        url: downloadTargetUrl,
+        title: mediaInfo.title || "Untitled Media",
+        thumbnail: mediaInfo.thumbnail,
+        format,
+        platform,
+        timestamp: Date.now(),
+        filePath: savedPath,
+      });
+
       onShowToast(
-        `${t("universal.downloadComplete", "Başarıyla indirildi")}: ${savedPath}`
+        `${t("universal.downloadComplete", "Başarıyla indirildi")}: ${savedPath.split(/[\\/]/).pop()}`
       );
     } catch (err: any) {
       onShowToast(
@@ -71,6 +156,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
       );
     } finally {
       setDownloading(false);
+      setPendingDownloadFormat(null);
     }
   };
 
@@ -101,16 +187,31 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
           </p>
         </div>
 
-        {onOpenFolder && (
+        <div className="flex items-center gap-2 self-start sm:self-auto">
           <button
             type="button"
-            onClick={onOpenFolder}
-            className="btn btn-secondary self-start sm:self-auto"
+            onClick={() => setDrawerOpen(true)}
+            className="btn btn-secondary text-xs gap-1.5"
+            title={t("app.history", "Geçmiş")}
           >
-            <FolderIcon className="text-[var(--color-accent)]" />
-            <span>{t("universal.openFolder", "Medya Klasörü")}</span>
+            <HistoryIcon className="h-4 w-4 text-[var(--color-accent)]" />
+            <span>{t("app.history", "Geçmiş")}</span>
+            {history.length > 0 && (
+              <span className="chip text-[10px] px-1.5 py-0 font-mono">{history.length}</span>
+            )}
           </button>
-        )}
+
+          {onOpenFolder && (
+            <button
+              type="button"
+              onClick={onOpenFolder}
+              className="btn btn-secondary text-xs gap-1.5"
+            >
+              <FolderIcon className="text-[var(--color-accent)]" />
+              <span>{t("universal.openFolder", "Medya Klasörü")}</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Input Section */}
@@ -133,7 +234,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
           <button
             type="button"
             disabled={loading || downloading}
-            onClick={handleFetchInfo}
+            onClick={() => handleFetchInfo()}
             className="btn btn-primary btn-lg shrink-0"
           >
             {loading ? (
@@ -217,7 +318,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
                 <button
                   type="button"
                   disabled={downloading}
-                  onClick={() => handleDownload("mp4")}
+                  onClick={() => requestDownload("mp4")}
                   className="btn btn-primary"
                 >
                   <VideoCameraIcon />
@@ -227,7 +328,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
                 <button
                   type="button"
                   disabled={downloading}
-                  onClick={() => handleDownload("mp3")}
+                  onClick={() => requestDownload("mp3")}
                   className="btn btn-secondary"
                 >
                   <MusicalNoteIcon />
@@ -237,6 +338,41 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
             </div>
           </div>
         </div>
+      )}
+
+      {/* Universal History Drawer (1/4 screen slide-over from left) */}
+      <UniversalHistoryDrawer
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        history={history}
+        onSelectUrl={(selectedUrl) => {
+          setUrl(selectedUrl);
+          handleFetchInfo(selectedUrl);
+        }}
+        onClearHistory={handleClearHistory}
+        onRemoveItem={handleRemoveHistoryItem}
+      />
+
+      {/* Action Ad Modal with 5s countdown lock before download */}
+      {adModalOpen && pendingDownloadFormat && (
+        <AdModal
+          actionTitle={
+            pendingDownloadFormat === "mp4"
+              ? t("universal.downloadMp4", "Videoyu İndir (MP4)")
+              : t("universal.downloadMp3", "Sesi İndir (MP3 320k)")
+          }
+          actionDesc={mediaInfo?.title || "Medya indirme işlemi hazır"}
+          lockSeconds={5}
+          onClose={() => {
+            setAdModalOpen(false);
+            setPendingDownloadFormat(null);
+          }}
+          onConfirm={() => {
+            if (pendingDownloadFormat) {
+              executeDownload(pendingDownloadFormat);
+            }
+          }}
+        />
       )}
     </div>
   );

@@ -11,7 +11,7 @@ import { MetadataEditorPage } from "./components/MetadataEditorPage";
 import { KeyBpmDetectPage } from "./components/KeyBpmDetectPage";
 import { SettingsPage } from "./components/SettingsPage";
 import { AudioFormatModal } from "./components/AudioFormatModal";
-import { HistoryModal } from "./components/HistoryModal";
+import { SunoHistoryDrawer } from "./components/SunoHistoryDrawer";
 import { AdModal } from "./components/AdModal";
 import { UpdateModal } from "./components/UpdateModal";
 import { Toast } from "./components/Toast";
@@ -34,8 +34,14 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [audioModalOpen, setAudioModalOpen] = useState(false);
-  const [historyModalOpen, setHistoryModalOpen] = useState(false);
+  const [sunoDrawerOpen, setSunoDrawerOpen] = useState(false);
+
+  // Ad interstitial modal state for Suno downloads
+  const [pendingSunoFormat, setPendingSunoFormat] = useState<
+    "mp3" | "wav" | "cover" | "lyrics" | "all" | "original" | null
+  >(null);
   const [adModalOpen, setAdModalOpen] = useState(false);
+
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [updateInfo, setUpdateInfo] = useState<UpdateInfo | null>(null);
   const [history, setHistory] = useState<SongData[]>([]);
@@ -94,13 +100,13 @@ export default function App() {
       }
       return item.title !== newSong.title;
     });
-    const updated = [newSong, ...filtered].slice(0, 30);
+    const updated = [newSong, ...filtered].slice(0, 40);
     saveHistory(updated);
   };
 
   const handleClearHistory = () => {
     saveHistory([]);
-    showToast(t("app.clearHistory", "History cleared."));
+    showToast(t("app.clearHistory", "Geçmiş temizlendi."));
   };
 
   const handleRemoveHistoryItem = (id: string) => {
@@ -112,9 +118,9 @@ export default function App() {
 
   const handleSelectHistorySong = (selected: SongData) => {
     setSong(selected);
-    setHistoryModalOpen(false);
+    setSunoDrawerOpen(false);
     setActiveTab("suno");
-    showToast(`${t("app.loadSong", "Loaded")}: ${selected.title}`);
+    showToast(`${t("app.loadSong", "Yüklendi")}: ${selected.title}`);
   };
 
   useEffect(() => {
@@ -135,13 +141,11 @@ export default function App() {
   const handleFetch = async (url: string) => {
     const trimmed = url.trim();
 
-    // 1. Validation: Empty link check
     if (!trimmed) {
       showToast(t("app.errorEmptyLink", "Lütfen bir Suno şarkı linki girin."));
       return;
     }
 
-    // 2. Validation: Suno link / UUID format check
     const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
     const isSunoUrl = /suno\.(com|ai)/i.test(trimmed);
     if (!isSunoUrl && !uuidRegex.test(trimmed)) {
@@ -180,11 +184,15 @@ export default function App() {
     }
   };
 
+  // User selects format to download -> open 5s Ad Interstitial Modal first
+  const requestDownload = (format: "mp3" | "wav" | "cover" | "lyrics" | "all" | "original") => {
+    if (!song) return;
+    setPendingSunoFormat(format);
+    setAdModalOpen(true);
+  };
+
   const executeDownload = async (format: "mp3" | "wav" | "cover" | "lyrics" | "all" | "original") => {
     if (!song) return;
-
-    // Show sponsor popup ad when download initiates
-    setAdModalOpen(true);
 
     setDownloading(true);
     try {
@@ -192,25 +200,36 @@ export default function App() {
         clip: song.clip,
         targetFormat: format === "original" ? "m4a" : format,
       });
-      showToast(`Saved: ${savedPath.split(/[\\/]/).pop()}`);
+      showToast(`Kaydedildi: ${savedPath.split(/[\\/]/).pop()}`);
     } catch (err: any) {
-      showToast(`Download failed: ${err.toString()}`);
+      showToast(`İndirme hatası: ${err.toString()}`);
     } finally {
       setDownloading(false);
+      setPendingSunoFormat(null);
     }
   };
 
   const handleAudioFormatSelect = (format: AudioFormat) => {
     setAudioModalOpen(false);
-    executeDownload(format);
+    requestDownload(format);
   };
 
   const handleOpenFolder = async () => {
     try {
       await invoke("open_sophy_folder");
     } catch (err: any) {
-      showToast(`Failed to open folder: ${err.toString()}`);
+      showToast(`Klasör açılamadı: ${err.toString()}`);
     }
+  };
+
+  const getFormatActionTitle = (format: string | null) => {
+    if (format === "cover") return "Kapak Resmini İndir";
+    if (format === "lyrics") return "Şarkı Sözlerini İndir";
+    if (format === "all") return "Tümünü İndir (.zip)";
+    if (format === "mp3") return "MP3 Olarak İndir (320k)";
+    if (format === "wav") return "Kayıpsız WAV İndir";
+    if (format === "original") return "Orijinal Ses İndir";
+    return "İndirmeyi Başlat";
   };
 
   return (
@@ -218,6 +237,7 @@ export default function App() {
       <Header
         activeTab={activeTab}
         onOpenMenu={() => setDrawerOpen(true)}
+        onNavigateHome={() => setActiveTab("home")}
         onOpenSettings={() => setActiveTab("settings")}
         updateVersion={updateInfo?.has_update ? updateInfo.latest_version : undefined}
         onOpenUpdate={() => setUpdateModalOpen(true)}
@@ -228,8 +248,6 @@ export default function App() {
         onClose={() => setDrawerOpen(false)}
         activeTab={activeTab}
         onSelectTab={setActiveTab}
-        onOpenFolder={handleOpenFolder}
-        onOpenHistory={() => setHistoryModalOpen(true)}
       />
 
       <main className="flex-1 overflow-y-auto bg-[var(--color-app-bg)]">
@@ -248,9 +266,11 @@ export default function App() {
               downloading={downloading}
               onFetch={handleFetch}
               onAudioClick={() => setAudioModalOpen(true)}
-              onCoverClick={() => executeDownload("cover")}
-              onLyricsClick={() => executeDownload("lyrics")}
-              onDownloadAllClick={() => executeDownload("all")}
+              onCoverClick={() => requestDownload("cover")}
+              onLyricsClick={() => requestDownload("lyrics")}
+              onDownloadAllClick={() => requestDownload("all")}
+              onOpenHistory={() => setSunoDrawerOpen(true)}
+              historyCount={history.length}
             />
           )}
 
@@ -282,18 +302,32 @@ export default function App() {
         />
       )}
 
-      {historyModalOpen && (
-        <HistoryModal
-          history={history}
-          onClose={() => setHistoryModalOpen(false)}
-          onSelectSong={handleSelectHistorySong}
-          onClearHistory={handleClearHistory}
-          onRemoveItem={handleRemoveHistoryItem}
-        />
-      )}
+      {/* Suno History Slide-over Drawer (1/4 screen) */}
+      <SunoHistoryDrawer
+        isOpen={sunoDrawerOpen}
+        onClose={() => setSunoDrawerOpen(false)}
+        history={history}
+        onSelectSong={handleSelectHistorySong}
+        onClearHistory={handleClearHistory}
+        onRemoveItem={handleRemoveHistoryItem}
+      />
 
-      {adModalOpen && (
-        <AdModal onClose={() => setAdModalOpen(false)} />
+      {/* Action Ad Interstitial Modal with 5s countdown lock for Suno downloads */}
+      {adModalOpen && pendingSunoFormat && (
+        <AdModal
+          actionTitle={getFormatActionTitle(pendingSunoFormat)}
+          actionDesc={song?.title || "Suno şarkısı indirilmeye hazır"}
+          lockSeconds={5}
+          onClose={() => {
+            setAdModalOpen(false);
+            setPendingSunoFormat(null);
+          }}
+          onConfirm={() => {
+            if (pendingSunoFormat) {
+              executeDownload(pendingSunoFormat);
+            }
+          }}
+        />
       )}
 
       {updateModalOpen && updateInfo && (

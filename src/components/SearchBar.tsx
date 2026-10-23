@@ -1,14 +1,22 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { SearchIcon } from "./icons";
+import { HistoryIcon, SearchIcon } from "./icons";
 
 interface SearchBarProps {
   onFetch: (url: string) => void;
   loading: boolean;
   initialValue?: string;
+  onOpenHistory?: () => void;
+  historyCount?: number;
 }
 
-export function SearchBar({ onFetch, loading, initialValue = "" }: SearchBarProps) {
+export function SearchBar({
+  onFetch,
+  loading,
+  initialValue = "",
+  onOpenHistory,
+  historyCount,
+}: SearchBarProps) {
   const { t } = useTranslation();
   const [value, setValue] = useState(initialValue);
 
@@ -46,6 +54,21 @@ export function SearchBar({ onFetch, loading, initialValue = "" }: SearchBarProp
           <span>{t("app.analyzeBtn", "Şarkıyı Getir")}</span>
         )}
       </button>
+
+      {onOpenHistory && (
+        <button
+          type="button"
+          onClick={onOpenHistory}
+          title={t("app.history", "Arama Geçmişi")}
+          className="btn btn-secondary btn-lg px-3.5 gap-1.5"
+        >
+          <HistoryIcon className="h-4 w-4 text-[var(--color-accent)]" />
+          <span className="hidden sm:inline">{t("app.history", "Geçmiş")}</span>
+          {typeof historyCount === "number" && historyCount > 0 ? (
+            <span className="chip text-[10px] px-1.5 py-0 font-mono">{historyCount}</span>
+          ) : null}
+        </button>
+      )}
     </form>
   );
 }

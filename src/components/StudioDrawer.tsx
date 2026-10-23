@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
   CloseIcon,
-  FolderIcon,
   GlobeDownloadIcon,
-  HistoryIcon,
   HomeIcon,
   PianoIcon,
   SettingsIcon,
@@ -19,8 +17,6 @@ interface StudioDrawerProps {
   onClose: () => void;
   activeTab: AppTab;
   onSelectTab: (tab: AppTab) => void;
-  onOpenFolder: () => void;
-  onOpenHistory: () => void;
 }
 
 export const StudioDrawer: React.FC<StudioDrawerProps> = ({
@@ -28,8 +24,6 @@ export const StudioDrawer: React.FC<StudioDrawerProps> = ({
   onClose,
   activeTab,
   onSelectTab,
-  onOpenFolder,
-  onOpenHistory,
 }) => {
   const { t } = useTranslation();
 
@@ -163,34 +157,6 @@ export const StudioDrawer: React.FC<StudioDrawerProps> = ({
                 </button>
               );
             })}
-          </div>
-
-          {/* Quick Access Actions */}
-          <p className="eyebrow px-2 mt-6 mb-2">{t("drawer.quickAccess", "Hızlı Erişim")}</p>
-          <div className="flex flex-col gap-1">
-            <button
-              type="button"
-              onClick={() => {
-                onOpenFolder();
-                onClose();
-              }}
-              className="nav-item text-xs"
-            >
-              <FolderIcon className="text-[var(--color-accent)]" />
-              <span>{t("app.openFolder", "Stüdyo Klasörünü Aç")}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                onOpenHistory();
-                onClose();
-              }}
-              className="nav-item text-xs"
-            >
-              <HistoryIcon className="text-[var(--color-accent)]" />
-              <span>{t("app.history", "Arama Geçmişi")}</span>
-            </button>
           </div>
         </div>
 

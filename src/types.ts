@@ -90,3 +90,15 @@ export interface KeyBpmResult {
   confidence?: number;
 }
 
+export interface UniversalHistoryItem {
+  id: string;
+  url: string;
+  title: string;
+  thumbnail?: string | null;
+  format: "mp4" | "mp3";
+  platform: string;
+  timestamp: number;
+  filePath?: string | null;
+}
+
+

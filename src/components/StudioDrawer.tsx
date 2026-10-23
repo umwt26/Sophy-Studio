@@ -9,6 +9,7 @@ import {
   SunoIcon,
   TagIcon,
   ScissorsIcon,
+  ChatBubbleIcon,
 } from "./icons";
 import logoImg from "../assets/logo.png";
 import type { AppTab } from "../types";
@@ -18,6 +19,7 @@ interface StudioDrawerProps {
   onClose: () => void;
   activeTab: AppTab;
   onSelectTab: (tab: AppTab) => void;
+  onOpenFeedback: () => void;
 }
 
 export const StudioDrawer: React.FC<StudioDrawerProps> = ({
@@ -25,6 +27,7 @@ export const StudioDrawer: React.FC<StudioDrawerProps> = ({
   onClose,
   activeTab,
   onSelectTab,
+  onOpenFeedback,
 }) => {
   const { t } = useTranslation();
 
@@ -165,6 +168,30 @@ export const StudioDrawer: React.FC<StudioDrawerProps> = ({
               );
             })}
           </div>
+        </div>
+
+        {/* Feedback Section - Distinct from STUDIO TOOLS */}
+        <div className="pt-3 pb-2 border-t border-[var(--color-app-border)]">
+          <button
+            type="button"
+            onClick={() => {
+              onOpenFeedback();
+              onClose();
+            }}
+            className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-left text-xs transition-all border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/60 hover:bg-[var(--color-app-surface-2)] hover:border-[var(--color-accent)]/50 text-[var(--color-text-primary)] group shadow-sm"
+          >
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[var(--color-accent)]/15 text-[var(--color-accent)] group-hover:bg-[var(--color-accent)] group-hover:text-black transition-colors">
+              <ChatBubbleIcon className="h-4 w-4" />
+            </div>
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="font-semibold text-xs text-[var(--color-text-primary)]">
+                {t("feedback.drawerButton", "Geri Bildirim Gönder")}
+              </span>
+              <span className="text-[10px] text-[var(--color-text-secondary)] truncate">
+                {t("feedback.drawerSub", "Hata bildir veya öneri paylaş")}
+              </span>
+            </div>
+          </button>
         </div>
 
         {/* Footer info - clean and respectful */}

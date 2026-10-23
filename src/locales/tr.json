@@ -287,6 +287,28 @@
     "exportError": "Sample kesilirken hata oluştu: {{error}}",
     "tooShort": "Dosya süresi 8 saniyeden kısa, sample kesilemez."
   },
+  "feedback": {
+    "title": "Geri Bildirim Gönder",
+    "subtitle": "Fikir, öneri veya karşılaştığınız hataları doğrudan iletin.",
+    "drawerButton": "Geri Bildirim Gönder",
+    "drawerSub": "Hata bildir veya öneri paylaş",
+    "labelType": "Konu / Bildirim Türü",
+    "typeBug": "Hata / Sorun Bildir",
+    "typeIdea": "Öneri / Fikir",
+    "typeOther": "Diğer",
+    "labelName": "Ad Soyad",
+    "placeholderName": "Örn: Umut",
+    "labelEmail": "E-posta Adresi",
+    "labelMessage": "Mesaj / Durum Açıklaması",
+    "placeholderMessage": "Geri bildiriminizi, karşılaştığınız sorunu veya yeni özellik fikrinizi detaylandırın...",
+    "orMailto": "veya varsayılan mail uygulamasıyla gönder",
+    "sendBtn": "Gönder",
+    "sending": "Gönderiliyor...",
+    "successToast": "Geri bildiriminiz başarıyla iletildi, teşekkürler!",
+    "activationSent": "Geri bildirim gönderildi! Aktivasyon maili umutszg46@gmail.com adresine iletildi.",
+    "errEmptyMessage": "Lütfen bir mesaj veya açıklama yazın.",
+    "errFailed": "Gönderilemedi: "
+  },
   "common": {
     "close": "Kapat",
     "delete": "Kaldır",

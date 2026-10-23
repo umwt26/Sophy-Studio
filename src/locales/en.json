@@ -287,6 +287,28 @@
     "exportError": "Failed to cut sample: {{error}}",
     "tooShort": "File duration is shorter than 8 seconds, cannot cut sample."
   },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Directly submit your suggestions, feedback, or report bugs.",
+    "drawerButton": "Send Feedback",
+    "drawerSub": "Report a bug or suggest ideas",
+    "labelType": "Subject / Notification Type",
+    "typeBug": "Report a Bug / Issue",
+    "typeIdea": "Suggestion / Idea",
+    "typeOther": "Other",
+    "labelName": "Full Name",
+    "placeholderName": "e.g. Umut",
+    "labelEmail": "Email Address",
+    "labelMessage": "Message / Description",
+    "placeholderMessage": "Describe your feedback, the issue you faced, or a new feature request...",
+    "orMailto": "or send via default email app",
+    "sendBtn": "Send",
+    "sending": "Sending...",
+    "successToast": "Your feedback has been successfully sent, thank you!",
+    "activationSent": "Feedback sent! An activation email was delivered to umutszg46@gmail.com.",
+    "errEmptyMessage": "Please enter a message or description.",
+    "errFailed": "Failed to send: "
+  },
   "common": {
     "close": "Close",
     "delete": "Remove",

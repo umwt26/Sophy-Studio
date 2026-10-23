@@ -297,7 +297,7 @@
     "typeIdea": "Suggestion / Idea",
     "typeOther": "Other",
     "labelName": "Full Name",
-    "placeholderName": "e.g. Umut",
+    "placeholderName": "e.g. Jack Smith",
     "labelEmail": "Email Address",
     "labelMessage": "Message / Description",
     "placeholderMessage": "Describe your feedback, the issue you faced, or a new feature request...",

@@ -2,7 +2,7 @@
 name = "sophy"
 version = "0.2.0"
 description = "Sophy Studio - Modern Audio & Music Production Suite"
-authors = ["Umut", "Beli"]
+authors = ["Beli! (@umw26t)"]
 license = "MIT"
 repository = "https://github.com/umwt26/Sophy-Studio"
 edition = "2021"

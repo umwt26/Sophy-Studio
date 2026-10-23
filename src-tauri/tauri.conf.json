@@ -13,12 +13,13 @@
     "windows": [
       {
         "title": "Sophy Studio",
-        "width": 960,
-        "height": 680,
-        "minWidth": 780,
-        "minHeight": 540,
+        "width": 1280,
+        "height": 800,
+        "minWidth": 850,
+        "minHeight": 560,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "maximized": true
       }
     ],
     "security": {

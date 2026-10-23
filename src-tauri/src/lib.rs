@@ -19,7 +19,13 @@ pub fn run() {
       save_audio_metadata,
       select_audio_file,
       select_image_file,
-      read_file_binary
+      read_file_binary,
+      get_folder_settings,
+      save_folder_settings,
+      select_folder,
+      open_folder_path,
+      fetch_universal_media_info,
+      download_universal_media
     ])
     .setup(|app| {
       if let Some(window) = app.get_webview_window("main") {

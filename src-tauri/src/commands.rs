@@ -426,14 +426,16 @@ pub async fn select_image_file() -> Result<Option<String>, String> {
 }
 
 #[tauri::command]
-pub async fn read_file_binary(file_path: String) -> Result<Vec<u8>, String> {
-    std::fs::read(&file_path).map_err(|e| format!("Dosya okunamadı: {}", e))
+pub async fn read_file_binary(file_path: Option<String>, path: Option<String>) -> Result<Vec<u8>, String> {
+    let p = file_path.or(path).ok_or_else(|| "Dosya yolu belirtilmedi".to_string())?;
+    std::fs::read(&p).map_err(|e| format!("Dosya okunamadı: {}", e))
 }
 
 #[tauri::command]
-pub async fn read_file_base64(file_path: String) -> Result<String, String> {
+pub async fn read_file_base64(file_path: Option<String>, path: Option<String>) -> Result<String, String> {
     use base64::Engine;
-    let bytes = std::fs::read(&file_path).map_err(|e| format!("Dosya okunamadı: {}", e))?;
+    let p = file_path.or(path).ok_or_else(|| "Dosya yolu belirtilmedi".to_string())?;
+    let bytes = std::fs::read(&p).map_err(|e| format!("Dosya okunamadı: {}", e))?;
     Ok(base64::engine::general_purpose::STANDARD.encode(bytes))
 }
 

@@ -85,7 +85,7 @@
     "tipDragDrop": "You can drag and drop audio files directly into the window.",
     "tipCoverArt": "Use JPG or PNG images as album cover artwork in the metadata editor.",
     "tipOffline": "All analysis and conversions run locally on your device without internet upload.",
-    "releaseNotesTitle": "v1.0.0 Official Release & Updates",
+    "releaseNotesTitle": "v1.0 Official Release & Updates",
     "releaseMonth": "October 2026",
     "rel1Title": "Sample Cutter (8s Waveform Slicer)",
     "rel1Desc": "Interactive audio waveform with a fixed 8-second sliding window for seamless Suno sample trims (320k MP3 / WAV).",
@@ -93,8 +93,8 @@
     "rel2Desc": "Studio 320k MP3, WAV, cover art, and lyrics. Universal media capture with categorizable history.",
     "rel3Title": "Essentia Key & BPM Analysis",
     "rel3Desc": "12-Chroma HPCP with Camelot wheel, harmonic mixing pairs, and fine BPM adjustments.",
-    "rel4Title": "UI Polish & Official v1.0.0",
-    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0.0 release."
+    "rel4Title": "UI Polish & Official v1.0",
+    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0 release."
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -226,7 +226,7 @@
     "aboutDesc": "Desktop audio and media toolkit.",
     "developer": "Developer",
     "rights": "All rights reserved.",
-    "releaseNotesTitle": "v0.2.0 Release Notes",
+    "releaseNotesTitle": "v1.0 Release Notes",
     "relSunoTitle": "Suno Downloader 2.0 & Side Drawer History",
     "relSunoDesc": "Download Suno tracks as 320k MP3, uncompressed WAV, original stream, cover art, and synced lyrics (.lrc/.txt). Left slide-over history drawer with instant search.",
     "relUniTitle": "Universal Media Downloader & Categorization",

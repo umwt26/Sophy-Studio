@@ -159,7 +159,7 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
 
     try {
       const rawBytes = await invoke<number[]>("read_file_binary", {
-        path: selectedPath,
+        filePath: selectedPath,
       });
 
       const uint8 = new Uint8Array(rawBytes);

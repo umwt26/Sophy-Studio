@@ -57,12 +57,12 @@ export function Header({ onOpenFolder, onOpenHistory, updateVersion, onOpenUpdat
       <div className="flex items-center gap-3">
         <img
           src={logoImg}
-          alt="Sophy Logo"
+          alt="Sophy Studio Logo"
           className="h-8 w-8 rounded-lg object-contain drop-shadow-[0_2px_8px_rgba(84,151,224,0.3)]"
         />
         <div className="flex items-center gap-2">
           <span className="text-[17px] font-bold tracking-tight text-[var(--color-text-primary)]">
-            Sophy
+            Sophy Studio
           </span>
           {updateVersion && (
             <button
@@ -161,7 +161,7 @@ export function Header({ onOpenFolder, onOpenHistory, updateVersion, onOpenUpdat
           className="flex items-center gap-2 rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3.5 py-2 text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-text-primary)] active:bg-[#282b33]"
         >
           <FolderIcon className="h-4 w-4" />
-          {t("app.openFolder", "Open Sophy Folder")}
+          {t("app.openFolder", "Open Sophy Studio Folder")}
         </button>
       </div>
     </header>

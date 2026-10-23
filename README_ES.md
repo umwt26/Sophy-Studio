@@ -1,11 +1,11 @@
 <div align="center">
 
-# 🎵 Sophy — Suno Downloader & Toolkit
+# 🎵 Sophy Studio — Suno Downloader & Toolkit
 
 **La herramienta definitiva de escritorio y alto rendimiento para descargar medios de Suno AI.**
 
-[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/sophy-suno-downloader/releases)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/sophy-suno-downloader)
+[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/Sophy-Studio/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/Sophy-Studio)
 [![Built With](https://img.shields.io/badge/Built%20With-Tauri%202%20%7C%20Rust%20%7C%20React%2019-teal.svg?style=for-the-badge)](https://tauri.app)
 [![Developer](https://img.shields.io/badge/Developer-Beli!%20(@umw26t)-E4405F.svg?style=for-the-badge&logo=instagram)](https://www.instagram.com/umw26t/)
 
@@ -17,10 +17,10 @@
 
 ---
 
-## 💡 Acerca de Sophy
+## 💡 Acerca de Sophy Studio
 
 > **¿Cansado de los límites de descarga de Suno, las cuotas restrictivas y las interfaces web lentas?**  
-> ¡Bienvenido a **Sophy**! La generación creativa de música no debería estar limitada por procesos engorrosos. Sophy permite a creadores, productores y oyentes extraer audio limpio en calidad de estudio, WAV sin pérdidas, portadas en alta resolución y letras directamente desde enlaces de Suno a carpetas perfectamente organizadas en tu ordenador, de forma totalmente gratuita, ilimitada y ultrarrápida.
+> ¡Bienvenido a **Sophy Studio**! La generación creativa de música no debería estar limitada por procesos engorrosos. Sophy Studio permite a creadores, productores y oyentes extraer audio limpio en calidad de estudio, WAV sin pérdidas, portadas en alta resolución y letras directamente desde enlaces de Suno a carpetas perfectamente organizadas en tu ordenador, de forma totalmente gratuita, ilimitada y ultrarrápida.
 
 ---
 
@@ -35,7 +35,7 @@
 - **🕒 Historial de búsqueda local:** No vuelvas a perder una canción. Tus búsquedas se guardan en tu equipo y puedes recargarlas al instante.
 - **🌍 8 idiomas de interfaz:** English, Türkçe, Deutsch, Français, Español, Русский, Português y 日本語 con cambio en tiempo real.
 - **🚀 Actualizador automático integrado:** Comprueba si hay nuevas versiones al iniciar y descarga e instala actualizaciones dentro de la propia aplicación.
-- **📁 Biblioteca local organizada:** Guarda tus archivos automáticamente en `Documentos\Sophy\` organizados en subcarpetas (`Audio`, `Cover Art`, `Lyrics`, `All`).
+- **📁 Biblioteca local organizada:** Guarda tus archivos automáticamente en `Documentos\Sophy Studio\` organizados en subcarpetas (`Audio`, `Cover Art`, `Lyrics`, `All`).
 
 ---
 
@@ -84,9 +84,9 @@ Modo oscuro enfocado y libre de distracciones, diseñado para la máxima comodid
 ## 📥 Instalación
 
 ### Instalador para Windows (Setup)
-1. Descarga el archivo `Sophy_Setup.exe` más reciente desde la página de [Releases](https://github.com/umwt26/sophy-suno-downloader/releases).
+1. Descarga el archivo `Sophy_Studio_Setup.exe` más reciente desde la página de [Releases](https://github.com/umwt26/Sophy-Studio/releases).
 2. Ejecuta el instalador y sigue el asistente moderno.
-3. ¡Abre **Sophy** directamente desde tu Escritorio o Menú Inicio!
+3. ¡Abre **Sophy Studio** directamente desde tu Escritorio o Menú Inicio!
 
 ---
 
@@ -114,4 +114,4 @@ Crafted with ❤️ by **Beli! (Discord: @umw35t)**.
 ## 📄 Licencia y aviso legal
 
 Este proyecto está bajo la Licencia MIT.  
-*Aviso legal: Sophy es una herramienta independiente de código abierto y no está afiliada ni respaldada oficialmente por Suno AI. Por favor, respeta los derechos de autor y los términos de servicio de los artistas y las plataformas.*
+*Aviso legal: Sophy Studio es una herramienta independiente de código abierto y no está afiliada ni respaldada oficialmente por Suno AI. Por favor, respeta los derechos de autor y los términos de servicio de los artistas y las plataformas.*

@@ -1,11 +1,11 @@
 <div align="center">
 
-# 🎵 Sophy — Suno Downloader & Toolkit
+# 🎵 Sophy Studio — Suno Downloader & Toolkit
 
 **Ультимативный высокопроизводительный десктопный загрузчик и инструментарий для медиа Suno AI.**
 
-[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/sophy-suno-downloader/releases)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/sophy-suno-downloader)
+[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/Sophy-Studio/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/Sophy-Studio)
 [![Built With](https://img.shields.io/badge/Built%20With-Tauri%202%20%7C%20Rust%20%7C%20React%2019-teal.svg?style=for-the-badge)](https://tauri.app)
 [![Developer](https://img.shields.io/badge/Developer-Beli!%20(@umw26t)-E4405F.svg?style=for-the-badge&logo=instagram)](https://www.instagram.com/umw26t/)
 
@@ -17,10 +17,10 @@
 
 ---
 
-## 💡 О программе Sophy
+## 💡 О программе Sophy Studio
 
 > **Устали от ограничений на скачивание в Suno, лимитов и медленного веб-интерфейса?**  
-> Добро пожаловать в **Sophy**! Создание музыки не должно упираться в неудобный процесс загрузки. Sophy позволяет музыкантам, продюсерам и слушателям получать чистый студийный звук, lossless WAV, обложки в оригинальном качестве и тексты песен напрямую по ссылкам Suno в аккуратно структурированные папки — абсолютно бесплатно, без ограничений и молниеносно.
+> Добро пожаловать в **Sophy Studio**! Создание музыки не должно упираться в неудобный процесс загрузки. Sophy Studio позволяет музыкантам, продюсерам и слушателям получать чистый студийный звук, lossless WAV, обложки в оригинальном качестве и тексты песен напрямую по ссылкам Suno в аккуратно структурированные папки — абсолютно бесплатно, без ограничений и молниеносно.
 
 ---
 
@@ -35,7 +35,7 @@
 - **🕒 Локальная история поиска:** Ваши предыдущие запросы сохраняются прямо на устройстве и открываются заново в один клик.
 - **🌍 8 языков интерфейса:** English, Türkçe, Deutsch, Français, Español, Русский, Português и 日本語 с моментальным переключением.
 - **🚀 Встроенный автоапдейтер:** Автоматически проверяет наличие обновлений на GitHub и позволяет обновиться прямо внутри приложения в один клик.
-- **📁 Четкая структура файлов:** Все загрузки автоматически сохраняются в `Документы\Sophy\` по удобным подпапкам (`Audio`, `Cover Art`, `Lyrics`, `All`).
+- **📁 Четкая структура файлов:** Все загрузки автоматически сохраняются в `Документы\Sophy Studio\` по удобным подпапкам (`Audio`, `Cover Art`, `Lyrics`, `All`).
 
 ---
 
@@ -84,9 +84,9 @@
 ## 📥 Установка
 
 ### Установщик для Windows (Setup)
-1. Скачайте свежий `Sophy_Setup.exe` со страницы [Releases](https://github.com/umwt26/sophy-suno-downloader/releases).
+1. Скачайте свежий `Sophy_Studio_Setup.exe` со страницы [Releases](https://github.com/umwt26/Sophy-Studio/releases).
 2. Запустите инсталлятор и следуйте подсказкам мастера установки.
-3. Запускайте **Sophy** с рабочего стола или из меню «Пуск»!
+3. Запускайте **Sophy Studio** с рабочего стола или из меню «Пуск»!
 
 ---
 
@@ -114,4 +114,4 @@ Crafted with ❤️ by **Beli! (Discord: @umw35t)**.
 ## 📄 Лицензия и правовая информация
 
 Проект распространяется под лицензией MIT.  
-*Дисклеймер: Sophy — независимый проект с открытым исходным кодом и официально не связан с Suno AI. Пожалуйста, соблюдайте авторские права и правила сервисов.*
+*Дисклеймер: Sophy Studio — независимый проект с открытым исходным кодом и официально не связан с Suno AI. Пожалуйста, соблюдайте авторские права и правила сервисов.*

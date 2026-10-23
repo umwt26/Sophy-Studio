@@ -1,11 +1,11 @@
 {
   "app": {
-    "title": "Sophy",
+    "title": "Sophy Studio",
     "subtitle": "Suno AI Загрузчик и Инструменты",
     "inputPlaceholder": "Вставьте ссылку на трек Suno (напр. https://suno.com/s/...)",
     "analyzeBtn": "Загрузить трек",
     "fetching": "Анализ трека...",
-    "openFolder": "Открыть папку Sophy",
+    "openFolder": "Открыть папку Sophy Studio",
     "downloadAll": "Скачать всё (.zip)",
     "audio": "Аудио",
     "coverArt": "Обложка",
@@ -13,7 +13,7 @@
     "downloading": "Загрузка...",
     "converting": "Конвертация...",
     "completed": "Готово!",
-    "folderNote": "Сохранено в: Документы/Sophy/",
+    "folderNote": "Сохранено в: Документы/Sophy Studio/",
     "language": "Язык",
     "history": "История",
     "historyTitle": "История поиска",
@@ -35,7 +35,7 @@
     "sponsor5Title": "Сайт Filera Music & Label",
     "sponsor5Desc": "Ведущий музыкальный лейбл и дистрибуция под началом Filera Music Video Digital Platform.",
     "updateAvailable": "Доступна новая версия!",
-    "updateNotice": "Вышла новая версия Sophy: v{{version}}. Обновите меня!",
+    "updateNotice": "Вышла новая версия Sophy Studio: v{{version}}. Обновите меня!",
     "updateBtn": "Обновить",
     "updateDismiss": "Закрыть"
   }

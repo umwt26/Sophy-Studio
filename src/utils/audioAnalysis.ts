@@ -1,11 +1,8 @@
 import type { KeyBpmResult } from "../types";
-
-// Pitch classes
-const PITCH_CLASSES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-
-// KeyFinder / Sha'ath Harmonic Profiles (Industry standard in DJ software & Tunebat)
-const KEYFINDER_MAJOR = [6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88];
-const KEYFINDER_MINOR = [6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17];
+// @ts-ignore
+import EssentiaWASM from "essentia.js/dist/essentia-wasm.umd.js";
+// @ts-ignore
+import Essentia from "essentia.js/dist/essentia.js-core.umd.js";
 
 // Camelot Wheel mappings
 interface CamelotInfo {
@@ -16,7 +13,7 @@ interface CamelotInfo {
 }
 
 const CAMELOT_MAP: Record<string, CamelotInfo> = {
-  // Major keys
+  // Major keys (B)
   "B Major": { camelot: "1B", color: "#38bdf8", relative: "Ab Minor (1A)", compatibles: ["1A", "12B", "2B"] },
   "F# Major": { camelot: "2B", color: "#06b6d4", relative: "Eb Minor (2A)", compatibles: ["2A", "1B", "3B"] },
   "Gb Major": { camelot: "2B", color: "#06b6d4", relative: "Eb Minor (2A)", compatibles: ["2A", "1B", "3B"] },
@@ -35,7 +32,7 @@ const CAMELOT_MAP: Record<string, CamelotInfo> = {
   "A Major": { camelot: "11B", color: "#ec4899", relative: "F# Minor (11A)", compatibles: ["11A", "10B", "12B"] },
   "E Major": { camelot: "12B", color: "#a855f7", relative: "C# Minor (12A)", compatibles: ["12A", "11B", "1B"] },
 
-  // Minor keys
+  // Minor keys (A)
   "Ab Minor": { camelot: "1A", color: "#0ea5e9", relative: "B Major (1B)", compatibles: ["1B", "12A", "2A"] },
   "G# Minor": { camelot: "1A", color: "#0ea5e9", relative: "B Major (1B)", compatibles: ["1B", "12A", "2A"] },
   "Eb Minor": { camelot: "2A", color: "#0284c7", relative: "F# Major (2B)", compatibles: ["2B", "1A", "3A"] },
@@ -54,362 +51,125 @@ const CAMELOT_MAP: Record<string, CamelotInfo> = {
   "Db Minor": { camelot: "12A", color: "#9333ea", relative: "E Major (12B)", compatibles: ["12B", "11A", "1A"] },
 };
 
-/**
- * Radix-2 Cooley-Tukey In-Place Fast Fourier Transform (O(N log N))
- */
-function fft(re: Float32Array, im: Float32Array): void {
-  const n = re.length;
-  // Bit-reversal permutation
-  let j = 0;
-  for (let i = 0; i < n - 1; i++) {
-    if (i < j) {
-      const tempR = re[i]; re[i] = re[j]; re[j] = tempR;
-      const tempI = im[i]; im[i] = im[j]; im[j] = tempI;
-    }
-    let k = n >> 1;
-    while (k <= j) {
-      j -= k;
-      k >>= 1;
-    }
-    j += k;
+let essentiaGlobal: any = null;
+
+function getEssentiaInstance(): any {
+  if (!essentiaGlobal) {
+    essentiaGlobal = new Essentia(EssentiaWASM);
   }
-
-  // Butterfly computations
-  for (let len = 2; len <= n; len <<= 1) {
-    const halfLen = len >> 1;
-    const angle = (-2 * Math.PI) / len;
-    const wStepR = Math.cos(angle);
-    const wStepI = Math.sin(angle);
-
-    for (let i = 0; i < n; i += len) {
-      let wR = 1;
-      let wI = 0;
-      for (let k = 0; k < halfLen; k++) {
-        const uR = re[i + k];
-        const uI = im[i + k];
-        const vR = re[i + k + halfLen] * wR - im[i + k + halfLen] * wI;
-        const vI = re[i + k + halfLen] * wI + im[i + k + halfLen] * wR;
-
-        re[i + k] = uR + vR;
-        im[i + k] = uI + vI;
-        re[i + k + halfLen] = uR - vR;
-        im[i + k + halfLen] = uI - vI;
-
-        const nextWR = wR * wStepR - wI * wStepI;
-        const nextWI = wR * wStepI + wI * wStepR;
-        wR = nextWR;
-        wI = nextWI;
-      }
-    }
-  }
+  return essentiaGlobal;
 }
 
 /**
- * Pearson Correlation Coefficient
+ * Resamples an AudioBuffer to standard 44.1kHz mono PCM vector for Essentia algorithms.
  */
-function correlation(a: number[], b: number[]): number {
-  const n = a.length;
-  let sumA = 0;
-  let sumB = 0;
-  for (let i = 0; i < n; i++) {
-    sumA += a[i];
-    sumB += b[i];
-  }
-  const meanA = sumA / n;
-  const meanB = sumB / n;
+async function getMonoPcm44100(audioBuffer: AudioBuffer): Promise<Float32Array> {
+  const targetSr = 44100;
+  // Limit to 120 seconds max to prevent browser freeze on giant audio sets
+  const duration = Math.min(audioBuffer.duration, 120);
 
-  let num = 0;
-  let denA = 0;
-  let denB = 0;
-  for (let i = 0; i < n; i++) {
-    const da = a[i] - meanA;
-    const db = b[i] - meanB;
-    num += da * db;
-    denA += da * da;
-    denB += db * db;
-  }
-  const den = Math.sqrt(denA * denB);
-  return den === 0 ? 0 : num / den;
+  // Use OfflineAudioContext for clean, hardware-accelerated polyphase resampling
+  const offlineCtx = new (window.OfflineAudioContext || (window as any).webkitOfflineAudioContext)(
+    1,
+    Math.ceil(duration * targetSr),
+    targetSr
+  );
+
+  const source = offlineCtx.createBufferSource();
+  source.buffer = audioBuffer;
+  source.connect(offlineCtx.destination);
+  source.start(0);
+
+  const rendered = await offlineCtx.startRendering();
+  return rendered.getChannelData(0);
 }
 
 /**
- * Decodes audio and renders two distinct signals:
- * 1. Full mono harmonic track (11025 Hz)
- * 2. Low-pass filtered (140 Hz) kick/bass rhythm track (isolated for tempo detection)
+ * High-precision Tunebat-grade Key & BPM Analysis using Essentia.js
+ * (KeyExtractor 12-Chroma HPCP + RhythmExtractor2013 multifeature beat tracking)
  */
-async function decodeAudioSignals(arrayBuffer: ArrayBuffer): Promise<{
-  harmonicData: Float32Array;
-  rhythmData: Float32Array;
-  sampleRate: number;
-  duration: number;
-}> {
-  const tempCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-  const audioBuffer = await tempCtx.decodeAudioData(arrayBuffer);
-  await tempCtx.close();
+export async function analyzeAudio(
+  arrayBuffer: ArrayBuffer,
+  onProgress?: (stage: string) => void
+): Promise<KeyBpmResult> {
+  // 1. Decode Web Audio Buffer
+  onProgress?.("Ses dalgaları ve frekans katmanları çözülüyor...");
+  const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const decodedBuffer = await audioCtx.decodeAudioData(arrayBuffer);
 
-  const duration = audioBuffer.duration;
-  const targetSampleRate = 11025;
-  const targetLength = Math.floor(duration * targetSampleRate);
+  // 2. Resample to 44.1kHz mono Float32Array
+  onProgress?.("44.1kHz stüdyo frekansına dönüştürülüyor...");
+  const monoPcm = await getMonoPcm44100(decodedBuffer);
 
-  // 1. Render Full Harmonic Mono Track
-  const harmCtx = new OfflineAudioContext(1, targetLength, targetSampleRate);
-  const harmSource = harmCtx.createBufferSource();
-  harmSource.buffer = audioBuffer;
-  harmSource.connect(harmCtx.destination);
-  harmSource.start(0);
-  const renderedHarmBuffer = await harmCtx.startRendering();
+  // Artificial smooth pacing for user experience if processing is sub-second
+  await new Promise((r) => setTimeout(r, 400));
 
-  // 2. Render Low-Pass Filtered (140 Hz) Rhythm Track (isolates kicks & sub-bass, eliminates vocals/synths/hi-hats)
-  const rhythmCtx = new OfflineAudioContext(1, targetLength, targetSampleRate);
-  const rhythmSource = rhythmCtx.createBufferSource();
-  rhythmSource.buffer = audioBuffer;
+  // 3. Initialize Essentia WASM Engine
+  onProgress?.("Harmonik 12-Chroma HPCP & Ton profili çıkarılıyor...");
+  const essentia = getEssentiaInstance();
+  const audioVector = essentia.arrayToVector(monoPcm);
 
-  const lowpassFilter = rhythmCtx.createBiquadFilter();
-  lowpassFilter.type = "lowpass";
-  lowpassFilter.frequency.value = 140; // 140Hz cutoff filters out everything except kick drum punch
-  lowpassFilter.Q.value = 1.0;
+  try {
+    // 4. Extract Musical Key with Essentia KeyExtractor
+    const keyData = essentia.KeyExtractor(
+      audioVector,
+      true, // averageDetuningCorrection
+      4096, // frameSize
+      4096, // hopSize
+      12,   // hpcpSize
+      3500, // maxFrequency
+      60,   // maximumSpectralPeaks
+      25,   // minFrequency
+      0.2,  // pcpThreshold
+      "bgate", // profileType (standard harmonic profile)
+      44100 // sampleRate
+    );
 
-  rhythmSource.connect(lowpassFilter);
-  lowpassFilter.connect(rhythmCtx.destination);
-  rhythmSource.start(0);
-  const renderedRhythmBuffer = await rhythmCtx.startRendering();
+    await new Promise((r) => setTimeout(r, 400));
 
-  return {
-    harmonicData: renderedHarmBuffer.getChannelData(0),
-    rhythmData: renderedRhythmBuffer.getChannelData(0),
-    sampleRate: targetSampleRate,
-    duration,
-  };
-}
+    // 5. Extract BPM with Essentia RhythmExtractor2013 (industry standard multifeature)
+    onProgress?.("Ritim örüntüsü & vuruş aralıkları taranıyor...");
+    const rhythmData = essentia.RhythmExtractor2013(audioVector, 208, "multifeature", 40);
 
-/**
- * Tunebat-grade precision BPM detection using kick-filtered onsets & autocorrelation
- */
-function detectBpm(rhythmSamples: Float32Array, sampleRate: number): number {
-  // Step 1: Compute smoothed energy envelope on the 140Hz kick track (hop size = 16 ~ 689 Hz)
-  const hop = 16;
-  const envLen = Math.floor(rhythmSamples.length / hop);
-  const envelope = new Float32Array(envLen);
-  const envRate = sampleRate / hop;
+    // Format Key
+    let detectedKey = keyData.key || "C";
+    let detectedScale = keyData.scale || "major";
+    // Normalize format: e.g. "D" + " " + "Minor"
+    const capitalizedScale = detectedScale.toLowerCase() === "minor" ? "Minor" : "Major";
+    const fullKey = `${detectedKey} ${capitalizedScale}`;
 
-  for (let i = 0; i < envLen; i++) {
-    let sum = 0;
-    const start = i * hop;
-    for (let j = 0; j < hop; j++) {
-      const v = rhythmSamples[start + j];
-      sum += v * v;
-    }
-    envelope[i] = Math.sqrt(sum / hop);
+    // Camelot Wheel lookup
+    const camelotInfo = CAMELOT_MAP[fullKey] || {
+      camelot: "8B",
+      color: "#f59e0b",
+      relative: "A Minor (8A)",
+      compatibles: ["8A", "7B", "9B"],
+    };
+
+    // Format BPM
+    let rawBpm = Number(rhythmData.bpm);
+    if (!rawBpm || isNaN(rawBpm)) rawBpm = 120;
+    let finalBpm = Math.round(rawBpm);
+
+    // Human audible music bounds check (common half/double tempo correction)
+    if (finalBpm < 55 && finalBpm > 0) finalBpm *= 2;
+    if (finalBpm > 210) finalBpm = Math.round(finalBpm / 2);
+
+    onProgress?.("Tunebat Camelot & tempo tespiti tamamlandı!");
+    await new Promise((r) => setTimeout(r, 300));
+
+    return {
+      key: fullKey,
+      camelot: camelotInfo.camelot,
+      camelotColor: camelotInfo.color,
+      relativeKey: camelotInfo.relative,
+      compatibleKeys: camelotInfo.compatibles,
+      bpm: finalBpm,
+      duration: decodedBuffer.duration,
+      confidence: Math.round((keyData.strength || 0.85) * 100),
+    };
+  } finally {
+    audioVector.delete();
+    audioCtx.close();
   }
-
-  // Step 2: First-order difference (onset detection)
-  const onsets = new Float32Array(envLen);
-  for (let i = 1; i < envLen; i++) {
-    const diff = envelope[i] - envelope[i - 1];
-    onsets[i] = diff > 0 ? diff : 0;
-  }
-
-  // Step 3: Autocorrelation over musical tempo range (65 to 190 BPM)
-  const minBpm = 65;
-  const maxBpm = 190;
-  const minLag = Math.floor((envRate * 60) / maxBpm);
-  const maxLag = Math.floor((envRate * 60) / minBpm);
-
-  // Take a representative active portion of the track (up to 45 seconds)
-  const sliceLen = Math.min(onsets.length, Math.floor(envRate * 45));
-  const startIdx = Math.floor((onsets.length - sliceLen) / 3);
-
-  const bpmScores: { bpm: number; lag: number; score: number }[] = [];
-
-  for (let lag = minLag; lag <= maxLag; lag++) {
-    let corr = 0;
-    const len = sliceLen - lag;
-    for (let i = 0; i < len; i++) {
-      corr += onsets[startIdx + i] * onsets[startIdx + i + lag];
-    }
-    const bpm = (envRate * 60) / lag;
-    bpmScores.push({ bpm, lag, score: corr });
-  }
-
-  // Find peak correlation
-  bpmScores.sort((a, b) => b.score - a.score);
-  const topCandidate = bpmScores[0];
-  let finalBpm = topCandidate ? topCandidate.bpm : 120;
-
-  // Harmonically check for half-time / double-time ambiguity:
-  // e.g. 70 BPM (half-time trap kick-snare) vs 140 BPM
-  // If the detected peak is near 70, check if 140 has strong correlation:
-  if (finalBpm >= 65 && finalBpm <= 85) {
-    const doubleBpm = finalBpm * 2;
-    const match = bpmScores.find((b) => Math.abs(b.bpm - doubleBpm) < 2);
-    if (match && match.score > topCandidate.score * 0.45) {
-      finalBpm = doubleBpm;
-    }
-  }
-
-  return Math.round(finalBpm);
-}
-
-/**
- * Tunebat-grade Musical Key Detection:
- * Uses Radix-2 FFT + KeyFinder Profiles + Bass Tonic Reinforcement
- */
-function detectKey(samples: Float32Array, sampleRate: number): {
-  key: string;
-  camelot: string;
-  color: string;
-  relative: string;
-  compatibles: string[];
-} {
-  const fftSize = 4096;
-  const hopSize = 2048;
-
-  const fullChroma = new Float64Array(12);
-  const bassChroma = new Float64Array(12);
-
-  // Precompute Hanning window
-  const window = new Float32Array(fftSize);
-  for (let i = 0; i < fftSize; i++) {
-    window[i] = 0.5 * (1 - Math.cos((2 * Math.PI * i) / (fftSize - 1)));
-  }
-
-  // Precompute bin to musical pitch parameters
-  const binPitch = new Int8Array(fftSize / 2);
-  const binWeight = new Float32Array(fftSize / 2);
-  const isBassBin = new Uint8Array(fftSize / 2);
-
-  for (let bin = 1; bin < fftSize / 2; bin++) {
-    const freq = (bin * sampleRate) / fftSize;
-    if (freq >= 55 && freq <= 1800) {
-      // 55 Hz (A1) to 1800 Hz (A6)
-      const midi = 69 + 12 * Math.log2(freq / 440);
-      const nearestNote = Math.round(midi);
-      const pitchClass = ((nearestNote % 12) + 12) % 12;
-      const deviation = Math.abs(midi - nearestNote);
-
-      binPitch[bin] = pitchClass;
-      // Gaussian semitone tuning weight (rejects non-harmonic noise between pitches)
-      binWeight[bin] = Math.exp(-16 * deviation * deviation);
-      // Bass register (55 Hz to 260 Hz) contains the fundamental roots of chords
-      isBassBin[bin] = freq <= 260 ? 1 : 0;
-    } else {
-      binPitch[bin] = -1;
-    }
-  }
-
-  const totalFrames = Math.floor((samples.length - fftSize) / hopSize);
-  const startFrame = Math.floor(totalFrames * 0.1);
-  const endFrame = Math.min(totalFrames - 1, startFrame + 180); // ~35 seconds of high-fidelity FFT
-
-  const re = new Float32Array(fftSize);
-  const im = new Float32Array(fftSize);
-
-  for (let f = startFrame; f < endFrame; f++) {
-    const offset = f * hopSize;
-    for (let i = 0; i < fftSize; i++) {
-      re[i] = samples[offset + i] * window[i];
-      im[i] = 0;
-    }
-
-    // Run exact Radix-2 FFT
-    fft(re, im);
-
-    // Accumulate chromagram energies
-    for (let bin = 1; bin < fftSize / 2; bin++) {
-      const p = binPitch[bin];
-      if (p >= 0) {
-        const mag = Math.sqrt(re[bin] * re[bin] + im[bin] * im[bin]);
-        const energy = mag * binWeight[bin];
-        fullChroma[p] += energy;
-        if (isBassBin[bin]) {
-          bassChroma[p] += energy;
-        }
-      }
-    }
-  }
-
-  // Normalize Full Chroma
-  let maxFull = 0;
-  let maxBass = 0;
-  for (let i = 0; i < 12; i++) {
-    if (fullChroma[i] > maxFull) maxFull = fullChroma[i];
-    if (bassChroma[i] > maxBass) maxBass = bassChroma[i];
-  }
-  if (maxFull > 0) {
-    for (let i = 0; i < 12; i++) fullChroma[i] /= maxFull;
-  }
-  if (maxBass > 0) {
-    for (let i = 0; i < 12; i++) bassChroma[i] /= maxBass;
-  }
-
-  const chromaArray = Array.from(fullChroma);
-
-  // Correlate against 24 KeyFinder profiles + Bass Tonic Reinforcement
-  let bestScore = -999;
-  let bestKeyName = "C Major";
-
-  for (let root = 0; root < 12; root++) {
-    // 1. Candidate Major Key
-    const majProf = new Array(12);
-    for (let i = 0; i < 12; i++) {
-      majProf[i] = KEYFINDER_MAJOR[(i - root + 12) % 12];
-    }
-    let majScore = correlation(chromaArray, majProf);
-    // Reinforce candidate key if its tonic root is prominent in the bass register
-    majScore += bassChroma[root] * 0.28;
-
-    if (majScore > bestScore) {
-      bestScore = majScore;
-      bestKeyName = `${PITCH_CLASSES[root]} Major`;
-    }
-
-    // 2. Candidate Minor Key
-    const minProf = new Array(12);
-    for (let i = 0; i < 12; i++) {
-      minProf[i] = KEYFINDER_MINOR[(i - root + 12) % 12];
-    }
-    let minScore = correlation(chromaArray, minProf);
-    // Reinforce candidate key if its tonic root is prominent in the bass register
-    minScore += bassChroma[root] * 0.28;
-
-    if (minScore > bestScore) {
-      bestScore = minScore;
-      bestKeyName = `${PITCH_CLASSES[root]} Minor`;
-    }
-  }
-
-  const camelotInfo = CAMELOT_MAP[bestKeyName] || {
-    camelot: "12A",
-    color: "#9333ea",
-    relative: "E Major (12B)",
-    compatibles: ["12B", "11A", "1A"],
-  };
-
-  return {
-    key: bestKeyName,
-    camelot: camelotInfo.camelot,
-    color: camelotInfo.color,
-    relative: camelotInfo.relative,
-    compatibles: camelotInfo.compatibles,
-  };
-}
-
-/**
- * Main Tunebat-grade analysis entry point
- */
-export async function analyzeAudio(arrayBuffer: ArrayBuffer): Promise<KeyBpmResult> {
-  const { harmonicData, rhythmData, sampleRate, duration } = await decodeAudioSignals(arrayBuffer);
-
-  const bpm = detectBpm(rhythmData, sampleRate);
-  const keyInfo = detectKey(harmonicData, sampleRate);
-
-  return {
-    bpm,
-    key: keyInfo.key,
-    camelot: keyInfo.camelot,
-    camelotColor: keyInfo.color,
-    relativeKey: keyInfo.relative,
-    compatibleKeys: keyInfo.compatibles,
-    duration,
-  };
 }

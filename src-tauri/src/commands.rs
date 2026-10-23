@@ -488,9 +488,14 @@ pub async fn fetch_universal_media_info(url: String) -> Result<sophy_core::Unive
 pub async fn download_universal_media(
     app: tauri::AppHandle,
     url: String,
-    format_type: String,
+    format_type: Option<String>,
+    format: Option<String>,
     custom_dir: Option<String>,
 ) -> Result<String, String> {
+    let resolved_format = format_type
+        .or(format)
+        .unwrap_or_else(|| "mp4".to_string());
+
     let target_dir = if let Some(dir) = custom_dir.filter(|s| !s.trim().is_empty()) {
         std::path::PathBuf::from(dir)
     } else {
@@ -499,5 +504,5 @@ pub async fn download_universal_media(
     };
 
     let _ = app.emit("download-status", "Medya indiriliyor...");
-    sophy_core::UniversalDownloader::download(&url, &format_type, &target_dir).await
+    sophy_core::UniversalDownloader::download(&url, &resolved_format, &target_dir).await
 }

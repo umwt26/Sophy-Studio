@@ -161,7 +161,8 @@ impl UniversalDownloader {
         cmd.arg("-o");
         cmd.arg(&template_str);
 
-        if format_type.to_lowercase() == "audio" {
+        let fmt = format_type.to_lowercase();
+        if fmt == "audio" || fmt == "mp3" {
             cmd.args([
                 "-x",
                 "--audio-format",

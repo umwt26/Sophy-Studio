@@ -218,7 +218,6 @@ export default function App() {
       <Header
         activeTab={activeTab}
         onOpenMenu={() => setDrawerOpen(true)}
-        onOpenFolder={handleOpenFolder}
         onOpenSettings={() => setActiveTab("settings")}
         updateVersion={updateInfo?.has_update ? updateInfo.latest_version : undefined}
         onOpenUpdate={() => setUpdateModalOpen(true)}

@@ -87,5 +87,6 @@ export interface KeyBpmResult {
   relativeKey: string;
   compatibleKeys: string[];
   duration: number;
+  confidence?: number;
 }
 

@@ -167,7 +167,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={sending}
-                placeholder={t("feedback.placeholderName", "Örn: Umut")}
+                placeholder={t("feedback.placeholderName", "Örn: Jack Smith")}
                 className="w-full rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3.5 py-2.5 text-xs text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
               />
             </div>

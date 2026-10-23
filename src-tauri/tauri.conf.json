@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Sophy Studio",
   "version": "0.2.0",
-  "identifier": "com.sophystudio.app",
+  "identifier": "com.sophystudio.desktop",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",
@@ -38,10 +38,11 @@
     ],
     "windows": {
       "nsis": {
-        "installMode": "perMachine",
+        "installMode": "currentUser",
         "headerImage": "icons/nsis-header.bmp",
         "sidebarImage": "icons/nsis-sidebar.bmp",
         "installerIcon": "icons/icon.ico",
+        "installerHooks": "hooks.nsh",
         "languages": [
           "Turkish",
           "English"

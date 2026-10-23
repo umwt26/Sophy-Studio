@@ -136,14 +136,14 @@ pub async fn download_media(
             if target_format == "mp3" {
                 let _ = app.emit("download-status", "Converting to high quality MP3 (320kbps)...");
                 let out_file = paths.audio.join(format!("{}.mp3", base_name));
-                let res = MediaConverter::convert_to_mp3(&temp_input, &out_file);
+                let res = MediaConverter::convert_to_mp3(&temp_input, &out_file).await;
                 let _ = std::fs::remove_file(&temp_input);
                 res?;
                 Ok(out_file.to_string_lossy().to_string())
             } else {
                 let _ = app.emit("download-status", "Converting to lossless WAV...");
                 let out_file = paths.audio.join(format!("{}.wav", base_name));
-                let res = MediaConverter::convert_to_wav(&temp_input, &out_file);
+                let res = MediaConverter::convert_to_wav(&temp_input, &out_file).await;
                 let _ = std::fs::remove_file(&temp_input);
                 res?;
                 Ok(out_file.to_string_lossy().to_string())
@@ -198,7 +198,7 @@ pub async fn download_media(
             let temp_input = paths.all.join(format!("{}.m4a", clip.id));
             std::fs::write(&temp_input, audio_bytes).map_err(|e| e.to_string())?;
             let mp3_file = paths.all.join(format!("{}.mp3", base_name));
-            MediaConverter::convert_to_mp3(&temp_input, &mp3_file)?;
+            MediaConverter::convert_to_mp3(&temp_input, &mp3_file).await?;
             let _ = std::fs::remove_file(&temp_input);
 
             // 2. Cover

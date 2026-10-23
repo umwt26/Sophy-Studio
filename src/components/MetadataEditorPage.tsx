@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { getCurrentWebview } from "@tauri-apps/api/webview";
 import { useTranslation } from "react-i18next";
 import {
   FolderIcon,
@@ -20,6 +21,9 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [metadata, setMetadata] = useState<AudioMetadata | null>(null);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [selecting, setSelecting] = useState(false);
+  const [selectingCover, setSelectingCover] = useState(false);
 
   // Form fields
   const [title, setTitle] = useState("");
@@ -56,39 +60,98 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
     }
   };
 
-  const handleSelectFile = async () => {
+  const applyCoverImage = async (imagePath: string) => {
     try {
+      const b64 = await invoke<string>("read_file_base64", { filePath: imagePath });
+      const lower = imagePath.toLowerCase();
+      const mime = lower.endsWith(".png") ? "image/png" : "image/jpeg";
+      setCoverBase64(b64);
+      setCoverMimeType(mime);
+      setRemoveCover(false);
+      onShowToast(t("metadata.coverSelected", "Kapak görseli seçildi!"));
+    } catch (err: any) {
+      onShowToast(`${t("metadata.errorSelectCover", "Kapak seçilemedi")}: ${err?.toString()}`);
+    }
+  };
+
+  const handleSelectFile = async () => {
+    if (selecting || loading || saving) return;
+    try {
+      setSelecting(true);
       const selected = await invoke<string | null>("select_audio_file");
       if (selected) {
         await loadFileMetadata(selected);
       }
     } catch (err: any) {
       onShowToast(`${t("metadata.errorSelectFile", "Dosya seçilemedi")}: ${err?.toString()}`);
+    } finally {
+      setSelecting(false);
     }
   };
 
   const handleSelectCover = async () => {
+    if (selectingCover) return;
     try {
+      setSelectingCover(true);
       const selectedImg = await invoke<string | null>("select_image_file");
       if (selectedImg) {
-        const bytes = await invoke<number[]>("read_file_binary", { filePath: selectedImg });
-        const uint8 = new Uint8Array(bytes);
-        let binary = "";
-        for (let i = 0; i < uint8.byteLength; i++) {
-          binary += String.fromCharCode(uint8[i]);
-        }
-        const b64 = window.btoa(binary);
-        const lower = selectedImg.toLowerCase();
-        const mime = lower.endsWith(".png") ? "image/png" : "image/jpeg";
-        setCoverBase64(b64);
-        setCoverMimeType(mime);
-        setRemoveCover(false);
-        onShowToast(t("metadata.coverSelected", "Kapak görseli seçildi!"));
+        await applyCoverImage(selectedImg);
       }
     } catch (err: any) {
       onShowToast(`${t("metadata.errorSelectCover", "Kapak seçilemedi")}: ${err?.toString()}`);
+    } finally {
+      setSelectingCover(false);
     }
   };
+
+  // Native Tauri Drag and Drop handling
+  useEffect(() => {
+    let unlisten: (() => void) | undefined;
+    try {
+      getCurrentWebview().onDragDropEvent(async (event) => {
+        if (event.payload.type === "enter" || event.payload.type === "over") {
+          setIsDragOver(true);
+        } else if (event.payload.type === "leave") {
+          setIsDragOver(false);
+        } else if (event.payload.type === "drop") {
+          setIsDragOver(false);
+          const paths = event.payload.paths;
+          if (paths && paths.length > 0) {
+            const first = paths[0];
+            const lower = first.toLowerCase();
+            if (
+              lower.endsWith(".mp3") ||
+              lower.endsWith(".wav") ||
+              lower.endsWith(".flac") ||
+              lower.endsWith(".m4a") ||
+              lower.endsWith(".ogg") ||
+              lower.endsWith(".aac")
+            ) {
+              await loadFileMetadata(first);
+            } else if (
+              lower.endsWith(".jpg") ||
+              lower.endsWith(".jpeg") ||
+              lower.endsWith(".png") ||
+              lower.endsWith(".webp") ||
+              lower.endsWith(".bmp")
+            ) {
+              await applyCoverImage(first);
+            } else {
+              onShowToast(t("metadata.dropFormats", "MP3, WAV, FLAC, M4A veya kapak için JPG/PNG bırakın."));
+            }
+          }
+        }
+      }).then((u) => {
+        unlisten = u;
+      });
+    } catch {
+      // not in tauri environment
+    }
+
+    return () => {
+      if (unlisten) unlisten();
+    };
+  }, []);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -154,7 +217,11 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
       {!metadata && !loading && (
         <div
           onClick={handleSelectFile}
-          className="flex cursor-pointer flex-col items-center justify-center gap-2.5 rounded-xl border-2 border-dashed border-[var(--color-app-border)] bg-[var(--color-app-surface)]/50 py-16 text-center transition-all hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface)]"
+          className={`flex cursor-pointer flex-col items-center justify-center gap-2.5 rounded-xl border-2 border-dashed py-16 text-center transition-all ${
+            isDragOver
+              ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 scale-[1.01]"
+              : "border-[var(--color-app-border)] bg-[var(--color-app-surface)]/50 hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface)]"
+          }`}
         >
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20">
             <MusicalNoteIcon className="h-6 w-6" />

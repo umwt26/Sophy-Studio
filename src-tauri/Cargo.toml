@@ -25,4 +25,5 @@ sophy-core = { path = "../crates/sophy-core" }
 tokio = { version = "1", features = ["full"] }
 reqwest = { version = "0.12", features = ["json"] }
 rfd = "0.15"
+base64 = "0.22"
 

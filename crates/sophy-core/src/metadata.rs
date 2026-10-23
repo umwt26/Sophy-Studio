@@ -157,7 +157,8 @@ impl MetadataManager {
                         None,
                         data,
                     );
-                    tag.set_picture(0, pic);
+                    tag.remove_picture_type(PictureType::CoverFront);
+                    tag.push_picture(pic);
                 }
             }
         }

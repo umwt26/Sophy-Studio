@@ -4,6 +4,7 @@ import {
   FolderIcon,
   GlobeDownloadIcon,
   PianoIcon,
+  ScissorsIcon,
   SunoIcon,
   TagIcon,
   ChevronRightIcon,
@@ -72,6 +73,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
       ),
       Icon: PianoIcon,
       tags: ["Camelot Wheel", "BPM", "Ritim Analizi", "Çevrimdışı"],
+    },
+    {
+      id: "sample-cutter",
+      title: t("home.cutterTitle", "Sample Kesici (8s)"),
+      desc: t(
+        "home.cutterDesc",
+        "Suno ve prodüksiyon için parçalarınızdan tam 8 saniyelik kusursuz sample kesitleri kırpın ve dışa aktarın."
+      ),
+      Icon: ScissorsIcon,
+      tags: ["8s Waveform", "Suno Kesici", "320k MP3", "WAV"],
     },
   ];
 

@@ -37,7 +37,7 @@ export interface UpdateInfo {
   download_url?: string | null;
 }
 
-export type AppTab = "home" | "suno" | "universal" | "metadata" | "detector" | "settings";
+export type AppTab = "home" | "suno" | "universal" | "metadata" | "detector" | "sample-cutter" | "settings";
 
 export type ThemeMode = "dark" | "light" | "system";
 export type ThemeColor = "blue" | "red" | "green" | "purple" | "orange" | "pink";

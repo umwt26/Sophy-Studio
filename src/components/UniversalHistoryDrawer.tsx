@@ -133,13 +133,14 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
         <div className="mt-3 flex flex-col gap-2">
           {/* Search Box */}
           <div className="relative">
-            <SearchIcon className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[var(--color-text-tertiary)]" />
+            <SearchIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[var(--color-text-tertiary)]" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={t("universal.searchHistory", "Başlık veya link ara...")}
-              className="input pl-8 py-1.5 text-xs w-full"
+              className="input has-icon-left !pl-9 py-1.5 text-xs w-full"
+              style={{ paddingLeft: "34px" }}
             />
           </div>
 

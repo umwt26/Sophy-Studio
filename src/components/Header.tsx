@@ -4,6 +4,7 @@ import {
   HomeIcon,
   MenuIcon,
   PianoIcon,
+  ScissorsIcon,
   SettingsIcon,
   SunoIcon,
   TagIcon,
@@ -40,6 +41,7 @@ export function Header({
     universal: { label: t("nav.universal", "Universal Downloader"), Icon: GlobeDownloadIcon },
     metadata: { label: t("nav.metadata", "Metadata Editor"), Icon: TagIcon },
     detector: { label: t("nav.detector", "Key & BPM Detect"), Icon: PianoIcon },
+    "sample-cutter": { label: t("nav.cutter", "Sample Kesici"), Icon: ScissorsIcon },
     settings: { label: t("nav.settings", "Ayarlar"), Icon: SettingsIcon },
   };
 

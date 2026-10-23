@@ -4,6 +4,7 @@ dist/
 dist-ssr/
 dist-portable/
 dist-installer/
+*_Portable.exe
 
 # Rust / Cargo artifacts
 target/

@@ -51,11 +51,29 @@ const CAMELOT_MAP: Record<string, CamelotInfo> = {
   "Db Minor": { camelot: "12A", color: "#9333ea", relative: "E Major (12B)", compatibles: ["12B", "11A", "1A"] },
 };
 
+function unwrapWasm(w: any): any {
+  if (!w) return w;
+  if (typeof w.EssentiaJS === "function") return w;
+  if (w.default && typeof w.default.EssentiaJS === "function") return w.default;
+  if (w.EssentiaWASM && typeof w.EssentiaWASM.EssentiaJS === "function") return w.EssentiaWASM;
+  if (w.default?.EssentiaWASM && typeof w.default.EssentiaWASM.EssentiaJS === "function") return w.default.EssentiaWASM;
+  return w;
+}
+
+function unwrapCore(c: any): any {
+  if (typeof c === "function") return c;
+  if (c && typeof c.default === "function") return c.default;
+  if (c && typeof c.Essentia === "function") return c.Essentia;
+  return c;
+}
+
 let essentiaGlobal: any = null;
 
 function getEssentiaInstance(): any {
   if (!essentiaGlobal) {
-    essentiaGlobal = new Essentia(EssentiaWASM);
+    const WasmBackend = unwrapWasm(EssentiaWASM);
+    const CoreClass = unwrapCore(Essentia);
+    essentiaGlobal = new CoreClass(WasmBackend);
   }
   return essentiaGlobal;
 }
@@ -169,7 +187,19 @@ export async function analyzeAudio(
       confidence: Math.round((keyData.strength || 0.85) * 100),
     };
   } finally {
-    audioVector.delete();
-    audioCtx.close();
+    try {
+      if (audioVector && typeof audioVector.delete === "function") {
+        audioVector.delete();
+      }
+    } catch {
+      // ignore
+    }
+    try {
+      if (audioCtx && typeof audioCtx.close === "function") {
+        audioCtx.close();
+      }
+    } catch {
+      // ignore
+    }
   }
 }

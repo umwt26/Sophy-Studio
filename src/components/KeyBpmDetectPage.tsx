@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { getCurrentWebview } from "@tauri-apps/api/webview";
 import { useTranslation } from "react-i18next";
 import { analyzeAudio } from "../utils/audioAnalysis";
 import { BoltIcon, FolderIcon, MusicalNoteIcon, PianoIcon } from "./icons";
@@ -16,6 +17,8 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
   const [fileName, setFileName] = useState<string | null>(null);
   const [result, setResult] = useState<KeyBpmResult | null>(null);
   const [currentBpm, setCurrentBpm] = useState<number | null>(null);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [selecting, setSelecting] = useState(false);
 
   const processAudioBuffer = async (buffer: ArrayBuffer, name: string) => {
     try {
@@ -40,7 +43,9 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
   };
 
   const handleSelectFile = async () => {
+    if (selecting || analyzing) return;
     try {
+      setSelecting(true);
       const selectedPath = await invoke<string | null>("select_audio_file");
       if (selectedPath) {
         setAnalyzing(true);
@@ -54,16 +59,61 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
     } catch (err: any) {
       setAnalyzing(false);
       onShowToast(`${t("detector.errorOpenFile", "Dosya açılamadı")}: ${err?.toString()}`);
+    } finally {
+      setSelecting(false);
     }
   };
 
-  const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const buf = await file.arrayBuffer();
-      await processAudioBuffer(buf, file.name);
+  // Listen to native OS drag and drop via Tauri webview
+  useEffect(() => {
+    let unlisten: (() => void) | undefined;
+    try {
+      getCurrentWebview().onDragDropEvent(async (event) => {
+        if (event.payload.type === "enter" || event.payload.type === "over") {
+          setIsDragOver(true);
+        } else if (event.payload.type === "leave") {
+          setIsDragOver(false);
+        } else if (event.payload.type === "drop") {
+          setIsDragOver(false);
+          const paths = event.payload.paths;
+          if (paths && paths.length > 0) {
+            const first = paths[0];
+            const lower = first.toLowerCase();
+            if (
+              lower.endsWith(".mp3") ||
+              lower.endsWith(".wav") ||
+              lower.endsWith(".flac") ||
+              lower.endsWith(".m4a") ||
+              lower.endsWith(".ogg") ||
+              lower.endsWith(".aac")
+            ) {
+              setAnalyzing(true);
+              const name = first.split(/[\\/]/).pop() || "audio.mp3";
+              setFileName(name);
+              try {
+                const bytes = await invoke<number[]>("read_file_binary", { filePath: first });
+                const uint8 = new Uint8Array(bytes);
+                await processAudioBuffer(uint8.buffer, name);
+              } catch (e: any) {
+                setAnalyzing(false);
+                onShowToast(`${t("detector.errorOpenFile", "Dosya açılamadı")}: ${e?.toString()}`);
+              }
+            } else {
+              onShowToast(t("metadata.dropFormats", "Lütfen geçerli bir ses dosyası bırakın (MP3, WAV, FLAC, M4A)"));
+            }
+          }
+        }
+      }).then((u) => {
+        unlisten = u;
+      });
+    } catch {
+      // not in tauri environment
     }
-  };
+
+    return () => {
+      if (unlisten) unlisten();
+    };
+  }, []);
 
   const handleHalfBpm = () => {
     if (currentBpm) setCurrentBpm(Math.round(currentBpm / 2));
@@ -101,7 +151,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
         <button
           type="button"
           onClick={handleSelectFile}
-          disabled={analyzing}
+          disabled={analyzing || selecting}
           className="flex items-center gap-2 self-start sm:self-auto rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-4 py-2 text-xs font-bold text-[var(--color-accent)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)]/10 transition-all active:scale-95 disabled:opacity-50 shadow-sm"
         >
           <FolderIcon className="h-4 w-4" />
@@ -117,20 +167,20 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       {!result && !analyzing && (
         <div
           onClick={handleSelectFile}
-          className="group relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-[var(--color-app-border)] bg-[var(--color-app-surface)]/40 py-20 text-center transition-all hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface)] shadow-inner"
+          className={`group relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed py-20 text-center transition-all shadow-inner ${
+            isDragOver
+              ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 scale-[1.01]"
+              : "border-[var(--color-app-border)] bg-[var(--color-app-surface)]/40 hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface)]"
+          }`}
         >
-          <input
-            type="file"
-            accept="audio/*"
-            onChange={handleFileInput}
-            className="absolute inset-0 cursor-pointer opacity-0"
-          />
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20 shadow-sm transition-transform group-hover:scale-110">
+          <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20 shadow-sm transition-transform ${isDragOver ? "scale-125" : "group-hover:scale-110"}`}>
             <BoltIcon className="h-7 w-7" />
           </div>
           <div className="flex flex-col gap-1">
             <p className="text-sm font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-              {t("detector.dropPrompt", "Ses dosyasını buraya bırakın veya tıklayıp seçin")}
+              {isDragOver
+                ? t("detector.dropNow", "Ses Dosyasını Buraya Bırakın!")
+                : t("detector.dropPrompt", "Ses dosyasını buraya bırakın veya tıklayıp seçin")}
             </p>
             <p className="text-xs text-[var(--color-text-secondary)]">
               {t(

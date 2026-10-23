@@ -20,6 +20,7 @@ pub fn run() {
       select_audio_file,
       select_image_file,
       read_file_binary,
+      read_file_base64,
       get_folder_settings,
       save_folder_settings,
       select_folder,

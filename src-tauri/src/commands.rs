@@ -431,6 +431,13 @@ pub async fn read_file_binary(file_path: String) -> Result<Vec<u8>, String> {
 }
 
 #[tauri::command]
+pub async fn read_file_base64(file_path: String) -> Result<String, String> {
+    use base64::Engine;
+    let bytes = std::fs::read(&file_path).map_err(|e| format!("Dosya okunamadı: {}", e))?;
+    Ok(base64::engine::general_purpose::STANDARD.encode(bytes))
+}
+
+#[tauri::command]
 pub async fn get_folder_settings() -> Result<sophy_core::FolderSettings, String> {
     let paths = SophyPaths::init()?;
     let saved = SophyPaths::load_saved_settings();

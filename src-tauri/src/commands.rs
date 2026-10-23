@@ -429,3 +429,75 @@ pub async fn select_image_file() -> Result<Option<String>, String> {
 pub async fn read_file_binary(file_path: String) -> Result<Vec<u8>, String> {
     std::fs::read(&file_path).map_err(|e| format!("Dosya okunamadı: {}", e))
 }
+
+#[tauri::command]
+pub async fn get_folder_settings() -> Result<sophy_core::FolderSettings, String> {
+    let paths = SophyPaths::init()?;
+    let saved = SophyPaths::load_saved_settings();
+    Ok(sophy_core::FolderSettings {
+        all: Some(saved.all.unwrap_or_else(|| paths.all.to_string_lossy().to_string())),
+        audio: Some(saved.audio.unwrap_or_else(|| paths.audio.to_string_lossy().to_string())),
+        cover_art: Some(saved.cover_art.unwrap_or_else(|| paths.cover_art.to_string_lossy().to_string())),
+        lyrics: Some(saved.lyrics.unwrap_or_else(|| paths.lyrics.to_string_lossy().to_string())),
+        universal: Some(saved.universal.unwrap_or_else(|| paths.universal.to_string_lossy().to_string())),
+    })
+}
+
+#[tauri::command]
+pub async fn save_folder_settings(settings: sophy_core::FolderSettings) -> Result<(), String> {
+    SophyPaths::save_settings(&settings)?;
+    let _ = SophyPaths::init();
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn select_folder(title: Option<String>) -> Result<Option<String>, String> {
+    let t = title.unwrap_or_else(|| "Sophy Studio - Klasör Seç".to_string());
+    let folder = rfd::AsyncFileDialog::new()
+        .set_title(&t)
+        .pick_folder()
+        .await;
+
+    Ok(folder.map(|f| f.path().to_string_lossy().to_string()))
+}
+
+#[tauri::command]
+pub async fn open_folder_path(folder_path: String) -> Result<(), String> {
+    let path = std::path::Path::new(&folder_path);
+    if !path.exists() {
+        let _ = std::fs::create_dir_all(path);
+    }
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NO_WINDOW: u32 = 0x08000000;
+        let mut cmd = std::process::Command::new("explorer");
+        cmd.creation_flags(CREATE_NO_WINDOW);
+        cmd.arg(&folder_path);
+        let _ = cmd.spawn();
+    }
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn fetch_universal_media_info(url: String) -> Result<sophy_core::UniversalMediaInfo, String> {
+    sophy_core::UniversalDownloader::fetch_info(&url).await
+}
+
+#[tauri::command]
+pub async fn download_universal_media(
+    app: tauri::AppHandle,
+    url: String,
+    format_type: String,
+    custom_dir: Option<String>,
+) -> Result<String, String> {
+    let target_dir = if let Some(dir) = custom_dir.filter(|s| !s.trim().is_empty()) {
+        std::path::PathBuf::from(dir)
+    } else {
+        let paths = SophyPaths::init()?;
+        paths.universal
+    };
+
+    let _ = app.emit("download-status", "Medya indiriliyor...");
+    sophy_core::UniversalDownloader::download(&url, &format_type, &target_dir).await
+}

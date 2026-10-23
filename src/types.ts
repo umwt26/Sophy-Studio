@@ -37,7 +37,32 @@ export interface UpdateInfo {
   download_url?: string | null;
 }
 
-export type AppTab = "home" | "suno" | "metadata" | "detector";
+export type AppTab = "home" | "suno" | "universal" | "metadata" | "detector" | "settings";
+
+export type ThemeMode = "dark" | "light" | "system";
+export type ThemeColor = "blue" | "red" | "green" | "purple" | "orange" | "pink";
+
+export interface AppThemeConfig {
+  mode: ThemeMode;
+  color: ThemeColor;
+}
+
+export interface FolderSettings {
+  all?: string | null;
+  audio?: string | null;
+  coverArt?: string | null;
+  lyrics?: string | null;
+  universal?: string | null;
+}
+
+export interface UniversalMediaInfo {
+  title: string;
+  uploader?: string | null;
+  duration?: number | null;
+  thumbnail?: string | null;
+  extractor?: string | null;
+  webpageUrl: string;
+}
 
 export interface AudioMetadata {
   filePath: string;

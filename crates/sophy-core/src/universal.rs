@@ -1,0 +1,192 @@
+use serde::{Deserialize, Serialize};
+use std::path::{Path, PathBuf};
+use std::process::Command;
+
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct UniversalMediaInfo {
+    pub title: String,
+    pub uploader: Option<String>,
+    pub duration: Option<f64>,
+    pub thumbnail: Option<String>,
+    pub extractor: Option<String>,
+    pub webpage_url: String,
+}
+
+pub struct UniversalDownloader;
+
+fn create_silent_command(program: &std::path::Path) -> Command {
+    let mut cmd = Command::new(program);
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NO_WINDOW: u32 = 0x08000000;
+        cmd.creation_flags(CREATE_NO_WINDOW);
+    }
+    cmd
+}
+
+impl UniversalDownloader {
+    pub async fn ensure_ytdlp_binary() -> Result<PathBuf, String> {
+        // 1. Check in same folder as current executable
+        if let Ok(exe) = std::env::current_exe() {
+            if let Some(parent) = exe.parent() {
+                let local = parent.join("yt-dlp.exe");
+                if local.exists() {
+                    return Ok(local);
+                }
+            }
+        }
+
+        // 2. Check in LocalAppData/SophyStudio/bin/yt-dlp.exe
+        if let Some(local_app_data) = dirs::data_local_dir() {
+            let bin_path = local_app_data.join("SophyStudio").join("bin").join("yt-dlp.exe");
+            if bin_path.exists() {
+                return Ok(bin_path);
+            }
+        }
+
+        // 3. Check in System PATH
+        if let Ok(output) = {
+            #[cfg(windows)]
+            {
+                let mut c = Command::new("where");
+                use std::os::windows::process::CommandExt;
+                c.creation_flags(0x08000000);
+                c.arg("yt-dlp").output()
+            }
+            #[cfg(not(windows))]
+            {
+                Command::new("which").arg("yt-dlp").output()
+            }
+        } {
+            if output.status.success() {
+                let stdout = String::from_utf8_lossy(&output.stdout);
+                if let Some(first_line) = stdout.lines().next() {
+                    let path = PathBuf::from(first_line.trim());
+                    if path.exists() {
+                        return Ok(path);
+                    }
+                }
+            }
+        }
+
+        // 4. Download yt-dlp.exe automatically if not installed
+        if let Some(local_app_data) = dirs::data_local_dir() {
+            let bin_dir = local_app_data.join("SophyStudio").join("bin");
+            let _ = std::fs::create_dir_all(&bin_dir);
+            let target_exe = bin_dir.join("yt-dlp.exe");
+
+            let client = reqwest::Client::new();
+            let url = "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe";
+            let resp = client.get(url).send().await.map_err(|e| format!("yt-dlp indirilemedi: {}", e))?;
+            if resp.status().is_success() {
+                let bytes = resp.bytes().await.map_err(|e| format!("Veri okunamadı: {}", e))?;
+                std::fs::write(&target_exe, bytes).map_err(|e| format!("Dosya yazılamadı: {}", e))?;
+                return Ok(target_exe);
+            }
+        }
+
+        Err("yt-dlp motoru bulunamadı ve indirilemedi. Lütfen internet bağlantınızı kontrol edin.".to_string())
+    }
+
+    pub async fn fetch_info(url: &str) -> Result<UniversalMediaInfo, String> {
+        let ytdlp_path = Self::ensure_ytdlp_binary().await?;
+
+        let output = create_silent_command(&ytdlp_path)
+            .args([
+                "--dump-json",
+                "--no-playlist",
+                "--no-warnings",
+                "--quiet",
+                url,
+            ])
+            .output()
+            .map_err(|e| format!("Komut çalıştırılamadı: {}", e))?;
+
+        if !output.status.success() {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            return Err(format!("Medya bilgisi alınamadı: {}", stderr.trim()));
+        }
+
+        let json_str = String::from_utf8_lossy(&output.stdout);
+        let val: serde_json::Value = serde_json::from_str(&json_str)
+            .map_err(|e| format!("JSON parse hatası: {}", e))?;
+
+        let title = val["title"]
+            .as_str()
+            .unwrap_or("Untitled Media")
+            .to_string();
+
+        let uploader = val["uploader"]
+            .as_str()
+            .or_else(|| val["channel"].as_str())
+            .or_else(|| val["creator"].as_str())
+            .map(|s| s.to_string());
+
+        let duration = val["duration"].as_f64();
+        let thumbnail = val["thumbnail"]
+            .as_str()
+            .or_else(|| val["thumbnails"].as_array().and_then(|a| a.last()).and_then(|t| t["url"].as_str()))
+            .map(|s| s.to_string());
+
+        let extractor = val["extractor_key"]
+            .as_str()
+            .or_else(|| val["extractor"].as_str())
+            .map(|s| s.to_string());
+
+        Ok(UniversalMediaInfo {
+            title,
+            uploader,
+            duration,
+            thumbnail,
+            extractor,
+            webpage_url: url.to_string(),
+        })
+    }
+
+    pub async fn download(
+        url: &str,
+        format_type: &str, // "video" or "audio"
+        out_dir: &Path,
+    ) -> Result<String, String> {
+        let ytdlp_path = Self::ensure_ytdlp_binary().await?;
+
+        let output_template = out_dir.join("%(title)s.%(ext)s");
+        let template_str = output_template.to_string_lossy().to_string();
+
+        let mut cmd = create_silent_command(&ytdlp_path);
+        cmd.arg("--no-playlist");
+        cmd.arg("--no-warnings");
+        cmd.arg("-o");
+        cmd.arg(&template_str);
+
+        if format_type.to_lowercase() == "audio" {
+            cmd.args([
+                "-x",
+                "--audio-format",
+                "mp3",
+                "--audio-quality",
+                "320k",
+            ]);
+        } else {
+            cmd.args([
+                "-f",
+                "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
+                "--merge-output-format",
+                "mp4",
+            ]);
+        }
+
+        cmd.arg(url);
+
+        let output = cmd.output().map_err(|e| format!("İndirme başlatılamadı: {}", e))?;
+
+        if output.status.success() {
+            Ok(out_dir.to_string_lossy().to_string())
+        } else {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            Err(format!("İndirme başarısız oldu: {}", stderr.trim()))
+        }
+    }
+}

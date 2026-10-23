@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { useTranslation } from "react-i18next";
 import { analyzeAudio } from "../utils/audioAnalysis";
+import { BoltIcon, FolderIcon, MusicalNoteIcon, PianoIcon } from "./icons";
 import type { KeyBpmResult } from "../types";
 
 interface KeyBpmDetectPageProps {
@@ -26,7 +27,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       setCurrentBpm(res.bpm);
       onShowToast(t("detector.analyzed", "Key & BPM analizi tamamlandı!"));
     } catch (err: any) {
-      onShowToast(`Analiz başarısız: ${err?.toString()}`);
+      onShowToast(`${t("detector.errorFailed", "Analiz başarısız")}: ${err?.toString()}`);
     } finally {
       setAnalyzing(false);
     }
@@ -46,7 +47,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       }
     } catch (err: any) {
       setAnalyzing(false);
-      onShowToast(`Dosya açılamadı: ${err?.toString()}`);
+      onShowToast(`${t("detector.errorOpenFile", "Dosya açılamadı")}: ${err?.toString()}`);
     }
   };
 
@@ -69,14 +70,17 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
   return (
     <div className="flex flex-col gap-4 animate-fade-in pb-8">
       {/* Header bar */}
-      <div className="flex items-center justify-between rounded-xl border border-[#202532] bg-[#11131a] px-4 py-3 shadow-md">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-4 py-3 shadow-sm">
         <div>
-          <h2 className="text-sm font-bold text-white flex items-center gap-2">
-            <span>🎹</span>
+          <h2 className="text-sm font-bold text-[var(--color-text-primary)] flex items-center gap-2">
+            <PianoIcon className="h-4 w-4 text-[var(--color-accent)]" />
             <span>{t("detector.title", "Key & BPM Detect")}</span>
           </h2>
-          <p className="text-[11px] text-[#717789] mt-0.5">
-            Tunebat standardında Krumhansl-Schmuckler müzikal ton ve tempo analizi.
+          <p className="text-[11px] text-[var(--color-text-secondary)] mt-0.5">
+            {t(
+              "detector.subtitle",
+              "Tunebat standardında Krumhansl-Schmuckler müzikal ton ve tempo analizi."
+            )}
           </p>
         </div>
 
@@ -84,10 +88,14 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
           type="button"
           onClick={handleSelectFile}
           disabled={analyzing}
-          className="flex items-center gap-1.5 rounded-lg border border-[#252b3a] bg-[#161a24] px-3.5 py-2 text-xs font-semibold text-[#f59e0b] hover:border-[#f59e0b]/50 hover:bg-[#1f1d17] transition-all active:scale-95 disabled:opacity-50"
+          className="flex items-center gap-1.5 self-start sm:self-auto rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3.5 py-2 text-xs font-semibold text-[var(--color-accent)] hover:border-[var(--color-accent)] transition-all active:scale-95 disabled:opacity-50"
         >
-          <span>📂</span>
-          <span>{analyzing ? t("detector.analyzing", "Analiz Ediliyor...") : t("detector.selectFile", "Dosya Yükle")}</span>
+          <FolderIcon className="h-3.5 w-3.5" />
+          <span>
+            {analyzing
+              ? t("detector.analyzing", "Analiz Ediliyor...")
+              : t("detector.selectFile", "Dosya Yükle")}
+          </span>
         </button>
       </div>
 
@@ -95,7 +103,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       {!result && !analyzing && (
         <div
           onClick={handleSelectFile}
-          className="relative flex cursor-pointer flex-col items-center justify-center gap-2.5 rounded-xl border-2 border-dashed border-[#202532] bg-[#11131a]/50 py-16 text-center transition-all hover:border-[#f59e0b]/40 hover:bg-[#11131a]"
+          className="relative flex cursor-pointer flex-col items-center justify-center gap-2.5 rounded-xl border-2 border-dashed border-[var(--color-app-border)] bg-[var(--color-app-surface)]/50 py-16 text-center transition-all hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface)]"
         >
           <input
             type="file"
@@ -103,15 +111,18 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
             onChange={handleFileInput}
             className="absolute inset-0 cursor-pointer opacity-0"
           />
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#1a1813] text-2xl text-[#f59e0b] border border-[#342918]">
-            ⚡
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20">
+            <BoltIcon className="h-6 w-6" />
           </div>
           <div className="flex flex-col gap-0.5">
-            <p className="text-xs font-bold text-white">
+            <p className="text-xs font-bold text-[var(--color-text-primary)]">
               {t("detector.dropPrompt", "Ses dosyasını buraya bırakın veya tıklayıp seçin")}
             </p>
-            <p className="text-[11px] text-[#646a7e]">
-              MP3, WAV, FLAC, M4A, OGG, AAC • Saniyeler içinde %100 çevrimdışı yerel analiz
+            <p className="text-[11px] text-[var(--color-text-secondary)]">
+              {t(
+                "detector.dropFormats",
+                "MP3, WAV, FLAC, M4A, OGG, AAC • Saniyeler içinde %100 çevrimdışı yerel analiz"
+              )}
             </p>
           </div>
         </div>
@@ -119,14 +130,14 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
 
       {/* Loading animation */}
       {analyzing && (
-        <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-[#202532] bg-[#11131a] py-16 text-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#f59e0b] border-t-transparent" />
+        <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] py-16 text-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--color-accent)] border-t-transparent" />
           <div className="flex flex-col gap-0.5">
-            <p className="text-xs font-bold text-white">
+            <p className="text-xs font-bold text-[var(--color-text-primary)]">
               {t("detector.analyzingAudio", "Ses Analiz Ediliyor...")}
             </p>
-            <p className="text-[11px] text-[#6e7488]">
-              {fileName} • Krumhansl-Schmuckler 12-Chroma frekans analizi
+            <p className="text-[11px] text-[var(--color-text-secondary)]">
+              {fileName} • {t("detector.chromaNotice", "12-Chroma frekans analizi")}
             </p>
           </div>
         </div>
@@ -136,21 +147,22 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       {result && !analyzing && currentBpm && (
         <div className="flex flex-col gap-4 animate-scale-in">
           {/* File summary bar */}
-          <div className="flex items-center justify-between rounded-xl border border-[#202532] bg-[#11131a] px-4 py-2.5">
+          <div className="flex items-center justify-between rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-4 py-2.5">
             <div className="flex items-center gap-2 truncate">
-              <span className="text-[#f59e0b]">🎵</span>
-              <span className="text-xs font-bold text-white truncate max-w-sm">
+              <MusicalNoteIcon className="h-4 w-4 text-[var(--color-accent)] shrink-0" />
+              <span className="text-xs font-bold text-[var(--color-text-primary)] truncate max-w-sm">
                 {fileName}
               </span>
-              <span className="text-[11px] font-mono text-[#6e7488]">
-                ({Math.floor(result.duration / 60)}:{String(Math.floor(result.duration % 60)).padStart(2, "0")})
+              <span className="text-[11px] font-mono text-[var(--color-text-secondary)]">
+                ({Math.floor(result.duration / 60)}:
+                {String(Math.floor(result.duration % 60)).padStart(2, "0")})
               </span>
             </div>
 
             <button
               type="button"
               onClick={handleSelectFile}
-              className="rounded-lg border border-[#202532] bg-[#161a24] px-3 py-1 text-xs font-semibold text-[#8a92a6] hover:text-white hover:border-[#f59e0b]/40 transition-colors"
+              className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3 py-1 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-colors"
             >
               {t("detector.newAnalysis", "Yeni Analiz")}
             </button>
@@ -159,10 +171,10 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
           {/* Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Key Card */}
-            <div className="flex flex-col justify-between rounded-xl border border-[#202532] bg-[#11131a] p-5 shadow-lg">
+            <div className="flex flex-col justify-between rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-sm">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#63697c]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">
                     {t("detector.musicalKey", "Müzikal Ton (Key)")}
                   </span>
                   <span
@@ -174,24 +186,25 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
                 </div>
 
                 <div className="mt-4 flex flex-col gap-1">
-                  <h3 className="text-3xl font-black tracking-tight text-white">
+                  <h3 className="text-3xl font-black tracking-tight text-[var(--color-text-primary)]">
                     {result.key}
                   </h3>
-                  <p className="text-xs text-[#7e8598]">
-                    Göreceli: <strong className="text-white">{result.relativeKey}</strong>
+                  <p className="text-xs text-[var(--color-text-secondary)]">
+                    {t("detector.relativeKey", "Göreceli:")}{" "}
+                    <strong className="text-[var(--color-text-primary)]">{result.relativeKey}</strong>
                   </p>
                 </div>
               </div>
 
-              <div className="mt-6 border-t border-[#1d222e] pt-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#555b6c] mb-1.5">
-                  Harmonik Uyumlu Tonlar (DJ Mixing):
+              <div className="mt-6 border-t border-[var(--color-app-border)] pt-3">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-secondary)] mb-1.5">
+                  {t("detector.compatibleKeys", "Harmonik Uyumlu Tonlar (DJ Mixing):")}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {result.compatibleKeys.map((k) => (
                     <span
                       key={k}
-                      className="rounded bg-[#161a24] border border-[#222736] px-2 py-0.5 text-[11px] font-mono font-bold text-[#a5acbe]"
+                      className="rounded bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] px-2 py-0.5 text-[11px] font-mono font-bold text-[var(--color-text-primary)]"
                     >
                       {k}
                     </span>
@@ -201,50 +214,55 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
             </div>
 
             {/* BPM Card */}
-            <div className="flex flex-col justify-between rounded-xl border border-[#202532] bg-[#11131a] p-5 shadow-lg">
+            <div className="flex flex-col justify-between rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-sm">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#63697c]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">
                     {t("detector.tempoBpm", "Tempo (BPM)")}
                   </span>
-                  <div className="flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5">
+                  <div className="flex items-center gap-1.5 rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 px-2.5 py-0.5">
                     <span
-                      className="h-2 w-2 rounded-full bg-amber-400 animate-pulse"
+                      className="h-2 w-2 rounded-full bg-[var(--color-accent)] animate-pulse"
                       style={{ animationDuration: `${60 / currentBpm}s` }}
                     />
-                    <span className="text-[10px] font-mono font-bold text-amber-400">BEAT</span>
+                    <span className="text-[10px] font-mono font-bold text-[var(--color-accent)]">
+                      BEAT
+                    </span>
                   </div>
                 </div>
 
                 <div className="mt-4 flex items-baseline gap-2">
-                  <span className="text-4xl font-black font-mono tracking-tight text-white">
+                  <span className="text-4xl font-black font-mono tracking-tight text-[var(--color-text-primary)]">
                     {currentBpm}
                   </span>
-                  <span className="text-xs font-bold text-[#646a7e]">BPM</span>
+                  <span className="text-xs font-bold text-[var(--color-text-secondary)]">BPM</span>
                 </div>
-                <p className="text-[11px] text-[#717789] mt-1">
-                  Otomatik ritim zarfı ve özilişki (autocorrelation) tespiti.
+                <p className="text-[11px] text-[var(--color-text-secondary)] mt-1">
+                  {t(
+                    "detector.bpmDescription",
+                    "Otomatik ritim zarfı ve özilişki (autocorrelation) tespiti."
+                  )}
                 </p>
               </div>
 
-              <div className="mt-6 flex items-center justify-between border-t border-[#1d222e] pt-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#555b6c]">
-                  Tempo Düzeltme:
+              <div className="mt-6 flex items-center justify-between border-t border-[var(--color-app-border)] pt-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">
+                  {t("detector.tempoCorrection", "Tempo Düzeltme:")}
                 </span>
                 <div className="flex gap-1.5">
                   <button
                     type="button"
                     onClick={handleHalfBpm}
-                    className="rounded bg-[#161a24] border border-[#222736] px-2.5 py-1 text-xs font-bold text-[#a5acbe] hover:text-white hover:border-[#f59e0b]/40 transition-colors"
+                    className="rounded bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-bold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-colors"
                   >
-                    /2 Yarım
+                    {t("detector.halfBpm", "/2 Yarım")}
                   </button>
                   <button
                     type="button"
                     onClick={handleDoubleBpm}
-                    className="rounded bg-[#161a24] border border-[#222736] px-2.5 py-1 text-xs font-bold text-[#a5acbe] hover:text-white hover:border-[#f59e0b]/40 transition-colors"
+                    className="rounded bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-bold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-colors"
                   >
-                    x2 Çift
+                    {t("detector.doubleBpm", "x2 Çift")}
                   </button>
                 </div>
               </div>

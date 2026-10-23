@@ -6,13 +6,16 @@ import { Header } from "./components/Header";
 import { StudioDrawer } from "./components/StudioDrawer";
 import { HomePage } from "./components/HomePage";
 import { SunoDownloaderPage } from "./components/SunoDownloaderPage";
+import { UniversalDownloaderPage } from "./components/UniversalDownloaderPage";
 import { MetadataEditorPage } from "./components/MetadataEditorPage";
 import { KeyBpmDetectPage } from "./components/KeyBpmDetectPage";
+import { SettingsPage } from "./components/SettingsPage";
 import { AudioFormatModal } from "./components/AudioFormatModal";
 import { HistoryModal } from "./components/HistoryModal";
 import { AdModal } from "./components/AdModal";
 import { UpdateModal } from "./components/UpdateModal";
 import { Toast } from "./components/Toast";
+import { applyTheme, loadSavedTheme } from "./utils/theme";
 import type { AppTab, AudioFormat, SongClip, SongData, UpdateInfo } from "./types";
 
 const HISTORY_STORAGE_KEY = "sophy_search_history";
@@ -38,6 +41,11 @@ export default function App() {
   const [history, setHistory] = useState<SongData[]>([]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const toastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Initialize theme on app mount
+  useEffect(() => {
+    applyTheme(loadSavedTheme());
+  }, []);
 
   // Check for updates from GitHub in the background
   useEffect(() => {
@@ -206,11 +214,12 @@ export default function App() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-[#0d0f14] text-[var(--color-text-primary)]">
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-[var(--color-app-bg)] text-[var(--color-text-primary)]">
       <Header
         activeTab={activeTab}
         onOpenMenu={() => setDrawerOpen(true)}
         onOpenFolder={handleOpenFolder}
+        onOpenSettings={() => setActiveTab("settings")}
         updateVersion={updateInfo?.has_update ? updateInfo.latest_version : undefined}
         onOpenUpdate={() => setUpdateModalOpen(true)}
       />
@@ -224,8 +233,8 @@ export default function App() {
         onOpenHistory={() => setHistoryModalOpen(true)}
       />
 
-      <main className="flex-1 overflow-y-auto bg-[#0d0f14]">
-        <div className="mx-auto flex w-full max-w-4xl flex-col px-4 py-4 sm:px-6 sm:py-5">
+      <main className="flex-1 overflow-y-auto bg-[var(--color-app-bg)]">
+        <div className="mx-auto flex w-full max-w-5xl flex-col px-4 py-4 sm:px-6 sm:py-5">
           {activeTab === "home" && (
             <HomePage
               onNavigate={(tab) => setActiveTab(tab)}
@@ -246,12 +255,23 @@ export default function App() {
             />
           )}
 
+          {activeTab === "universal" && (
+            <UniversalDownloaderPage
+              onShowToast={showToast}
+              onOpenFolder={handleOpenFolder}
+            />
+          )}
+
           {activeTab === "metadata" && (
             <MetadataEditorPage onShowToast={showToast} />
           )}
 
           {activeTab === "detector" && (
             <KeyBpmDetectPage onShowToast={showToast} />
+          )}
+
+          {activeTab === "settings" && (
+            <SettingsPage onShowToast={showToast} />
           )}
         </div>
       </main>

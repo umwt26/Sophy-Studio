@@ -1,5 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import { CheckIcon, ChevronDownIcon, FolderIcon, MenuIcon, TranslateIcon } from "./icons";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  FolderIcon,
+  GlobeDownloadIcon,
+  HomeIcon,
+  MenuIcon,
+  PianoIcon,
+  SettingsIcon,
+  SunoIcon,
+  TagIcon,
+  TranslateIcon,
+} from "./icons";
 import logoImg from "../assets/logo.png";
 import { useTranslation } from "react-i18next";
 import type { AppTab } from "../types";
@@ -8,6 +20,7 @@ interface HeaderProps {
   activeTab: AppTab;
   onOpenMenu: () => void;
   onOpenFolder?: () => void;
+  onOpenSettings?: () => void;
   updateVersion?: string;
   onOpenUpdate?: () => void;
 }
@@ -27,6 +40,7 @@ export function Header({
   activeTab,
   onOpenMenu,
   onOpenFolder,
+  onOpenSettings,
   updateVersion,
   onOpenUpdate,
 }: HeaderProps) {
@@ -60,22 +74,30 @@ export function Header({
   const currentLang =
     LANGUAGES.find((lang) => (i18n.language || "en").startsWith(lang.code)) || LANGUAGES[0];
 
-  const activeToolLabel = {
-    home: { label: t("nav.home", "Ana Sayfa"), icon: "🏠" },
-    suno: { label: t("nav.suno", "Suno Downloader"), icon: "🎧" },
-    metadata: { label: t("nav.metadata", "Metadata Editor"), icon: "🏷️" },
-    detector: { label: t("nav.detector", "Key & BPM Detect"), icon: "🎹" },
-  }[activeTab];
+  const activeToolInfo: Record<
+    AppTab,
+    { label: string; Icon: React.ComponentType<{ className?: string }> }
+  > = {
+    home: { label: t("nav.home", "Ana Sayfa"), Icon: HomeIcon },
+    suno: { label: t("nav.suno", "Suno Downloader"), Icon: SunoIcon },
+    universal: { label: t("nav.universal", "Universal Downloader"), Icon: GlobeDownloadIcon },
+    metadata: { label: t("nav.metadata", "Metadata Editor"), Icon: TagIcon },
+    detector: { label: t("nav.detector", "Key & BPM Detect"), Icon: PianoIcon },
+    settings: { label: t("nav.settings", "Ayarlar"), Icon: SettingsIcon },
+  };
+
+  const currentTool = activeToolInfo[activeTab] || activeToolInfo.home;
+  const ActiveIcon = currentTool.Icon;
 
   return (
-    <header className="flex h-14 shrink-0 items-center justify-between border-b border-[#202532] bg-[#0d0f14] px-4 select-none z-30">
-      {/* Left: Burger Button + Logo + Title */}
+    <header className="flex h-14 shrink-0 items-center justify-between border-b border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-4 select-none z-30 shadow-sm">
+      {/* Left: Burger Button + Logo + Active Tool Pill */}
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={onOpenMenu}
-          aria-label="Menüyü Aç"
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#202532] bg-[#141720] text-[#9ea3b5] hover:border-[#38bdf8]/40 hover:bg-[#1a1e2b] hover:text-white transition-all active:scale-95 shadow-sm"
+          aria-label={t("header.openMenu", "Menüyü Aç")}
+          className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)] transition-all active:scale-95 shadow-sm"
         >
           <MenuIcon className="h-4 w-4" />
         </button>
@@ -86,15 +108,15 @@ export function Header({
             alt="Sophy Studio Logo"
             className="h-7 w-7 rounded-lg object-contain"
           />
-          <span className="text-sm font-bold tracking-tight text-white hidden sm:inline">
+          <span className="text-sm font-bold tracking-tight text-[var(--color-text-primary)] hidden sm:inline">
             Sophy Studio
           </span>
         </div>
 
-        {/* Current Active Tool Pill */}
-        <div className="flex items-center gap-1.5 rounded-md border border-[#202532] bg-[#141720] px-2.5 py-1 text-xs">
-          <span>{activeToolLabel.icon}</span>
-          <span className="font-semibold text-[#38bdf8]">{activeToolLabel.label}</span>
+        {/* Current Active Tool Pill (Clean SVG, No Emoji) */}
+        <div className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-2.5 py-1 text-xs">
+          <ActiveIcon className="h-3.5 w-3.5 text-[var(--color-accent)]" />
+          <span className="font-bold text-[var(--color-accent)]">{currentTool.label}</span>
         </div>
 
         {updateVersion && (
@@ -102,9 +124,9 @@ export function Header({
             type="button"
             onClick={onOpenUpdate}
             title={t("app.updateNotice", { version: updateVersion })}
-            className="flex items-center gap-1.5 rounded-full border border-sky-500/50 bg-sky-500/15 px-2 py-0.5 text-[10px] font-bold text-sky-400 hover:bg-sky-500 hover:text-white transition-all"
+            className="flex items-center gap-1.5 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/15 px-2 py-0.5 text-[10px] font-bold text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-black transition-all"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-ping" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] animate-ping" />
             <span>v{updateVersion}</span>
           </button>
         )}
@@ -113,14 +135,28 @@ export function Header({
       {/* Right controls */}
       <div className="flex items-center gap-2">
         {/* Open Folder Button */}
-        <button
-          type="button"
-          onClick={onOpenFolder}
-          className="flex items-center gap-1.5 rounded-lg border border-[#202532] bg-[#141720] px-3 py-1.5 text-xs font-medium text-[#9ea3b5] hover:border-[#38bdf8]/40 hover:text-white transition-colors"
-        >
-          <FolderIcon className="h-3.5 w-3.5 text-[#38bdf8]" />
-          <span className="hidden md:inline">{t("app.openFolder", "Klasörü Aç")}</span>
-        </button>
+        {onOpenFolder && (
+          <button
+            type="button"
+            onClick={onOpenFolder}
+            className="flex items-center gap-1.5 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3 py-1.5 text-xs font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)] transition-colors"
+          >
+            <FolderIcon className="h-3.5 w-3.5 text-[var(--color-accent)]" />
+            <span className="hidden md:inline">{t("app.openFolder", "Klasörü Aç")}</span>
+          </button>
+        )}
+
+        {/* Direct Settings Button */}
+        {onOpenSettings && (
+          <button
+            type="button"
+            onClick={onOpenSettings}
+            title={t("nav.settings", "Ayarlar")}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
+          >
+            <SettingsIcon className="h-4 w-4" />
+          </button>
+        )}
 
         {/* Language Dropdown */}
         <div ref={dropdownRef} className="relative">
@@ -128,27 +164,27 @@ export function Header({
             type="button"
             onClick={() => setLangOpen((prev) => !prev)}
             aria-expanded={langOpen}
-            className={`flex h-8 items-center gap-2 rounded-lg border bg-[#141720] px-2.5 text-xs font-medium transition-all ${
+            className={`flex h-8 items-center gap-1.5 rounded-lg border bg-[var(--color-app-surface-2)] px-2.5 text-xs font-semibold transition-all ${
               langOpen
-                ? "border-[#38bdf8] text-white"
-                : "border-[#202532] text-[#9ea3b5] hover:border-[#38bdf8]/40 hover:text-white"
+                ? "border-[var(--color-accent)] text-[var(--color-text-primary)]"
+                : "border-[var(--color-app-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
             }`}
           >
-            <TranslateIcon className="h-3.5 w-3.5 shrink-0" />
-            <span className="font-semibold text-[11px]">{currentLang.flag}</span>
+            <TranslateIcon className="h-3.5 w-3.5 shrink-0 text-[var(--color-accent)]" />
+            <span className="font-bold text-[11px]">{currentLang.flag}</span>
             <ChevronDownIcon
-              className={`h-3 w-3 text-[#62687a] transition-transform ${
-                langOpen ? "rotate-180 text-white" : ""
+              className={`h-3 w-3 text-[var(--color-text-secondary)] transition-transform ${
+                langOpen ? "rotate-180" : ""
               }`}
             />
           </button>
 
           {/* Floating Dropdown Menu */}
           {langOpen && (
-            <div className="absolute right-0 top-full mt-1.5 z-50 w-40 rounded-xl border border-[#202532] bg-[#11131a] p-1.5 shadow-2xl backdrop-blur-md animate-scale-in">
+            <div className="absolute right-0 top-full mt-1.5 z-50 w-44 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-1.5 shadow-2xl backdrop-blur-md animate-scale-in">
               <div className="flex flex-col gap-0.5">
                 {LANGUAGES.map((lang) => {
-                  const isSelected = currentLang.code === lang.code;
+                  const isSelected = (i18n.language || "en").startsWith(lang.code);
                   return (
                     <button
                       key={lang.code}
@@ -157,19 +193,19 @@ export function Header({
                         i18n.changeLanguage(lang.code);
                         setLangOpen(false);
                       }}
-                      className={`flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-medium transition-all ${
+                      className={`flex items-center justify-between rounded-lg px-2.5 py-1.5 text-left text-xs transition-colors ${
                         isSelected
-                          ? "bg-[#38bdf8]/15 text-[#38bdf8] font-bold"
-                          : "text-[#9ea3b5] hover:bg-[#1a1e29] hover:text-white"
+                          ? "bg-[var(--color-accent)]/15 text-[var(--color-accent)] font-bold"
+                          : "text-[var(--color-text-secondary)] hover:bg-[var(--color-app-surface-2)] hover:text-[var(--color-text-primary)]"
                       }`}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono font-bold text-[#646a7e]">
+                        <span className="font-mono text-[10px] text-[var(--color-text-secondary)] font-bold">
                           {lang.flag}
                         </span>
                         <span>{lang.label}</span>
                       </div>
-                      {isSelected && <CheckIcon className="h-3.5 w-3.5 text-[#38bdf8]" />}
+                      {isSelected && <CheckIcon className="h-3.5 w-3.5 text-[var(--color-accent)]" />}
                     </button>
                   );
                 })}

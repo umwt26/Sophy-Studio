@@ -5,6 +5,7 @@ pub mod link;
 pub mod model;
 pub mod metadata;
 pub mod paths;
+pub mod universal;
 pub mod zipper;
 
 pub use api::fetch_song_clip;
@@ -13,5 +14,6 @@ pub use drm::decrypt_suno_stream;
 pub use link::resolve_to_uuid;
 pub use metadata::{AudioMetadata, MetadataManager, SaveMetadataInput};
 pub use model::{DownloadProgress, SongClip};
-pub use paths::SophyPaths;
+pub use paths::{FolderSettings, SophyPaths};
+pub use universal::{UniversalDownloader, UniversalMediaInfo};
 pub use zipper::create_all_zip;

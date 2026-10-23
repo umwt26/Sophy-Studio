@@ -40,11 +40,12 @@ export interface UpdateInfo {
 export type AppTab = "home" | "suno" | "universal" | "metadata" | "detector" | "sample-cutter" | "settings";
 
 export type ThemeMode = "dark" | "light" | "system";
-export type ThemeColor = "blue" | "red" | "green" | "purple" | "orange" | "pink";
+export type ThemeColor = "blue" | "red" | "green" | "purple" | "orange" | "pink" | "custom" | string;
 
 export interface AppThemeConfig {
   mode: ThemeMode;
   color: ThemeColor;
+  customHex?: string;
 }
 
 export interface FolderSettings {

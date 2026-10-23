@@ -106,12 +106,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
             <h1 className="text-lg font-bold tracking-tight text-[var(--color-text-primary)]">
               Sophy Studio
             </h1>
-            <span className="chip text-[11px] font-mono">v0.2.0</span>
+            <span className="chip text-[11px] font-mono font-semibold">v1.0</span>
           </div>
           <p className="section-desc mt-1">
             {t(
               "home.heroSubtitle",
-              "Müzik indirme, medya yakalama, ses etiketleme ve Key/BPM analizi araçları."
+              "Müzik indirme, medya yakalama, ses etiketleme, sample kesici ve Key/BPM analizi araçları."
             )}
           </p>
         </div>
@@ -126,38 +126,47 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
         </button>
       </div>
 
-      {/* Main Tools Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Main Tools List View */}
+      <div className="flex flex-col gap-2.5">
         {tools.map((tool) => {
           const Icon = tool.Icon;
           return (
             <div
               key={tool.id}
               onClick={() => onNavigate(tool.id)}
-              className="section section-pad flex flex-col justify-between cursor-pointer transition-all duration-150 hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface-2)] group"
+              className="flex items-center justify-between gap-4 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-3.5 sm:px-5 sm:py-4 cursor-pointer transition-all duration-150 hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface-2)] group shadow-xs"
             >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] text-[var(--color-text-secondary)] group-hover:text-[var(--color-accent)] group-hover:border-[var(--color-accent)]/30 transition-colors">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <ChevronRightIcon className="h-4 w-4 text-[var(--color-text-muted)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all" />
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] text-[var(--color-text-secondary)] group-hover:text-[var(--color-accent)] group-hover:border-[var(--color-accent)]/30 group-hover:scale-105 transition-all">
+                  <Icon className="h-5 w-5" />
                 </div>
 
-                <h3 className="text-sm font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                  {tool.title}
-                </h3>
-                <p className="mt-1.5 text-xs text-[var(--color-text-secondary)] leading-relaxed">
-                  {tool.desc}
-                </p>
+                <div className="flex flex-col min-w-0">
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <h3 className="text-sm font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                      {tool.title}
+                    </h3>
+                    <div className="hidden sm:flex items-center gap-1.5">
+                      {tool.tags.map((tag) => (
+                        <span key={tag} className="chip text-[10px] py-0.5 px-2">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-xs text-[var(--color-text-secondary)] truncate max-w-xl mt-1">
+                    {tool.desc}
+                  </p>
+                </div>
               </div>
 
-              <div className="flex flex-wrap gap-1.5 mt-4 pt-3 border-t border-[var(--color-app-border-soft)]">
-                {tool.tags.map((tag) => (
-                  <span key={tag} className="chip text-[10.5px]">
-                    {tag}
-                  </span>
-                ))}
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="hidden md:inline-flex text-xs font-semibold text-[var(--color-text-tertiary)] group-hover:text-[var(--color-accent)] transition-colors">
+                  {t("home.openTool", "Başlat")}
+                </span>
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] text-[var(--color-text-secondary)] group-hover:bg-[var(--color-accent)] group-hover:text-black group-hover:border-transparent transition-all">
+                  <ChevronRightIcon className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                </div>
               </div>
             </div>
           );
@@ -170,7 +179,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
           <div className="flex items-center gap-2">
             <SparklesIcon className="h-4 w-4 text-[var(--color-accent)]" />
             <h2 className="text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
-              {t("home.releaseNotesTitle", "v0.2.0 Güncelleme Notları & Yenilikler")}
+              {t("home.releaseNotesTitle", "v1.0 Güncelleme Notları & Yenilikler")}
             </h2>
           </div>
           <span className="chip text-[10px] font-mono">{t("home.releaseMonth", "Ekim 2026")}</span>

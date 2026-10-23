@@ -85,7 +85,7 @@
     "tipDragDrop": "Ses dosyalarını doğrudan pencereye sürükleyip bırakabilirsiniz.",
     "tipCoverArt": "Metadata editöründe albüm kapağı olarak JPG veya PNG kullanın.",
     "tipOffline": "Tüm analiz ve dönüşümler yerel olarak, internet yüklemesi olmadan çalışır.",
-    "releaseNotesTitle": "v1.0.0 Resmi Sürüm & Yenilikler",
+    "releaseNotesTitle": "v1.0 Resmi Sürüm & Yenilikler",
     "releaseMonth": "Ekim 2026",
     "rel1Title": "Sample Kesici (8s Waveform Slicer)",
     "rel1Desc": "İnteraktif ses dalga formu üzerinde 8 saniyelik sabit kayan pencere ile Suno için kusursuz sample kırpma (320k MP3 / WAV).",
@@ -93,8 +93,8 @@
     "rel2Desc": "320k MP3, stüdyo WAV, albüm kapağı ve söz indirme. YouTube, Instagram, TikTok medya indirici ve kategorize edilmiş geçmiş.",
     "rel3Title": "Essentia Key & BPM Analizi",
     "rel3Desc": "12-Chroma HPCP ile Camelot çarkı, harmonik miksleme tonları ve BPM ince ayarı.",
-    "rel4Title": "Arayüz İyileştirmeleri & v1.0.0",
-    "rel4Desc": "Arama çubuğu metin çakışması düzeltildi, bağımsız klasör yolları ve resmi v1.0.0 sürümüne geçiş."
+    "rel4Title": "Arayüz İyileştirmeleri & v1.0",
+    "rel4Desc": "Arama çubuğu metin çakışması düzeltildi, bağımsız klasör yolları ve resmi v1.0 sürümüne geçiş."
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -226,7 +226,7 @@
     "aboutDesc": "Ses ve medya indirme araçları paketi.",
     "developer": "Geliştirici",
     "rights": "Tüm hakları saklıdır.",
-    "releaseNotesTitle": "v0.2.0 Güncelleme Notları",
+    "releaseNotesTitle": "v1.0 Güncelleme Notları",
     "relSunoTitle": "Suno Downloader 2.0 & Yan Geçmiş Menüsü",
     "relSunoDesc": "Suno şarkılarını 320k MP3, uncompressed WAV, orijinal akış, kapak görseli ve senkronize şarkı sözleriyle (.lrc/.txt) indirme. Soldan açılan şık arama geçmişi ile önceki parçaları tek tıkla geri getirme.",
     "relUniTitle": "Universal Media Downloader & Sınıflandırma",

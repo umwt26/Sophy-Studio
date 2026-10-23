@@ -1,11 +1,11 @@
 {
   "app": {
-    "title": "Sophy",
+    "title": "Sophy Studio",
     "subtitle": "Suno AI Descargador y Herramientas",
     "inputPlaceholder": "Pegar URL de canción de Suno (ej. https://suno.com/s/...)",
     "analyzeBtn": "Obtener Canción",
     "fetching": "Analizando canción...",
-    "openFolder": "Abrir Carpeta Sophy",
+    "openFolder": "Abrir Carpeta Sophy Studio",
     "downloadAll": "Descargar Todo (.zip)",
     "audio": "Audio",
     "coverArt": "Portada",
@@ -13,7 +13,7 @@
     "downloading": "Descargando...",
     "converting": "Convirtiendo...",
     "completed": "¡Listo!",
-    "folderNote": "Guardado en: Documentos/Sophy/",
+    "folderNote": "Guardado en: Documentos/Sophy Studio/",
     "language": "Idioma",
     "history": "Historial",
     "historyTitle": "Historial de Búsqueda",
@@ -35,7 +35,7 @@
     "sponsor5Title": "Sitio Web de Filera Music & Label",
     "sponsor5Desc": "Sello discográfico líder y distribución digital de Filera Music Video Digital Platform.",
     "updateAvailable": "¡Nueva versión disponible!",
-    "updateNotice": "Hay una nueva versión de Sophy: v{{version}}. ¡Actualízame!",
+    "updateNotice": "Hay una nueva versión de Sophy Studio: v{{version}}. ¡Actualízame!",
     "updateBtn": "Actualizar ahora",
     "updateDismiss": "Cerrar"
   }

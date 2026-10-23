@@ -1,11 +1,11 @@
 <div align="center">
 
-# 🎵 Sophy — Suno Downloader & Toolkit
+# 🎵 Sophy Studio — Suno Downloader & Toolkit
 
 **L'outil ultime et ultra-rapide de téléchargement et boîte à outils pour Suno AI.**
 
-[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/sophy-suno-downloader/releases)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/sophy-suno-downloader)
+[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/Sophy-Studio/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/Sophy-Studio)
 [![Built With](https://img.shields.io/badge/Built%20With-Tauri%202%20%7C%20Rust%20%7C%20React%2019-teal.svg?style=for-the-badge)](https://tauri.app)
 [![Developer](https://img.shields.io/badge/Developer-Beli!%20(@umw26t)-E4405F.svg?style=for-the-badge&logo=instagram)](https://www.instagram.com/umw26t/)
 
@@ -17,10 +17,10 @@
 
 ---
 
-## 💡 À propos de Sophy
+## 💡 À propos de Sophy Studio
 
 > **Vous en avez assez des limites de téléchargement de Suno, des quotas restrictifs et des interfaces web lentes ?**  
-> Bienvenue sur **Sophy** ! La création musicale ne devrait jamais être freinée par des démarches de téléchargement fastidieuses. Sophy permet aux créateurs, producteurs et passionnés d'extraire des pistes audio en qualité studio, des fichiers WAV sans perte, des pochettes HD et les paroles directement à partir des liens Suno dans des dossiers parfaitement organisés – de manière 100 % gratuite, illimitée et fulgurante.
+> Bienvenue sur **Sophy Studio** ! La création musicale ne devrait jamais être freinée par des démarches de téléchargement fastidieuses. Sophy Studio permet aux créateurs, producteurs et passionnés d'extraire des pistes audio en qualité studio, des fichiers WAV sans perte, des pochettes HD et les paroles directement à partir des liens Suno dans des dossiers parfaitement organisés – de manière 100 % gratuite, illimitée et fulgurante.
 
 ---
 
@@ -35,7 +35,7 @@
 - **🕒 Historique de recherche local :** Ne perdez plus jamais un morceau. Vos recherches sont mémorisées localement et rechargeables instantanément.
 - **🌍 8 langues d'interface :** English, Türkçe, Deutsch, Français, Español, Русский, Português et 日本語 avec changement dynamique.
 - **🚀 Mises à jour automatiques intégrées :** Détecte les nouvelles versions au démarrage et installe la mise à jour directement dans l'application !
-- **📁 Bibliothèque locale organisée :** Vos fichiers sont classés proprement dans `Documents\Sophy\` avec des sous-dossiers dédiés (`Audio`, `Cover Art`, `Lyrics`, `All`).
+- **📁 Bibliothèque locale organisée :** Vos fichiers sont classés proprement dans `Documents\Sophy Studio\` avec des sous-dossiers dédiés (`Audio`, `Cover Art`, `Lyrics`, `All`).
 
 ---
 
@@ -84,9 +84,9 @@ Un design sombre, élégant et sans distraction pensé pour une efficacité maxi
 ## 📥 Installation
 
 ### Programme d'installation Windows (Setup)
-1. Téléchargez la dernière version de `Sophy_Setup.exe` sur la page [Releases](https://github.com/umwt26/sophy-suno-downloader/releases).
+1. Téléchargez la dernière version de `Sophy_Studio_Setup.exe` sur la page [Releases](https://github.com/umwt26/Sophy-Studio/releases).
 2. Lancez l'installateur et laissez-vous guider par l'assistant.
-3. Lancez **Sophy** depuis votre bureau ou le menu Démarrer !
+3. Lancez **Sophy Studio** depuis votre bureau ou le menu Démarrer !
 
 ---
 
@@ -114,4 +114,4 @@ Crafted with ❤️ by **Beli! (Discord: @umw35t)**.
 ## 📄 Licence & Mentions légales
 
 Ce projet est sous licence MIT.  
-*Avertissement : Sophy est un projet open-source indépendant et n'est ni affilié ni approuvé par Suno AI. Veuillez respecter les droits d'auteur et les conditions d'utilisation des créateurs et des plateformes.*
+*Avertissement : Sophy Studio est un projet open-source indépendant et n'est ni affilié ni approuvé par Suno AI. Veuillez respecter les droits d'auteur et les conditions d'utilisation des créateurs et des plateformes.*

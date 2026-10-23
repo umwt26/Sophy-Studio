@@ -14,7 +14,7 @@ impl SophyPaths {
         let docs = dirs::document_dir()
             .ok_or_else(|| "Could not locate user's Documents folder".to_string())?;
 
-        let base = docs.join("Sophy");
+        let base = docs.join("Sophy Studio");
         let audio = base.join("Audio");
         let video = base.join("Video");
         let cover_art = base.join("Cover Art");

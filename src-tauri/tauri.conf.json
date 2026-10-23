@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "Sophy",
+  "productName": "Sophy Studio",
   "version": "0.1.0",
-  "identifier": "com.sophy.downloader",
+  "identifier": "com.sophystudio.app",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "Sophy",
+        "title": "Sophy Studio",
         "width": 960,
         "height": 680,
         "minWidth": 780,

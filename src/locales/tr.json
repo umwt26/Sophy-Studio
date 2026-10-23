@@ -1,11 +1,11 @@
 {
   "app": {
-    "title": "Sophy",
+    "title": "Sophy Studio",
     "subtitle": "Suno AI İndirici & Araç Seti",
     "inputPlaceholder": "Suno şarkı linkini yapıştırın (örn: https://suno.com/s/... veya /song/...)",
     "analyzeBtn": "Şarkıyı Getir",
     "fetching": "Şarkı analiz ediliyor...",
-    "openFolder": "Sophy Klasörünü Aç",
+    "openFolder": "Sophy Studio Klasörünü Aç",
     "downloadAll": "Tümünü İndir (.zip)",
     "audio": "Ses",
     "coverArt": "Kapak Görseli",
@@ -13,7 +13,7 @@
     "downloading": "İndiriliyor...",
     "converting": "Dönüştürülüyor...",
     "completed": "Tamamlandı!",
-    "folderNote": "Kayıt Yeri: Belgeler/Sophy/",
+    "folderNote": "Kayıt Yeri: Belgeler/Sophy Studio/",
     "language": "Dil",
     "history": "Geçmiş",
     "historyTitle": "Arama Geçmişi",

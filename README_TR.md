@@ -1,11 +1,11 @@
 <div align="center">
 
-# 🎵 Sophy — Suno İndirici & Araç Seti
+# 🎵 Sophy Studio — Suno İndirici & Araç Seti
 
 **Suno AI Medyaları İçin Yeni Nesil, Yüksek Performanslı Masaüstü İndirme Aracı.**
 
-[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/sophy-suno-downloader/releases)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/sophy-suno-downloader)
+[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/Sophy-Studio/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/Sophy-Studio)
 [![Built With](https://img.shields.io/badge/Built%20With-Tauri%202%20%7C%20Rust%20%7C%20React%2019-teal.svg?style=for-the-badge)](https://tauri.app)
 [![Developer](https://img.shields.io/badge/Geliştirici-Beli!%20(@umw26t)-E4405F.svg?style=for-the-badge&logo=instagram)](https://www.instagram.com/umw26t/)
 
@@ -17,10 +17,10 @@
 
 ---
 
-## 💡 Sophy Hakkında
+## 💡 Sophy Studio Hakkında
 
 > **Suno'nun indirme limitlerinden, kota engellerinden ve hantal web arayüzlerinden sıkıldıysanız buyurun canlar, işler artık çocuk oyuncağı!**  
-> Sophy; müzik üreticileri, dinleyiciler ve içerik üreticileri için tasarlandı. İstediğiniz herhangi bir Suno şarkı bağlantısını yapıştırın; tek tıkla stüdyo kalitesinde 320kbps MP3, DAW için kayıpsız uncompressed WAV, orijinal yüksek çözünürlüklü kapak görseli ve şarkı sözlerini anında bilgisayarınıza indirin. Ücretsiz, sınırsız ve ışık hızında!
+> Sophy Studio; müzik üreticileri, dinleyiciler ve içerik üreticileri için tasarlandı. İstediğiniz herhangi bir Suno şarkı bağlantısını yapıştırın; tek tıkla stüdyo kalitesinde 320kbps MP3, DAW için kayıpsız uncompressed WAV, orijinal yüksek çözünürlüklü kapak görseli ve şarkı sözlerini anında bilgisayarınıza indirin. Ücretsiz, sınırsız ve ışık hızında!
 
 ---
 
@@ -35,7 +35,7 @@
 - **🕒 Arama Geçmişi:** Tarattığınız şarkılar kaybolmaz! Yerel geçmiş listesinden istediğiniz önceki şarkıyı tek tıkla tekrar ekrana yükleyin.
 - **🌍 8 Farklı Dil Desteği:** Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, Rusça, Portekizce ve Japonca dilleri arasında canlı geçiş yapın.
 - **🚀 Uzaktan Güncelleme Kontrolcüsü:** Yeni bir sürüm çıktığında GitHub Releases üzerinden sistemi otomatik algılar ve sizi uyarır ("Aa yeni sürüm var, hadi güncelle beni!").
-- **📁 Düzenli Klasör Mimarisi:** İndirmeleriniz `Belgeler\Sophy\` altında otomatik olarak kategorize edilir (`Audio`, `Cover Art`, `Lyrics`, `All`).
+- **📁 Düzenli Klasör Mimarisi:** İndirmeleriniz `Belgeler\Sophy Studio\` altında otomatik olarak kategorize edilir (`Audio`, `Cover Art`, `Lyrics`, `All`).
 
 ---
 
@@ -84,9 +84,9 @@ Göz yormayan karanlık tema ile tasarlanmış modern karşılama ekranı:
 ## 📥 Kurulum
 
 ### Windows Kurulum Sihirbazı (Setup)
-1. En güncel `Sophy_Setup.exe` dosyasını [Releases](https://github.com/umwt26/sophy-suno-downloader/releases) sayfasından indirin.
+1. En güncel `Sophy_Studio_Setup.exe` dosyasını [Releases](https://github.com/umwt26/Sophy-Studio/releases) sayfasından indirin.
 2. Kurulum sihirbazını çalıştırarak kolayca kurulumu tamamlayın.
-3. Masaüstündeki veya Başlat Menüsündeki **Sophy** simgesine tıklayarak hemen kullanmaya başlayın!
+3. Masaüstündeki veya Başlat Menüsündeki **Sophy Studio** simgesine tıklayarak hemen kullanmaya başlayın!
 
 ---
 
@@ -114,4 +114,4 @@ Crafted with ❤️ by **Beli! (Discord: @umw35t)**.
 ## 📄 Lisans & Yasal Uyarı
 
 Bu proje MIT Lisansı altında sunulmaktadır.  
-*Yasal Uyarı: Sophy bağımsız bir açık kaynak araç setidir; Suno AI ile resmi bir bağı veya ortaklığı bulunmamaktadır. Sanatçıların ve platformların telif haklarına lütfen özen gösteriniz.*
+*Yasal Uyarı: Sophy Studio bağımsız bir açık kaynak araç setidir; Suno AI ile resmi bir bağı veya ortaklığı bulunmamaktadır. Sanatçıların ve platformların telif haklarına lütfen özen gösteriniz.*

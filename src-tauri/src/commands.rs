@@ -284,11 +284,11 @@ fn compare_semver(latest: &str, current: &str) -> bool {
 pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult, String> {
     let current_version = "0.1.0".to_string();
     let client = reqwest::Client::builder()
-        .user_agent("Sophy-App/0.1.0")
+        .user_agent("Sophy-Studio/0.1.0")
         .build()
         .map_err(|e| e.to_string())?;
 
-    let default_repo = "umwt26/sophy-suno-downloader";
+    let default_repo = "umwt26/Sophy-Studio";
     let target_repo = repo.as_deref().unwrap_or(default_repo);
 
     let endpoints = [
@@ -354,7 +354,7 @@ pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult
 #[tauri::command]
 pub async fn install_update(app: tauri::AppHandle, download_url: String) -> Result<(), String> {
     let client = reqwest::Client::builder()
-        .user_agent("Sophy-App/0.1.0")
+        .user_agent("Sophy-Studio/0.1.0")
         .build()
         .map_err(|e| e.to_string())?;
 
@@ -365,7 +365,7 @@ pub async fn install_update(app: tauri::AppHandle, download_url: String) -> Resu
 
     let bytes = resp.bytes().await.map_err(|e| format!("İndirilen veri okunamadı: {}", e))?;
     let temp_dir = std::env::temp_dir();
-    let installer_path = temp_dir.join("Sophy_Update_Setup.exe");
+    let installer_path = temp_dir.join("Sophy_Studio_Update_Setup.exe");
     std::fs::write(&installer_path, bytes).map_err(|e| format!("Dosya yazılamadı: {}", e))?;
 
     #[cfg(target_os = "windows")]

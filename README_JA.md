@@ -1,11 +1,11 @@
 <div align="center">
 
-# 🎵 Sophy — Suno Downloader & Toolkit
+# 🎵 Sophy Studio — Suno Downloader & Toolkit
 
 **Suno AI メディアのための究極・超高速デスクトップダウンローダー＆ツールキット。**
 
-[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/sophy-suno-downloader/releases)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/sophy-suno-downloader)
+[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/Sophy-Studio/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/Sophy-Studio)
 [![Built With](https://img.shields.io/badge/Built%20With-Tauri%202%20%7C%20Rust%20%7C%20React%2019-teal.svg?style=for-the-badge)](https://tauri.app)
 [![Developer](https://img.shields.io/badge/Developer-Beli!%20(@umw26t)-E4405F.svg?style=for-the-badge&logo=instagram)](https://www.instagram.com/umw26t/)
 
@@ -17,10 +17,10 @@
 
 ---
 
-## 💡 Sophy について
+## 💡 Sophy Studio について
 
 > **Sunoのダウンロード制限、クォータ、重いWebインターフェースにうんざりしていませんか？**  
-> **Sophy** へようこそ！クリエイティブな楽曲生成は、煩わしいダウンロード手順に邪魔されるべきではありません。Sophy は、クリエイター、プロデューサー、リスナーが Suno リンクからスタジオ品質のオーディオ、可逆圧縮 WAV、高解像度のアートワーク、歌詞を直接PC内の整理されたフォルダへ抽出できる、完全無料・無制限・超高速なデスクトップツールです。
+> **Sophy Studio** へようこそ！クリエイティブな楽曲生成は、煩わしいダウンロード手順に邪魔されるべきではありません。Sophy Studio は、クリエイター、プロデューサー、リスナーが Suno リンクからスタジオ品質のオーディオ、可逆圧縮 WAV、高解像度のアートワーク、歌詞を直接PC内の整理されたフォルダへ抽出できる、完全無料・無制限・超高速なデスクトップツールです。
 
 ---
 
@@ -35,7 +35,7 @@
 - **🕒 ローカル検索履歴:** 過去に解析した楽曲をローカルに保存。履歴からいつでもワンクリックで再読み込み可能。
 - **🌍 8ヶ国語の多言語対応:** English、Türkçe、Deutsch、Français、Español、Русский、Português、日本語に対応し、即座に言語切り替えが可能。
 - **🚀 アプリ内自動アップデーター:** 起動時に GitHub Releases を自動確認し、最新バージョンをアプリ内で直接ダウンロード＆自動更新！
-- **📁 整理されたローカルライブラリ:** ダウンロードしたメディアは `Documents\Sophy\` 内の専用フォルダ（`Audio`, `Cover Art`, `Lyrics`, `All`）へ自動分類。
+- **📁 整理されたローカルライブラリ:** ダウンロードしたメディアは `Documents\Sophy Studio\` 内の専用フォルダ（`Audio`, `Cover Art`, `Lyrics`, `All`）へ自動分類。
 
 ---
 
@@ -84,9 +84,9 @@
 ## 📥 インストール方法
 
 ### Windows インストーラー (Setup)
-1. [Releases](https://github.com/umwt26/sophy-suno-downloader/releases) ページから最新の `Sophy_Setup.exe` をダウンロードします。
+1. [Releases](https://github.com/umwt26/Sophy-Studio/releases) ページから最新の `Sophy_Studio_Setup.exe` をダウンロードします。
 2. インストーラーを起動し、案内に従ってインストールを完了します。
-3. デスクトップまたはスタートメニューから **Sophy** を起動してお楽しみください！
+3. デスクトップまたはスタートメニューから **Sophy Studio** を起動してお楽しみください！
 
 ---
 
@@ -114,4 +114,4 @@ Crafted with ❤️ by **Beli! (Discord: @umw35t)**.
 ## 📄 ライセンス & 免責事項
 
 本プロジェクトは MIT ライセンスの下で公開されています。  
-*免責事項: Sophy は独立したオープンソースツールであり、Suno AI との公式な提携や保証はありません。各クリエイターおよびプラットフォームの利用規約や著作権を遵守してご利用ください。*
+*免責事項: Sophy Studio は独立したオープンソースツールであり、Suno AI との公式な提携や保証はありません。各クリエイターおよびプラットフォームの利用規約や著作権を遵守してご利用ください。*

@@ -282,9 +282,9 @@ fn compare_semver(latest: &str, current: &str) -> bool {
 
 #[tauri::command]
 pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult, String> {
-    let current_version = "0.1.0".to_string();
+    let current_version = env!("CARGO_PKG_VERSION").to_string();
     let client = reqwest::Client::builder()
-        .user_agent("Sophy-Studio/0.1.0")
+        .user_agent(&format!("Sophy-Studio/{}", env!("CARGO_PKG_VERSION")))
         .build()
         .map_err(|e| e.to_string())?;
 
@@ -354,7 +354,7 @@ pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult
 #[tauri::command]
 pub async fn install_update(app: tauri::AppHandle, download_url: String) -> Result<(), String> {
     let client = reqwest::Client::builder()
-        .user_agent("Sophy-Studio/0.1.0")
+        .user_agent(&format!("Sophy-Studio/{}", env!("CARGO_PKG_VERSION")))
         .build()
         .map_err(|e| e.to_string())?;
 

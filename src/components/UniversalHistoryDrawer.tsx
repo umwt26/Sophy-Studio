@@ -20,7 +20,15 @@ interface UniversalHistoryDrawerProps {
   onRemoveItem: (id: string) => void;
 }
 
-const PLATFORMS = ["Tümü", "YouTube", "Instagram", "TikTok", "Facebook", "Twitter", "Diğer"];
+const PLATFORM_KEYS = [
+  { id: "all", labelKey: "universal.allPlatforms", defaultLabel: "Tümü" },
+  { id: "youtube", label: "YouTube" },
+  { id: "instagram", label: "Instagram" },
+  { id: "tiktok", label: "TikTok" },
+  { id: "facebook", label: "Facebook" },
+  { id: "twitter", label: "Twitter" },
+  { id: "other", labelKey: "universal.otherPlatform", defaultLabel: "Diğer" },
+];
 
 export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
   isOpen,
@@ -32,7 +40,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
 }) => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedPlatform, setSelectedPlatform] = useState("Tümü");
+  const [selectedPlatform, setSelectedPlatform] = useState("all");
   const [sortBy, setSortBy] = useState<"newest" | "oldest" | "title">("newest");
 
   const processedHistory = useMemo(() => {
@@ -54,10 +62,14 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
       }
 
       // Filter by platform
-      if (selectedPlatform !== "Tümü" && selectedPlatform !== "All") {
-        list = list.filter(
-          (item) => String(item.platform || "Diğer").toLowerCase() === selectedPlatform.toLowerCase()
-        );
+      if (selectedPlatform !== "all") {
+        list = list.filter((item) => {
+          const p = String(item.platform || "other").toLowerCase();
+          if (selectedPlatform === "other") {
+            return p === "other" || p === "diğer";
+          }
+          return p === selectedPlatform;
+        });
       }
 
       // Safe sort
@@ -182,20 +194,23 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
 
           {/* Platform Filter Chips */}
           <div className="flex flex-wrap gap-1 pt-1 overflow-x-auto pb-1">
-            {PLATFORMS.map((plat) => (
-              <button
-                key={plat}
-                type="button"
-                onClick={() => setSelectedPlatform(plat)}
-                className={`chip text-[10px] px-2 py-0.5 cursor-pointer ${
-                  selectedPlatform === plat
-                    ? "bg-[var(--color-accent)] text-black font-bold border-transparent"
-                    : "hover:border-[var(--color-accent)]/50"
-                }`}
-              >
-                {plat === "Tümü" ? t("universal.allPlatforms", "Tümü") : plat}
-              </button>
-            ))}
+            {PLATFORM_KEYS.map((plat) => {
+              const label = plat.labelKey ? t(plat.labelKey, plat.defaultLabel) : plat.label;
+              return (
+                <button
+                  key={plat.id}
+                  type="button"
+                  onClick={() => setSelectedPlatform(plat.id)}
+                  className={`chip text-[10px] px-2 py-0.5 cursor-pointer ${
+                    selectedPlatform === plat.id
+                      ? "bg-[var(--color-accent)] text-black font-bold border-transparent"
+                      : "hover:border-[var(--color-accent)]/50"
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -207,7 +222,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                 <GlobeDownloadIcon className="h-5 w-5" />
               </div>
               <p className="mt-2 text-xs font-medium text-[var(--color-text-secondary)]">
-                {searchTerm || selectedPlatform !== "Tümü"
+                {searchTerm || selectedPlatform !== "all"
                   ? t("universal.noFilteredResults", "Seçilen kriterde medya bulunamadı.")
                   : t("universal.emptyHistory", "Henüz indirilen medya geçmişi yok.")}
               </p>
@@ -215,7 +230,11 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
           ) : (
             processedHistory.map((item) => {
               const formatLabel = String(item.format || "mp4").toUpperCase();
-              const platformLabel = String(item.platform || "Medya");
+              const rawPlatform = String(item.platform || "Other");
+              const platformLabel =
+                rawPlatform.toLowerCase() === "diğer" || rawPlatform.toLowerCase() === "other"
+                  ? t("universal.otherPlatform", "Other")
+                  : rawPlatform;
               const titleText = String(item.title || t("universal.untitled", "İsimsiz Medya"));
               const urlText = String(item.url || "");
               const dateText = item.timestamp ? new Date(item.timestamp).toLocaleDateString() : "";

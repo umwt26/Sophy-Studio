@@ -80,7 +80,9 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
   };
 
   const handleOpenMailto = () => {
-    const subject = encodeURIComponent(`[Sophy Studio v1.0] ${category} - ${name || "Kullanıcı"}`);
+    const subject = encodeURIComponent(
+      `[Sophy Studio v1.0] ${category} - ${name || t("feedback.anonymousUser", "Kullanıcı")}`
+    );
     const body = encodeURIComponent(
       `Bildirim Türü: ${category}\n` +
       `Ad Soyad: ${name}\n` +
@@ -181,7 +183,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={sending}
-                placeholder="ornek@gmail.com"
+                placeholder={t("feedback.placeholderEmail", "name@example.com")}
                 className="w-full rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3.5 py-2.5 text-xs text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors"
               />
             </div>

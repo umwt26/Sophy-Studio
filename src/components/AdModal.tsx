@@ -108,11 +108,12 @@ const SPONSORS: Sponsor[] = [
 export function AdModal({
   onClose,
   onConfirm,
-  actionTitle = "İndirmeyi Başlat",
+  actionTitle,
   actionDesc,
   lockSeconds = 5,
 }: AdModalProps) {
   const { t } = useTranslation();
+  const effectiveActionTitle = actionTitle || t("app.startDownload", "İndirmeyi Başlat");
   // Fixed random sponsor for this impression instance
   const [sponsor] = useState(() => SPONSORS[Math.floor(Math.random() * SPONSORS.length)]);
   const [secondsRemaining, setSecondsRemaining] = useState(lockSeconds);
@@ -245,7 +246,7 @@ export function AdModal({
               className="btn btn-primary w-full py-2.5 text-xs font-bold shadow-lg animate-pulse"
             >
               <ArrowDownTrayIcon className="h-4 w-4" />
-              <span>{actionTitle}</span>
+              <span>{effectiveActionTitle}</span>
             </button>
           ) : (
             <button

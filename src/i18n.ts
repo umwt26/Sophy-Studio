@@ -21,15 +21,26 @@ const resources = {
   ja: { translation: ja },
 };
 
+const savedLang = typeof window !== 'undefined' ? localStorage.getItem('sophy_lang') : null;
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en',
+    lng: savedLang || 'en',
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },
   });
 
+i18n.on('languageChanged', (lng) => {
+  try {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sophy_lang', lng);
+    }
+  } catch {}
+});
+
 export default i18n;
+

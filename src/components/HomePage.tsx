@@ -42,7 +42,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
         "Suno parçalarını 320k MP3, kayıpsız WAV, yüksek çözünürlüklü kapak ve senkron şarkı sözleriyle indirin."
       ),
       Icon: SunoIcon,
-      tags: ["320k MP3", "WAV", "Lyrics", "Cover Art"],
+      tags: ["320k MP3", "WAV", t("home.tagLyrics", "Lyrics"), t("home.tagCoverArt", "Cover Art")],
     },
     {
       id: "universal",
@@ -62,7 +62,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
         "MP3, WAV, FLAC veya M4A ses dosyalarınızın sanatçı, şarkı adı ve albüm kapak resimlerini düzenleyin."
       ),
       Icon: TagIcon,
-      tags: ["ID3v2", "Albüm Kapağı", "FLAC / WAV", "Etiket Düzenleme"],
+      tags: ["ID3v2", t("home.tagCoverArt", "Albüm Kapağı"), "FLAC / WAV", t("home.tagTagEditor", "Etiket Düzenleme")],
     },
     {
       id: "detector",
@@ -72,7 +72,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
         "Essentia harmonik 12-Chroma ve ritim analiziyle parçanın müzikal tonunu (Camelot) ve BPM değerini ölçün."
       ),
       Icon: PianoIcon,
-      tags: ["Camelot Wheel", "BPM", "Ritim Analizi", "Çevrimdışı"],
+      tags: ["Camelot Wheel", "BPM", t("home.tagRhythmAnalysis", "Ritim Analizi"), t("home.tagOffline", "Çevrimdışı")],
     },
     {
       id: "sample-cutter",
@@ -82,7 +82,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
         "Suno ve prodüksiyon için parçalarınızdan tam 8 saniyelik kusursuz sample kesitleri kırpın ve dışa aktarın."
       ),
       Icon: ScissorsIcon,
-      tags: ["8s Waveform", "Suno Kesici", "320k MP3", "WAV"],
+      tags: ["8s Waveform", t("home.tagSunoCutter", "Suno Kesici"), "320k MP3", "WAV"],
     },
   ];
 
@@ -137,7 +137,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
               className="flex items-center justify-between gap-4 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-3.5 sm:px-5 sm:py-4 cursor-pointer transition-all duration-150 hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface-2)] group shadow-xs"
             >
               <div className="flex items-center gap-3.5 min-w-0">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] text-[var(--color-text-secondary)] group-hover:text-[var(--color-accent)] group-hover:border-[var(--color-accent)]/30 group-hover:scale-105 transition-all">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] text-[var(--color-text-secondary)] group-hover:text-[var(--color-accent)] group-hover:border-[var(--color-accent)]/30 transition-all">
                   <Icon className="h-5 w-5" />
                 </div>
 
@@ -165,7 +165,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
                   {t("home.openTool", "Başlat")}
                 </span>
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] text-[var(--color-text-secondary)] group-hover:bg-[var(--color-accent)] group-hover:text-black group-hover:border-transparent transition-all">
-                  <ChevronRightIcon className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRightIcon className="h-4 w-4 transition-transform" />
                 </div>
               </div>
             </div>

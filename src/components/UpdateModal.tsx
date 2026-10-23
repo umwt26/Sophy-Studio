@@ -33,7 +33,9 @@ export function UpdateModal({ updateInfo, onClose }: UpdateModalProps) {
     } catch (err: unknown) {
       console.error("Auto update failed:", err);
       setUpdating(false);
-      setErrorMsg(typeof err === "string" ? err : "Otomatik güncelleme indirilemedi.");
+      setErrorMsg(
+        typeof err === "string" ? err : t("app.autoUpdateFailed", "Otomatik güncelleme indirilemedi.")
+      );
     }
   };
 
@@ -84,7 +86,7 @@ export function UpdateModal({ updateInfo, onClose }: UpdateModalProps) {
           <div className="mt-3 rounded-lg border border-rose-500/30 bg-rose-500/10 p-3 text-xs text-rose-400">
             <p className="font-semibold">{errorMsg}</p>
             <p className="mt-1 text-[11px] text-rose-300/80">
-              Web sayfasından kurulum dosyasını doğrudan indirebilirsiniz.
+              {t("app.manualWebNotice", "Web sayfasından kurulum dosyasını doğrudan indirebilirsiniz.")}
             </p>
           </div>
         )}

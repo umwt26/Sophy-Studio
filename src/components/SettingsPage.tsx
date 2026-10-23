@@ -418,7 +418,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleSelectFolder("audio", "Audio Klasörü Seç")}
+                    onClick={() =>
+                      handleSelectFolder(
+                        "audio",
+                        t("settings.dialogSelectAudioFolder", "Audio Klasörü Seç")
+                      )
+                    }
                     className="btn btn-primary text-xs px-3 py-1"
                   >
                     {t("settings.changeFolder", "Değiştir")}
@@ -446,7 +451,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleSelectFolder("all", "Toplu İndirme Klasörü Seç")}
+                    onClick={() =>
+                      handleSelectFolder(
+                        "all",
+                        t("settings.dialogSelectAllFolder", "Toplu İndirme Klasörü Seç")
+                      )
+                    }
                     className="btn btn-primary text-xs px-3 py-1"
                   >
                     {t("settings.changeFolder", "Değiştir")}
@@ -474,7 +484,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleSelectFolder("coverArt", "Cover Art Klasörü Seç")}
+                    onClick={() =>
+                      handleSelectFolder(
+                        "coverArt",
+                        t("settings.dialogSelectCoverFolder", "Cover Art Klasörü Seç")
+                      )
+                    }
                     className="btn btn-primary text-xs px-3 py-1"
                   >
                     {t("settings.changeFolder", "Değiştir")}
@@ -502,7 +517,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleSelectFolder("lyrics", "Lyrics Klasörü Seç")}
+                    onClick={() =>
+                      handleSelectFolder(
+                        "lyrics",
+                        t("settings.dialogSelectLyricsFolder", "Lyrics Klasörü Seç")
+                      )
+                    }
                     className="btn btn-primary text-xs px-3 py-1"
                   >
                     {t("settings.changeFolder", "Değiştir")}
@@ -530,7 +550,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleSelectFolder("universal", "Universal Media Klasörü Seç")}
+                    onClick={() =>
+                      handleSelectFolder(
+                        "universal",
+                        t("settings.dialogSelectUniversalFolder", "Universal Media Klasörü Seç")
+                      )
+                    }
                     className="btn btn-primary text-xs px-3 py-1"
                   >
                     {t("settings.changeFolder", "Değiştir")}
@@ -562,6 +587,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                     type="button"
                     onClick={() => {
                       i18n.changeLanguage(lang.code);
+                      try {
+                        localStorage.setItem("sophy_lang", lang.code);
+                      } catch {}
                     }}
                     className={`flex items-center justify-between rounded-xl border p-3.5 transition-all ${
                       isSelected

@@ -26,7 +26,7 @@ function detectPlatform(rawUrl: string): string {
   if (u.includes("tiktok.com")) return "TikTok";
   if (u.includes("facebook.com") || u.includes("fb.watch")) return "Facebook";
   if (u.includes("twitter.com") || u.includes("x.com")) return "Twitter";
-  return "Diğer";
+  return "Other";
 }
 
 export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = ({
@@ -63,7 +63,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
               uploader: item.uploader ? String(item.uploader) : undefined,
               duration: typeof item.duration === "number" ? item.duration : undefined,
               format: (item.format === "mp3" ? "mp3" : "mp4") as "mp4" | "mp3",
-              platform: String(item.platform || "Diğer"),
+              platform: String(item.platform || "Other"),
               timestamp: typeof item.timestamp === "number" ? item.timestamp : Date.now(),
             }));
           setHistory(sanitized);
@@ -376,7 +376,9 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
               ? t("universal.downloadMp4", "Videoyu İndir (MP4)")
               : t("universal.downloadMp3", "Sesi İndir (MP3 320k)")
           }
-          actionDesc={mediaInfo?.title || "Medya indirme işlemi hazır"}
+          actionDesc={
+            mediaInfo?.title || t("universal.readyToDownload", "Medya indirme işlemi hazır")
+          }
           lockSeconds={5}
           onClose={() => {
             setAdModalOpen(false);

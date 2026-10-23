@@ -34,10 +34,11 @@ pub fn run() {
         let _ = window.set_icon(icon);
       }
 
-      // Proactively ensure yt-dlp and ffmpeg binaries in background
+      // Proactively ensure yt-dlp, ffmpeg and ffprobe binaries in background
       tauri::async_runtime::spawn(async move {
         let _ = sophy_core::UniversalDownloader::ensure_ytdlp_binary().await;
         let _ = sophy_core::MediaConverter::ensure_ffmpeg_binary().await;
+        let _ = sophy_core::MediaConverter::ensure_ffprobe_binary().await;
       });
 
       if cfg!(debug_assertions) {

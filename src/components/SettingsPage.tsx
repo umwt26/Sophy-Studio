@@ -12,6 +12,11 @@ import {
   TikTokIcon,
   TwitterXIcon,
   YouTubeIcon,
+  SunoIcon,
+  GlobeDownloadIcon,
+  PianoIcon,
+  TagIcon,
+  FolderIcon,
 } from "./icons";
 import { ACCENT_COLORS, loadSavedTheme, saveTheme } from "../utils/theme";
 import type { AppThemeConfig, FolderSettings, ThemeColor, ThemeMode } from "../types";
@@ -550,43 +555,58 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
             <div className="flex items-center gap-2 pb-2 border-b border-[var(--color-app-border)]">
               <SparklesIcon className="h-4 w-4 text-[var(--color-accent)]" />
               <h3 className="text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">
-                v0.2.0 Güncelleme Notları
+                {t("settings.releaseNotesTitle", "v0.2.0 Güncelleme Notları")}
               </h3>
             </div>
 
             <div className="space-y-3 text-xs text-[var(--color-text-secondary)] leading-relaxed">
               <div className="border-l-2 border-[var(--color-accent)] pl-3">
-                <strong className="text-[var(--color-text-primary)] block">🎵 Suno Downloader 2.0 & Yan Geçmiş Menüsü</strong>
+                <div className="flex items-center gap-1.5 font-bold text-[var(--color-text-primary)] mb-0.5">
+                  <SunoIcon className="h-3.5 w-3.5 text-[var(--color-accent)] shrink-0" />
+                  <span>{t("settings.relSunoTitle", "Suno Downloader 2.0 & Yan Geçmiş Menüsü")}</span>
+                </div>
                 <span>
-                  Suno şarkılarını 320k MP3, uncompressed WAV, orijinal akış, kapak görseli ve senkronize şarkı sözleriyle (.lrc/.txt) indirme. Soldan açılan şık arama geçmişi ile önceki parçaları tek tıkla geri getirme.
+                  {t("settings.relSunoDesc", "Suno şarkılarını 320k MP3, uncompressed WAV, orijinal akış, kapak görseli ve senkronize şarkı sözleriyle (.lrc/.txt) indirme. Soldan açılan şık arama geçmişi ile önceki parçaları tek tıkla geri getirme.")}
                 </span>
               </div>
 
               <div className="border-l-2 border-emerald-500 pl-3">
-                <strong className="text-[var(--color-text-primary)] block">🌐 Universal Media Downloader & Sınıflandırma</strong>
+                <div className="flex items-center gap-1.5 font-bold text-[var(--color-text-primary)] mb-0.5">
+                  <GlobeDownloadIcon className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                  <span>{t("settings.relUniTitle", "Universal Media Downloader & Sınıflandırma")}</span>
+                </div>
                 <span>
-                  YouTube, Instagram, TikTok, Facebook, Twitter/X ve diğer platformlardan tek tıkla MP4 video ve MP3 ses dönüştürme. Platformlara göre filtrelenebilir ve sıralanabilir (A-Z, tarih) özel medya geçmişi.
+                  {t("settings.relUniDesc", "YouTube, Instagram, TikTok, Facebook, Twitter/X ve diğer platformlardan tek tıkla MP4 video ve MP3 ses dönüştürme. Platformlara göre filtrelenebilir ve sıralanabilir (A-Z, tarih) özel medya geçmişi.")}
                 </span>
               </div>
 
               <div className="border-l-2 border-purple-500 pl-3">
-                <strong className="text-[var(--color-text-primary)] block">🎹 Essentia.js Key & BPM Dedektörü</strong>
+                <div className="flex items-center gap-1.5 font-bold text-[var(--color-text-primary)] mb-0.5">
+                  <PianoIcon className="h-3.5 w-3.5 text-purple-400 shrink-0" />
+                  <span>{t("settings.relEssentiaTitle", "Essentia.js Key & BPM Dedektörü")}</span>
+                </div>
                 <span>
-                  12-Chroma HPCP ve ritim analizi ile yüksek doğrulukta ton (Camelot çarkı), DJ miksleme için harmonik uyumlu tonlar, yarı/çift tempo ve hassas BPM düzeltme kontrolleri.
+                  {t("settings.relEssentiaDesc", "12-Chroma HPCP ve ritim analizi ile yüksek doğrulukta ton (Camelot çarkı), DJ miksleme için harmonik uyumlu tonlar, yarı/çift tempo ve hassas BPM düzeltme kontrolleri.")}
                 </span>
               </div>
 
               <div className="border-l-2 border-amber-500 pl-3">
-                <strong className="text-[var(--color-text-primary)] block">🏷️ Gelişmiş Metadata & Kapak Düzenleyici</strong>
+                <div className="flex items-center gap-1.5 font-bold text-[var(--color-text-primary)] mb-0.5">
+                  <TagIcon className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+                  <span>{t("settings.relMetaTitle", "Gelişmiş Metadata & Kapak Düzenleyici")}</span>
+                </div>
                 <span>
-                  MP3, WAV, FLAC ve M4A dosyalarının şarkı adı, sanatçı, albüm ve yıl bilgilerini düzenleme; albüm kapağını anında değiştirme ve ID3v2.4 formatında doğrudan dosyaya kaydetme.
+                  {t("settings.relMetaDesc", "MP3, WAV, FLAC ve M4A dosyalarının şarkı adı, sanatçı, albüm ve yıl bilgilerini düzenleme; albüm kapağını anında değiştirme ve ID3v2.4 formatında doğrudan dosyaya kaydetme.")}
                 </span>
               </div>
 
               <div className="border-l-2 border-blue-500 pl-3">
-                <strong className="text-[var(--color-text-primary)] block">📁 Bağımsız Klasör Yönetimi & Özelleştirilebilir Temalar</strong>
+                <div className="flex items-center gap-1.5 font-bold text-[var(--color-text-primary)] mb-0.5">
+                  <FolderIcon className="h-3.5 w-3.5 text-blue-400 shrink-0" />
+                  <span>{t("settings.relFolderTitle", "Bağımsız Klasör Yönetimi & Özelleştirilebilir Temalar")}</span>
+                </div>
                 <span>
-                  All (.zip), Audio, Cover Art, Lyrics ve Universal Media için ayrı ayrı kayıt konumu belirleme. Çevrimdışı Manrope yazı tipi, 6 farklı vurgu rengi, karanlık/aydınlık/Windows tema modları ve 8 dil seçeneği.
+                  {t("settings.relFolderDesc", "All (.zip), Audio, Cover Art, Lyrics ve Universal Media için ayrı ayrı kayıt konumu belirleme. Çevrimdışı Manrope yazı tipi, 6 farklı vurgu rengi, karanlık/aydınlık/Windows tema modları ve 8 dil seçeneği.")}
                 </span>
               </div>
             </div>

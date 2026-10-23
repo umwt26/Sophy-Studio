@@ -162,43 +162,47 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
               {t("home.releaseNotesTitle", "v0.2.0 Güncelleme Notları & Yenilikler")}
             </h2>
           </div>
-          <span className="chip text-[10px] font-mono">Ekim 2026</span>
+          <span className="chip text-[10px] font-mono">{t("home.releaseMonth", "Ekim 2026")}</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 pt-1 text-xs text-[var(--color-text-secondary)]">
           <div className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/60 p-2.5">
-            <span className="font-bold text-[var(--color-text-primary)] block mb-1">
-              🎵 Suno 2.0 & Geçmiş Paneli
-            </span>
+            <div className="flex items-center gap-1.5 font-bold text-[var(--color-text-primary)] mb-1">
+              <SunoIcon className="h-4 w-4 text-[var(--color-accent)] shrink-0" />
+              <span>{t("home.rel1Title", "Suno 2.0 & Hızlı Geçmiş")}</span>
+            </div>
             <p className="text-[11px] leading-relaxed">
-              320k MP3, stüdyo WAV, albüm kapağı, senkronize sözler ve soldan açılan hızlı arama geçmişi.
+              {t("home.rel1Desc", "320k MP3, stüdyo WAV, albüm kapağı, senkronize sözler ve soldan açılan hızlı geçmiş çekmecesi.")}
             </p>
           </div>
 
           <div className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/60 p-2.5">
-            <span className="font-bold text-[var(--color-text-primary)] block mb-1">
-              🌐 Universal Downloader
-            </span>
+            <div className="flex items-center gap-1.5 font-bold text-[var(--color-text-primary)] mb-1">
+              <GlobeDownloadIcon className="h-4 w-4 text-emerald-400 shrink-0" />
+              <span>{t("home.rel2Title", "Universal Downloader & Sıralama")}</span>
+            </div>
             <p className="text-[11px] leading-relaxed">
-              YouTube, Instagram, TikTok ve Facebook videolarını tek tıkla MP4 ve MP3 olarak kaydetme ve sıralı geçmiş.
+              {t("home.rel2Desc", "YouTube, Instagram, TikTok ve Facebook videolarını tek tıkla MP4 ve MP3 olarak kaydetme ve filtrelenebilir geçmiş.")}
             </p>
           </div>
 
           <div className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/60 p-2.5">
-            <span className="font-bold text-[var(--color-text-primary)] block mb-1">
-              🎹 Key & BPM Dedektörü
-            </span>
+            <div className="flex items-center gap-1.5 font-bold text-[var(--color-text-primary)] mb-1">
+              <PianoIcon className="h-4 w-4 text-purple-400 shrink-0" />
+              <span>{t("home.rel3Title", "Essentia Key & BPM Analizi")}</span>
+            </div>
             <p className="text-[11px] leading-relaxed">
-              Essentia motoru ile Camelot çarkı, göreceli ve harmonik tonlar, tempo ince ayarı (-1, +1, /2, x2).
+              {t("home.rel3Desc", "Essentia motoru ile Camelot çarkı, göreceli ve harmonik tonlar, tempo ince ayarı (-1, +1, /2, x2).")}
             </p>
           </div>
 
           <div className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/60 p-2.5">
-            <span className="font-bold text-[var(--color-text-primary)] block mb-1">
-              🏷️ Metadata & Manrope UI
-            </span>
+            <div className="flex items-center gap-1.5 font-bold text-[var(--color-text-primary)] mb-1">
+              <TagIcon className="h-4 w-4 text-amber-400 shrink-0" />
+              <span>{t("home.rel4Title", "Metadata & Bağımsız Klasörler")}</span>
+            </div>
             <p className="text-[11px] leading-relaxed">
-              ID3v2.4 etiket ve kapak resmi gömme, çevrimdışı Manrope fontu, 6 renk teması ve 8 dil desteği.
+              {t("home.rel4Desc", "ID3v2.4 etiket ve kapak resmi gömme, çevrimdışı Manrope fontu, 6 renk teması ve bağımsız klasör yolları.")}
             </p>
           </div>
         </div>

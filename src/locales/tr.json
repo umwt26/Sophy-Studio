@@ -80,7 +80,17 @@
     "workflowTitle": "İpuçları & Kısayollar",
     "tipDragDrop": "Ses dosyalarını doğrudan pencereye sürükleyip bırakabilirsiniz.",
     "tipCoverArt": "Metadata editöründe albüm kapağı olarak JPG veya PNG kullanın.",
-    "tipOffline": "Tüm analiz ve dönüşümler yerel olarak, internet yüklemesi olmadan çalışır."
+    "tipOffline": "Tüm analiz ve dönüşümler yerel olarak, internet yüklemesi olmadan çalışır.",
+    "releaseNotesTitle": "v0.2.0 Güncelleme Notları & Yenilikler",
+    "releaseMonth": "Ekim 2026",
+    "rel1Title": "Suno 2.0 & Hızlı Geçmiş",
+    "rel1Desc": "320k MP3, stüdyo WAV, albüm kapağı, senkronize sözler ve soldan açılan hızlı geçmiş çekmecesi.",
+    "rel2Title": "Universal Downloader & Sıralama",
+    "rel2Desc": "YouTube, Instagram, TikTok ve Facebook videolarını tek tıkla MP4 ve MP3 olarak kaydetme ve filtrelenebilir geçmiş.",
+    "rel3Title": "Essentia Key & BPM Analizi",
+    "rel3Desc": "Essentia motoru ile Camelot çarkı, göreceli ve harmonik tonlar, tempo ince ayarı (-1, +1, /2, x2).",
+    "rel4Title": "Metadata & Bağımsız Klasörler",
+    "rel4Desc": "ID3v2.4 etiket ve kapak resmi gömme, çevrimdışı Manrope fontu, 6 renk teması ve bağımsız klasör yolları."
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -99,7 +109,18 @@
     "downloadError": "İndirme hatası",
     "untitled": "İsimsiz Medya",
     "downloadMp4": "Video İndir (MP4)",
-    "downloadMp3": "Ses İndir (MP3 320k)"
+    "downloadMp3": "Ses İndir (MP3 320k)",
+    "historyTitle": "Medya Geçmişi",
+    "historyCount": "indirilen içerik",
+    "searchHistory": "Başlık veya link ara...",
+    "sortBy": "Sırala:",
+    "newest": "En Yeni",
+    "oldest": "En Eski",
+    "az": "A-Z",
+    "allPlatforms": "Tümü",
+    "noFilteredResults": "Seçilen kriterde medya bulunamadı.",
+    "emptyHistory": "Henüz indirilen medya geçmişi yok.",
+    "loadAndDownload": "Yükle & İndir"
   },
   "metadata": {
     "title": "Audio Metadata Editor",
@@ -200,7 +221,18 @@
     "aboutTitle": "Hakkında",
     "aboutDesc": "Ses ve medya indirme araçları paketi.",
     "developer": "Geliştirici",
-    "rights": "Tüm hakları saklıdır."
+    "rights": "Tüm hakları saklıdır.",
+    "releaseNotesTitle": "v0.2.0 Güncelleme Notları",
+    "relSunoTitle": "Suno Downloader 2.0 & Yan Geçmiş Menüsü",
+    "relSunoDesc": "Suno şarkılarını 320k MP3, uncompressed WAV, orijinal akış, kapak görseli ve senkronize şarkı sözleriyle (.lrc/.txt) indirme. Soldan açılan şık arama geçmişi ile önceki parçaları tek tıkla geri getirme.",
+    "relUniTitle": "Universal Media Downloader & Sınıflandırma",
+    "relUniDesc": "YouTube, Instagram, TikTok, Facebook, Twitter/X ve diğer platformlardan tek tıkla MP4 video ve MP3 ses dönüştürme. Platformlara göre filtrelenebilir ve sıralanabilir (A-Z, tarih) özel medya geçmişi.",
+    "relEssentiaTitle": "Essentia.js Key & BPM Dedektörü",
+    "relEssentiaDesc": "12-Chroma HPCP ve ritim analizi ile yüksek doğrulukta ton (Camelot çarkı), DJ miksleme için harmonik uyumlu tonlar, yarı/çift tempo ve hassas BPM düzeltme kontrolleri.",
+    "relMetaTitle": "Gelişmiş Metadata & Kapak Düzenleyici",
+    "relMetaDesc": "MP3, WAV, FLAC ve M4A dosyalarının şarkı adı, sanatçı, albüm ve yıl bilgilerini düzenleme; albüm kapağını anında değiştirme ve ID3v2.4 formatında doğrudan dosyaya kaydetme.",
+    "relFolderTitle": "Bağımsız Klasör Yönetimi & Özelleştirilebilir Temalar",
+    "relFolderDesc": "All (.zip), Audio, Cover Art, Lyrics ve Universal Media için ayrı ayrı kayıt konumu belirleme. Çevrimdışı Manrope yazı tipi, 6 farklı vurgu rengi, karanlık/aydınlık/Windows tema modları ve 8 dil seçeneği."
   },
   "suno": {
     "emptyTitle": "Suno Parçası İndir",

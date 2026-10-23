@@ -162,7 +162,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
           <div className="space-y-2 text-xs">
             <div className="flex justify-between items-center text-[var(--color-text-secondary)]">
               <span>Çekirdek Altyapı:</span>
-              <span className="font-mono text-emerald-400">Rust Core v0.1.0 + Lofty Engine</span>
+              <span className="font-mono text-emerald-400">Rust Core v0.2.0 + Lofty Engine</span>
             </div>
             <div className="flex justify-between items-center text-[var(--color-text-secondary)]">
               <span>Key & BPM Motoru:</span>
@@ -183,7 +183,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
         </p>
         <div className="flex items-center gap-4">
           <span className="rounded bg-[var(--color-app-border)]/40 px-2 py-0.5 text-[11px] font-mono">
-            v0.1.0
+            v0.2.0
           </span>
           <a
             href="https://github.com/umwt26/Sophy-Studio"

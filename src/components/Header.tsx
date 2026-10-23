@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { CheckIcon, ChevronDownIcon, FolderIcon, HistoryIcon, TranslateIcon } from "./icons";
+import { CheckIcon, ChevronDownIcon, FolderIcon, MenuIcon, TranslateIcon } from "./icons";
 import logoImg from "../assets/logo.png";
 import { useTranslation } from "react-i18next";
 import type { AppTab } from "../types";
 
 interface HeaderProps {
   activeTab: AppTab;
-  onSelectTab: (tab: AppTab) => void;
+  onOpenMenu: () => void;
   onOpenFolder?: () => void;
-  onOpenHistory?: () => void;
   updateVersion?: string;
   onOpenUpdate?: () => void;
 }
@@ -26,9 +25,8 @@ const LANGUAGES = [
 
 export function Header({
   activeTab,
-  onSelectTab,
+  onOpenMenu,
   onOpenFolder,
-  onOpenHistory,
   updateVersion,
   onOpenUpdate,
 }: HeaderProps) {
@@ -62,107 +60,92 @@ export function Header({
   const currentLang =
     LANGUAGES.find((lang) => (i18n.language || "en").startsWith(lang.code)) || LANGUAGES[0];
 
-  const navItems: { id: AppTab; label: string; icon: string }[] = [
-    { id: "home", label: t("nav.home", "Ana Sayfa"), icon: "🏠" },
-    { id: "suno", label: t("nav.suno", "Suno Downloader"), icon: "🎧" },
-    { id: "metadata", label: t("nav.metadata", "Metadata Editor"), icon: "🏷️" },
-    { id: "detector", label: t("nav.detector", "Key & BPM Detect"), icon: "🎹" },
-  ];
+  const activeToolLabel = {
+    home: { label: t("nav.home", "Ana Sayfa"), icon: "🏠" },
+    suno: { label: t("nav.suno", "Suno Downloader"), icon: "🎧" },
+    metadata: { label: t("nav.metadata", "Metadata Editor"), icon: "🏷️" },
+    detector: { label: t("nav.detector", "Key & BPM Detect"), icon: "🎹" },
+  }[activeTab];
 
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between border-b border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-6 z-30">
-      {/* Brand logo & title */}
-      <div
-        onClick={() => onSelectTab("home")}
-        className="flex cursor-pointer items-center gap-3 select-none"
-      >
-        <img
-          src={logoImg}
-          alt="Sophy Studio Logo"
-          className="h-8 w-8 rounded-lg object-contain drop-shadow-[0_2px_8px_rgba(84,151,224,0.3)]"
-        />
+    <header className="flex h-14 shrink-0 items-center justify-between border-b border-[#202532] bg-[#0d0f14] px-4 select-none z-30">
+      {/* Left: Burger Button + Logo + Title */}
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={onOpenMenu}
+          aria-label="Menüyü Aç"
+          className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#202532] bg-[#141720] text-[#9ea3b5] hover:border-[#38bdf8]/40 hover:bg-[#1a1e2b] hover:text-white transition-all active:scale-95 shadow-sm"
+        >
+          <MenuIcon className="h-4 w-4" />
+        </button>
+
         <div className="flex items-center gap-2">
-          <span className="text-[17px] font-bold tracking-tight text-[var(--color-text-primary)]">
+          <img
+            src={logoImg}
+            alt="Sophy Studio Logo"
+            className="h-7 w-7 rounded-lg object-contain"
+          />
+          <span className="text-sm font-bold tracking-tight text-white hidden sm:inline">
             Sophy Studio
           </span>
-          {updateVersion && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onOpenUpdate?.();
-              }}
-              title={t("app.updateNotice", { version: updateVersion })}
-              className="flex items-center gap-1.5 rounded-full border border-[var(--color-accent)]/50 bg-[var(--color-accent)]/15 px-2.5 py-0.5 text-[10px] font-bold text-[var(--color-accent)] transition-all hover:bg-[var(--color-accent)] hover:text-white"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] animate-ping" />
-              <span>v{updateVersion}</span>
-            </button>
-          )}
         </div>
-      </div>
 
-      {/* Modern Center Navigation Segmented Bar */}
-      <nav className="flex items-center gap-1 rounded-xl border border-[var(--color-app-border)] bg-[#111317] p-1 shadow-inner">
-        {navItems.map((item) => {
-          const isActive = activeTab === item.id;
-          return (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => onSelectTab(item.id)}
-              className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
-                isActive
-                  ? "bg-[var(--color-app-surface)] text-[var(--color-accent)] shadow-md border border-[var(--color-app-border)]/80"
-                  : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[#1a1d24]"
-              }`}
-            >
-              <span>{item.icon}</span>
-              <span>{item.label}</span>
-            </button>
-          );
-        })}
-      </nav>
+        {/* Current Active Tool Pill */}
+        <div className="flex items-center gap-1.5 rounded-md border border-[#202532] bg-[#141720] px-2.5 py-1 text-xs">
+          <span>{activeToolLabel.icon}</span>
+          <span className="font-semibold text-[#38bdf8]">{activeToolLabel.label}</span>
+        </div>
 
-      {/* Right controls */}
-      <div className="flex items-center gap-2.5">
-        {/* History Button (active only for Suno) */}
-        {activeTab === "suno" && (
+        {updateVersion && (
           <button
             type="button"
-            onClick={onOpenHistory}
-            className="flex items-center gap-2 rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3 py-2 text-xs font-medium text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-text-primary)] active:bg-[#282b33]"
+            onClick={onOpenUpdate}
+            title={t("app.updateNotice", { version: updateVersion })}
+            className="flex items-center gap-1.5 rounded-full border border-sky-500/50 bg-sky-500/15 px-2 py-0.5 text-[10px] font-bold text-sky-400 hover:bg-sky-500 hover:text-white transition-all"
           >
-            <HistoryIcon className="h-3.5 w-3.5" />
-            <span>{t("app.history", "History")}</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-ping" />
+            <span>v{updateVersion}</span>
           </button>
         )}
+      </div>
 
-        {/* Custom Premium Language Dropdown */}
+      {/* Right controls */}
+      <div className="flex items-center gap-2">
+        {/* Open Folder Button */}
+        <button
+          type="button"
+          onClick={onOpenFolder}
+          className="flex items-center gap-1.5 rounded-lg border border-[#202532] bg-[#141720] px-3 py-1.5 text-xs font-medium text-[#9ea3b5] hover:border-[#38bdf8]/40 hover:text-white transition-colors"
+        >
+          <FolderIcon className="h-3.5 w-3.5 text-[#38bdf8]" />
+          <span className="hidden md:inline">{t("app.openFolder", "Klasörü Aç")}</span>
+        </button>
+
+        {/* Language Dropdown */}
         <div ref={dropdownRef} className="relative">
           <button
             type="button"
             onClick={() => setLangOpen((prev) => !prev)}
             aria-expanded={langOpen}
-            aria-label="Select language"
-            className={`flex h-8 items-center gap-2 rounded-md border bg-[var(--color-app-surface-2)] px-2.5 text-xs font-medium transition-all ${
+            className={`flex h-8 items-center gap-2 rounded-lg border bg-[#141720] px-2.5 text-xs font-medium transition-all ${
               langOpen
-                ? "border-[var(--color-accent)] text-[var(--color-text-primary)] shadow-[0_0_14px_rgba(84,151,224,0.22)]"
-                : "border-[var(--color-app-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/40 hover:text-[var(--color-text-primary)] active:bg-[#282b33]"
+                ? "border-[#38bdf8] text-white"
+                : "border-[#202532] text-[#9ea3b5] hover:border-[#38bdf8]/40 hover:text-white"
             }`}
           >
             <TranslateIcon className="h-3.5 w-3.5 shrink-0" />
-            <span className="font-semibold">{currentLang.label}</span>
+            <span className="font-semibold text-[11px]">{currentLang.flag}</span>
             <ChevronDownIcon
-              className={`h-3 w-3 text-[var(--color-text-muted)] transition-transform duration-200 ${
-                langOpen ? "rotate-180 text-[var(--color-text-primary)]" : ""
+              className={`h-3 w-3 text-[#62687a] transition-transform ${
+                langOpen ? "rotate-180 text-white" : ""
               }`}
             />
           </button>
 
           {/* Floating Dropdown Menu */}
           {langOpen && (
-            <div className="absolute right-0 top-full mt-2 z-50 w-44 rounded-lg border border-[var(--color-app-border)] bg-[#181a20] p-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.65)] backdrop-blur-md animate-scale-in">
+            <div className="absolute right-0 top-full mt-1.5 z-50 w-40 rounded-xl border border-[#202532] bg-[#11131a] p-1.5 shadow-2xl backdrop-blur-md animate-scale-in">
               <div className="flex flex-col gap-0.5">
                 {LANGUAGES.map((lang) => {
                   const isSelected = currentLang.code === lang.code;
@@ -174,27 +157,19 @@ export function Header({
                         i18n.changeLanguage(lang.code);
                         setLangOpen(false);
                       }}
-                      className={`group flex w-full items-center justify-between rounded-md px-2.5 py-2 text-xs font-medium transition-all ${
+                      className={`flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-medium transition-all ${
                         isSelected
-                          ? "bg-[var(--color-accent)]/15 text-[var(--color-accent)] font-semibold"
-                          : "text-[var(--color-text-secondary)] hover:bg-[#242730] hover:text-[var(--color-text-primary)]"
+                          ? "bg-[#38bdf8]/15 text-[#38bdf8] font-bold"
+                          : "text-[#9ea3b5] hover:bg-[#1a1e29] hover:text-white"
                       }`}
                     >
-                      <div className="flex items-center gap-2.5">
-                        <span
-                          className={`inline-flex h-4.5 w-6 items-center justify-center rounded text-[10px] font-bold tracking-wider transition-colors ${
-                            isSelected
-                              ? "bg-[var(--color-accent)]/20 text-[var(--color-accent)]"
-                              : "bg-[#232630] text-[var(--color-text-muted)] group-hover:bg-[#2b2f3b] group-hover:text-[var(--color-text-secondary)]"
-                          }`}
-                        >
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono font-bold text-[#646a7e]">
                           {lang.flag}
                         </span>
                         <span>{lang.label}</span>
                       </div>
-                      {isSelected && (
-                        <CheckIcon className="h-3.5 w-3.5 text-[var(--color-accent)]" />
-                      )}
+                      {isSelected && <CheckIcon className="h-3.5 w-3.5 text-[#38bdf8]" />}
                     </button>
                   );
                 })}
@@ -202,16 +177,6 @@ export function Header({
             </div>
           )}
         </div>
-
-        {/* Open Folder Button */}
-        <button
-          type="button"
-          onClick={onOpenFolder}
-          className="flex items-center gap-1.5 rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3 py-2 text-xs font-medium text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-text-primary)] active:bg-[#282b33]"
-        >
-          <FolderIcon className="h-3.5 w-3.5" />
-          <span className="hidden sm:inline">{t("app.openFolder", "Open Sophy Studio Folder")}</span>
-        </button>
       </div>
     </header>
   );

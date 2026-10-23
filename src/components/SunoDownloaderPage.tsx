@@ -31,20 +31,20 @@ export const SunoDownloaderPage: React.FC<SunoDownloaderPageProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col gap-6 animate-fade-in pb-12">
+    <div className="flex flex-col gap-4 animate-fade-in pb-8">
       {/* Search Input Bar */}
       <SearchBar onFetch={onFetch} loading={loading} />
 
       {!song && !loading && (
-        <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-[var(--color-app-border)] bg-[var(--color-app-surface)]/40 py-20 text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-app-border)] bg-[var(--color-app-surface)] text-[var(--color-text-muted)]">
+        <div className="flex flex-col items-center justify-center gap-2.5 rounded-xl border-2 border-dashed border-[#202532] bg-[#11131a]/50 py-16 text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#161924] text-xl border border-[#222736] text-[#38bdf8]">
             <SearchIcon className="h-5 w-5" />
           </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+          <div className="flex flex-col gap-0.5">
+            <p className="text-xs font-bold text-white">
               {t("suno.emptyTitle", "Suno Şarkısı İndir")}
             </p>
-            <p className="text-xs text-[var(--color-text-secondary)]">
+            <p className="text-[11px] text-[#717789]">
               {t("app.inputPlaceholder", "Paste a Suno link above and hit Fetch Song to get started")}
             </p>
           </div>

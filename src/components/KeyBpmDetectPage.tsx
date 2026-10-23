@@ -67,44 +67,35 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
   };
 
   return (
-    <div className="flex flex-col gap-6 animate-fade-in pb-12">
+    <div className="flex flex-col gap-4 animate-fade-in pb-8">
       {/* Header bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6">
+      <div className="flex items-center justify-between rounded-xl border border-[#202532] bg-[#11131a] px-4 py-3 shadow-md">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-500/20 text-base text-amber-400">
-              🎹
-            </span>
-            <h2 className="text-xl font-bold text-[var(--color-text-primary)]">
-              {t("detector.title", "Key & BPM Detect")}
-            </h2>
-          </div>
-          <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
-            {t(
-              "detector.subtitle",
-              "Tunebat kalitesinde müzikal ton (Camelot çarkı + klasik nota) ve hassas BPM tempo analizörü."
-            )}
+          <h2 className="text-sm font-bold text-white flex items-center gap-2">
+            <span>🎹</span>
+            <span>{t("detector.title", "Key & BPM Detect")}</span>
+          </h2>
+          <p className="text-[11px] text-[#717789] mt-0.5">
+            Tunebat standardında Krumhansl-Schmuckler müzikal ton ve tempo analizi.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={handleSelectFile}
-            disabled={analyzing}
-            className="flex items-center justify-center gap-2 rounded-xl bg-amber-600 px-5 py-2.5 text-xs font-semibold text-white shadow-lg shadow-amber-600/20 transition-all hover:bg-amber-500 active:scale-95 disabled:opacity-50"
-          >
-            <span>📂</span>
-            <span>{analyzing ? t("detector.analyzing", "Analiz Ediliyor...") : t("detector.selectFile", "Ses Dosyası Yükle")}</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={handleSelectFile}
+          disabled={analyzing}
+          className="flex items-center gap-1.5 rounded-lg border border-[#252b3a] bg-[#161a24] px-3.5 py-2 text-xs font-semibold text-[#f59e0b] hover:border-[#f59e0b]/50 hover:bg-[#1f1d17] transition-all active:scale-95 disabled:opacity-50"
+        >
+          <span>📂</span>
+          <span>{analyzing ? t("detector.analyzing", "Analiz Ediliyor...") : t("detector.selectFile", "Dosya Yükle")}</span>
+        </button>
       </div>
 
       {/* Upload Drop Zone if no result */}
       {!result && !analyzing && (
         <div
           onClick={handleSelectFile}
-          className="relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-[var(--color-app-border)] bg-[var(--color-app-surface)]/50 py-24 text-center transition-all hover:border-amber-500/50 hover:bg-[var(--color-app-surface)]"
+          className="relative flex cursor-pointer flex-col items-center justify-center gap-2.5 rounded-xl border-2 border-dashed border-[#202532] bg-[#11131a]/50 py-16 text-center transition-all hover:border-[#f59e0b]/40 hover:bg-[#11131a]"
         >
           <input
             type="file"
@@ -112,15 +103,15 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
             onChange={handleFileInput}
             className="absolute inset-0 cursor-pointer opacity-0"
           />
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-500/10 text-4xl text-amber-400">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#1a1813] text-2xl text-[#f59e0b] border border-[#342918]">
             ⚡
           </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+          <div className="flex flex-col gap-0.5">
+            <p className="text-xs font-bold text-white">
               {t("detector.dropPrompt", "Ses dosyasını buraya bırakın veya tıklayıp seçin")}
             </p>
-            <p className="text-xs text-[var(--color-text-muted)]">
-              MP3, WAV, FLAC, M4A, OGG ve AAC formatları desteklenir • Saniyeler içinde %100 çevrimdışı analiz
+            <p className="text-[11px] text-[#646a7e]">
+              MP3, WAV, FLAC, M4A, OGG, AAC • Saniyeler içinde %100 çevrimdışı yerel analiz
             </p>
           </div>
         </div>
@@ -128,17 +119,14 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
 
       {/* Loading animation */}
       {analyzing && (
-        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] py-24 text-center">
-          <div className="relative flex h-16 w-16 items-center justify-center">
-            <div className="absolute inset-0 animate-ping rounded-full bg-amber-500/20" />
-            <div className="h-10 w-10 animate-spin rounded-full border-3 border-amber-500 border-t-transparent" />
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-sm font-bold text-[var(--color-text-primary)]">
+        <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-[#202532] bg-[#11131a] py-16 text-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#f59e0b] border-t-transparent" />
+          <div className="flex flex-col gap-0.5">
+            <p className="text-xs font-bold text-white">
               {t("detector.analyzingAudio", "Ses Analiz Ediliyor...")}
             </p>
-            <p className="text-xs text-[var(--color-text-muted)]">
-              {fileName} • Krumhansl-Schmuckler harmonik ton ve tempo tespiti çalışıyor
+            <p className="text-[11px] text-[#6e7488]">
+              {fileName} • Krumhansl-Schmuckler 12-Chroma frekans analizi
             </p>
           </div>
         </div>
@@ -146,15 +134,15 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
 
       {/* Results Display */}
       {result && !analyzing && currentBpm && (
-        <div className="flex flex-col gap-6 animate-scale-in">
-          {/* File summary pill */}
-          <div className="flex items-center justify-between rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-5 py-3">
+        <div className="flex flex-col gap-4 animate-scale-in">
+          {/* File summary bar */}
+          <div className="flex items-center justify-between rounded-xl border border-[#202532] bg-[#11131a] px-4 py-2.5">
             <div className="flex items-center gap-2 truncate">
-              <span className="text-amber-400">🎵</span>
-              <span className="text-xs font-semibold text-[var(--color-text-primary)] truncate">
+              <span className="text-[#f59e0b]">🎵</span>
+              <span className="text-xs font-bold text-white truncate max-w-sm">
                 {fileName}
               </span>
-              <span className="text-xs text-[var(--color-text-muted)]">
+              <span className="text-[11px] font-mono text-[#6e7488]">
                 ({Math.floor(result.duration / 60)}:{String(Math.floor(result.duration % 60)).padStart(2, "0")})
               </span>
             </div>
@@ -162,51 +150,48 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
             <button
               type="button"
               onClick={handleSelectFile}
-              className="rounded-lg border border-[var(--color-app-border)] bg-[#181b24] px-3 py-1.5 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-amber-500/40"
+              className="rounded-lg border border-[#202532] bg-[#161a24] px-3 py-1 text-xs font-semibold text-[#8a92a6] hover:text-white hover:border-[#f59e0b]/40 transition-colors"
             >
               {t("detector.newAnalysis", "Yeni Analiz")}
             </button>
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Key Card */}
-            <div className="relative overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-gradient-to-br from-[#181a24] to-[#12131a] p-8 shadow-xl">
-              <div
-                className="absolute -right-10 -bottom-10 h-40 w-40 rounded-full blur-3xl opacity-20"
-                style={{ backgroundColor: result.camelotColor }}
-              />
+            <div className="flex flex-col justify-between rounded-xl border border-[#202532] bg-[#11131a] p-5 shadow-lg">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#63697c]">
+                    {t("detector.musicalKey", "Müzikal Ton (Key)")}
+                  </span>
+                  <span
+                    className="rounded px-2.5 py-0.5 text-xs font-black tracking-wider text-black shadow-sm"
+                    style={{ backgroundColor: result.camelotColor }}
+                  >
+                    CAMELOT {result.camelot}
+                  </span>
+                </div>
 
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">
-                  {t("detector.musicalKey", "Müzikal Ton (Key)")}
-                </span>
-                <span
-                  className="rounded-full px-3 py-1 text-xs font-black tracking-wider text-black shadow-md"
-                  style={{ backgroundColor: result.camelotColor }}
-                >
-                  CAMELOT {result.camelot}
-                </span>
+                <div className="mt-4 flex flex-col gap-1">
+                  <h3 className="text-3xl font-black tracking-tight text-white">
+                    {result.key}
+                  </h3>
+                  <p className="text-xs text-[#7e8598]">
+                    Göreceli: <strong className="text-white">{result.relativeKey}</strong>
+                  </p>
+                </div>
               </div>
 
-              <div className="mt-6 flex flex-col gap-1">
-                <h1 className="text-4xl font-black tracking-tight text-[var(--color-text-primary)]">
-                  {result.key}
-                </h1>
-                <p className="text-xs font-medium text-[var(--color-text-secondary)]">
-                  Göreceli Ton: <strong className="text-[var(--color-text-primary)]">{result.relativeKey}</strong>
-                </p>
-              </div>
-
-              <div className="mt-8 border-t border-[var(--color-app-border)]/60 pt-4">
-                <p className="text-[11px] font-semibold text-[var(--color-text-muted)] mb-2">
+              <div className="mt-6 border-t border-[#1d222e] pt-3">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#555b6c] mb-1.5">
                   Harmonik Uyumlu Tonlar (DJ Mixing):
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {result.compatibleKeys.map((k) => (
                     <span
                       key={k}
-                      className="rounded-md border border-[var(--color-app-border)] bg-[#1c1f2b] px-2.5 py-1 text-xs font-bold text-[var(--color-text-secondary)]"
+                      className="rounded bg-[#161a24] border border-[#222736] px-2 py-0.5 text-[11px] font-mono font-bold text-[#a5acbe]"
                     >
                       {k}
                     </span>
@@ -216,49 +201,50 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
             </div>
 
             {/* BPM Card */}
-            <div className="relative overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-gradient-to-br from-[#181a24] to-[#12131a] p-8 shadow-xl">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">
-                  {t("detector.tempoBpm", "Tempo (BPM)")}
-                </span>
-                <div className="flex items-center gap-1.5">
-                  <div
-                    className="h-3 w-3 rounded-full bg-amber-400 shadow-lg shadow-amber-400/50 animate-pulse"
-                    style={{ animationDuration: `${60 / currentBpm}s` }}
-                  />
-                  <span className="text-[11px] font-mono font-bold text-amber-400">BEAT</span>
+            <div className="flex flex-col justify-between rounded-xl border border-[#202532] bg-[#11131a] p-5 shadow-lg">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#63697c]">
+                    {t("detector.tempoBpm", "Tempo (BPM)")}
+                  </span>
+                  <div className="flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5">
+                    <span
+                      className="h-2 w-2 rounded-full bg-amber-400 animate-pulse"
+                      style={{ animationDuration: `${60 / currentBpm}s` }}
+                    />
+                    <span className="text-[10px] font-mono font-bold text-amber-400">BEAT</span>
+                  </div>
                 </div>
+
+                <div className="mt-4 flex items-baseline gap-2">
+                  <span className="text-4xl font-black font-mono tracking-tight text-white">
+                    {currentBpm}
+                  </span>
+                  <span className="text-xs font-bold text-[#646a7e]">BPM</span>
+                </div>
+                <p className="text-[11px] text-[#717789] mt-1">
+                  Otomatik ritim zarfı ve özilişki (autocorrelation) tespiti.
+                </p>
               </div>
 
-              <div className="mt-6 flex items-baseline gap-3">
-                <h1 className="text-5xl font-black tracking-tight font-mono text-[var(--color-text-primary)]">
-                  {currentBpm}
-                </h1>
-                <span className="text-base font-bold text-[var(--color-text-muted)]">BPM</span>
-              </div>
-
-              <p className="mt-2 text-xs text-[var(--color-text-secondary)]">
-                Otomatik tempo algılama ve ritim zarfı korelasyonu.
-              </p>
-
-              <div className="mt-8 flex items-center justify-between border-t border-[var(--color-app-border)]/60 pt-4">
-                <span className="text-[11px] font-semibold text-[var(--color-text-muted)]">
-                  Düzeltme (Half/Double Time):
+              <div className="mt-6 flex items-center justify-between border-t border-[#1d222e] pt-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#555b6c]">
+                  Tempo Düzeltme:
                 </span>
-                <div className="flex gap-2">
+                <div className="flex gap-1.5">
                   <button
                     type="button"
                     onClick={handleHalfBpm}
-                    className="rounded-md border border-[var(--color-app-border)] bg-[#1c1f2b] px-3 py-1 text-xs font-bold text-[var(--color-text-secondary)] hover:text-white hover:border-amber-500/40"
+                    className="rounded bg-[#161a24] border border-[#222736] px-2.5 py-1 text-xs font-bold text-[#a5acbe] hover:text-white hover:border-[#f59e0b]/40 transition-colors"
                   >
-                    /2 (Yarım)
+                    /2 Yarım
                   </button>
                   <button
                     type="button"
                     onClick={handleDoubleBpm}
-                    className="rounded-md border border-[var(--color-app-border)] bg-[#1c1f2b] px-3 py-1 text-xs font-bold text-[var(--color-text-secondary)] hover:text-white hover:border-amber-500/40"
+                    className="rounded bg-[#161a24] border border-[#222736] px-2.5 py-1 text-xs font-bold text-[#a5acbe] hover:text-white hover:border-[#f59e0b]/40 transition-colors"
                   >
-                    x2 (Çift)
+                    x2 Çift
                   </button>
                 </div>
               </div>

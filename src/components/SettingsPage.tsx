@@ -10,24 +10,21 @@ interface SettingsPageProps {
 }
 
 const LANGUAGES = [
-  { code: "en", label: "English", flag: "EN" },
-  { code: "tr", label: "Türkçe", flag: "TR" },
-  { code: "de", label: "Deutsch", flag: "DE" },
-  { code: "fr", label: "Français", flag: "FR" },
-  { code: "es", label: "Español", flag: "ES" },
-  { code: "ru", label: "Русский", flag: "RU" },
-  { code: "pt", label: "Português", flag: "PT" },
-  { code: "ja", label: "日本語", flag: "JA" },
+  { code: "en", label: "English", tag: "EN" },
+  { code: "tr", label: "Türkçe", tag: "TR" },
+  { code: "de", label: "Deutsch", tag: "DE" },
+  { code: "fr", label: "Français", tag: "FR" },
+  { code: "es", label: "Español", tag: "ES" },
+  { code: "ru", label: "Русский", tag: "RU" },
+  { code: "pt", label: "Português", tag: "PT" },
+  { code: "ja", label: "日本語", tag: "JA" },
 ];
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
   const { t, i18n } = useTranslation();
   const [activeCategory, setActiveCategory] = useState<"folders" | "appearance" | "language" | "about">("folders");
 
-  // Folder states
   const [folderSettings, setFolderSettings] = useState<FolderSettings>({});
-
-  // Theme state
   const [themeConfig, setThemeConfig] = useState<AppThemeConfig>(loadSavedTheme());
 
   useEffect(() => {
@@ -96,66 +93,50 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
   };
 
   return (
-    <div className="flex flex-col gap-5 animate-fade-in pb-10">
+    <div className="page">
       {/* Settings Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-5 py-4 shadow-sm">
+      <div className="section section-pad flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] border border-[var(--color-accent)]/20">
             <SettingsIcon className="h-5 w-5" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[var(--color-text-primary)]">
-              {t("settings.title", "Ayarlar & Tercihler")}
+            <h1 className="text-sm font-semibold text-[var(--color-text-primary)]">
+              {t("settings.title", "Ayarlar")}
             </h1>
             <p className="text-xs text-[var(--color-text-secondary)]">
-              {t("settings.subtitle", "Klasör yolları, görünüm teması ve dil yapılandırması.")}
+              {t("settings.subtitle", "Klasör yolları, arayüz teması ve dil tercihleri.")}
             </p>
           </div>
         </div>
 
         {/* Tab switcher */}
-        <div className="flex items-center gap-1 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-1">
+        <div className="segmented">
           <button
             type="button"
             onClick={() => setActiveCategory("folders")}
-            className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
-              activeCategory === "folders"
-                ? "bg-[var(--color-app-surface)] text-[var(--color-accent)] shadow-sm"
-                : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
-            }`}
+            className={`segmented-item ${activeCategory === "folders" ? "active" : ""}`}
           >
             {t("settings.tabFolders", "Klasörler")}
           </button>
           <button
             type="button"
             onClick={() => setActiveCategory("appearance")}
-            className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
-              activeCategory === "appearance"
-                ? "bg-[var(--color-app-surface)] text-[var(--color-accent)] shadow-sm"
-                : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
-            }`}
+            className={`segmented-item ${activeCategory === "appearance" ? "active" : ""}`}
           >
             {t("settings.tabAppearance", "Görünüm")}
           </button>
           <button
             type="button"
             onClick={() => setActiveCategory("language")}
-            className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
-              activeCategory === "language"
-                ? "bg-[var(--color-app-surface)] text-[var(--color-accent)] shadow-sm"
-                : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
-            }`}
+            className={`segmented-item ${activeCategory === "language" ? "active" : ""}`}
           >
             {t("settings.tabLanguage", "Dil")}
           </button>
           <button
             type="button"
             onClick={() => setActiveCategory("about")}
-            className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
-              activeCategory === "about"
-                ? "bg-[var(--color-app-surface)] text-[var(--color-accent)] shadow-sm"
-                : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
-            }`}
+            className={`segmented-item ${activeCategory === "about" ? "active" : ""}`}
           >
             {t("settings.tabAbout", "Hakkında")}
           </button>
@@ -164,12 +145,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
 
       {/* Category 1: Folders */}
       {activeCategory === "folders" && (
-        <div className="flex flex-col gap-4 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-sm">
+        <div className="section section-pad flex flex-col gap-4">
           <div className="flex items-center justify-between pb-3 border-b border-[var(--color-app-border)]">
             <div>
-              <h3 className="text-sm font-bold text-[var(--color-text-primary)]">
+              <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">
                 {t("settings.folderPathsTitle", "İndirme & Kayıt Klasörleri")}
-              </h3>
+              </h2>
               <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">
                 {t("settings.folderPathsDesc", "Her indirme türü için hedef klasörü ayrı ayrı özelleştirebilirsiniz.")}
               </p>
@@ -177,36 +158,36 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
             <button
               type="button"
               onClick={handleResetFolders}
-              className="flex items-center gap-1.5 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3 py-1.5 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-colors"
+              className="btn btn-secondary text-xs"
             >
               <RefreshIcon className="h-3.5 w-3.5" />
               <span>{t("settings.resetDefaults", "Varsayılana Sıfırla")}</span>
             </button>
           </div>
 
-          <div className="space-y-3 pt-1">
+          <div className="space-y-2.5">
             {/* Audio Folder */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
-              <div className="flex flex-col">
-                <span className="text-xs font-bold text-[var(--color-text-primary)]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
+              <div className="flex flex-col min-w-0">
+                <span className="text-xs font-semibold text-[var(--color-text-primary)]">
                   {t("settings.folderAudio", "Audio (MP3 / WAV)")}
                 </span>
-                <span className="font-mono text-[11px] text-[var(--color-text-secondary)] truncate max-w-md">
+                <span className="font-mono text-[11px] text-[var(--color-text-tertiary)] truncate max-w-md">
                   {folderSettings.audio || "Documents/Sophy Studio/Audio"}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => handleOpenFolder(folderSettings.audio)}
-                  className="rounded-md border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                  className="btn btn-secondary text-xs px-2.5 py-1"
                 >
                   {t("settings.openFolder", "Aç")}
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectFolder("audio", "Audio Klasörü Seç")}
-                  className="rounded-md bg-[var(--color-accent)] px-3 py-1 text-xs font-bold text-black"
+                  className="btn btn-primary text-xs px-3 py-1"
                 >
                   {t("settings.changeFolder", "Değiştir")}
                 </button>
@@ -214,27 +195,27 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
             </div>
 
             {/* All (.zip) Folder */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
-              <div className="flex flex-col">
-                <span className="text-xs font-bold text-[var(--color-text-primary)]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
+              <div className="flex flex-col min-w-0">
+                <span className="text-xs font-semibold text-[var(--color-text-primary)]">
                   {t("settings.folderAll", "All (Toplu .zip Arşivleri)")}
                 </span>
-                <span className="font-mono text-[11px] text-[var(--color-text-secondary)] truncate max-w-md">
+                <span className="font-mono text-[11px] text-[var(--color-text-tertiary)] truncate max-w-md">
                   {folderSettings.all || "Documents/Sophy Studio/All"}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => handleOpenFolder(folderSettings.all)}
-                  className="rounded-md border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                  className="btn btn-secondary text-xs px-2.5 py-1"
                 >
                   {t("settings.openFolder", "Aç")}
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectFolder("all", "All (.zip) Klasörü Seç")}
-                  className="rounded-md bg-[var(--color-accent)] px-3 py-1 text-xs font-bold text-black"
+                  className="btn btn-primary text-xs px-3 py-1"
                 >
                   {t("settings.changeFolder", "Değiştir")}
                 </button>
@@ -242,27 +223,27 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
             </div>
 
             {/* Cover Art Folder */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
-              <div className="flex flex-col">
-                <span className="text-xs font-bold text-[var(--color-text-primary)]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
+              <div className="flex flex-col min-w-0">
+                <span className="text-xs font-semibold text-[var(--color-text-primary)]">
                   {t("settings.folderCover", "Cover Art (Albüm Kapakları)")}
                 </span>
-                <span className="font-mono text-[11px] text-[var(--color-text-secondary)] truncate max-w-md">
+                <span className="font-mono text-[11px] text-[var(--color-text-tertiary)] truncate max-w-md">
                   {folderSettings.coverArt || "Documents/Sophy Studio/Cover Art"}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => handleOpenFolder(folderSettings.coverArt)}
-                  className="rounded-md border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                  className="btn btn-secondary text-xs px-2.5 py-1"
                 >
                   {t("settings.openFolder", "Aç")}
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectFolder("coverArt", "Cover Art Klasörü Seç")}
-                  className="rounded-md bg-[var(--color-accent)] px-3 py-1 text-xs font-bold text-black"
+                  className="btn btn-primary text-xs px-3 py-1"
                 >
                   {t("settings.changeFolder", "Değiştir")}
                 </button>
@@ -270,27 +251,27 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
             </div>
 
             {/* Lyrics Folder */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
-              <div className="flex flex-col">
-                <span className="text-xs font-bold text-[var(--color-text-primary)]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
+              <div className="flex flex-col min-w-0">
+                <span className="text-xs font-semibold text-[var(--color-text-primary)]">
                   {t("settings.folderLyrics", "Lyrics (Şarkı Sözleri)")}
                 </span>
-                <span className="font-mono text-[11px] text-[var(--color-text-secondary)] truncate max-w-md">
+                <span className="font-mono text-[11px] text-[var(--color-text-tertiary)] truncate max-w-md">
                   {folderSettings.lyrics || "Documents/Sophy Studio/Lyrics"}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => handleOpenFolder(folderSettings.lyrics)}
-                  className="rounded-md border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                  className="btn btn-secondary text-xs px-2.5 py-1"
                 >
                   {t("settings.openFolder", "Aç")}
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectFolder("lyrics", "Lyrics Klasörü Seç")}
-                  className="rounded-md bg-[var(--color-accent)] px-3 py-1 text-xs font-bold text-black"
+                  className="btn btn-primary text-xs px-3 py-1"
                 >
                   {t("settings.changeFolder", "Değiştir")}
                 </button>
@@ -298,27 +279,27 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
             </div>
 
             {/* Universal Media Downloader Folder */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
-              <div className="flex flex-col">
-                <span className="text-xs font-bold text-[var(--color-text-primary)]">
-                  {t("settings.folderUniversal", "Universal Media (YouTube / Sosyal Medya)")}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-3">
+              <div className="flex flex-col min-w-0">
+                <span className="text-xs font-semibold text-[var(--color-text-primary)]">
+                  {t("settings.folderUniversal", "Universal Media (Medya İndirici)")}
                 </span>
-                <span className="font-mono text-[11px] text-[var(--color-text-secondary)] truncate max-w-md">
+                <span className="font-mono text-[11px] text-[var(--color-text-tertiary)] truncate max-w-md">
                   {folderSettings.universal || "Documents/Sophy Studio/Universal Media"}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => handleOpenFolder(folderSettings.universal)}
-                  className="rounded-md border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                  className="btn btn-secondary text-xs px-2.5 py-1"
                 >
                   {t("settings.openFolder", "Aç")}
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectFolder("universal", "Universal Media Klasörü Seç")}
-                  className="rounded-md bg-[var(--color-accent)] px-3 py-1 text-xs font-bold text-black"
+                  className="btn btn-primary text-xs px-3 py-1"
                 >
                   {t("settings.changeFolder", "Değiştir")}
                 </button>
@@ -330,71 +311,54 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
 
       {/* Category 2: Appearance & Themes */}
       {activeCategory === "appearance" && (
-        <div className="flex flex-col gap-6 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-sm">
+        <div className="section section-pad flex flex-col gap-5">
           {/* Theme Mode */}
           <div>
-            <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-1">
+            <h2 className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
               {t("settings.themeModeTitle", "Arayüz Modu")}
-            </h3>
+            </h2>
             <p className="text-xs text-[var(--color-text-secondary)] mb-3">
               {t("settings.themeModeDesc", "Karanlık, aydınlık veya Windows sistem tercihinizi takip edin.")}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <button
-                type="button"
-                onClick={() => handleModeChange("dark")}
-                className={`flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition-all ${
-                  themeConfig.mode === "dark"
-                    ? "border-[var(--color-accent)] bg-[var(--color-app-surface-2)] shadow-md"
-                    : "border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/50 hover:border-[var(--color-accent)]/40"
-                }`}
-              >
-                <span className="text-sm font-bold text-[var(--color-text-primary)]">
-                  {t("settings.modeDark", "Karanlık")}
-                </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleModeChange("light")}
-                className={`flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition-all ${
-                  themeConfig.mode === "light"
-                    ? "border-[var(--color-accent)] bg-[var(--color-app-surface-2)] shadow-md"
-                    : "border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/50 hover:border-[var(--color-accent)]/40"
-                }`}
-              >
-                <span className="text-sm font-bold text-[var(--color-text-primary)]">
-                  {t("settings.modeLight", "Aydınlık")}
-                </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleModeChange("system")}
-                className={`flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition-all ${
-                  themeConfig.mode === "system"
-                    ? "border-[var(--color-accent)] bg-[var(--color-app-surface-2)] shadow-md"
-                    : "border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/50 hover:border-[var(--color-accent)]/40"
-                }`}
-              >
-                <span className="text-sm font-bold text-[var(--color-text-primary)]">
-                  {t("settings.modeSystem", "Windows Takip Et")}
-                </span>
-              </button>
+              {(["dark", "light", "system"] as ThemeMode[]).map((mode) => {
+                const isSelected = themeConfig.mode === mode;
+                const label =
+                  mode === "dark"
+                    ? t("settings.modeDark", "Karanlık")
+                    : mode === "light"
+                    ? t("settings.modeLight", "Aydınlık")
+                    : t("settings.modeSystem", "Windows Sistem");
+                return (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => handleModeChange(mode)}
+                    className={`flex items-center justify-between rounded-xl border p-3.5 text-left transition-all ${
+                      isSelected
+                        ? "border-[var(--color-accent)] bg-[var(--color-app-surface-2)] text-[var(--color-accent)]"
+                        : "border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/40 text-[var(--color-text-primary)] hover:border-[var(--color-accent)]/30"
+                    }`}
+                  >
+                    <span className="text-xs font-semibold">{label}</span>
+                    {isSelected && <span className="h-2 w-2 rounded-full bg-[var(--color-accent)]" />}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Accent Color Palette */}
           <div className="border-t border-[var(--color-app-border)] pt-5">
-            <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-1">
-              {t("settings.themeColorTitle", "Vurgu Renk Teması")}
-            </h3>
+            <h2 className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
+              {t("settings.themeColorTitle", "Vurgu Rengi")}
+            </h2>
             <p className="text-xs text-[var(--color-text-secondary)] mb-3">
-              {t("settings.themeColorDesc", "Buton, ikon ve aktif alanlar için beğendiğiniz rengi seçin.")}
+              {t("settings.themeColorDesc", "Buton, ikon ve aktif alanlar için renk paleti.")}
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-6 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
               {(Object.keys(ACCENT_COLORS) as ThemeColor[]).map((col) => {
                 const item = ACCENT_COLORS[col];
                 const isSelected = themeConfig.color === col;
@@ -404,17 +368,17 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                     key={col}
                     type="button"
                     onClick={() => handleColorChange(col)}
-                    className={`flex flex-col items-center gap-2 rounded-xl border p-3.5 transition-all ${
+                    className={`flex items-center gap-2.5 rounded-xl border p-3 transition-all ${
                       isSelected
-                        ? "border-[var(--color-text-primary)] bg-[var(--color-app-surface-2)] shadow-md"
-                        : "border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/40 hover:border-[var(--color-accent)]"
+                        ? "border-[var(--color-accent)] bg-[var(--color-app-surface-2)]"
+                        : "border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/30 hover:border-[var(--color-accent)]/30"
                     }`}
                   >
                     <span
-                      className="h-6 w-6 rounded-full shadow-md"
+                      className="h-4 w-4 shrink-0 rounded-full"
                       style={{ backgroundColor: item.hex }}
                     />
-                    <span className="text-xs font-semibold text-[var(--color-text-primary)]">
+                    <span className="text-xs font-medium text-[var(--color-text-primary)] truncate">
                       {t(keyName, item.name)}
                     </span>
                   </button>
@@ -427,17 +391,17 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
 
       {/* Category 3: Language */}
       {activeCategory === "language" && (
-        <div className="flex flex-col gap-4 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-sm">
+        <div className="section section-pad flex flex-col gap-4">
           <div>
-            <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-1">
+            <h2 className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
               {t("settings.languageTitle", "Uygulama Dili")}
-            </h3>
+            </h2>
             <p className="text-xs text-[var(--color-text-secondary)]">
-              {t("settings.languageDesc", "Sophy Studio arayüzü için tercih ettiğiniz dili seçin.")}
+              {t("settings.languageDesc", "Arayüz için tercih ettiğiniz dili seçin.")}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 pt-1">
             {LANGUAGES.map((lang) => {
               const isSelected = (i18n.language || "en").startsWith(lang.code);
               return (
@@ -446,19 +410,17 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                   type="button"
                   onClick={() => {
                     i18n.changeLanguage(lang.code);
-                    onShowToast(`${lang.label}`);
+                    onShowToast(lang.label);
                   }}
-                  className={`flex items-center justify-between rounded-xl border p-3.5 transition-all ${
+                  className={`flex items-center justify-between rounded-xl border p-3 transition-all ${
                     isSelected
-                      ? "border-[var(--color-accent)] bg-[var(--color-app-surface-2)] text-[var(--color-accent)] font-bold shadow-sm"
-                      : "border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/40 text-[var(--color-text-primary)] hover:border-[var(--color-accent)]/40"
+                      ? "border-[var(--color-accent)] bg-[var(--color-app-surface-2)] text-[var(--color-accent)] font-semibold"
+                      : "border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/30 text-[var(--color-text-primary)] hover:border-[var(--color-accent)]/30"
                   }`}
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className="font-mono text-xs font-bold text-[var(--color-text-secondary)]">
-                      {lang.flag}
-                    </span>
-                    <span className="text-xs font-medium">{lang.label}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="chip font-mono text-[10px] font-semibold">{lang.tag}</span>
+                    <span className="text-xs">{lang.label}</span>
                   </div>
                   {isSelected && <span className="h-2 w-2 rounded-full bg-[var(--color-accent)]" />}
                 </button>
@@ -470,22 +432,25 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
 
       {/* Category 4: About */}
       {activeCategory === "about" && (
-        <div className="flex flex-col gap-5 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6 shadow-sm">
+        <div className="section section-pad flex flex-col gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-accent)]/15 text-[var(--color-accent)] font-bold text-lg border border-[var(--color-accent)]/20">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] font-bold text-sm border border-[var(--color-accent)]/20">
               SS
             </div>
             <div>
-              <h2 className="text-base font-bold text-[var(--color-text-primary)]">Sophy Studio</h2>
+              <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">Sophy Studio</h2>
               <p className="text-xs text-[var(--color-text-secondary)]">
-                Modern Audio & Multi-Platform Media Workstation • v0.2.0
+                v0.2.0 • Audio & Media Toolkit
               </p>
             </div>
           </div>
 
           <div className="space-y-2 border-t border-[var(--color-app-border)] pt-4 text-xs text-[var(--color-text-secondary)] leading-relaxed">
             <p>
-              <strong className="text-[var(--color-text-primary)]">{t("settings.developer", "Geliştirici")}:</strong> Beli! (
+              <strong className="text-[var(--color-text-primary)] font-medium">
+                {t("settings.developer", "Geliştirici")}:
+              </strong>{" "}
+              Beli! (
               <a
                 href="https://www.instagram.com/umw26t/"
                 target="_blank"
@@ -497,7 +462,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
               )
             </p>
             <p>
-              <strong className="text-[var(--color-text-primary)]">GitHub:</strong>{" "}
+              <strong className="text-[var(--color-text-primary)] font-medium">GitHub:</strong>{" "}
               <a
                 href="https://github.com/umwt26/Sophy-Studio"
                 target="_blank"
@@ -508,10 +473,10 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
               </a>
             </p>
             <p>
-              <strong className="text-[var(--color-text-primary)]">Core:</strong> Tauri 2 • Rust Core •
-              React 19 • yt-dlp & FFmpeg Silent Engine
+              <strong className="text-[var(--color-text-primary)] font-medium">Core:</strong> Tauri 2 • Rust
+              Core • React 19 • yt-dlp & FFmpeg
             </p>
-            <p className="text-[11px] text-[var(--color-text-secondary)] pt-2">
+            <p className="text-[11px] text-[var(--color-text-tertiary)] pt-2">
               Sophy Studio © 2026 Beli! (@umw26t). {t("settings.rights", "Tüm hakları saklıdır.")}
             </p>
           </div>

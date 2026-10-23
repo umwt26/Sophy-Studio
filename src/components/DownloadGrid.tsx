@@ -17,18 +17,18 @@ function DownloadCard({ icon, title, subtitle, disabled, onClick }: DownloadCard
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="group flex flex-1 flex-col items-start gap-3 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-4 text-left transition-colors hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-app-surface-2)]/80 active:scale-98 disabled:cursor-not-allowed disabled:opacity-60"
+      className="group flex flex-1 flex-col items-start gap-2.5 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-4 text-left transition-all hover:border-[var(--color-accent)] hover:bg-[var(--color-app-hover)] active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
+      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--color-app-surface)] border border-[var(--color-app-border)] text-[var(--color-accent)]">
         {icon}
       </div>
       <div className="min-w-0">
-        <p className="text-sm font-semibold text-[var(--color-text-primary)]">{title}</p>
-        <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">{subtitle}</p>
+        <p className="text-xs font-bold text-[var(--color-text-primary)]">{title}</p>
+        <p className="text-[11px] text-[var(--color-text-secondary)] mt-0.5">{subtitle}</p>
       </div>
-      <span className="mt-auto flex items-center gap-1.5 pt-1 text-xs font-semibold text-[var(--color-accent)] opacity-0 transition-opacity group-hover:opacity-100">
-        <DownloadIcon className="h-3.5 w-3.5" />
-        {t("suno.download", "İndir")}
+      <span className="mt-auto flex items-center gap-1 text-[11px] font-semibold text-[var(--color-accent)] pt-1">
+        <DownloadIcon className="h-3 w-3" />
+        <span>{t("suno.download", "İndir")}</span>
       </span>
     </button>
   );
@@ -52,26 +52,26 @@ export function DownloadGrid({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col gap-4 p-5">
-      <div className="flex flex-col gap-4 sm:flex-row">
+    <div className="flex flex-col gap-3 p-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <DownloadCard
-          icon={<MusicIcon className="h-5 w-5" />}
+          icon={<MusicIcon className="h-4.5 w-4.5" />}
           title={t("app.audio", "Ses")}
-          subtitle={t("suno.audioSub", "MP3, WAV veya orijinal")}
+          subtitle={t("suno.audioSub", "MP3, WAV veya Orijinal")}
           disabled={downloading}
           onClick={onAudioClick}
         />
         <DownloadCard
-          icon={<ImageIcon className="h-5 w-5" />}
+          icon={<ImageIcon className="h-4.5 w-4.5" />}
           title={t("app.coverArt", "Kapak Görseli")}
-          subtitle={t("suno.coverSub", "Yüksek çözünürlük")}
+          subtitle={t("suno.coverSub", "Yüksek Çözünürlük")}
           disabled={downloading}
           onClick={onCoverClick}
         />
         <DownloadCard
-          icon={<LyricsIcon className="h-5 w-5" />}
+          icon={<LyricsIcon className="h-4.5 w-4.5" />}
           title={t("app.lyrics", "Şarkı Sözleri")}
-          subtitle={t("suno.lyricsSub", "Metin dosyası (.lrc / .txt)")}
+          subtitle={t("suno.lyricsSub", "Metin & Senkron Söz")}
           disabled={downloading}
           onClick={onLyricsClick}
         />
@@ -81,9 +81,9 @@ export function DownloadGrid({
         type="button"
         disabled={downloading}
         onClick={onDownloadAllClick}
-        className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] text-sm font-bold text-black transition-all hover:brightness-110 active:scale-98 disabled:cursor-not-allowed disabled:opacity-60 shadow-md"
+        className="btn btn-primary btn-lg w-full mt-1"
       >
-        <ZipIcon className="h-4.5 w-4.5" />
+        <ZipIcon />
         <span>
           {downloading
             ? t("app.downloading", "İndiriliyor...")

@@ -39,7 +39,7 @@ export function AudioFormatModal({ onClose, onSelect }: AudioFormatModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 animate-fade-in backdrop-blur-sm">
-      <div className="relative w-full max-w-md rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6 shadow-2xl animate-scale-in">
+      <div className="relative w-full max-w-md rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6 shadow-2xl animate-scale-in">
         <button
           type="button"
           onClick={onClose}
@@ -49,36 +49,36 @@ export function AudioFormatModal({ onClose, onSelect }: AudioFormatModalProps) {
           <CloseIcon className="h-4 w-4" />
         </button>
 
-        <p className="text-xs font-bold tracking-wider text-[var(--color-accent)] uppercase">
-          {t("modal.saveAudio", "Ses Formatı Seç")}
-        </p>
-        <h2 className="mt-1.5 pr-10 text-xl font-bold text-[var(--color-text-primary)]">
-          {t("modal.chooseFormat", "Hangi formatta kaydetmek istersiniz?")}
+        <span className="eyebrow">
+          {t("modal.saveAudio", "Format Seçimi")}
+        </span>
+        <h2 className="mt-1 text-base font-semibold text-[var(--color-text-primary)]">
+          {t("modal.chooseFormat", "Ses formatını belirleyin")}
         </h2>
-        <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
           {t(
             "modal.formatNotice",
-            "MP3 ve WAV dönüştürmeleri cihazınızda yerel olarak yapılır. Orijinal ses dönüştürmesiz kaydedilir."
+            "MP3 ve WAV dönüştürmeleri cihazınızda yerel olarak yapılır."
           )}
         </p>
 
-        <div className="mt-5 flex flex-col gap-2.5">
+        <div className="mt-4 flex flex-col gap-2">
           {options.map((option) => (
             <button
               key={option.id}
               type="button"
               onClick={() => onSelect(option.id)}
-              className="group flex items-center justify-between gap-4 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-4 py-3 text-left transition-all hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface-2)]/80 active:scale-98"
+              className="group flex items-center justify-between gap-4 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-4 py-3 text-left transition-all hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-app-surface-2)]/80"
             >
               <div className="min-w-0">
-                <p className="text-sm font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                <p className="text-xs font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                   {option.title}
                 </p>
-                <p className="mt-0.5 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+                <p className="mt-0.5 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
                   {option.description}
                 </p>
               </div>
-              <ChevronRightIcon className="h-4 w-4 shrink-0 text-[var(--color-text-secondary)] transition-colors group-hover:text-[var(--color-accent)]" />
+              <ChevronRightIcon className="h-4 w-4 shrink-0 text-[var(--color-text-tertiary)] transition-colors group-hover:text-[var(--color-accent)]" />
             </button>
           ))}
         </div>

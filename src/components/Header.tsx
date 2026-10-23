@@ -45,33 +45,33 @@ export function Header({
   const ActiveIcon = currentTool.Icon;
 
   return (
-    <header className="flex h-14 shrink-0 items-center justify-between border-b border-[var(--color-app-border)] bg-[var(--color-app-surface)]/90 backdrop-blur-md px-4 select-none z-30 shadow-sm">
-      {/* Left: Burger Button + Logo + Active Tool Pill */}
+    <header className="flex h-13 shrink-0 items-center justify-between border-b border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-4 select-none z-30">
+      {/* Left: Menu toggle + Logo + Active Tool indicator */}
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={onOpenMenu}
           aria-label={t("header.openMenu", "Menüyü Aç")}
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)] transition-all active:scale-95 shadow-sm"
+          className="icon-btn"
         >
-          <MenuIcon className="h-4 w-4" />
+          <MenuIcon />
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 pr-1 border-r border-[var(--color-app-border-soft)]">
           <img
             src={logoImg}
-            alt="Sophy Studio Logo"
-            className="h-7 w-7 rounded-lg object-contain shadow-sm"
+            alt="Sophy Studio"
+            className="h-6 w-6 rounded-md object-contain"
           />
           <span className="text-sm font-bold tracking-tight text-[var(--color-text-primary)] hidden sm:inline">
             Sophy Studio
           </span>
         </div>
 
-        {/* Current Active Tool Pill (Clean SVG, No Emoji) */}
-        <div className="flex items-center gap-2 rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-2.5 py-1 text-xs shadow-inner">
+        {/* Current Active Tool Pill */}
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[var(--color-app-surface-2)] text-xs font-semibold text-[var(--color-text-primary)]">
           <ActiveIcon className="h-3.5 w-3.5 text-[var(--color-accent)]" />
-          <span className="font-bold text-[var(--color-accent)]">{currentTool.label}</span>
+          <span>{currentTool.label}</span>
         </div>
 
         {updateVersion && (
@@ -79,7 +79,7 @@ export function Header({
             type="button"
             onClick={onOpenUpdate}
             title={t("app.updateNotice", { version: updateVersion })}
-            className="flex items-center gap-1.5 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/15 px-2.5 py-0.5 text-[10px] font-bold text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-black transition-all"
+            className="btn btn-sm btn-secondary text-[var(--color-accent)] gap-1.5 h-6 px-2 text-[11px]"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] animate-ping" />
             <span>v{updateVersion}</span>
@@ -94,9 +94,9 @@ export function Header({
             type="button"
             onClick={onOpenSettings}
             title={t("nav.settings", "Ayarlar")}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all active:scale-95 shadow-sm"
+            className="icon-btn"
           >
-            <SettingsIcon className="h-4 w-4" />
+            <SettingsIcon />
           </button>
         )}
       </div>

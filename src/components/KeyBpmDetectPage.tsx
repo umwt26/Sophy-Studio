@@ -3,7 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { getCurrentWebview } from "@tauri-apps/api/webview";
 import { useTranslation } from "react-i18next";
 import { analyzeAudio } from "../utils/audioAnalysis";
-import { BoltIcon, FolderIcon, MusicalNoteIcon, PianoIcon } from "./icons";
+import { FolderIcon, MusicalNoteIcon, PianoIcon } from "./icons";
 import type { KeyBpmResult } from "../types";
 
 interface KeyBpmDetectPageProps {
@@ -25,7 +25,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       setAnalyzing(true);
       setFileName(name);
       setResult(null);
-      setAnalysisStage("Ses dosyası taranıyor...");
+      setAnalysisStage(t("detector.readingAudio", "Ses dosyası taranıyor..."));
 
       const res = await analyzeAudio(buffer, (stage) => {
         setAnalysisStage(stage);
@@ -64,7 +64,6 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
     }
   };
 
-  // Listen to native OS drag and drop via Tauri webview
   useEffect(() => {
     let unlisten: (() => void) | undefined;
     try {
@@ -99,7 +98,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
                 onShowToast(`${t("detector.errorOpenFile", "Dosya açılamadı")}: ${e?.toString()}`);
               }
             } else {
-              onShowToast(t("metadata.dropFormats", "Lütfen geçerli bir ses dosyası bırakın (MP3, WAV, FLAC, M4A)"));
+              onShowToast(t("metadata.dropFormats", "Geçerli bir ses dosyası bırakın (MP3, WAV, FLAC, M4A)"));
             }
           }
         }
@@ -128,22 +127,19 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
   };
 
   return (
-    <div className="flex flex-col gap-5 animate-fade-in pb-10">
-      {/* Top Banner Card */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-5 py-4 shadow-sm">
+    <div className="page">
+      {/* Top Header Card */}
+      <div className="section section-pad flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20 shadow-inner">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] border border-[var(--color-accent)]/20">
             <PianoIcon className="h-5 w-5" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[var(--color-text-primary)]">
+            <h1 className="text-sm font-semibold text-[var(--color-text-primary)]">
               {t("detector.title", "Key & BPM Detect")}
             </h1>
             <p className="text-xs text-[var(--color-text-secondary)]">
-              {t(
-                "detector.subtitle",
-                "Tunebat standardında Essentia.js 12-Chroma HPCP ve multifeature ritim analizi."
-              )}
+              {t("detector.subtitle", "Harmonik ton, Camelot kodu ve tempo analizi.")}
             </p>
           </div>
         </div>
@@ -152,7 +148,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
           type="button"
           onClick={handleSelectFile}
           disabled={analyzing || selecting}
-          className="flex items-center gap-2 self-start sm:self-auto rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-4 py-2 text-xs font-bold text-[var(--color-accent)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)]/10 transition-all active:scale-95 disabled:opacity-50 shadow-sm"
+          className="btn btn-secondary self-start sm:self-auto"
         >
           <FolderIcon className="h-4 w-4" />
           <span>
@@ -167,50 +163,39 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       {!result && !analyzing && (
         <div
           onClick={handleSelectFile}
-          className={`group relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed py-20 text-center transition-all shadow-inner ${
-            isDragOver
-              ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 scale-[1.01]"
-              : "border-[var(--color-app-border)] bg-[var(--color-app-surface)]/40 hover:border-[var(--color-accent)] hover:bg-[var(--color-app-surface)]"
-          }`}
+          className={`dropzone py-16 ${isDragOver ? "active" : ""}`}
         >
-          <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20 shadow-sm transition-transform ${isDragOver ? "scale-125" : "group-hover:scale-110"}`}>
-            <BoltIcon className="h-7 w-7" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] border border-[var(--color-accent)]/20">
+            <MusicalNoteIcon className="h-6 w-6" />
           </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-sm font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+          <div className="flex flex-col gap-1 text-center">
+            <p className="text-sm font-semibold text-[var(--color-text-primary)]">
               {isDragOver
-                ? t("detector.dropNow", "Ses Dosyasını Buraya Bırakın!")
-                : t("detector.dropPrompt", "Ses dosyasını buraya bırakın veya tıklayıp seçin")}
+                ? t("detector.dropNow", "Ses dosyasını buraya bırakın")
+                : t("detector.dropPrompt", "Ses dosyasını buraya sürükleyin veya seçin")}
             </p>
-            <p className="text-xs text-[var(--color-text-secondary)]">
-              {t(
-                "detector.dropFormats",
-                "MP3, WAV, FLAC, M4A, OGG, AAC • %100 Çevrimdışı ve gizli Essentia.js analizi"
-              )}
+            <p className="text-xs text-[var(--color-text-tertiary)]">
+              {t("detector.dropFormats", "MP3, WAV, FLAC, M4A, OGG, AAC • Cihazınızda çevrimdışı işlenir")}
             </p>
           </div>
         </div>
       )}
 
-      {/* Loading animation with detailed scanning stages */}
+      {/* Analyzing state */}
       {analyzing && (
-        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] py-20 text-center shadow-md">
+        <div className="section section-pad flex flex-col items-center justify-center py-16 text-center gap-3">
           <div className="relative flex items-center justify-center">
-            <div className="h-12 w-12 animate-spin rounded-full border-3 border-[var(--color-app-border)] border-t-[var(--color-accent)]" />
-            <PianoIcon className="absolute h-5 w-5 text-[var(--color-accent)]" />
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[var(--color-app-border)] border-t-[var(--color-accent)]" />
           </div>
-
-          <div className="flex flex-col gap-1.5 max-w-md px-4">
-            <p className="text-sm font-bold text-[var(--color-text-primary)]">
+          <div className="flex flex-col gap-1 max-w-md px-4">
+            <p className="text-sm font-medium text-[var(--color-text-primary)]">
               {analysisStage || t("detector.analyzingAudio", "Ses Analiz Ediliyor...")}
             </p>
-            <p className="text-xs text-[var(--color-text-secondary)] font-mono truncate">
+            <p className="text-xs font-mono text-[var(--color-text-tertiary)] truncate">
               {fileName}
             </p>
           </div>
-
-          {/* Animated scanning progress bar */}
-          <div className="w-64 h-1.5 rounded-full bg-[var(--color-app-surface-2)] overflow-hidden mt-1">
+          <div className="w-48 h-1 rounded-full bg-[var(--color-app-surface-2)] overflow-hidden mt-1">
             <div className="h-full bg-[var(--color-accent)] rounded-full animate-pulse w-3/4" />
           </div>
         </div>
@@ -218,74 +203,68 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
 
       {/* Results Display */}
       {result && !analyzing && currentBpm && (
-        <div className="flex flex-col gap-5 animate-scale-in">
-          {/* File summary pill bar */}
-          <div className="flex items-center justify-between rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-4 py-3 shadow-sm">
+        <div className="flex flex-col gap-4 animate-scale-in">
+          {/* File summary bar */}
+          <div className="section px-4 py-3 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5 truncate">
               <MusicalNoteIcon className="h-4 w-4 text-[var(--color-accent)] shrink-0" />
-              <span className="text-xs font-bold text-[var(--color-text-primary)] truncate max-w-sm">
+              <span className="text-xs font-medium text-[var(--color-text-primary)] truncate max-w-sm">
                 {fileName}
               </span>
-              <span className="text-[11px] font-mono text-[var(--color-text-secondary)] bg-[var(--color-app-surface-2)] px-2 py-0.5 rounded-md border border-[var(--color-app-border)]">
+              <span className="chip text-[11px] font-mono">
                 {Math.floor(result.duration / 60)}:
                 {String(Math.floor(result.duration % 60)).padStart(2, "0")}
               </span>
-              <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
-                %{result.confidence} Güven
+              <span className="chip text-[11px] font-medium text-emerald-400 border-emerald-500/20 bg-emerald-500/10">
+                %{result.confidence} {t("detector.confidence", "Güven")}
               </span>
             </div>
 
             <button
               type="button"
               onClick={handleSelectFile}
-              className="rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3 py-1.5 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-all active:scale-95"
+              className="btn btn-secondary text-xs"
             >
               {t("detector.newAnalysis", "Yeni Analiz")}
             </button>
           </div>
 
-          {/* Studio Console Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {/* 1. Key & Scale Console Card */}
-            <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6 shadow-sm relative overflow-hidden">
+          {/* Results Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* 1. Key Card */}
+            <div className="section section-pad flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">
+                  <span className="eyebrow">
                     {t("detector.musicalKey", "Müzikal Ton (Key)")}
                   </span>
                   <div
-                    className="flex items-center gap-1.5 rounded-lg px-3 py-1 text-xs font-black tracking-wider text-black shadow-lg"
-                    style={{
-                      backgroundColor: result.camelotColor,
-                      boxShadow: `0 0 16px ${result.camelotColor}50`,
-                    }}
+                    className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold text-black"
+                    style={{ backgroundColor: result.camelotColor }}
                   >
                     <span>CAMELOT</span>
                     <span>{result.camelot}</span>
                   </div>
                 </div>
 
-                <div className="mt-5 flex flex-col gap-1">
-                  <h3 className="text-4xl font-black tracking-tight text-[var(--color-text-primary)]">
+                <div className="mt-4 flex flex-col">
+                  <h3 className="text-3xl font-bold tracking-tight text-[var(--color-text-primary)]">
                     {result.key}
                   </h3>
                   <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                     {t("detector.relativeKey", "Göreceli:")}{" "}
-                    <strong className="text-[var(--color-text-primary)]">{result.relativeKey}</strong>
+                    <strong className="text-[var(--color-text-primary)] font-medium">{result.relativeKey}</strong>
                   </p>
                 </div>
               </div>
 
-              <div className="mt-8 border-t border-[var(--color-app-border)] pt-4">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-secondary)] mb-2">
-                  {t("detector.compatibleKeys", "Harmonik Uyumlu Tonlar (DJ Mixing):")}
+              <div className="mt-6 border-t border-[var(--color-app-border)] pt-4">
+                <p className="eyebrow mb-2">
+                  {t("detector.compatibleKeys", "Harmonik Uyumlu Tonlar (DJ Mixing)")}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {result.compatibleKeys.map((k) => (
-                    <span
-                      key={k}
-                      className="rounded-lg bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-mono font-bold text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-colors"
-                    >
+                    <span key={k} className="chip font-mono font-medium">
                       {k}
                     </span>
                   ))}
@@ -293,70 +272,69 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
               </div>
             </div>
 
-            {/* 2. BPM & Rhythm Console Card */}
-            <div className="flex flex-col justify-between rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6 shadow-sm relative overflow-hidden">
+            {/* 2. BPM Card */}
+            <div className="section section-pad flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">
+                  <span className="eyebrow">
                     {t("detector.tempoBpm", "Tempo (BPM)")}
                   </span>
-                  <div className="flex items-center gap-2 rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 px-3 py-1">
+                  <div className="flex items-center gap-2 rounded-full border border-[var(--color-accent)]/20 bg-[var(--color-accent-subtle)] px-2.5 py-0.5">
                     <span
-                      className="h-2.5 w-2.5 rounded-full bg-[var(--color-accent)] animate-ping"
-                      style={{ animationDuration: `${Math.max(0.2, 60 / currentBpm)}s` }}
+                      className="h-2 w-2 rounded-full bg-[var(--color-accent)]"
+                      style={{
+                        animation: `pulse ${Math.max(0.2, 60 / currentBpm)}s infinite ease-in-out`,
+                      }}
                     />
-                    <span className="text-[10px] font-mono font-bold text-[var(--color-accent)]">
-                      BEAT SYNC
+                    <span className="text-[10px] font-mono font-medium text-[var(--color-accent)]">
+                      TEMPO
                     </span>
                   </div>
                 </div>
 
-                <div className="mt-5 flex items-baseline gap-3">
-                  <span className="text-5xl font-black font-mono tracking-tight text-[var(--color-text-primary)]">
+                <div className="mt-4 flex items-baseline gap-2">
+                  <span className="text-4xl font-bold font-mono tracking-tight text-[var(--color-text-primary)]">
                     {currentBpm}
                   </span>
-                  <span className="text-sm font-bold text-[var(--color-text-secondary)]">BPM</span>
+                  <span className="text-xs font-semibold text-[var(--color-text-secondary)]">BPM</span>
                 </div>
-                <p className="text-xs text-[var(--color-text-secondary)] mt-1.5">
-                  {t(
-                    "detector.bpmDescription",
-                    "Essentia.js multifeature vuruş tespiti ve özilişki (autocorrelation)."
-                  )}
+                <p className="text-xs text-[var(--color-text-tertiary)] mt-1">
+                  {t("detector.bpmDescription", "Doğruluk oranı yüksek vuruş ve ritim tespiti.")}
                 </p>
               </div>
 
-              <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-[var(--color-app-border)] pt-4">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">
-                  {t("detector.tempoCorrection", "Tempo Düzeltme:")}
+              <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-[var(--color-app-border)] pt-4">
+                <span className="eyebrow">
+                  {t("detector.tempoCorrection", "Tempo Düzelt")}
                 </span>
                 <div className="flex items-center gap-1.5">
                   <button
                     type="button"
                     onClick={() => handleNudgeBpm(-1)}
-                    className="rounded-lg bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-mono font-bold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-colors"
+                    className="btn btn-secondary px-2 py-1 text-xs font-mono"
                   >
                     -1
                   </button>
                   <button
                     type="button"
                     onClick={() => handleNudgeBpm(1)}
-                    className="rounded-lg bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-mono font-bold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-colors"
+                    className="btn btn-secondary px-2 py-1 text-xs font-mono"
                   >
                     +1
                   </button>
                   <button
                     type="button"
                     onClick={handleHalfBpm}
-                    className="rounded-lg bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-bold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-colors"
+                    className="btn btn-secondary px-2.5 py-1 text-xs"
                   >
-                    {t("detector.halfBpm", "/2 Yarım")}
+                    /2
                   </button>
                   <button
                     type="button"
                     onClick={handleDoubleBpm}
-                    className="rounded-lg bg-[var(--color-app-surface-2)] border border-[var(--color-app-border)] px-2.5 py-1 text-xs font-bold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition-colors"
+                    className="btn btn-secondary px-2.5 py-1 text-xs"
                   >
-                    {t("detector.doubleBpm", "x2 Çift")}
+                    x2
                   </button>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "Sophy Studio",
-    "subtitle": "Suno AI Downloader & Toolkit",
+    "subtitle": "Modern Audio & Music Production Suite",
     "inputPlaceholder": "Paste Suno song URL (e.g. https://suno.com/s/... or /song/...)",
     "analyzeBtn": "Fetch Song",
     "fetching": "Analyzing song...",
@@ -38,5 +38,65 @@
     "updateNotice": "A new version of Sophy Studio is out: v{{version}}. Update now!",
     "updateBtn": "Update Now",
     "updateDismiss": "Dismiss"
+  },
+  "nav": {
+    "home": "Home",
+    "suno": "Suno Downloader",
+    "metadata": "Metadata Editor",
+    "detector": "Key & BPM Detect"
+  },
+  "home": {
+    "heroSubtitle": "All-in-one modern audio workstation for AI music downloading, high-resolution ID3 metadata editing, and Tunebat-grade Key & BPM analysis.",
+    "openOutputFolder": "Open Studio Folder",
+    "sunoTitle": "Suno Song Downloader",
+    "sunoDesc": "Download Suno AI tracks in 320kbps MP3, lossless WAV, original audio stream, high-res cover art and synchronized lyrics.",
+    "metadataTitle": "Metadata Editor",
+    "metadataDesc": "Edit song title, artist, album, year, and embed high-resolution album cover art directly into MP3, WAV, FLAC and M4A files.",
+    "detectorTitle": "Key & BPM Detect",
+    "detectorDesc": "Tunebat-grade Krumhansl-Schmuckler harmonic analysis to accurately detect musical key (Camelot wheel & standard notation) and BPM in seconds.",
+    "openTool": "Launch Tool",
+    "featuresTitle": "Studio Capabilities",
+    "engineTitle": "System & Engine Status"
+  },
+  "metadata": {
+    "title": "Audio Metadata Editor",
+    "subtitle": "Select any MP3, WAV, FLAC or M4A file to quickly view and edit title, artist, album, and front cover art.",
+    "selectFile": "Select Audio File",
+    "reading": "Reading...",
+    "dropPrompt": "Select an audio file to edit its tags and album art",
+    "readingFile": "Scanning audio tags and metadata...",
+    "coverArt": "Cover Art",
+    "noCover": "No Cover Image",
+    "changeCover": "Change Cover",
+    "removeCover": "Remove",
+    "tagInfo": "Track & Artist Metadata",
+    "labelTitle": "Title",
+    "labelArtist": "Artist",
+    "labelAlbum": "Album",
+    "labelYear": "Year",
+    "labelGenre": "Genre",
+    "labelTrack": "Track Number",
+    "labelComment": "Comment",
+    "saveButton": "Save to File",
+    "saving": "Saving...",
+    "loaded": "Audio file loaded successfully!",
+    "loadError": "Could not read metadata",
+    "coverSelected": "Cover image selected!",
+    "saveSuccess": "Metadata saved to file successfully!"
+  },
+  "detector": {
+    "title": "Key & BPM Detect",
+    "subtitle": "Tunebat-grade harmonic musical key (Camelot wheel + standard notation) and precise BPM tempo detector.",
+    "selectFile": "Upload Audio File",
+    "analyzing": "Analyzing...",
+    "dropPrompt": "Drop your audio file here or click to browse",
+    "analyzingAudio": "Analyzing Audio...",
+    "analyzed": "Key & BPM analysis complete!",
+    "newAnalysis": "New Analysis",
+    "musicalKey": "Musical Key",
+    "tempoBpm": "Tempo (BPM)"
+  },
+  "suno": {
+    "emptyTitle": "Download Suno Track"
   }
 }

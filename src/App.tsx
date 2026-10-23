@@ -3,17 +3,16 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen, type Event } from "@tauri-apps/api/event";
 import { useTranslation } from "react-i18next";
 import { Header } from "./components/Header";
-import { SearchBar } from "./components/SearchBar";
-import { SongDetails } from "./components/SongDetails";
-import { DownloadGrid } from "./components/DownloadGrid";
-import { LyricsPanel } from "./components/LyricsPanel";
+import { HomePage } from "./components/HomePage";
+import { SunoDownloaderPage } from "./components/SunoDownloaderPage";
+import { MetadataEditorPage } from "./components/MetadataEditorPage";
+import { KeyBpmDetectPage } from "./components/KeyBpmDetectPage";
 import { AudioFormatModal } from "./components/AudioFormatModal";
 import { HistoryModal } from "./components/HistoryModal";
 import { AdModal } from "./components/AdModal";
 import { UpdateModal } from "./components/UpdateModal";
 import { Toast } from "./components/Toast";
-import type { AudioFormat, SongClip, SongData, UpdateInfo } from "./types";
-import { SearchIcon } from "./components/icons";
+import type { AppTab, AudioFormat, SongClip, SongData, UpdateInfo } from "./types";
 
 const HISTORY_STORAGE_KEY = "sophy_search_history";
 
@@ -25,6 +24,7 @@ function formatDuration(sec?: number): string {
 
 export default function App() {
   const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState<AppTab>("home");
   const [song, setSong] = useState<SongData | null>(null);
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -103,6 +103,7 @@ export default function App() {
   const handleSelectHistorySong = (selected: SongData) => {
     setSong(selected);
     setHistoryModalOpen(false);
+    setActiveTab("suno");
     showToast(`${t("app.loadSong", "Loaded")}: ${selected.title}`);
   };
 
@@ -205,6 +206,8 @@ export default function App() {
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-[var(--color-app-bg)] text-[var(--color-text-primary)]">
       <Header
+        activeTab={activeTab}
+        onSelectTab={setActiveTab}
         onOpenFolder={handleOpenFolder}
         onOpenHistory={() => setHistoryModalOpen(true)}
         updateVersion={updateInfo?.has_update ? updateInfo.latest_version : undefined}
@@ -212,41 +215,33 @@ export default function App() {
       />
 
       <main className="flex-1 overflow-y-auto">
-        <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-6 py-8">
-          <SearchBar onFetch={handleFetch} loading={loading} />
-
-          {!song && !loading && (
-            <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-dashed border-[var(--color-app-border)] py-20 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-app-border)] bg-[var(--color-app-surface)] text-[var(--color-text-muted)]">
-                <SearchIcon className="h-5 w-5" />
-              </div>
-              <p className="text-sm font-medium text-[var(--color-text-secondary)]">
-                {t("app.inputPlaceholder", "Paste a Suno link above and hit Fetch Song to get started")}
-              </p>
-            </div>
+        <div className="mx-auto flex w-full max-w-4xl flex-col px-6 py-6">
+          {activeTab === "home" && (
+            <HomePage
+              onNavigate={(tab) => setActiveTab(tab)}
+              onOpenFolder={handleOpenFolder}
+            />
           )}
 
-          {loading && (
-            <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface)] py-20 text-center">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--color-app-border)] border-t-[var(--color-accent)]" />
-              <p className="text-sm font-medium text-[var(--color-text-secondary)]">
-                {t("app.fetching", "Fetching song details…")}
-              </p>
-            </div>
+          {activeTab === "suno" && (
+            <SunoDownloaderPage
+              song={song}
+              loading={loading}
+              downloading={downloading}
+              onFetch={handleFetch}
+              onAudioClick={() => setAudioModalOpen(true)}
+              onCoverClick={() => executeDownload("cover")}
+              onLyricsClick={() => executeDownload("lyrics")}
+              onDownloadAllClick={() => executeDownload("all")}
+            />
           )}
 
-          {song && !loading && (
-            <div className="overflow-hidden rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface)]">
-              <SongDetails song={song} />
-              <DownloadGrid
-                downloading={downloading}
-                onAudioClick={() => setAudioModalOpen(true)}
-                onCoverClick={() => executeDownload("cover")}
-                onLyricsClick={() => executeDownload("lyrics")}
-                onDownloadAllClick={() => executeDownload("all")}
-              />
-              <LyricsPanel lyrics={song.lyrics} />
-            </div>
+          {activeTab === "metadata" && (
+            <MetadataEditorPage onShowToast={showToast} />
+          )}
+
+          {activeTab === "detector" && (
+            <KeyBpmDetectPage onShowToast={showToast} />
           )}
         </div>
       </main>

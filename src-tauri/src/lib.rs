@@ -14,7 +14,12 @@ pub fn run() {
       open_url,
       download_media,
       check_for_updates,
-      install_update
+      install_update,
+      read_audio_metadata,
+      save_audio_metadata,
+      select_audio_file,
+      select_image_file,
+      read_file_binary
     ])
     .setup(|app| {
       if let Some(window) = app.get_webview_window("main") {

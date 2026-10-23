@@ -2,8 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { CheckIcon, ChevronDownIcon, FolderIcon, HistoryIcon, TranslateIcon } from "./icons";
 import logoImg from "../assets/logo.png";
 import { useTranslation } from "react-i18next";
+import type { AppTab } from "../types";
 
 interface HeaderProps {
+  activeTab: AppTab;
+  onSelectTab: (tab: AppTab) => void;
   onOpenFolder?: () => void;
   onOpenHistory?: () => void;
   updateVersion?: string;
@@ -21,7 +24,14 @@ const LANGUAGES = [
   { code: "ja", label: "日本語", flag: "JA" },
 ];
 
-export function Header({ onOpenFolder, onOpenHistory, updateVersion, onOpenUpdate }: HeaderProps) {
+export function Header({
+  activeTab,
+  onSelectTab,
+  onOpenFolder,
+  onOpenHistory,
+  updateVersion,
+  onOpenUpdate,
+}: HeaderProps) {
   const { t, i18n } = useTranslation();
   const [langOpen, setLangOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -52,9 +62,20 @@ export function Header({ onOpenFolder, onOpenHistory, updateVersion, onOpenUpdat
   const currentLang =
     LANGUAGES.find((lang) => (i18n.language || "en").startsWith(lang.code)) || LANGUAGES[0];
 
+  const navItems: { id: AppTab; label: string; icon: string }[] = [
+    { id: "home", label: t("nav.home", "Ana Sayfa"), icon: "🏠" },
+    { id: "suno", label: t("nav.suno", "Suno Downloader"), icon: "🎧" },
+    { id: "metadata", label: t("nav.metadata", "Metadata Editor"), icon: "🏷️" },
+    { id: "detector", label: t("nav.detector", "Key & BPM Detect"), icon: "🎹" },
+  ];
+
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between border-b border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-6">
-      <div className="flex items-center gap-3">
+    <header className="flex h-16 shrink-0 items-center justify-between border-b border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-6 z-30">
+      {/* Brand logo & title */}
+      <div
+        onClick={() => onSelectTab("home")}
+        className="flex cursor-pointer items-center gap-3 select-none"
+      >
         <img
           src={logoImg}
           alt="Sophy Studio Logo"
@@ -67,7 +88,10 @@ export function Header({ onOpenFolder, onOpenHistory, updateVersion, onOpenUpdat
           {updateVersion && (
             <button
               type="button"
-              onClick={onOpenUpdate}
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenUpdate?.();
+              }}
               title={t("app.updateNotice", { version: updateVersion })}
               className="flex items-center gap-1.5 rounded-full border border-[var(--color-accent)]/50 bg-[var(--color-accent)]/15 px-2.5 py-0.5 text-[10px] font-bold text-[var(--color-accent)] transition-all hover:bg-[var(--color-accent)] hover:text-white"
             >
@@ -78,16 +102,41 @@ export function Header({ onOpenFolder, onOpenHistory, updateVersion, onOpenUpdat
         </div>
       </div>
 
+      {/* Modern Center Navigation Segmented Bar */}
+      <nav className="flex items-center gap-1 rounded-xl border border-[var(--color-app-border)] bg-[#111317] p-1 shadow-inner">
+        {navItems.map((item) => {
+          const isActive = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => onSelectTab(item.id)}
+              className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
+                isActive
+                  ? "bg-[var(--color-app-surface)] text-[var(--color-accent)] shadow-md border border-[var(--color-app-border)]/80"
+                  : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[#1a1d24]"
+              }`}
+            >
+              <span>{item.icon}</span>
+              <span>{item.label}</span>
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* Right controls */}
       <div className="flex items-center gap-2.5">
-        {/* History Button */}
-        <button
-          type="button"
-          onClick={onOpenHistory}
-          className="flex items-center gap-2 rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-text-primary)] active:bg-[#282b33]"
-        >
-          <HistoryIcon className="h-4 w-4" />
-          <span>{t("app.history", "History")}</span>
-        </button>
+        {/* History Button (active only for Suno) */}
+        {activeTab === "suno" && (
+          <button
+            type="button"
+            onClick={onOpenHistory}
+            className="flex items-center gap-2 rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3 py-2 text-xs font-medium text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-text-primary)] active:bg-[#282b33]"
+          >
+            <HistoryIcon className="h-3.5 w-3.5" />
+            <span>{t("app.history", "History")}</span>
+          </button>
+        )}
 
         {/* Custom Premium Language Dropdown */}
         <div ref={dropdownRef} className="relative">
@@ -96,13 +145,13 @@ export function Header({ onOpenFolder, onOpenHistory, updateVersion, onOpenUpdat
             onClick={() => setLangOpen((prev) => !prev)}
             aria-expanded={langOpen}
             aria-label="Select language"
-            className={`flex h-9 items-center gap-2.5 rounded-md border bg-[var(--color-app-surface-2)] px-3 text-xs font-medium transition-all ${
+            className={`flex h-8 items-center gap-2 rounded-md border bg-[var(--color-app-surface-2)] px-2.5 text-xs font-medium transition-all ${
               langOpen
                 ? "border-[var(--color-accent)] text-[var(--color-text-primary)] shadow-[0_0_14px_rgba(84,151,224,0.22)]"
                 : "border-[var(--color-app-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/40 hover:text-[var(--color-text-primary)] active:bg-[#282b33]"
             }`}
           >
-            <TranslateIcon className="h-4 w-4 shrink-0" />
+            <TranslateIcon className="h-3.5 w-3.5 shrink-0" />
             <span className="font-semibold">{currentLang.label}</span>
             <ChevronDownIcon
               className={`h-3 w-3 text-[var(--color-text-muted)] transition-transform duration-200 ${
@@ -158,10 +207,10 @@ export function Header({ onOpenFolder, onOpenHistory, updateVersion, onOpenUpdat
         <button
           type="button"
           onClick={onOpenFolder}
-          className="flex items-center gap-2 rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3.5 py-2 text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-text-primary)] active:bg-[#282b33]"
+          className="flex items-center gap-1.5 rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3 py-2 text-xs font-medium text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-text-primary)] active:bg-[#282b33]"
         >
-          <FolderIcon className="h-4 w-4" />
-          {t("app.openFolder", "Open Sophy Studio Folder")}
+          <FolderIcon className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">{t("app.openFolder", "Open Sophy Studio Folder")}</span>
         </button>
       </div>
     </header>

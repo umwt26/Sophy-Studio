@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "Sophy Studio",
-    "subtitle": "Downloader e Ferramentas Suno AI",
+    "subtitle": "Estúdio Moderno de Áudio e Produção Musical",
     "inputPlaceholder": "Cole o link da música do Suno (ex: https://suno.com/s/...)",
     "analyzeBtn": "Buscar Música",
     "fetching": "Analisando música...",

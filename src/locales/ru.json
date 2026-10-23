@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "Sophy Studio",
-    "subtitle": "Suno AI Загрузчик и Инструменты",
+    "subtitle": "Современная аудио и музыкальная студия",
     "inputPlaceholder": "Вставьте ссылку на трек Suno (напр. https://suno.com/s/...)",
     "analyzeBtn": "Загрузить трек",
     "fetching": "Анализ трека...",

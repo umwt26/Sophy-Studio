@@ -1,9 +1,9 @@
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::Command;
 
 pub struct MediaConverter;
 
-fn create_silent_command(program: &str) -> Command {
+fn create_silent_command(program: &Path) -> Command {
     let mut cmd = Command::new(program);
     #[cfg(windows)]
     {
@@ -15,8 +15,80 @@ fn create_silent_command(program: &str) -> Command {
 }
 
 impl MediaConverter {
-    pub fn convert_to_mp3(input_file: &Path, output_file: &Path) -> Result<(), String> {
-        let output = create_silent_command("ffmpeg")
+    pub async fn ensure_ffmpeg_binary() -> Result<PathBuf, String> {
+        // 1. Check in same folder as current executable
+        if let Ok(exe) = std::env::current_exe() {
+            if let Some(parent) = exe.parent() {
+                let local = parent.join("ffmpeg.exe");
+                if local.exists() && local.metadata().map(|m| m.len()).unwrap_or(0) > 1_000_000 {
+                    return Ok(local);
+                }
+            }
+        }
+
+        // 2. Check in LocalAppData/SophyStudio/bin/ffmpeg.exe
+        if let Some(local_app_data) = dirs::data_local_dir() {
+            let bin_path = local_app_data.join("SophyStudio").join("bin").join("ffmpeg.exe");
+            if bin_path.exists() && bin_path.metadata().map(|m| m.len()).unwrap_or(0) > 1_000_000 {
+                return Ok(bin_path);
+            }
+        }
+
+        // 3. Check in System PATH
+        if let Ok(output) = {
+            #[cfg(windows)]
+            {
+                let mut c = Command::new("where");
+                use std::os::windows::process::CommandExt;
+                c.creation_flags(0x08000000);
+                c.arg("ffmpeg").output()
+            }
+            #[cfg(not(windows))]
+            {
+                Command::new("which").arg("ffmpeg").output()
+            }
+        } {
+            if output.status.success() {
+                let stdout = String::from_utf8_lossy(&output.stdout);
+                if let Some(first_line) = stdout.lines().next() {
+                    let path = PathBuf::from(first_line.trim());
+                    if path.exists() {
+                        return Ok(path);
+                    }
+                }
+            }
+        }
+
+        // 4. Download ffmpeg.exe automatically if missing
+        if let Some(local_app_data) = dirs::data_local_dir() {
+            let bin_dir = local_app_data.join("SophyStudio").join("bin");
+            let _ = std::fs::create_dir_all(&bin_dir);
+            let target_exe = bin_dir.join("ffmpeg.exe");
+            let temp_exe = bin_dir.join("ffmpeg.exe.download");
+
+            let client = reqwest::Client::builder()
+                .timeout(std::time::Duration::from_secs(300))
+                .build()
+                .unwrap_or_else(|_| reqwest::Client::new());
+
+            let url = "https://github.com/eugeneware/ffmpeg-static/releases/latest/download/ffmpeg-win32-x64";
+            let resp = client.get(url).send().await.map_err(|e| format!("FFmpeg indirilemedi: {}", e))?;
+            if resp.status().is_success() {
+                let bytes = resp.bytes().await.map_err(|e| format!("FFmpeg verisi okunamadı: {}", e))?;
+                if bytes.len() > 1_000_000 {
+                    std::fs::write(&temp_exe, bytes).map_err(|e| format!("FFmpeg yazılamadı: {}", e))?;
+                    let _ = std::fs::rename(&temp_exe, &target_exe);
+                    return Ok(target_exe);
+                }
+            }
+        }
+
+        Err("FFmpeg ses motoru bulunamadı ve otomatik indirilemedi. Lütfen internet bağlantınızı kontrol edin.".to_string())
+    }
+
+    pub async fn convert_to_mp3(input_file: &Path, output_file: &Path) -> Result<(), String> {
+        let ffmpeg_path = Self::ensure_ffmpeg_binary().await?;
+        let output = create_silent_command(&ffmpeg_path)
             .args([
                 "-y",
                 "-i",
@@ -39,8 +111,9 @@ impl MediaConverter {
         }
     }
 
-    pub fn convert_to_wav(input_file: &Path, output_file: &Path) -> Result<(), String> {
-        let output = create_silent_command("ffmpeg")
+    pub async fn convert_to_wav(input_file: &Path, output_file: &Path) -> Result<(), String> {
+        let ffmpeg_path = Self::ensure_ffmpeg_binary().await?;
+        let output = create_silent_command(&ffmpeg_path)
             .args([
                 "-y",
                 "-i",
@@ -63,12 +136,13 @@ impl MediaConverter {
         }
     }
 
-    pub fn render_cover_video(
+    pub async fn render_cover_video(
         audio_file: &Path,
         cover_image: &Path,
         output_mp4: &Path,
     ) -> Result<(), String> {
-        let output = create_silent_command("ffmpeg")
+        let ffmpeg_path = Self::ensure_ffmpeg_binary().await?;
+        let output = create_silent_command(&ffmpeg_path)
             .args([
                 "-y",
                 "-loop",

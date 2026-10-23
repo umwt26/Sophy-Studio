@@ -32,7 +32,7 @@ impl UniversalDownloader {
         if let Ok(exe) = std::env::current_exe() {
             if let Some(parent) = exe.parent() {
                 let local = parent.join("yt-dlp.exe");
-                if local.exists() {
+                if local.exists() && local.metadata().map(|m| m.len()).unwrap_or(0) > 1_000_000 {
                     return Ok(local);
                 }
             }
@@ -41,7 +41,7 @@ impl UniversalDownloader {
         // 2. Check in LocalAppData/SophyStudio/bin/yt-dlp.exe
         if let Some(local_app_data) = dirs::data_local_dir() {
             let bin_path = local_app_data.join("SophyStudio").join("bin").join("yt-dlp.exe");
-            if bin_path.exists() {
+            if bin_path.exists() && bin_path.metadata().map(|m| m.len()).unwrap_or(0) > 1_000_000 {
                 return Ok(bin_path);
             }
         }
@@ -76,14 +76,21 @@ impl UniversalDownloader {
             let bin_dir = local_app_data.join("SophyStudio").join("bin");
             let _ = std::fs::create_dir_all(&bin_dir);
             let target_exe = bin_dir.join("yt-dlp.exe");
+            let temp_exe = bin_dir.join("yt-dlp.exe.download");
 
-            let client = reqwest::Client::new();
+            let client = reqwest::Client::builder()
+                .timeout(std::time::Duration::from_secs(120))
+                .build()
+                .unwrap_or_else(|_| reqwest::Client::new());
             let url = "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe";
             let resp = client.get(url).send().await.map_err(|e| format!("yt-dlp indirilemedi: {}", e))?;
             if resp.status().is_success() {
                 let bytes = resp.bytes().await.map_err(|e| format!("Veri okunamadı: {}", e))?;
-                std::fs::write(&target_exe, bytes).map_err(|e| format!("Dosya yazılamadı: {}", e))?;
-                return Ok(target_exe);
+                if bytes.len() > 1_000_000 {
+                    std::fs::write(&temp_exe, bytes).map_err(|e| format!("Dosya yazılamadı: {}", e))?;
+                    let _ = std::fs::rename(&temp_exe, &target_exe);
+                    return Ok(target_exe);
+                }
             }
         }
 
@@ -152,6 +159,9 @@ impl UniversalDownloader {
     ) -> Result<String, String> {
         let ytdlp_path = Self::ensure_ytdlp_binary().await?;
 
+        // Ensure ffmpeg is also available so yt-dlp doesn't fail on conversion or merge
+        let ffmpeg_res = crate::converter::MediaConverter::ensure_ffmpeg_binary().await;
+
         let output_template = out_dir.join("%(title)s.%(ext)s");
         let template_str = output_template.to_string_lossy().to_string();
 
@@ -160,6 +170,16 @@ impl UniversalDownloader {
         cmd.arg("--no-warnings");
         cmd.arg("-o");
         cmd.arg(&template_str);
+
+        if let Ok(ref ffmpeg_path) = ffmpeg_res {
+            if let Some(parent) = ffmpeg_path.parent() {
+                cmd.arg("--ffmpeg-location");
+                cmd.arg(parent);
+            } else {
+                cmd.arg("--ffmpeg-location");
+                cmd.arg(ffmpeg_path);
+            }
+        }
 
         let fmt = format_type.to_lowercase();
         if fmt == "audio" || fmt == "mp3" {

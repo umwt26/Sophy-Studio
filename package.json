@@ -12,6 +12,7 @@
   "dependencies": {
     "@fluentui/react-components": "^9.74.9",
     "@fluentui/react-icons": "^2.0.344",
+    "@fontsource-variable/manrope": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "@tauri-apps/api": "^2.12.4",
     "clsx": "^2.1.1",

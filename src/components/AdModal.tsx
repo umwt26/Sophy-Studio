@@ -101,15 +101,13 @@ const SPONSORS: Sponsor[] = [
   },
 ];
 
-const AUTO_CLOSE_MS = 10000; // 10 seconds
+const AUTO_CLOSE_MS = 10000;
 
 export function AdModal({ onClose }: AdModalProps) {
   const { t } = useTranslation();
-  // Pick one random sponsor per impression
   const [sponsor] = useState(() => SPONSORS[Math.floor(Math.random() * SPONSORS.length)]);
   const [progress, setProgress] = useState(100);
 
-  // 10-second timer with smooth progress bar countdown
   useEffect(() => {
     const startTime = Date.now();
     const interval = setInterval(() => {
@@ -133,21 +131,21 @@ export function AdModal({ onClose }: AdModalProps) {
   };
 
   return (
-    <div className="fixed right-5 top-20 z-50 w-full max-w-[360px] animate-slide-in-right sm:right-6">
-      <div className="relative overflow-hidden rounded-xl border border-[var(--color-app-border)] bg-[#16181f] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.7)] backdrop-blur-md">
-        {/* Header without skip/next buttons, only sponsor badge and close */}
-        <div className="flex items-center justify-between border-b border-[var(--color-app-border)]/60 pb-2.5">
-          <span className="rounded bg-[var(--color-accent)]/15 px-2 py-0.5 text-[10px] font-bold tracking-wider text-[var(--color-accent)]">
-            {t("app.sponsorTag", "SPONSORED")}
+    <div className="fixed right-5 top-16 z-50 w-full max-w-[340px] animate-slide-in-right sm:right-6">
+      <div className="relative overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-4 shadow-2xl backdrop-blur-md">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-[var(--color-app-border)] pb-2.5">
+          <span className="chip font-medium text-[10px] text-[var(--color-accent)] border-[var(--color-accent)]/20 bg-[var(--color-accent-subtle)]">
+            {t("app.sponsorTag", "SPONSOR")}
           </span>
 
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close sponsor ad"
-            className="flex h-6 w-6 items-center justify-center rounded text-[var(--color-text-muted)] transition-colors hover:bg-[#252832] hover:text-[var(--color-text-primary)]"
+            aria-label={t("common.close", "Kapat")}
+            className="flex h-6 w-6 items-center justify-center rounded-lg border border-[var(--color-app-border)] text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
           >
-            <CloseIcon className="h-3.5 w-3.5" />
+            <CloseIcon className="h-3 w-3" />
           </button>
         </div>
 
@@ -157,68 +155,66 @@ export function AdModal({ onClose }: AdModalProps) {
             {/* Clickable Image Banner */}
             <div
               onClick={() => handleOpenLink(sponsor.url)}
-              className="group relative cursor-pointer overflow-hidden rounded-lg border border-[var(--color-app-border)] bg-black/40 shadow-inner"
+              className="group relative cursor-pointer overflow-hidden rounded-xl border border-[var(--color-app-border)] bg-black/40"
             >
               <img
                 src={sponsor.image}
                 alt={t(sponsor.titleKey, sponsor.id)}
-                className="h-36 w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                className="h-32 w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 transition-opacity group-hover:opacity-40" />
-              <div className="absolute bottom-2 left-2.5 flex items-center gap-1.5 rounded bg-black/70 px-2 py-0.5 text-[11px] font-semibold text-white backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
+              <div className="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-md bg-black/70 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm">
                 <span>{t(sponsor.titleKey, sponsor.id)}</span>
                 <ExternalLinkIcon className="h-3 w-3 text-[var(--color-accent)]" />
               </div>
             </div>
 
             {/* Description & Link */}
-            <div className="mt-3 mb-1">
+            <div className="mt-2.5">
               <p className="text-xs leading-relaxed text-[var(--color-text-secondary)]">
                 {t(sponsor.descKey, "")}
               </p>
 
-              <div className="mt-3 flex items-center justify-between gap-2 border-t border-[var(--color-app-border)] pt-3">
+              <div className="mt-3 flex items-center justify-between gap-2 border-t border-[var(--color-app-border)] pt-2.5">
                 <button
                   type="button"
                   onClick={() => handleOpenLink(sponsor.url)}
-                  className="group flex items-center gap-1.5 text-xs font-semibold text-[var(--color-accent)] transition-colors hover:underline"
+                  className="flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline"
                 >
                   <span>{sponsor.displayUrl}</span>
-                  <ExternalLinkIcon className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  <ExternalLinkIcon className="h-3 w-3" />
                 </button>
 
                 <button
                   type="button"
                   onClick={() => handleOpenLink(sponsor.url)}
-                  className="rounded-md bg-[var(--color-accent)] px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-[var(--color-accent-hover)] active:bg-[#3f7fc1]"
+                  className="btn btn-primary text-xs px-3 py-1"
                 >
-                  {t("app.sponsorCta", "Visit Website")}
+                  {t("app.sponsorCta", "Ziyaret Et")}
                 </button>
               </div>
             </div>
           </div>
         ) : (
           /* Spotify Artist Embed */
-          <div className="mt-3 mb-1">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#1DB954]/20 text-[#1DB954]">
-                  <MusicIcon className="h-3.5 w-3.5" />
-                </div>
-                <h4 className="text-xs font-bold text-[var(--color-text-primary)]">
-                  {t(sponsor.titleKey, "")}
-                </h4>
+          <div className="mt-3">
+            <div className="flex items-center gap-2">
+              <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#1DB954]/15 text-[#1DB954]">
+                <MusicIcon className="h-3.5 w-3.5" />
               </div>
+              <h4 className="text-xs font-semibold text-[var(--color-text-primary)]">
+                {t(sponsor.titleKey, "")}
+              </h4>
             </div>
 
             {/* Spotify Embed Player */}
-            <div className="mt-2.5 overflow-hidden rounded-xl border border-[var(--color-app-border)] bg-black/30">
+            <div className="mt-2 overflow-hidden rounded-xl border border-[var(--color-app-border)]">
               <iframe
                 data-testid="embed-iframe"
                 style={{ borderRadius: "12px" }}
                 src={sponsor.embedUrl}
                 width="100%"
-                height="352"
+                height="320"
                 frameBorder="0"
                 allowFullScreen
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
@@ -232,26 +228,25 @@ export function AdModal({ onClose }: AdModalProps) {
               <button
                 type="button"
                 onClick={() => handleOpenLink(sponsor.url)}
-                className="group flex items-center gap-1.5 text-xs font-semibold text-[#1DB954] transition-colors hover:underline"
+                className="flex items-center gap-1 text-xs font-medium text-[#1DB954] hover:underline"
               >
                 <span>{sponsor.displayUrl}</span>
-                <ExternalLinkIcon className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                <ExternalLinkIcon className="h-3 w-3" />
               </button>
 
               <button
                 type="button"
                 onClick={() => handleOpenLink(sponsor.url)}
-                className="flex items-center gap-1.5 rounded-md bg-[#1DB954] px-3 py-1.5 text-[11px] font-semibold text-black transition-colors hover:bg-[#1ed760] active:bg-[#1aa34a]"
+                className="btn text-xs px-3 py-1 font-semibold text-black bg-[#1DB954] hover:brightness-110"
               >
-                <span>{t("app.openInSpotify", "Listen on Spotify")}</span>
-                <ExternalLinkIcon className="h-3 w-3" />
+                <span>{t("app.openInSpotify", "Spotify'da Dinle")}</span>
               </button>
             </div>
           </div>
         )}
 
-        {/* 10-second Linear Progress Countdown Bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#232630] overflow-hidden">
+        {/* Linear Progress Countdown Bar */}
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--color-app-surface-2)] overflow-hidden">
           <div
             className="h-full bg-[var(--color-accent)] transition-all duration-75 ease-linear"
             style={{ width: `${progress}%` }}

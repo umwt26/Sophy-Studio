@@ -74,7 +74,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
     }
   };
 
-  const formatDuration = (sec?: number) => {
+  const formatDuration = (sec?: number | null) => {
     if (!sec || isNaN(sec)) return "";
     const s = Math.round(sec);
     const m = Math.floor(s / 60);
@@ -83,40 +83,38 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
   };
 
   return (
-    <div className="flex flex-col gap-5 animate-fade-in pb-10">
-      {/* Top Banner / Card */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] px-5 py-4 shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20 shadow-inner">
-            <GlobeDownloadIcon className="h-5 w-5" />
-          </div>
-          <div>
+    <div className="page pb-8">
+      {/* Top Header Card */}
+      <div className="section section-pad flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2">
+            <GlobeDownloadIcon className="h-5 w-5 text-[var(--color-accent)]" />
             <h1 className="text-base font-bold text-[var(--color-text-primary)]">
               {t("universal.title", "Universal Media Downloader")}
             </h1>
-            <p className="text-xs text-[var(--color-text-secondary)]">
-              {t(
-                "universal.subtitle",
-                "Instagram, YouTube, TikTok, Facebook, Twitter/X ve diğer tüm platformlardan MP4 video veya MP3 ses indirin."
-              )}
-            </p>
           </div>
+          <p className="section-desc mt-1">
+            {t(
+              "universal.subtitle",
+              "YouTube, Instagram, TikTok, Facebook ve tüm platformlardan MP4 video veya MP3 ses indirin."
+            )}
+          </p>
         </div>
 
         {onOpenFolder && (
           <button
             type="button"
             onClick={onOpenFolder}
-            className="flex items-center gap-1.5 self-start sm:self-auto rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-3.5 py-2 text-xs font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)] transition-all active:scale-95 shadow-sm"
+            className="btn btn-secondary self-start sm:self-auto"
           >
-            <FolderIcon className="h-3.5 w-3.5 text-[var(--color-accent)]" />
+            <FolderIcon className="text-[var(--color-accent)]" />
             <span>{t("universal.openFolder", "Medya Klasörü")}</span>
           </button>
         )}
       </div>
 
       {/* Input Section */}
-      <div className="rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-sm">
+      <div className="section section-pad">
         <div className="flex flex-col sm:flex-row gap-2.5">
           <input
             type="text"
@@ -127,46 +125,48 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
             }}
             placeholder={t(
               "universal.placeholder",
-              "Medya linki yapıştırın (YouTube, Instagram, TikTok, Facebook, Twitter, vb.)..."
+              "Medya bağlantısı yapıştırın (YouTube, Instagram, TikTok, vb.)..."
             )}
-            className="flex-1 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-4 py-3 text-xs text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)]/60 focus:border-[var(--color-accent)] focus:outline-none transition-colors font-mono shadow-inner"
+            className="input input-lg flex-1 font-mono text-xs"
           />
 
           <button
             type="button"
             disabled={loading || downloading}
             onClick={handleFetchInfo}
-            className="flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3 text-xs font-bold text-black transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 shadow-md"
+            className="btn btn-primary btn-lg shrink-0"
           >
             {loading ? (
-              <span>{t("universal.fetching", "Bilgi Alınıyor...")}</span>
+              <span className="flex items-center gap-2">
+                <span className="spinner" />
+                <span>{t("universal.fetching", "Bilgi Alınıyor...")}</span>
+              </span>
             ) : (
               <>
-                <GlobeDownloadIcon className="h-4 w-4" />
+                <GlobeDownloadIcon />
                 <span>{t("universal.fetchBtn", "Medyayı Getir")}</span>
               </>
             )}
           </button>
         </div>
 
-        {/* Supported platforms tag strip */}
-        <div className="mt-4 flex flex-wrap items-center gap-2 text-[10px] text-[var(--color-text-secondary)] pt-3 border-t border-[var(--color-app-border)]">
-          <span className="font-semibold">{t("universal.supported", "Desteklenen Siteler:")}</span>
+        {/* Supported platforms tags */}
+        <div className="mt-4 flex flex-wrap items-center gap-1.5 pt-3 border-t border-[var(--color-app-border-soft)]">
+          <span className="text-[11px] font-semibold text-[var(--color-text-muted)] mr-1">
+            {t("universal.supported", "Desteklenen Siteler:")}
+          </span>
           {[
-            { name: "YouTube", color: "hover:text-red-400" },
-            { name: "Instagram", color: "hover:text-pink-400" },
-            { name: "TikTok", color: "hover:text-cyan-400" },
-            { name: "Facebook", color: "hover:text-blue-400" },
-            { name: "Twitter / X", color: "hover:text-white" },
-            { name: "Pinterest", color: "hover:text-rose-400" },
-            { name: "Reddit", color: "hover:text-orange-400" },
-            { name: "SoundCloud", color: "hover:text-amber-400" },
-          ].map((p) => (
-            <span
-              key={p.name}
-              className={`rounded-lg border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-2.5 py-1 font-mono text-[10px] text-[var(--color-text-secondary)] transition-colors ${p.color}`}
-            >
-              {p.name}
+            "YouTube",
+            "Instagram",
+            "TikTok",
+            "Facebook",
+            "Twitter / X",
+            "Pinterest",
+            "Reddit",
+            "SoundCloud",
+          ].map((site) => (
+            <span key={site} className="chip text-[10.5px]">
+              {site}
             </span>
           ))}
         </div>
@@ -174,40 +174,38 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
 
       {/* Media Details & Download Card */}
       {mediaInfo && (
-        <div className="rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-sm animate-fade-in">
+        <div className="section section-pad animate-fade-in">
           <div className="flex flex-col md:flex-row gap-5 items-start">
             {/* Thumbnail */}
             {mediaInfo.thumbnail ? (
               <img
                 src={mediaInfo.thumbnail}
                 alt={mediaInfo.title}
-                className="w-full md:w-64 aspect-video rounded-xl object-cover border border-[var(--color-app-border)] shadow-md"
+                className="w-full md:w-60 aspect-video rounded-lg object-cover border border-[var(--color-app-border)] shadow-sm"
               />
             ) : (
-              <div className="w-full md:w-64 aspect-video rounded-xl bg-[var(--color-app-surface-2)] flex items-center justify-center border border-[var(--color-app-border)] text-[var(--color-text-secondary)]">
-                <GlobeDownloadIcon className="h-10 w-10 opacity-40" />
+              <div className="w-full md:w-60 aspect-video rounded-lg bg-[var(--color-app-surface-2)] flex items-center justify-center border border-[var(--color-app-border)] text-[var(--color-text-secondary)]">
+                <GlobeDownloadIcon className="h-8 w-8 opacity-40" />
               </div>
             )}
 
             {/* Info details */}
-            <div className="flex-1 flex flex-col justify-between h-full gap-4 w-full">
+            <div className="flex-1 flex flex-col justify-between gap-4 w-full">
               <div>
-                <h2 className="text-base font-bold text-[var(--color-text-primary)] leading-snug">
+                <h2 className="text-sm font-bold text-[var(--color-text-primary)] leading-snug">
                   {mediaInfo.title || t("universal.untitled", "İsimsiz Medya")}
                 </h2>
                 <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-secondary)]">
                   {mediaInfo.uploader && (
-                    <span className="rounded-md bg-[var(--color-app-surface-2)] px-2.5 py-1 border border-[var(--color-app-border)] font-medium">
-                      {mediaInfo.uploader}
-                    </span>
+                    <span className="chip">{mediaInfo.uploader}</span>
                   )}
                   {mediaInfo.duration && (
-                    <span className="rounded-md bg-[var(--color-app-surface-2)] px-2.5 py-1 font-mono border border-[var(--color-app-border)]">
+                    <span className="chip font-mono">
                       {formatDuration(mediaInfo.duration)}
                     </span>
                   )}
                   {mediaInfo.extractor && (
-                    <span className="rounded-md bg-[var(--color-accent)]/15 text-[var(--color-accent)] px-2.5 py-1 font-mono uppercase text-[10px] font-bold border border-[var(--color-accent)]/30">
+                    <span className="chip chip-accent uppercase text-[10px]">
                       {mediaInfo.extractor}
                     </span>
                   )}
@@ -215,14 +213,14 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-[var(--color-app-border)]">
+              <div className="flex flex-wrap items-center gap-2.5 pt-3 border-t border-[var(--color-app-border-soft)]">
                 <button
                   type="button"
                   disabled={downloading}
                   onClick={() => handleDownload("mp4")}
-                  className="flex items-center gap-2 rounded-xl bg-[var(--color-accent)] px-5 py-2.5 text-xs font-bold text-black transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 shadow-md"
+                  className="btn btn-primary"
                 >
-                  <VideoCameraIcon className="h-4 w-4" />
+                  <VideoCameraIcon />
                   <span>{t("universal.downloadMp4", "Video İndir (MP4)")}</span>
                 </button>
 
@@ -230,9 +228,9 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
                   type="button"
                   disabled={downloading}
                   onClick={() => handleDownload("mp3")}
-                  className="flex items-center gap-2 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-5 py-2.5 text-xs font-bold text-[var(--color-text-primary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all active:scale-95 disabled:opacity-50 shadow-sm"
+                  className="btn btn-secondary"
                 >
-                  <MusicalNoteIcon className="h-4 w-4" />
+                  <MusicalNoteIcon />
                   <span>{t("universal.downloadMp3", "Ses İndir (MP3 320k)")}</span>
                 </button>
               </div>

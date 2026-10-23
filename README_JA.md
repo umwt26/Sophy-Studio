@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🎵 Sophy Studio — Suno Downloader & Toolkit
+# 🎵 Sophy Studio — オールインワン・オーディオ＆音楽制作スタジオ
 
-**Suno AI メディアのための究極・超高速デスクトップダウンローダー＆ツールキット。**
+**モダン・オーディオワークステーション: Suno Song Downloader, Metadata Editor & Key & BPM Detect。**
 
 [![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/Sophy-Studio/releases)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/Sophy-Studio)

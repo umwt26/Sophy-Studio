@@ -391,3 +391,41 @@ pub async fn install_update(app: tauri::AppHandle, download_url: String) -> Resu
 
     Ok(())
 }
+
+#[tauri::command]
+pub async fn read_audio_metadata(file_path: String) -> Result<sophy_core::AudioMetadata, String> {
+    let path = std::path::Path::new(&file_path);
+    sophy_core::MetadataManager::read_metadata(path)
+}
+
+#[tauri::command]
+pub async fn save_audio_metadata(input: sophy_core::SaveMetadataInput) -> Result<(), String> {
+    sophy_core::MetadataManager::save_metadata(&input)
+}
+
+#[tauri::command]
+pub async fn select_audio_file() -> Result<Option<String>, String> {
+    let file = rfd::AsyncFileDialog::new()
+        .add_filter("Audio Files", &["mp3", "wav", "flac", "m4a", "ogg", "aac"])
+        .set_title("Sophy Studio - Ses Dosyası Seç")
+        .pick_file()
+        .await;
+
+    Ok(file.map(|f| f.path().to_string_lossy().to_string()))
+}
+
+#[tauri::command]
+pub async fn select_image_file() -> Result<Option<String>, String> {
+    let file = rfd::AsyncFileDialog::new()
+        .add_filter("Images", &["jpg", "jpeg", "png", "webp", "bmp"])
+        .set_title("Sophy Studio - Kapak Görseli Seç")
+        .pick_file()
+        .await;
+
+    Ok(file.map(|f| f.path().to_string_lossy().to_string()))
+}
+
+#[tauri::command]
+pub async fn read_file_binary(file_path: String) -> Result<Vec<u8>, String> {
+    std::fs::read(&file_path).map_err(|e| format!("Dosya okunamadı: {}", e))
+}

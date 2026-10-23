@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "Sophy Studio",
-    "subtitle": "Suno AI İndirici & Araç Seti",
+    "subtitle": "Modern Ses & Müzik Prodüksiyon Stüdyosu",
     "inputPlaceholder": "Suno şarkı linkini yapıştırın (örn: https://suno.com/s/... veya /song/...)",
     "analyzeBtn": "Şarkıyı Getir",
     "fetching": "Şarkı analiz ediliyor...",
@@ -38,5 +38,65 @@
     "updateNotice": "Aa yeni sürüm var, hadi güncelle beni! (v{{version}})",
     "updateBtn": "Şimdi Güncelle",
     "updateDismiss": "Kapat"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "suno": "Suno Downloader",
+    "metadata": "Metadata Editor",
+    "detector": "Key & BPM Detect"
+  },
+  "home": {
+    "heroSubtitle": "Yapay zeka müzik indirme, yüksek çözünürlüklü etiket (ID3) düzenleme ve profesyonel Key & BPM analizlerini tek çatı altında sunan modern stüdyo paketi.",
+    "openOutputFolder": "Stüdyo Klasörünü Aç",
+    "sunoTitle": "Suno Song Downloader",
+    "sunoDesc": "Suno AI parçalarını tek tıkla 320kbps MP3, kayıpsız WAV, orijinal akış, kapak görseli ve senkron sözlerle indirin.",
+    "metadataTitle": "Metadata Editor",
+    "metadataDesc": "MP3, WAV, FLAC ve M4A dosyalarının şarkı adı, sanatçı, albüm bilgilerini ve yüksek çözünürlüklü kapak resimlerini düzenleyin.",
+    "detectorTitle": "Key & BPM Detect",
+    "detectorDesc": "Tunebat standardında Krumhansl-Schmuckler analiziyle parçaların tonunu (Camelot çarkı + standart nota) ve BPM değerini saniyeler içinde ölçün.",
+    "openTool": "Aracı Başlat",
+    "featuresTitle": "Stüdyo Yetenekleri",
+    "engineTitle": "Sistem & Motor Durumu"
+  },
+  "metadata": {
+    "title": "Audio Metadata Editor",
+    "subtitle": "MP3, WAV, FLAC veya M4A dosyanızı seçin; sanatçı, şarkı adı ve albüm kapak resmini anında düzenleyin.",
+    "selectFile": "Ses Dosyası Seç",
+    "reading": "Okunuyor...",
+    "dropPrompt": "Düzenlemek istediğiniz ses dosyasını buraya seçin",
+    "readingFile": "Ses dosyası etiketleri taranıyor...",
+    "coverArt": "Albüm Kapağı",
+    "noCover": "Kapak Görseli Yok",
+    "changeCover": "Kapak Değiştir",
+    "removeCover": "Kaldır",
+    "tagInfo": "Şarkı & Sanatçı Etiketleri",
+    "labelTitle": "Şarkı Adı (Title)",
+    "labelArtist": "Sanatçı (Artist)",
+    "labelAlbum": "Albüm (Album)",
+    "labelYear": "Yıl (Year)",
+    "labelGenre": "Tür (Genre)",
+    "labelTrack": "Parça Numarası (Track #)",
+    "labelComment": "Yorum / Açıklama (Comment)",
+    "saveButton": "Dosyaya Kaydet",
+    "saving": "Kaydediliyor...",
+    "loaded": "Ses dosyası başarıyla yüklendi!",
+    "loadError": "Metadata okunamadı",
+    "coverSelected": "Kapak görseli seçildi!",
+    "saveSuccess": "Metadata başarıyla dosyaya kaydedildi!"
+  },
+  "detector": {
+    "title": "Key & BPM Detect",
+    "subtitle": "Tunebat kalitesinde müzikal ton (Camelot çarkı + klasik nota) ve hassas BPM tempo analizörü.",
+    "selectFile": "Ses Dosyası Yükle",
+    "analyzing": "Analiz Ediliyor...",
+    "dropPrompt": "Ses dosyasını buraya bırakın veya tıklayıp seçin",
+    "analyzingAudio": "Ses Analiz Ediliyor...",
+    "analyzed": "Key & BPM analizi tamamlandı!",
+    "newAnalysis": "Yeni Analiz",
+    "musicalKey": "Müzikal Ton (Key)",
+    "tempoBpm": "Tempo (BPM)"
+  },
+  "suno": {
+    "emptyTitle": "Suno Şarkısı İndir"
   }
 }

@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "Sophy Studio",
-    "subtitle": "Suno AI ダウンローダー＆ツールキット",
+    "subtitle": "モダン・オーディオ＆音楽制作スタジオ",
     "inputPlaceholder": "Suno曲のURLを貼り付け (例: https://suno.com/s/...)",
     "analyzeBtn": "曲を取得",
     "fetching": "曲を分析中...",

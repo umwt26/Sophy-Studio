@@ -122,32 +122,28 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
   const categories = [
     {
       id: "appearance" as const,
-      label: t("settings.themeCategory", "Görünüm"),
-      sub: "Tema, renk tekerleği & font",
+      label: t("settings.tabAppearance", "Görünüm"),
       Icon: PaletteIcon,
     },
     {
       id: "folders" as const,
-      label: t("settings.foldersCategory", "İndirme Klasörleri"),
-      sub: "Audio, Cover, Lyrics yolları",
+      label: t("settings.tabFolders", "Klasörler"),
       Icon: FolderIcon,
     },
     {
       id: "language" as const,
-      label: t("settings.languageTitle", "Uygulama Dili"),
-      sub: "Türkçe, English, 8 dil",
+      label: t("settings.tabLanguage", "Dil"),
       Icon: GlobeDownloadIcon,
     },
     {
       id: "about" as const,
-      label: t("settings.aboutTitle", "Hakkında & Notlar"),
-      sub: "v1.0, Beli! ve yenilikler",
+      label: t("settings.tabAbout", "Hakkında"),
       Icon: SparklesIcon,
     },
   ];
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 w-full pb-10">
+    <div className="flex flex-col md:flex-row items-start gap-6 w-full pb-10">
       {/* Left Sidebar: Categories Navigation matching Image 2 */}
       <aside className="w-full md:w-60 shrink-0 flex flex-col gap-2">
         <div className="px-2 py-1 mb-1">
@@ -183,9 +179,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                 >
                   <Icon className="h-4 w-4" />
                 </div>
-                <div className="flex flex-col min-w-0">
-                  <span className="truncate">{cat.label}</span>
-                </div>
+                <span className="truncate">{cat.label}</span>
               </button>
             );
           })}
@@ -376,33 +370,6 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                 />
               </div>
             </div>
-
-            {/* Subsection 3: Font Style Specimen */}
-            <div className="flex flex-col gap-3 pt-2 border-t border-[var(--color-app-border)]">
-              <div>
-                <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
-                  {t("settings.fontStyle", "Font style")}
-                </h3>
-                <p className="text-xs text-[var(--color-text-secondary)]">
-                  {t("settings.fontDesc", "Articulat CF & After modern geometrik grotesk tipografi aktif.")}
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-[var(--color-text-primary)]">
-                    Articulat CF / After
-                  </span>
-                  <span className="chip text-[10px] font-mono">Geometric Neo-Grotesk</span>
-                </div>
-                <p className="text-sm tracking-wide text-[var(--color-text-secondary)] leading-relaxed">
-                  THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
-                </p>
-                <p className="text-xs text-[var(--color-text-muted)] mt-1 font-mono">
-                  0123456789 • 320kbps MP3 • 24-bit 48kHz WAV • Suno AI
-                </p>
-              </div>
-            </div>
           </div>
         )}
 
@@ -412,10 +379,10 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
             <div className="flex items-center justify-between pb-2 border-b border-[var(--color-app-border)]">
               <div>
                 <h2 className="text-lg font-bold tracking-tight text-[var(--color-text-primary)]">
-                  {t("settings.foldersTitle", "İndirme & Kayıt Klasörleri")}
+                  {t("settings.folderPathsTitle", "İndirme & Kayıt Klasörleri")}
                 </h2>
                 <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">
-                  {t("settings.foldersDesc", "Her indirme türü için hedef klasörü ayrı ayrı özelleştirebilirsiniz.")}
+                  {t("settings.folderPathsDesc", "Her indirme türü için hedef klasörü ayrı ayrı özelleştirebilirsiniz.")}
                 </p>
               </div>
 
@@ -595,7 +562,6 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                     type="button"
                     onClick={() => {
                       i18n.changeLanguage(lang.code);
-                      onShowToast(lang.label);
                     }}
                     className={`flex items-center justify-between rounded-xl border p-3.5 transition-all ${
                       isSelected
@@ -646,7 +612,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
             {/* Social Media Links for Beli! */}
             <div>
               <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2.5">
-                Geliştirici & Sosyal Medya (Beli!):
+                {t("settings.developer", "Geliştirici")} & {t("settings.socialMedia", "Sosyal Medya")} (Beli!):
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <a

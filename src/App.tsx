@@ -251,7 +251,10 @@ export default function App() {
         onSelectTab={setActiveTab}
       />
 
-      <main className="flex-1 overflow-y-auto bg-[var(--color-app-bg)]">
+      <main
+        className="flex-1 overflow-y-scroll bg-[var(--color-app-bg)]"
+        style={{ scrollbarGutter: "stable" }}
+      >
         <div className="mx-auto flex w-full max-w-5xl flex-col px-4 py-4 sm:px-6 sm:py-5">
           {activeTab === "home" && (
             <HomePage

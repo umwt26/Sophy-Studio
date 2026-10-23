@@ -11,189 +11,227 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col gap-8 pb-12 animate-fade-in">
-      {/* Hero Welcome Banner */}
-      <div className="relative overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-gradient-to-br from-[#161822]/90 via-[#12141a]/95 to-[#0b0c10] p-8 shadow-2xl">
-        <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-transparent blur-3xl pointer-events-none" />
-        <div className="absolute -left-16 -bottom-16 h-64 w-64 rounded-full bg-gradient-to-tr from-emerald-500/10 via-teal-500/10 to-transparent blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex flex-col gap-2 max-w-xl">
-            <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-accent)]/20 text-sm text-[var(--color-accent)] font-bold shadow-inner">
-                🎵
-              </span>
-              <span className="rounded-full bg-[var(--color-accent)]/15 px-3 py-0.5 text-xs font-semibold tracking-wide text-[var(--color-accent)]">
-                ALL-IN-ONE AUDIO SUITE
-              </span>
-            </div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-[var(--color-text-primary)]">
-              Sophy Studio
+    <div className="flex flex-col gap-5 pb-8 animate-fade-in">
+      {/* Studio Header Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-[#202532] bg-[#11131a] px-5 py-4 shadow-md">
+        <div className="flex flex-col gap-0.5">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <h1 className="text-base font-bold tracking-tight text-white">
+              Sophy Studio Workstation
             </h1>
-            <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-              {t(
-                "home.heroSubtitle",
-                "Yapay zeka müzik indirme, yüksek çözünürlüklü etiket (ID3) düzenleme ve profesyonel Key & BPM analizlerini tek çatı altında sunan modern stüdyo paketi."
-              )}
-            </p>
+            <span className="rounded bg-[#1a1f2c] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#232838]">
+              v0.2.0
+            </span>
           </div>
-
-          <button
-            type="button"
-            onClick={onOpenFolder}
-            className="flex items-center justify-center gap-2 rounded-xl border border-[var(--color-app-border)] bg-[#1e212b]/80 px-4 py-3 text-xs font-medium text-[var(--color-text-primary)] shadow-md transition-all hover:border-[var(--color-accent)]/50 hover:bg-[#252836] active:scale-95"
-          >
-            <span>📁</span>
-            <span>{t("home.openOutputFolder", "Stüdyo Klasörünü Aç")}</span>
-          </button>
+          <p className="text-xs text-[#7d8496]">
+            {t(
+              "home.heroSubtitle",
+              "Müzik prodüksiyonu, ses etiketleme ve Key/BPM analizi için optimize edilmiş yerel stüdyo paketi."
+            )}
+          </p>
         </div>
+
+        <button
+          type="button"
+          onClick={onOpenFolder}
+          className="self-start sm:self-auto flex items-center gap-1.5 rounded-lg border border-[#252b3a] bg-[#161a24] px-3.5 py-2 text-xs font-semibold text-[#a5acbe] hover:border-[#38bdf8]/50 hover:bg-[#1c2230] hover:text-white transition-all active:scale-95"
+        >
+          <span>📁</span>
+          <span>{t("home.openOutputFolder", "Kayıt Klasörü")}</span>
+        </button>
       </div>
 
-      {/* 3 Main Action Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {/* Card 1: Suno Song Downloader */}
+      {/* 3 Main Modular Tool Racks */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Module 1: Suno Song Downloader */}
         <div
           onClick={() => onNavigate("suno")}
-          className="group relative flex cursor-pointer flex-col justify-between rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6 transition-all duration-200 hover:-translate-y-1 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/5"
+          className="group cursor-pointer flex flex-col justify-between rounded-xl border border-[#202532] bg-[#11131a] p-5 transition-all duration-200 hover:border-[#38bdf8]/40 hover:bg-[#141722] hover:shadow-lg hover:shadow-sky-500/5"
         >
           <div className="flex flex-col gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/15 text-2xl text-indigo-400 group-hover:scale-110 transition-transform">
-              🎧
+            <div className="flex items-center justify-between">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-500/10 text-xl border border-sky-500/20 text-sky-400">
+                🎧
+              </span>
+              <span className="rounded bg-[#181c28] px-2 py-0.5 text-[9px] font-mono font-semibold text-sky-400 border border-sky-500/20">
+                MODULE 01
+              </span>
             </div>
+
             <div>
-              <h3 className="text-base font-bold text-[var(--color-text-primary)] group-hover:text-indigo-400 transition-colors">
+              <h3 className="text-sm font-bold text-white group-hover:text-sky-400 transition-colors">
                 {t("home.sunoTitle", "Suno Song Downloader")}
               </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                {t(
-                  "home.sunoDesc",
-                  "Suno AI parçalarını tek tıkla 320kbps MP3, kayıpsız WAV, orijinal akış, kapak görseli ve senkron sözlerle indirin."
-                )}
+              <p className="mt-1.5 text-xs text-[#7e8598] leading-relaxed">
+                Suno AI parçalarını stüdyo kalitesinde 320k MP3, uncompressed WAV, kapak görseli ve senkron sözlerle indirin.
               </p>
             </div>
+
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="rounded bg-[#171a24] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#222736]">
+                320kbps MP3
+              </span>
+              <span className="rounded bg-[#171a24] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#222736]">
+                44.1kHz WAV
+              </span>
+              <span className="rounded bg-[#171a24] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#222736]">
+                Lyrics
+              </span>
+            </div>
           </div>
-          <div className="mt-5 flex items-center gap-1.5 text-xs font-semibold text-indigo-400">
+
+          <div className="mt-5 flex items-center justify-between border-t border-[#1d222e] pt-3 text-xs font-semibold text-sky-400">
             <span>{t("home.openTool", "Aracı Başlat")}</span>
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </div>
         </div>
 
-        {/* Card 2: Metadata Editor */}
+        {/* Module 2: Audio Metadata Editor */}
         <div
           onClick={() => onNavigate("metadata")}
-          className="group relative flex cursor-pointer flex-col justify-between rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6 transition-all duration-200 hover:-translate-y-1 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5"
+          className="group cursor-pointer flex flex-col justify-between rounded-xl border border-[#202532] bg-[#11131a] p-5 transition-all duration-200 hover:border-emerald-500/40 hover:bg-[#141722] hover:shadow-lg hover:shadow-emerald-500/5"
         >
           <div className="flex flex-col gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/15 text-2xl text-emerald-400 group-hover:scale-110 transition-transform">
-              🏷️
+            <div className="flex items-center justify-between">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 text-xl border border-emerald-500/20 text-emerald-400">
+                🏷️
+              </span>
+              <span className="rounded bg-[#181c28] px-2 py-0.5 text-[9px] font-mono font-semibold text-emerald-400 border border-emerald-500/20">
+                MODULE 02
+              </span>
             </div>
+
             <div>
-              <h3 className="text-base font-bold text-[var(--color-text-primary)] group-hover:text-emerald-400 transition-colors">
+              <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
                 {t("home.metadataTitle", "Metadata Editor")}
               </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                {t(
-                  "home.metadataDesc",
-                  "MP3, WAV, FLAC ve M4A dosyalarının şarkı adı, sanatçı, albüm bilgilerini ve yüksek çözünürlüklü kapak resimlerini düzenleyin."
-                )}
+              <p className="mt-1.5 text-xs text-[#7e8598] leading-relaxed">
+                Ses dosyalarınıza şarkı adı, sanatçı, albüm etiketleri ve yüksek çözünürlüklü ön kapak görseli gömün.
               </p>
             </div>
+
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="rounded bg-[#171a24] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#222736]">
+                ID3v2.4
+              </span>
+              <span className="rounded bg-[#171a24] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#222736]">
+                Cover Art
+              </span>
+              <span className="rounded bg-[#171a24] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#222736]">
+                FLAC/MP3/WAV
+              </span>
+            </div>
           </div>
-          <div className="mt-5 flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
+
+          <div className="mt-5 flex items-center justify-between border-t border-[#1d222e] pt-3 text-xs font-semibold text-emerald-400">
             <span>{t("home.openTool", "Aracı Başlat")}</span>
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </div>
         </div>
 
-        {/* Card 3: Key & BPM Detect */}
+        {/* Module 3: Key & BPM Detect */}
         <div
           onClick={() => onNavigate("detector")}
-          className="group relative flex cursor-pointer flex-col justify-between rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6 transition-all duration-200 hover:-translate-y-1 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5"
+          className="group cursor-pointer flex flex-col justify-between rounded-xl border border-[#202532] bg-[#11131a] p-5 transition-all duration-200 hover:border-amber-500/40 hover:bg-[#141722] hover:shadow-lg hover:shadow-amber-500/5"
         >
           <div className="flex flex-col gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/15 text-2xl text-amber-400 group-hover:scale-110 transition-transform">
-              🎹
+            <div className="flex items-center justify-between">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500/10 text-xl border border-amber-500/20 text-amber-400">
+                🎹
+              </span>
+              <span className="rounded bg-[#181c28] px-2 py-0.5 text-[9px] font-mono font-semibold text-amber-400 border border-amber-500/20">
+                MODULE 03
+              </span>
             </div>
+
             <div>
-              <h3 className="text-base font-bold text-[var(--color-text-primary)] group-hover:text-amber-400 transition-colors">
+              <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">
                 {t("home.detectorTitle", "Key & BPM Detect")}
               </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                {t(
-                  "home.detectorDesc",
-                  "Tunebat standardında Krumhansl-Schmuckler analiziyle parçaların tonunu (Camelot çarkı + standart nota) ve BPM değerini saniyeler içinde ölçün."
-                )}
+              <p className="mt-1.5 text-xs text-[#7e8598] leading-relaxed">
+                Tunebat kalitesinde Krumhansl-Schmuckler analiziyle Camelot çarkı, standart nota ve hassas tempo tespiti.
               </p>
             </div>
+
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="rounded bg-[#171a24] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#222736]">
+                Camelot 1A-12B
+              </span>
+              <span className="rounded bg-[#171a24] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#222736]">
+                Auto Tempo
+              </span>
+              <span className="rounded bg-[#171a24] px-2 py-0.5 text-[10px] font-mono text-[#8a92a6] border border-[#222736]">
+                Harmonic Mix
+              </span>
+            </div>
           </div>
-          <div className="mt-5 flex items-center gap-1.5 text-xs font-semibold text-amber-400">
+
+          <div className="mt-5 flex items-center justify-between border-t border-[#1d222e] pt-3 text-xs font-semibold text-amber-400">
             <span>{t("home.openTool", "Aracı Başlat")}</span>
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </div>
         </div>
       </div>
 
-      {/* Studio Engine & Features Highlight */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)] mb-3">
-            {t("home.featuresTitle", "Stüdyo Yetenekleri")}
-          </h4>
-          <ul className="space-y-2.5 text-xs text-[var(--color-text-secondary)]">
-            <li className="flex items-center gap-2">
-              <span className="text-emerald-400">✓</span>
-              <span><strong>Yerel & Gizli:</strong> Ses dosyalarınız sunucuya yüklenmez, her şey cihazınızda çalışır.</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-emerald-400">✓</span>
-              <span><strong>Low-End Dostu:</strong> Düşük RAM ve işlemci kullanımı için optimize edilmiş Rust ve Web Worker mimarisi.</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-emerald-400">✓</span>
-              <span><strong>Sessiz FFmpeg:</strong> Arka planda terminal penceresi açılmadan kusursuz dönüşüm.</span>
-            </li>
-          </ul>
+      {/* Studio Engine Telemetry Bar */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="rounded-xl border border-[#202532] bg-[#11131a] p-4 text-xs">
+          <div className="flex items-center gap-2 text-white font-bold mb-2">
+            <span>⚙️</span>
+            <span>Çekirdek Motor Altyapısı</span>
+          </div>
+          <div className="space-y-1.5 text-[#7e8598]">
+            <div className="flex justify-between">
+              <span>Yerel İşleme:</span>
+              <span className="font-mono text-emerald-400">Rust Core v0.2.0 (Offline)</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Etiket Kütüphanesi:</span>
+              <span className="font-mono text-white">Lofty Multi-Format Engine</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Harmonik Algoritma:</span>
+              <span className="font-mono text-sky-400">Krumhansl-Schmuckler 12-Chroma</span>
+            </div>
+          </div>
         </div>
 
-        <div className="rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)] mb-3">
-            {t("home.engineTitle", "Sistem & Motor Durumu")}
-          </h4>
-          <div className="space-y-2 text-xs">
-            <div className="flex justify-between items-center text-[var(--color-text-secondary)]">
-              <span>Çekirdek Altyapı:</span>
-              <span className="font-mono text-emerald-400">Rust Core v0.2.0 + Lofty Engine</span>
+        <div className="rounded-xl border border-[#202532] bg-[#11131a] p-4 text-xs">
+          <div className="flex items-center gap-2 text-white font-bold mb-2">
+            <span>🛡️</span>
+            <span>Gizlilik & Donanım Güvencesi</span>
+          </div>
+          <div className="space-y-1.5 text-[#7e8598]">
+            <div className="flex justify-between">
+              <span>Bulut / Sunucu:</span>
+              <span className="font-mono text-emerald-400">%100 Çevrimdışı (Dosya yüklenmez)</span>
             </div>
-            <div className="flex justify-between items-center text-[var(--color-text-secondary)]">
-              <span>Key & BPM Motoru:</span>
-              <span className="font-mono text-indigo-400">Krumhansl-Schmuckler 12-Chroma</span>
+            <div className="flex justify-between">
+              <span>Sistem Yükü:</span>
+              <span className="font-mono text-white">Low-End PC Optimize (&lt;100MB RAM)</span>
             </div>
-            <div className="flex justify-between items-center text-[var(--color-text-secondary)]">
-              <span>Kurulu Diller:</span>
-              <span className="font-mono text-[var(--color-text-primary)]">TR, EN, DE, FR, ES, RU, PT, JA (8 Dil)</span>
+            <div className="flex justify-between">
+              <span>Desteklenen Diller:</span>
+              <span className="font-mono text-white">TR, EN, DE, FR, ES, RU, PT, JA (8 Dil)</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Footer / Copyright */}
-      <footer className="mt-4 flex flex-col items-center justify-between gap-3 border-t border-[var(--color-app-border)]/60 pt-6 text-center text-xs text-[var(--color-text-muted)] md:flex-row md:text-left">
+      {/* Simple Studio Footer */}
+      <footer className="mt-1 flex items-center justify-between border-t border-[#1d222e] pt-4 text-[11px] text-[#60677a]">
         <p>
-          <strong>Sophy Studio</strong> © 2026 <strong>Umut / Beli</strong>. All rights reserved.
+          <strong className="text-[#888f9f]">Sophy Studio</strong> © 2026 <strong>Umut / Beli</strong>. All rights reserved.
         </p>
-        <div className="flex items-center gap-4">
-          <span className="rounded bg-[var(--color-app-border)]/40 px-2 py-0.5 text-[11px] font-mono">
-            v0.2.0
-          </span>
-          <a
-            href="https://github.com/umwt26/Sophy-Studio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[var(--color-accent)] transition-colors"
-          >
-            GitHub Repository
-          </a>
-        </div>
+        <a
+          href="https://github.com/umwt26/Sophy-Studio"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#38bdf8] hover:underline"
+        >
+          GitHub Repository
+        </a>
       </footer>
     </div>
   );

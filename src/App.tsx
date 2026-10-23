@@ -3,6 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen, type Event } from "@tauri-apps/api/event";
 import { useTranslation } from "react-i18next";
 import { Header } from "./components/Header";
+import { StudioDrawer } from "./components/StudioDrawer";
 import { HomePage } from "./components/HomePage";
 import { SunoDownloaderPage } from "./components/SunoDownloaderPage";
 import { MetadataEditorPage } from "./components/MetadataEditorPage";
@@ -25,6 +26,7 @@ function formatDuration(sec?: number): string {
 export default function App() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<AppTab>("home");
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [song, setSong] = useState<SongData | null>(null);
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -204,18 +206,26 @@ export default function App() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-[var(--color-app-bg)] text-[var(--color-text-primary)]">
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-[#0d0f14] text-[var(--color-text-primary)]">
       <Header
         activeTab={activeTab}
-        onSelectTab={setActiveTab}
+        onOpenMenu={() => setDrawerOpen(true)}
         onOpenFolder={handleOpenFolder}
-        onOpenHistory={() => setHistoryModalOpen(true)}
         updateVersion={updateInfo?.has_update ? updateInfo.latest_version : undefined}
         onOpenUpdate={() => setUpdateModalOpen(true)}
       />
 
-      <main className="flex-1 overflow-y-auto">
-        <div className="mx-auto flex w-full max-w-4xl flex-col px-6 py-6">
+      <StudioDrawer
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        activeTab={activeTab}
+        onSelectTab={setActiveTab}
+        onOpenFolder={handleOpenFolder}
+        onOpenHistory={() => setHistoryModalOpen(true)}
+      />
+
+      <main className="flex-1 overflow-y-auto bg-[#0d0f14]">
+        <div className="mx-auto flex w-full max-w-4xl flex-col px-4 py-4 sm:px-6 sm:py-5">
           {activeTab === "home" && (
             <HomePage
               onNavigate={(tab) => setActiveTab(tab)}

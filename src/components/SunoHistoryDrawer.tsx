@@ -25,14 +25,14 @@ export const SunoHistoryDrawer: React.FC<SunoHistoryDrawerProps> = ({
 
   if (!isOpen) return null;
 
-  const filteredHistory = history.filter((item) => {
+  const filteredHistory = (Array.isArray(history) ? history : []).filter((item) => {
+    if (!item || typeof item !== "object") return false;
     if (!searchTerm.trim()) return true;
     const q = searchTerm.toLowerCase();
-    return (
-      item.title.toLowerCase().includes(q) ||
-      item.artist.toLowerCase().includes(q) ||
-      (item.genres && item.genres.some((g) => g.toLowerCase().includes(q)))
-    );
+    const title = String(item.title || "").toLowerCase();
+    const artist = String(item.artist || "").toLowerCase();
+    const genresMatch = Array.isArray(item.genres) && item.genres.some((g) => String(g || "").toLowerCase().includes(q));
+    return title.includes(q) || artist.includes(q) || genresMatch;
   });
 
   return (

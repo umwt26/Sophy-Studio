@@ -53,7 +53,20 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) {
-          setHistory(parsed);
+          const sanitized: UniversalHistoryItem[] = parsed
+            .filter((item) => item && typeof item === "object")
+            .map((item, idx) => ({
+              id: String(item.id || `uh-${idx}-${Date.now()}`),
+              title: String(item.title || "Untitled Media"),
+              url: String(item.url || ""),
+              thumbnail: item.thumbnail ? String(item.thumbnail) : undefined,
+              uploader: item.uploader ? String(item.uploader) : undefined,
+              duration: typeof item.duration === "number" ? item.duration : undefined,
+              format: (item.format === "mp3" ? "mp3" : "mp4") as "mp4" | "mp3",
+              platform: String(item.platform || "Diğer"),
+              timestamp: typeof item.timestamp === "number" ? item.timestamp : Date.now(),
+            }));
+          setHistory(sanitized);
         }
       }
     } catch (e) {
@@ -62,16 +75,18 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
   }, []);
 
   const saveHistory = (items: UniversalHistoryItem[]) => {
-    setHistory(items);
+    const safeItems = Array.isArray(items) ? items : [];
+    setHistory(safeItems);
     try {
-      localStorage.setItem(UNIVERSAL_HISTORY_KEY, JSON.stringify(items));
+      localStorage.setItem(UNIVERSAL_HISTORY_KEY, JSON.stringify(safeItems));
     } catch (e) {
       console.warn("Failed to persist universal history", e);
     }
   };
 
   const addToHistory = (item: UniversalHistoryItem) => {
-    const filtered = history.filter((h) => h.id !== item.id && h.url !== item.url);
+    const list = Array.isArray(history) ? history : [];
+    const filtered = list.filter((h) => h && h.id !== item.id && h.url !== item.url);
     const updated = [item, ...filtered].slice(0, 50);
     saveHistory(updated);
   };

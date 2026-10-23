@@ -80,7 +80,17 @@
     "workflowTitle": "Tips & Shortcuts",
     "tipDragDrop": "You can drag and drop audio files directly into the window.",
     "tipCoverArt": "Use JPG or PNG images as album cover artwork in the metadata editor.",
-    "tipOffline": "All analysis and conversions run locally on your device without internet upload."
+    "tipOffline": "All analysis and conversions run locally on your device without internet upload.",
+    "releaseNotesTitle": "v0.2.0 Release Notes & Updates",
+    "releaseMonth": "October 2026",
+    "rel1Title": "Suno 2.0 & Slide History",
+    "rel1Desc": "320k MP3, studio WAV, cover art, synced lyrics, and left slide-out instant search history drawer.",
+    "rel2Title": "Universal Downloader & Sorting",
+    "rel2Desc": "One-click MP4 video & MP3 audio downloads from YouTube, Instagram, TikTok and Facebook with sorted history.",
+    "rel3Title": "Essentia Key & BPM Analysis",
+    "rel3Desc": "Camelot wheel, relative and harmonic keys via Essentia, tempo fine-tuning (-1, +1, /2, x2).",
+    "rel4Title": "Metadata & Independent Folders",
+    "rel4Desc": "ID3v2.4 tags and cover art embedding, offline Manrope font, 6 accent colors, and custom folder routing."
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -99,7 +109,18 @@
     "downloadError": "Download error",
     "untitled": "Untitled Media",
     "downloadMp4": "Download Video (MP4)",
-    "downloadMp3": "Download Audio (MP3 320k)"
+    "downloadMp3": "Download Audio (MP3 320k)",
+    "historyTitle": "Media History",
+    "historyCount": "downloaded items",
+    "searchHistory": "Search title or URL...",
+    "sortBy": "Sort by:",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "az": "A-Z",
+    "allPlatforms": "All",
+    "noFilteredResults": "No media found matching criteria.",
+    "emptyHistory": "No downloaded media history yet.",
+    "loadAndDownload": "Load & Download"
   },
   "metadata": {
     "title": "Audio Metadata Editor",
@@ -200,7 +221,18 @@
     "aboutTitle": "About",
     "aboutDesc": "Desktop audio and media toolkit.",
     "developer": "Developer",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "releaseNotesTitle": "v0.2.0 Release Notes",
+    "relSunoTitle": "Suno Downloader 2.0 & Side Drawer History",
+    "relSunoDesc": "Download Suno tracks as 320k MP3, uncompressed WAV, original stream, cover art, and synced lyrics (.lrc/.txt). Left slide-over history drawer with instant search.",
+    "relUniTitle": "Universal Media Downloader & Categorization",
+    "relUniDesc": "One-click MP4 video & MP3 audio conversion from YouTube, Instagram, TikTok, Facebook, Twitter/X and more. Sortable (A-Z, date) and filterable media history.",
+    "relEssentiaTitle": "Essentia.js Key & BPM Detector",
+    "relEssentiaDesc": "High-accuracy Camelot key detection with 12-Chroma HPCP, harmonic mixing matches, half/double tempo, and precision BPM fine-tuning.",
+    "relMetaTitle": "Advanced Metadata & Cover Editor",
+    "relMetaDesc": "Edit song title, artist, album, and year for MP3, WAV, FLAC, and M4A files; swap album art instantly and embed tags via ID3v2.4 directly.",
+    "relFolderTitle": "Independent Folder Routing & Custom Themes",
+    "relFolderDesc": "Separate destination paths for All (.zip), Audio, Cover Art, Lyrics, and Universal Media. Offline Manrope typography, 6 accent colors, 3 theme modes, and 8 languages."
   },
   "suno": {
     "emptyTitle": "Download Suno Track",

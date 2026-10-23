@@ -25,7 +25,7 @@ const PLATFORMS = ["Tümü", "YouTube", "Instagram", "TikTok", "Facebook", "Twit
 export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
   isOpen,
   onClose,
-  history,
+  history = [],
   onSelectUrl,
   onClearHistory,
   onRemoveItem,
@@ -35,36 +35,50 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
   const [selectedPlatform, setSelectedPlatform] = useState("Tümü");
   const [sortBy, setSortBy] = useState<"newest" | "oldest" | "title">("newest");
 
-  if (!isOpen) return null;
-
   const processedHistory = useMemo(() => {
-    let list = [...history];
+    try {
+      let list = Array.isArray(history) ? [...history] : [];
 
-    // Filter by search term
-    if (searchTerm.trim()) {
-      const q = searchTerm.toLowerCase();
-      list = list.filter(
-        (item) =>
-          item.title.toLowerCase().includes(q) ||
-          item.url.toLowerCase().includes(q) ||
-          item.platform.toLowerCase().includes(q)
-      );
+      // Safe filter
+      list = list.filter((item) => item && typeof item === "object");
+
+      // Filter by search term
+      if (searchTerm.trim()) {
+        const q = searchTerm.toLowerCase();
+        list = list.filter((item) => {
+          const title = String(item.title || "").toLowerCase();
+          const url = String(item.url || "").toLowerCase();
+          const platform = String(item.platform || "").toLowerCase();
+          return title.includes(q) || url.includes(q) || platform.includes(q);
+        });
+      }
+
+      // Filter by platform
+      if (selectedPlatform !== "Tümü" && selectedPlatform !== "All") {
+        list = list.filter(
+          (item) => String(item.platform || "Diğer").toLowerCase() === selectedPlatform.toLowerCase()
+        );
+      }
+
+      // Safe sort
+      list.sort((a, b) => {
+        const timeA = typeof a?.timestamp === "number" ? a.timestamp : 0;
+        const timeB = typeof b?.timestamp === "number" ? b.timestamp : 0;
+        if (sortBy === "newest") return timeB - timeA;
+        if (sortBy === "oldest") return timeA - timeB;
+        const titleA = String(a?.title || "");
+        const titleB = String(b?.title || "");
+        return titleA.localeCompare(titleB);
+      });
+
+      return list;
+    } catch (e) {
+      console.error("Error sorting universal history", e);
+      return [];
     }
-
-    // Filter by platform
-    if (selectedPlatform !== "Tümü") {
-      list = list.filter((item) => item.platform.toLowerCase() === selectedPlatform.toLowerCase());
-    }
-
-    // Sort
-    list.sort((a, b) => {
-      if (sortBy === "newest") return b.timestamp - a.timestamp;
-      if (sortBy === "oldest") return a.timestamp - b.timestamp;
-      return a.title.localeCompare(b.title);
-    });
-
-    return list;
   }, [history, searchTerm, selectedPlatform, sortBy]);
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex animate-fade-in">
@@ -87,13 +101,13 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                 {t("universal.historyTitle", "Medya Geçmişi")}
               </h2>
               <p className="text-[10px] text-[var(--color-text-tertiary)]">
-                {history.length} {t("universal.historyCount", "indirilen içerik")}
+                {Array.isArray(history) ? history.length : 0} {t("universal.historyCount", "indirilen içerik")}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-1.5">
-            {history.length > 0 && (
+            {Array.isArray(history) && history.length > 0 && (
               <button
                 type="button"
                 onClick={onClearHistory}
@@ -142,7 +156,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                   sortBy === "newest" ? "border-[var(--color-accent)] text-[var(--color-accent)] font-bold" : ""
                 }`}
               >
-                En Yeni
+                {t("universal.newest", "En Yeni")}
               </button>
               <button
                 type="button"
@@ -151,7 +165,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                   sortBy === "oldest" ? "border-[var(--color-accent)] text-[var(--color-accent)] font-bold" : ""
                 }`}
               >
-                En Eski
+                {t("universal.oldest", "En Eski")}
               </button>
               <button
                 type="button"
@@ -160,7 +174,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                   sortBy === "title" ? "border-[var(--color-accent)] text-[var(--color-accent)] font-bold" : ""
                 }`}
               >
-                A-Z
+                {t("universal.az", "A-Z")}
               </button>
             </div>
           </div>
@@ -178,7 +192,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                     : "hover:border-[var(--color-accent)]/50"
                 }`}
               >
-                {plat}
+                {plat === "Tümü" ? t("universal.allPlatforms", "Tümü") : plat}
               </button>
             ))}
           </div>
@@ -198,74 +212,84 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
               </p>
             </div>
           ) : (
-            processedHistory.map((item) => (
-              <div
-                key={item.id}
-                className="group relative flex flex-col gap-2 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2.5 transition-colors hover:border-[var(--color-accent)]/40"
-              >
-                <div className="flex items-start gap-2.5">
-                  <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded-lg bg-black/40 flex items-center justify-center">
-                    {item.thumbnail ? (
-                      <img
-                        src={item.thumbnail}
-                        alt={item.title}
-                        className="h-full w-full object-cover"
-                        onError={(e) => {
-                          (e.target as HTMLElement).style.display = "none";
-                        }}
-                      />
-                    ) : item.format === "mp4" ? (
-                      <VideoCameraIcon className="h-5 w-5 text-[var(--color-text-tertiary)]" />
-                    ) : (
-                      <MusicalNoteIcon className="h-5 w-5 text-[var(--color-text-tertiary)]" />
-                    )}
-                    <span className="absolute bottom-1 right-1 chip text-[9px] px-1 py-0 font-mono font-bold bg-black/75">
-                      {item.format.toUpperCase()}
-                    </span>
-                  </div>
+            processedHistory.map((item) => {
+              const formatLabel = String(item.format || "mp4").toUpperCase();
+              const platformLabel = String(item.platform || "Medya");
+              const titleText = String(item.title || t("universal.untitled", "İsimsiz Medya"));
+              const urlText = String(item.url || "");
+              const dateText = item.timestamp ? new Date(item.timestamp).toLocaleDateString() : "";
 
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <span className="chip text-[9px] px-1.5 py-0 font-medium">
-                        {item.platform}
-                      </span>
-                      <span className="text-[10px] text-[var(--color-text-tertiary)] font-mono">
-                        {new Date(item.timestamp).toLocaleDateString()}
+              return (
+                <div
+                  key={item.id}
+                  className="group relative flex flex-col gap-2 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2.5 transition-colors hover:border-[var(--color-accent)]/40"
+                >
+                  <div className="flex items-start gap-2.5">
+                    <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded-lg bg-black/40 flex items-center justify-center">
+                      {item.thumbnail ? (
+                        <img
+                          src={item.thumbnail}
+                          alt={titleText}
+                          className="h-full w-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLElement).style.display = "none";
+                          }}
+                        />
+                      ) : formatLabel === "MP4" ? (
+                        <VideoCameraIcon className="h-5 w-5 text-[var(--color-text-tertiary)]" />
+                      ) : (
+                        <MusicalNoteIcon className="h-5 w-5 text-[var(--color-text-tertiary)]" />
+                      )}
+                      <span className="absolute bottom-1 right-1 chip text-[9px] px-1 py-0 font-mono font-bold bg-black/75">
+                        {formatLabel}
                       </span>
                     </div>
 
-                    <h4 className="truncate text-xs font-semibold text-[var(--color-text-primary)]">
-                      {item.title}
-                    </h4>
-                    <p className="truncate text-[10px] text-[var(--color-text-tertiary)] font-mono mt-0.5">
-                      {item.url}
-                    </p>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5 mb-0.5">
+                        <span className="chip text-[9px] px-1.5 py-0 font-medium">
+                          {platformLabel}
+                        </span>
+                        {dateText && (
+                          <span className="text-[10px] text-[var(--color-text-tertiary)] font-mono">
+                            {dateText}
+                          </span>
+                        )}
+                      </div>
+
+                      <h4 className="truncate text-xs font-semibold text-[var(--color-text-primary)]">
+                        {titleText}
+                      </h4>
+                      <p className="truncate text-[10px] text-[var(--color-text-tertiary)] font-mono mt-0.5">
+                        {urlText}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between border-t border-[var(--color-app-border)] pt-1.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onSelectUrl(urlText);
+                        onClose();
+                      }}
+                      className="btn btn-secondary text-xs px-2 py-0.5 text-[var(--color-accent)]"
+                    >
+                      <span>{t("universal.loadAndDownload", "Yükle & İndir")}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => onRemoveItem(item.id)}
+                      className="icon-btn h-6 w-6 text-rose-400 hover:text-rose-300"
+                      title={t("common.delete", "Sil")}
+                    >
+                      <TrashIcon className="h-3 w-3" />
+                    </button>
                   </div>
                 </div>
-
-                <div className="flex items-center justify-between border-t border-[var(--color-app-border)] pt-1.5">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onSelectUrl(item.url);
-                      onClose();
-                    }}
-                    className="btn btn-secondary text-xs px-2 py-0.5 text-[var(--color-accent)]"
-                  >
-                    <span>Yükle & İndir</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => onRemoveItem(item.id)}
-                    className="icon-btn h-6 w-6 text-rose-400 hover:text-rose-300"
-                    title={t("common.delete", "Sil")}
-                  >
-                    <TrashIcon className="h-3 w-3" />
-                  </button>
-                </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </aside>

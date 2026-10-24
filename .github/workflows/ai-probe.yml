@@ -14,11 +14,22 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Build probe (release)
-        run: cargo build --release -p sophy-core --example ai_probe
+        shell: pwsh
+        env:
+          RUSTFLAGS: "-C target-feature=+crt-static"
+          LLAMA_STATIC_CRT: "1"
+        run: |
+          cargo build --release -p sophy-core --example ai_probe 2>&1 | Tee-Object -FilePath build-log.txt
+          $code = $LASTEXITCODE
+          if ($code -ne 0) { "BUILD FAILED" | Set-Content ai-probe-result.txt; Get-Content build-log.txt -Tail 80 | Add-Content ai-probe-result.txt }
+          exit $code
       - name: Run
         shell: pwsh
         run: |
-          $out = & target/release/examples/ai_probe.exe 2>&1
+          python -m pip install --quiet pefile 2>&1 | Out-Null
+          $deps = python -c "import pefile,sys; pe=pefile.PE(sys.argv[1]); print(' '.join(sorted(e.dll.decode().lower() for e in pe.DIRECTORY_ENTRY_IMPORT)))" target/release/examples/ai_probe.exe 2>&1
+          $out = @("imports: $deps")
+          $out += & target/release/examples/ai_probe.exe 2>&1
           $out | Set-Content ai-probe-result.txt -Encoding UTF8
           $out | ForEach-Object { Write-Host $_ }
           (Get-Item target/release/examples/ai_probe.exe).Length | ForEach-Object { "probe exe size: $_" } | Add-Content ai-probe-result.txt

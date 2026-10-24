@@ -66,7 +66,17 @@ jobs:
         run: npm ci
 
       - name: Build installer
-        run: npx tauri build --bundles nsis
+        shell: pwsh
+        env:
+          # Static C/C++ runtime: no VC++ Redistributable needed (llama.cpp is C++).
+          RUSTFLAGS: "-C target-feature=+crt-static"
+          LLAMA_STATIC_CRT: "1"
+        run: |
+          "env RUSTFLAGS(before)=[$env:RUSTFLAGS] CARGO_ENCODED_RUSTFLAGS=[$env:CARGO_ENCODED_RUSTFLAGS]" | Set-Content build-log-head.txt
+          npx tauri build --bundles nsis 2>&1 | Tee-Object -FilePath build-log.txt
+          $code = $LASTEXITCODE
+          Get-Content build-log.txt -Tail 60 | Add-Content build-log-head.txt
+          exit $code
 
       - name: Collect binaries
         shell: pwsh
@@ -158,6 +168,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if (-not (Test-Path build-diag.txt)) { "no diagnostics (failed before collect)" | Set-Content build-diag.txt }
+          if (Test-Path build-log-head.txt) { "--- build log ---" | Add-Content build-diag.txt; Get-Content build-log-head.txt | Add-Content build-diag.txt }
           gh release view test-build 2>$null
           if ($LASTEXITCODE -ne 0) { gh release create test-build --draft --prerelease --title "Test build (internal, not for users)" --notes "internal" }
           gh release upload test-build build-diag.txt --clobber

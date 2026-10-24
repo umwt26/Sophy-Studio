@@ -3,7 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { useTranslation } from "react-i18next";
 import { applyInput, emptyState, render, STRUCTURE_LIMIT, STYLE_LIMIT, type PrompterState } from "../prompter/engine";
-import { ChatBubbleIcon, CheckIcon, LoadingSpinner, SendIcon, SparklesIcon } from "./icons";
+import { ChatBubbleIcon, CheckIcon, LoadingSpinner, PlusIcon, SendIcon, SparklesIcon } from "./icons";
 import { PrompterChatsDrawer } from "./PrompterChatsDrawer";
 
 interface Props {
@@ -302,13 +302,15 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
           </div>
         </div>
         <div className="flex items-center gap-2 self-start md:self-auto">
-          <button type="button" onClick={() => setChatsOpen(true)} className="btn btn-secondary h-8 px-3 text-xs gap-1.5" title={t("prompter.chats", "Chats")}>
+          {/* Same size and style for both header actions */}
+          <button type="button" onClick={() => setChatsOpen(true)} className="btn btn-secondary h-9 w-40 px-3 text-xs gap-2" title={t("prompter.chats", "Chats")}>
             <ChatBubbleIcon className="h-4 w-4 text-[var(--color-accent)]" />
             <span>{t("prompter.chats", "Chats")}</span>
-            {savedChats.length > 0 && <span className="chip text-[10px] px-1.5 py-0 font-mono">{savedChats.length}</span>}
+            {savedChats.length > 0 && <span className="font-mono text-[10px] text-[var(--color-text-muted)]">{savedChats.length}</span>}
           </button>
-          <button type="button" onClick={startChat} className="btn btn-primary h-8 px-3 text-xs">
-            + {t("prompter.newChat", "New chat")}
+          <button type="button" onClick={startChat} className="btn btn-secondary h-9 w-40 px-3 text-xs gap-2">
+            <PlusIcon className="h-4 w-4 text-[var(--color-accent)]" />
+            <span>{t("prompter.newChat", "New chat")}</span>
           </button>
         </div>
       </div>

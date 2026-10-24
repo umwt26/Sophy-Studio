@@ -408,9 +408,9 @@
     "messages": "mensagens",
     "open": "Abrir",
     "newChat": "Nova conversa",
-    "aiActive": "IA ativa",
-    "aiBuiltIn": "Mecanismo integrado",
     "applied": "Aplicado",
-    "notApplied": "Não reconhecido"
+    "notApplied": "Não reconhecido",
+    "waitForAi": "Aguarde, o modelo de IA está sendo preparado...",
+    "aiNotReady": "O modelo de IA ainda não foi baixado; o mecanismo integrado está sendo usado."
   }
 }

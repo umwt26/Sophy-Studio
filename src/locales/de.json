@@ -408,9 +408,9 @@
     "messages": "Nachrichten",
     "open": "Öffnen",
     "newChat": "Neuer Chat",
-    "aiActive": "KI aktiv",
-    "aiBuiltIn": "Integrierte Engine",
     "applied": "Übernommen",
-    "notApplied": "Nicht erkannt"
+    "notApplied": "Nicht erkannt",
+    "waitForAi": "Einen Moment, das KI-Modell wird vorbereitet...",
+    "aiNotReady": "Das KI-Modell ist noch nicht heruntergeladen, die integrierte Engine wird verwendet."
   }
 }

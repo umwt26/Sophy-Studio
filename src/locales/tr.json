@@ -408,9 +408,9 @@
     "messages": "mesaj",
     "open": "Aç",
     "newChat": "Yeni sohbet",
-    "aiActive": "AI aktif",
-    "aiBuiltIn": "Yerleşik motor",
     "applied": "Uygulandı",
-    "notApplied": "Anlaşılamadı"
+    "notApplied": "Anlaşılamadı",
+    "waitForAi": "Biraz bekle, AI modeli hazırlanıyor...",
+    "aiNotReady": "AI modeli henüz inmedi, yerleşik motor kullanılıyor."
   }
 }

@@ -192,7 +192,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
 
   const submit = async () => {
     const text = input.trim();
-    if (!text || busy) return;
+    if (!text || busy || preparing) return;
     setBusy(true);
     setNotice(null);
     const target = session.id;
@@ -279,50 +279,10 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
     t("prompter.example3", "Chill lo-fi instrumental with vinyl crackle"),
   ];
 
-  // ----- AI status pill (no on/off switch: it is always on when available)
-  const aiPill = (() => {
-    if (!ai) return null;
-    if (!ai.cpuSupported) {
-      return (
-        <span
-          className="chip text-[11px] gap-1.5"
-          title={`${t("prompter.aiUnsupportedHint", "This processor lacks:")} ${ai.missingCpuFeatures.join(", ")}`}
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-text-muted)]" />
-          {t("prompter.aiBuiltIn", "Built-in engine")}
-        </span>
-      );
-    }
-    if (download || ai.downloading) {
-      return (
-        <div className="flex items-center gap-2 min-w-[190px]">
-          <LoadingSpinner className="h-3.5 w-3.5 animate-spin text-[var(--color-accent)]" />
-          <div className="flex-1">
-            <div className="text-[11px] text-[var(--color-text-secondary)]">
-              {t("prompter.aiDownloading", "Preparing AI model")} {pct !== null ? `${pct}%` : ""}
-            </div>
-            <div className="mt-1 h-1 rounded bg-[var(--color-app-border)] overflow-hidden">
-              <div className="h-full bg-[var(--color-accent)] transition-all" style={{ width: `${pct ?? 3}%` }} />
-            </div>
-          </div>
-        </div>
-      );
-    }
-    if (ai.modelDownloaded) {
-      return (
-        <span className="chip text-[11px] gap-1.5 border-[var(--color-accent)]/30 text-[var(--color-accent)]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-success)] shadow-[0_0_6px_var(--color-success)]" />
-          {t("prompter.aiActive", "AI active")}
-        </span>
-      );
-    }
-    return (
-      <button type="button" onClick={retryDownload} className="btn btn-secondary h-8 px-3 text-xs" title={t("prompter.aiEnableHint", "Lets you write in any language. Runs offline on your computer.")}>
-        <SparklesIcon className="h-3.5 w-3.5" />
-        <span>{t("prompter.aiEnable", "Download AI model")}</span>
-      </button>
-    );
-  })();
+  // Model preparation: only a progress bar while it downloads (sending is blocked meanwhile),
+  // and a small retry link if the automatic download failed. Nothing is shown otherwise.
+  const preparing = !!ai?.cpuSupported && !ai?.modelDownloaded && (!!download || !!ai?.downloading);
+  const downloadFailed = !!ai?.cpuSupported && !ai?.modelDownloaded && !preparing;
 
   return (
     // Fits the window: header + results + chat on one screen, no page scrolling.
@@ -342,7 +302,6 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
           </div>
         </div>
         <div className="flex items-center gap-2 self-start md:self-auto">
-          {aiPill}
           <button type="button" onClick={() => setChatsOpen(true)} className="btn btn-secondary h-8 px-3 text-xs gap-1.5" title={t("prompter.chats", "Chats")}>
             <ChatBubbleIcon className="h-4 w-4 text-[var(--color-accent)]" />
             <span>{t("prompter.chats", "Chats")}</span>
@@ -462,6 +421,29 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
 
         {notice && <p className="px-4 pb-2 text-[11px] text-amber-400">{notice}</p>}
 
+        {preparing && (
+          <div className="px-4 pb-2.5">
+            <div className="flex items-center justify-between text-[11px] text-[var(--color-text-secondary)]">
+              <span className="flex items-center gap-1.5">
+                <LoadingSpinner className="h-3.5 w-3.5 animate-spin text-[var(--color-accent)]" />
+                {t("prompter.aiDownloading", "Preparing AI model")}
+              </span>
+              <span className="font-mono">{pct !== null ? `${pct}%` : ""}</span>
+            </div>
+            <div className="mt-1.5 h-1 rounded-full bg-[var(--color-app-border)] overflow-hidden">
+              <div className="h-full rounded-full bg-[var(--color-accent)] transition-all" style={{ width: `${pct ?? 2}%` }} />
+            </div>
+          </div>
+        )}
+        {downloadFailed && (
+          <p className="px-4 pb-2 text-[11px] text-[var(--color-text-muted)]">
+            {t("prompter.aiNotReady", "The AI model isn't downloaded yet, the built-in engine is used.")}{" "}
+            <button type="button" onClick={retryDownload} className="text-[var(--color-accent)] hover:underline">
+              {t("prompter.aiEnable", "Download AI model")}
+            </button>
+          </p>
+        )}
+
         <form
           className="flex items-end gap-2 border-t border-[var(--color-app-border)] p-3 bg-[var(--color-app-surface-2)]/40"
           onSubmit={(e) => {
@@ -481,15 +463,18 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
             }}
             rows={1}
             maxLength={1200}
+            disabled={preparing}
             placeholder={
-              session.commands.length
+              preparing
+                ? t("prompter.waitForAi", "Wait a moment, the AI model is being prepared...")
+                : session.commands.length
                 ? t("prompter.revisePlaceholder", "Refine it: \"less bass\", \"BPM 140\", \"add saxophone to the intro\"...")
                 : t("prompter.inputPlaceholder", "Describe your song: genre, mood, instruments, vocals, tempo, structure...")
             }
             className="input flex-1 resize-none py-2.5 text-sm rounded-xl"
             style={{ minHeight: 42, maxHeight: 128 }}
           />
-          <button type="submit" disabled={busy || !input.trim()} className="btn btn-primary h-[42px] w-[42px] p-0 rounded-xl" aria-label={t("prompter.send", "Send")}>
+          <button type="submit" disabled={busy || preparing || !input.trim()} className="btn btn-primary h-[42px] w-[42px] p-0 rounded-xl" aria-label={t("prompter.send", "Send")}>
             {busy ? <LoadingSpinner className="h-4 w-4 animate-spin" /> : <SendIcon className="h-4 w-4" />}
           </button>
         </form>

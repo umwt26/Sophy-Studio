@@ -408,9 +408,9 @@
     "messages": "件のメッセージ",
     "open": "開く",
     "newChat": "新しいチャット",
-    "aiActive": "AI有効",
-    "aiBuiltIn": "内蔵エンジン",
     "applied": "反映済み",
-    "notApplied": "認識できませんでした"
+    "notApplied": "認識できませんでした",
+    "waitForAi": "少々お待ちください。AIモデルを準備しています…",
+    "aiNotReady": "AIモデルはまだダウンロードされていないため、内蔵エンジンを使用しています。"
   }
 }

@@ -408,9 +408,9 @@
     "messages": "messages",
     "open": "Open",
     "newChat": "New chat",
-    "aiActive": "AI active",
-    "aiBuiltIn": "Built-in engine",
     "applied": "Applied",
-    "notApplied": "Not recognised"
+    "notApplied": "Not recognised",
+    "waitForAi": "Wait a moment, the AI model is being prepared...",
+    "aiNotReady": "The AI model isn't downloaded yet, the built-in engine is used."
   }
 }

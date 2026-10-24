@@ -1,0 +1,34 @@
+name: Prompter AI probe (Windows)
+# Diagnostic: downloads the real model and runs sample requests. test/** only.
+on:
+  push:
+    branches: ["test/**"]
+    paths: ["crates/sophy-core/src/prompter_ai.rs", "crates/sophy-core/examples/ai_probe.rs", ".github/workflows/ai-probe.yml"]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build probe (release)
+        run: cargo build --release -p sophy-core --example ai_probe
+      - name: Run
+        shell: pwsh
+        run: |
+          $out = & target/release/examples/ai_probe.exe 2>&1
+          $out | Set-Content ai-probe-result.txt -Encoding UTF8
+          $out | ForEach-Object { Write-Host $_ }
+          (Get-Item target/release/examples/ai_probe.exe).Length | ForEach-Object { "probe exe size: $_" } | Add-Content ai-probe-result.txt
+      - name: Publish result to hidden draft
+        if: always()
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if (-not (Test-Path ai-probe-result.txt)) { "probe failed before output" | Set-Content ai-probe-result.txt }
+          gh release view test-build 2>$null
+          if ($LASTEXITCODE -ne 0) { gh release create test-build --draft --prerelease --title "Test build (internal, not for users)" --notes "internal" }
+          gh release upload test-build ai-probe-result.txt --clobber

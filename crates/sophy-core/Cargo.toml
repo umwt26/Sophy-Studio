@@ -23,4 +23,5 @@ ctr = "0.9"
 aes = "0.8"
 base64 = "0.22"
 lofty = "0.21"
+llama-cpp-2 = { version = "=0.1.160", default-features = false }
 image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp", "bmp", "gif"] }

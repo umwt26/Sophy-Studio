@@ -5,6 +5,7 @@ pub mod link;
 pub mod model;
 pub mod metadata;
 pub mod paths;
+pub mod prompter_ai;
 pub mod universal;
 pub mod zipper;
 

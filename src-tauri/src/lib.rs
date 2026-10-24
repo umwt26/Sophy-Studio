@@ -1,6 +1,8 @@
 mod commands;
+mod prompter_ai;
 
 use commands::*;
+use prompter_ai::*;
 use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -28,7 +30,11 @@ pub fn run() {
       fetch_universal_media_info,
       download_universal_media,
       cut_audio_sample,
-      send_feedback
+      send_feedback,
+      prompter_ai_status,
+      prompter_ai_download,
+      prompter_ai_delete,
+      prompter_ai_understand
     ])
     .setup(|app| {
       if let Some(window) = app.get_webview_window("main") {

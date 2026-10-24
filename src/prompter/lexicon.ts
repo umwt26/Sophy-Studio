@@ -50,7 +50,7 @@ export const LEXICON: LexEntry[] = [
   g("reggaeton", "Reggaeton", "latin", 95, "reggaeton", "regueton", "реггетон", "レゲトン"),
   g("baile-funk", "Baile Funk", "latin", 130, "baile funk", "funk carioca", "funk brasileiro"),
   g("bossa-nova", "Bossa Nova", "jazz", 120, "bossa nova", "bossa"),
-  g("sertanejo", "Sertanejo", "folk", 100, "sertanejo"),
+  g("sertanejo", "Sertanejo", "folk", 100, "sertanej"),
   g("samba", "Samba", "latin", 100, "samba"),
   g("fado", "Fado", "ballad", 70, "fado"),
   g("flamenco", "Flamenco", "folk", 110, "flamenco", "фламенко"),
@@ -135,6 +135,7 @@ export const LEXICON: LexEntry[] = [
   i("kalimba", "Kalimba", "Bright Kalimba", "Soft Kalimba", "kalimba"),
   i("harp", "Harp", "Cascading Harp", "Soft Harp", "harp", "arp", "harfe", "harpe", "arpa", "арф", "ハープ"),
   i("accordion", "Accordion", "Prominent Accordion", "Soft Accordion", "accordion", "akordeon", "akkordeon", "accordeon", "acordeon", "acordeao", "аккордеон", "アコーディオン"),
+  i("cowbell", "Phonk Cowbell", "Loud Cowbell Melody", "Subtle Cowbell", "cowbell", "kovbel", "ковбел"),
   i("vocal-chops", "Vocal Chops", "Glitchy Vocal Chops", "Subtle Vocal Chops", "vocal chop", "vokal chop"),
   i("vinyl", "Vinyl Crackle", "Heavy Vinyl Crackle", "Faint Vinyl Crackle", "vinyl", "plak", "пластинк"),
 

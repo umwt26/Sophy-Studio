@@ -290,6 +290,9 @@ impl MetadataManager {
                 riff_tag
                     .save_to_path(path, WriteOptions::default())
                     .map_err(|e| format!("METADATA_WRITE_FAILED: {}", e))?;
+                // Windows only reads LIST/INFO when it comes AFTER the audio data chunk
+                // (verified on Windows 11 26100). ffmpeg and most tools write it before.
+                move_info_after_data(path).map_err(|e| format!("METADATA_WRITE_FAILED: {}", e))?;
             }
 
             return Self::verify_saved(path, input);
@@ -366,4 +369,88 @@ impl MetadataManager {
     }
 }
 
+/// Rewrites a RIFF/WAVE file so every LIST/INFO chunk sits after the `data` chunk.
+/// Streams through a temp file next to the original and atomically replaces it.
+/// No-op when the layout is already fine or the file is not a plain RIFF/WAVE.
+pub fn move_info_after_data(path: &Path) -> std::io::Result<()> {
+    use std::fs::File;
+    use std::io::{BufReader, BufWriter, Read, Seek, SeekFrom, Write};
 
+    let mut f = BufReader::new(File::open(path)?);
+    let mut header = [0u8; 12];
+    if f.read_exact(&mut header).is_err() || &header[0..4] != b"RIFF" || &header[8..12] != b"WAVE" {
+        return Ok(());
+    }
+    let file_len = f.get_ref().metadata()?.len();
+
+    // (id, offset of chunk body, body size, is LIST/INFO)
+    let mut chunks: Vec<([u8; 4], u64, u32, bool)> = Vec::new();
+    let mut pos = 12u64;
+    while pos + 8 <= file_len {
+        f.seek(SeekFrom::Start(pos))?;
+        let mut h = [0u8; 8];
+        f.read_exact(&mut h)?;
+        let id = [h[0], h[1], h[2], h[3]];
+        let size = u32::from_le_bytes([h[4], h[5], h[6], h[7]]);
+        let body = pos + 8;
+        if body + size as u64 > file_len {
+            return Ok(()); // truncated/streamed file: leave untouched
+        }
+        let mut is_info = false;
+        if &id == b"LIST" && size >= 4 {
+            let mut kind = [0u8; 4];
+            f.read_exact(&mut kind)?;
+            is_info = &kind == b"INFO";
+        }
+        chunks.push((id, body, size, is_info));
+        pos = body + size as u64 + (size as u64 & 1);
+    }
+
+    let data_idx = match chunks.iter().position(|c| &c.0 == b"data") {
+        Some(i) => i,
+        None => return Ok(()),
+    };
+    let needs_move = chunks.iter().enumerate().any(|(i, c)| c.3 && i < data_idx);
+    if !needs_move {
+        return Ok(());
+    }
+
+    let ordered: Vec<_> = chunks
+        .iter()
+        .filter(|c| !c.3)
+        .chain(chunks.iter().filter(|c| c.3))
+        .cloned()
+        .collect();
+
+    let tmp = path.with_extension("wav.sophy-tmp");
+    {
+        let mut out = BufWriter::new(File::create(&tmp)?);
+        let total: u64 = 4 + ordered.iter().map(|c| 8 + c.2 as u64 + (c.2 as u64 & 1)).sum::<u64>();
+        out.write_all(b"RIFF")?;
+        out.write_all(&(total.min(u32::MAX as u64) as u32).to_le_bytes())?;
+        out.write_all(b"WAVE")?;
+        let mut buf = vec![0u8; 1 << 16];
+        for (id, body, size, _) in &ordered {
+            out.write_all(id)?;
+            out.write_all(&size.to_le_bytes())?;
+            f.seek(SeekFrom::Start(*body))?;
+            let mut left = *size as u64;
+            while left > 0 {
+                let n = left.min(buf.len() as u64) as usize;
+                f.read_exact(&mut buf[..n])?;
+                out.write_all(&buf[..n])?;
+                left -= n as u64;
+            }
+            if size & 1 == 1 {
+                out.write_all(&[0])?;
+            }
+        }
+        out.flush()?;
+    }
+    drop(f);
+    if let Err(e) = std::fs::rename(&tmp, path) {
+        let _ = std::fs::remove_file(&tmp);
+        return Err(e);
+    }
+    Ok(())
+}

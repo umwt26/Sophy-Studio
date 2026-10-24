@@ -5,6 +5,8 @@ on:
   push:
     branches: ["test/**"]
     paths: ["crates/sophy-core/**", ".github/workflows/metadata-probe.yml"]
+permissions:
+  contents: write
 jobs:
   probe:
     runs-on: windows-latest
@@ -34,6 +36,7 @@ jobs:
           $cols = @{}
           0..400 | ForEach-Object { $n = $folder.GetDetailsOf($null, $_); if ($n) { $cols[$n] = $_ } }
           $want = @('Title','Contributing artists','Album','Genre','#','Year')
+          $log = @()
           foreach ($f in Get-ChildItem probe -Include *.mp3,*.wav,*.flac -Recurse) {
             $before = $folder.ParseName($f.Name)
             $b = ($want | ForEach-Object { "$_=" + $folder.GetDetailsOf($before, $cols[$_]) }) -join '; '
@@ -44,8 +47,19 @@ jobs:
             $after = $folder2.ParseName($f.Name)
             $a = ($want | ForEach-Object { "$_=" + $folder2.GetDetailsOf($after, $cols[$_]) }) -join '; '
             $streams = (ffprobe -v error -show_entries stream=codec_name -of csv=p=0 $f.FullName) -join ','
-            Write-Host "=== $($f.Name): $r"
-            Write-Host "    before: $b"
-            Write-Host "    after : $a"
-            Write-Host "    ffprobe streams: $streams"
+            $log += "=== $($f.Name): $r"
+            $log += "    before: $b"
+            $log += "    after : $a"
+            $log += "    ffprobe streams: $streams"
           }
+          $log += "Windows: " + [Environment]::OSVersion.VersionString
+          $log | Set-Content probe-result.txt
+          $log | ForEach-Object { Write-Host $_ }
+      - name: Publish result to hidden draft
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view test-build 2>$null
+          if ($LASTEXITCODE -ne 0) { gh release create test-build --draft --prerelease --title "Test build (internal, not for users)" --notes "internal" }
+          gh release upload test-build probe-result.txt --clobber

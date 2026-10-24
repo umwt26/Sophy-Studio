@@ -51,7 +51,17 @@ jobs:
             L ("ours.wav: " + ((& target/debug/examples/tag_probe.exe "$P\ours.wav" probe/cover.jpg 2>&1) -join ' '))
             L ("ours.wav read: " + (Props "ours.wav"))
             L ("ours.wav chunks: " + (Dump probe/ours.wav))
-            foreach ($m in @("upper-after","lower-after","upper-before","lower-before")) {
+            foreach ($m in @("order:fmt,data,LIST","order:fmt,LIST,data","order:fmt,data,LIST,ID3","order:fmt,data,ID3,LIST","order:fmt,LIST,data,ID3","order:fmt,ID3,data,LIST")) {
+              $n = "o_" + ($m.Substring(6) -replace ',','-') + ".wav"
+              python .github/probe/chunks.py $m probe/ours.wav "probe/$n" 2>&1 | % { L "variant: $_" }
+              L ("$n read: " + (Props $n))
+            }
+            # ffmpeg-made WAV that already carries INFO before data (like the app's converter output)
+            ffmpeg -v error -y -f lavfi -i "sine=frequency=440:duration=3" -metadata title=OldTitle -c:a pcm_s16le probe/ff.wav 2>&1 | % { L "ffmpeg: $_" }
+            L ("ff.wav before: " + (Props "ff.wav") + " | " + (Dump probe/ff.wav))
+            L ("ff.wav tag: " + ((& target/debug/examples/tag_probe.exe "$P\ff.wav" probe/cover.jpg 2>&1) -join ' '))
+            L ("ff.wav after: " + (Props "ff.wav") + " | " + (Dump probe/ff.wav))
+            foreach ($m in @()) {
               python .github/probe/chunks.py $m probe/ours.wav "probe/v_$m.wav" 2>&1 | % { L "variant: $_" }
               L ("v_$m read: " + (Props "v_$m.wav") + " | " + (Dump "probe/v_$m.wav"))
             }

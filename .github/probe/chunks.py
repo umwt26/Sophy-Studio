@@ -20,7 +20,10 @@ def variant(src, dst, mode):
     if 'lower' in mode:
         for c in id3: c[0] = b'id3 '
     fmt = [c for c in core if c[0] == b'fmt ']; data = [c for c in core if c[0] == b'data']
-    if 'before' in mode: order = fmt + info + id3 + data
+    if mode.startswith('order:'):
+        by = {'fmt': fmt, 'data': data, 'LIST': info, 'ID3': id3}
+        order = [c for k in mode[6:].split(',') for c in by[k]]
+    elif 'before' in mode: order = fmt + info + id3 + data
     else: order = fmt + info + data + id3
     body = b''.join(c[0] + struct.pack('<I', len(c[1])) + c[1] + (b'\0' if len(c[1]) & 1 else b'') for c in order)
     open(dst, 'wb').write(b'RIFF' + struct.pack('<I', len(body) + 4) + b'WAVE' + body)

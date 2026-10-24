@@ -1,10 +1,11 @@
 ; Sophy Studio NSIS hooks
 ;
 ; Keep this file minimal. Antivirus engines (Windows Defender included) score
-; installers heuristically, and patterns such as hidden PowerShell with
-; "-ExecutionPolicy Bypass" + WebClient.DownloadFile, force-killing processes,
-; or silently running uninstallers are classic "dropper" signatures. Those
-; patterns caused v1.1.x setups to be flagged and quarantined.
+; installers heuristically. A hidden script shell that bypasses execution
+; policy and downloads executables, force-killing processes, or silently
+; running uninstallers are classic "dropper" signatures; they caused the
+; v1.1.x setups to be flagged and quarantined. CI rejects this file if such
+; commands come back.
 ;
 ; - Running-instance handling is done by Tauri's own NSIS template.
 ; - Upgrades over an existing currentUser install are handled by Tauri itself.

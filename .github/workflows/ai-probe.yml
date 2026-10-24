@@ -3,7 +3,7 @@ name: Prompter AI probe (Windows)
 on:
   push:
     branches: ["test/**"]
-    paths: ["crates/sophy-core/src/prompter_ai.rs", "crates/sophy-core/examples/ai_probe.rs", ".github/workflows/ai-probe.yml"]
+    paths: ["crates/sophy-core/src/prompter_ai.rs", "crates/sophy-core/examples/ai_probe.rs", ".github/workflows/ai-probe.yml", ".cargo/**"]
 permissions:
   contents: write
 jobs:

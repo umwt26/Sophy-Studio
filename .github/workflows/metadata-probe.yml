@@ -1,10 +1,9 @@
 name: Metadata probe (Windows)
-# Diagnostic: checks what Windows itself (Explorer property system) reads from files
-# tagged by sophy-core. Runs only on test/** branches.
+# Diagnostic: what Windows Explorer reads/writes for tagged audio files. test/** only.
 on:
   push:
     branches: ["test/**"]
-    paths: ["crates/sophy-core/**", ".github/workflows/metadata-probe.yml"]
+    paths: ["crates/sophy-core/**", ".github/workflows/metadata-probe.yml", ".github/probe/**"]
 permissions:
   contents: write
 jobs:
@@ -15,51 +14,53 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: Build probe
         run: cargo build -p sophy-core --example tag_probe
-      - name: Make test files
+      - name: Probe
         shell: pwsh
         run: |
           choco install ffmpeg -y --no-progress | Out-Null
+          Add-Type -Path .github/probe/winprops.cs -ReferencedAssemblies System.Drawing
           New-Item -ItemType Directory probe | Out-Null
-          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -c:a libmp3lame -b:a 192k probe/a.mp3
-          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -metadata title=OldTitle -metadata artist=OldArtist -c:a libmp3lame -id3v2_version 4 probe/b_v24.mp3
-          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -c:a pcm_s16le -ar 44100 probe/c.wav
-          ffmpeg -v error -i probe/b_v24.mp3 -vn -c:a pcm_s16le -ar 44100 probe/d_from_mp3.wav
-          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -c:a pcm_s24le -ar 48000 probe/e_24bit.wav
-          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" probe/f.flac
+          $P = (Resolve-Path probe).Path
+          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -c:a libmp3lame -b:a 192k probe/plain.mp3
+          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -c:a pcm_s16le -ar 44100 -fflags +bitexact probe/plain.wav
           ffmpeg -v error -f lavfi -i "testsrc=s=800x800" -frames:v 1 probe/cover.jpg
-      - name: Tag and read back with Windows Shell
-        shell: pwsh
-        run: |
-          $shell = New-Object -ComObject Shell.Application
-          $folder = $shell.Namespace((Resolve-Path probe).Path)
-          # find column indexes for Title / Contributing artists / Album
-          $cols = @{}
-          0..400 | ForEach-Object { $n = $folder.GetDetailsOf($null, $_); if ($n) { $cols[$n] = $_ } }
-          $want = @('Title','Contributing artists','Album','Genre','#','Year')
           $log = @()
-          foreach ($f in Get-ChildItem probe -Include *.mp3,*.wav,*.flac -Recurse) {
-            $before = $folder.ParseName($f.Name)
-            $b = ($want | ForEach-Object { "$_=" + $folder.GetDetailsOf($before, $cols[$_]) }) -join '; '
-            $r = & target/debug/examples/tag_probe.exe $f.FullName probe/cover.jpg
-            Start-Sleep -Milliseconds 300
-            $shell2 = New-Object -ComObject Shell.Application
-            $folder2 = $shell2.Namespace((Resolve-Path probe).Path)
-            $after = $folder2.ParseName($f.Name)
-            $a = ($want | ForEach-Object { "$_=" + $folder2.GetDetailsOf($after, $cols[$_]) }) -join '; '
-            $streams = (ffprobe -v error -show_entries stream=codec_name -of csv=p=0 $f.FullName) -join ','
-            $log += "=== $($f.Name): $r"
-            $log += "    before: $b"
-            $log += "    after : $a"
-            $log += "    ffprobe streams: $streams"
+          $shell = New-Object -ComObject Shell.Application
+          function Props($name) {
+            $f = (New-Object -ComObject Shell.Application).Namespace($P)
+            $it = $f.ParseName($name)
+            "Title=" + $f.GetDetailsOf($it, 21) + "; Artists=" + $f.GetDetailsOf($it, 13) + "; Album=" + $f.GetDetailsOf($it, 14)
           }
+          # 1) Ground truth: let WINDOWS write the tags into a plain WAV, then dump its chunks
+          Copy-Item probe/plain.wav probe/win_written.wav
+          $log += "win_written.wav set: " + [WinProps]::SetTitleArtist("$P\win_written.wav", "WinTitle", "WinArtist")
+          $log += "win_written.wav read: " + (Props "win_written.wav")
+          $log += "win_written.wav chunks: " + (python .github/probe/chunks.py dump probe/win_written.wav)
+          # 2) Our writer
+          Copy-Item probe/plain.wav probe/ours.wav
+          $log += "ours.wav: " + (& target/debug/examples/tag_probe.exe "$P\ours.wav" probe/cover.jpg)
+          $log += "ours.wav read: " + (Props "ours.wav")
+          $log += "ours.wav chunks: " + (python .github/probe/chunks.py dump probe/ours.wav)
+          # 3) Layout variants of our file
+          foreach ($m in @("upper-after","lower-after","upper-before","lower-before")) {
+            python .github/probe/chunks.py $m probe/ours.wav "probe/v_$m.wav"
+            $log += "v_$m.wav read: " + (Props "v_$m.wav") + " | " + (python .github/probe/chunks.py dump "probe/v_$m.wav")
+          }
+          # 4) INFO-only variant (no id3 chunk)
+          # 5) Cover thumbnails (does Explorer show embedded art?)
+          Copy-Item probe/plain.mp3 probe/ours.mp3
+          & target/debug/examples/tag_probe.exe "$P\ours.mp3" probe/cover.jpg | Out-Null
+          foreach ($n in @("plain.mp3","ours.mp3","plain.wav","ours.wav","v_lower-before.wav")) { $log += "thumb $n : " + [WinProps]::ThumbInfo("$P\$n") }
           $log += "Windows: " + [Environment]::OSVersion.VersionString
           $log | Set-Content probe-result.txt
           $log | ForEach-Object { Write-Host $_ }
       - name: Publish result to hidden draft
+        if: always()
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          if (-not (Test-Path probe-result.txt)) { "probe step failed" | Set-Content probe-result.txt }
           gh release view test-build 2>$null
           if ($LASTEXITCODE -ne 0) { gh release create test-build --draft --prerelease --title "Test build (internal, not for users)" --notes "internal" }
           gh release upload test-build probe-result.txt --clobber

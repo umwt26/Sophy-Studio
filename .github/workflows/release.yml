@@ -1,7 +1,7 @@
 name: Build & Release (Windows)
 
 # - Push a tag like v1.2 / v1.2.0  -> builds, verifies the tag matches the app version,
-#   and uploads Sophy_Studio_Setup.exe + Sophy_Studio_Portable.exe to a DRAFT release.
+#   and uploads Sophy_Studio_Setup.exe to a DRAFT release (Portable: build artifact).
 #   Review the draft, add notes, then press "Publish" — only published releases reach users.
 # - Push to a release/** branch or run manually -> build only (downloadable artifact).
 
@@ -109,8 +109,10 @@ jobs:
           $tag = "${{ github.ref_name }}"
           gh release view $tag 2>$null
           if ($LASTEXITCODE -eq 0) {
-            gh release upload $tag out/Sophy_Studio_Setup.exe out/Sophy_Studio_Portable.exe --clobber
+            gh release upload $tag out/Sophy_Studio_Setup.exe --clobber
           } else {
-            gh release create $tag out/Sophy_Studio_Setup.exe out/Sophy_Studio_Portable.exe `
-              --draft --title "Sophy Studio $tag" --notes "Release notes coming soon."
+            gh release create $tag out/Sophy_Studio_Setup.exe `
+              --draft --title "Sophy Studio $tag" --notes-file .github/release-notes.md
           }
+          # Portable is intentionally NOT attached: v1.1.x clients pick the first .exe asset,
+          # so the release must only contain the installer. Portable stays in the build artifact.

@@ -1,8 +1,6 @@
-# Link the whole C/C++ runtime statically on Windows so Sophy Studio runs on PCs
-# without the Visual C++ Redistributable. llama.cpp (Prompter AI mode) is C++ and
-# would otherwise pull in msvcp140.dll.
-[target.'cfg(all(windows, target_env = "msvc"))']
-rustflags = ["-C", "target-feature=+crt-static"]
-
+# Windows: link llama.cpp's C++ runtime statically so Sophy Studio runs on PCs
+# without the Visual C++ Redistributable (Tauri already links the VC runtime
+# statically and uses the UCRT that ships with Windows 10/11).
 [env]
 LLAMA_STATIC_CRT = "1"
+CMAKE_TOOLCHAIN_FILE_x86_64_pc_windows_msvc = { value = ".cargo/msvc-static-runtime.cmake", relative = true }

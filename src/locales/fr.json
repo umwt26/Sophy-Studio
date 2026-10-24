@@ -149,7 +149,10 @@
     "emptyHistory": "No downloaded media history yet.",
     "loadAndDownload": "Load & Download",
     "otherPlatform": "Other",
-    "readyToDownload": "Media ready to download"
+    "readyToDownload": "Media ready to download",
+    "errNoFormats": "Ce lien ne contient aucune vidéo ni aucun audio téléchargeable. Il s'agit peut-être d'une publication contenant uniquement une image.",
+    "errUnsupported": "Ce site ou ce type de lien n'est pas pris en charge.",
+    "errPrivate": "Ce contenu est privé, soumis à une limite d'âge ou nécessite une connexion."
   },
   "metadata": {
     "title": "Éditeur de Métadonnées",
@@ -186,7 +189,11 @@
     "errorSave": "Erreur d'enregistrement",
     "infoFile": "Fichier :",
     "infoFormat": "Format :",
-    "infoDuration": "Durée :"
+    "infoDuration": "Durée :",
+    "errCoverInvalid": "Impossible de lire l'image de pochette. Utilisez une image JPG, PNG, WEBP ou BMP.",
+    "errVerify": "Les tags ont été écrits mais n'ont pas pu être confirmés. Le fichier est peut-être en lecture seule ou utilisé par un autre programme.",
+    "errWrite": "Impossible d'écrire dans le fichier. Fermez les programmes qui l'utilisent (lecteur, DAW) et réessayez.",
+    "errRead": "Impossible de lire ce fichier audio."
   },
   "detector": {
     "title": "Détection Clé & BPM",

@@ -149,7 +149,10 @@
     "emptyHistory": "No downloaded media history yet.",
     "loadAndDownload": "Load & Download",
     "otherPlatform": "Other",
-    "readyToDownload": "Media ready to download"
+    "readyToDownload": "Media ready to download",
+    "errNoFormats": "Este enlace no tiene vídeo ni audio descargable. Puede que sea una publicación solo de imagen.",
+    "errUnsupported": "Este sitio web o tipo de enlace no es compatible.",
+    "errPrivate": "Este contenido es privado, tiene restricción de edad o requiere iniciar sesión."
   },
   "metadata": {
     "title": "Editor de Metadatos",
@@ -186,7 +189,11 @@
     "errorSave": "Error al guardar",
     "infoFile": "Archivo:",
     "infoFormat": "Formato:",
-    "infoDuration": "Duración:"
+    "infoDuration": "Duración:",
+    "errCoverInvalid": "No se pudo leer la imagen de portada. Usa una imagen JPG, PNG, WEBP o BMP.",
+    "errVerify": "Las etiquetas se escribieron pero no se pudieron confirmar. Puede que el archivo sea de solo lectura o que otro programa lo esté usando.",
+    "errWrite": "No se pudo escribir en el archivo. Cierra cualquier programa que lo esté usando (reproductor, DAW) e inténtalo de nuevo.",
+    "errRead": "No se pudo leer este archivo de audio."
   },
   "detector": {
     "title": "Detector de Clave y BPM",

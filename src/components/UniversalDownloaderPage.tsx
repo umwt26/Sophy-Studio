@@ -15,7 +15,7 @@ import type { UniversalHistoryItem, UniversalMediaInfo } from "../types";
 const UNIVERSAL_HISTORY_KEY = "sophy_universal_history";
 
 interface UniversalDownloaderPageProps {
-  onShowToast: (msg: string) => void;
+  onShowToast: (msg: string, kind?: "success" | "error") => void;
   onOpenFolder?: () => void;
 }
 
@@ -104,7 +104,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
   const handleFetchInfo = async (fetchUrl?: string) => {
     const targetUrl = (fetchUrl || url).trim();
     if (!targetUrl) {
-      onShowToast(t("universal.errorEmpty", "Lütfen bir medya bağlantısı yapıştırın."));
+      onShowToast(t("universal.errorEmpty", "Please paste a media link."), "error");
       return;
     }
 
@@ -117,9 +117,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
       setMediaInfo(info);
       onShowToast(t("universal.infoLoaded", "Medya bilgisi başarıyla alındı!"));
     } catch (err: any) {
-      onShowToast(
-        `${t("universal.fetchError", "Bilgiler alınamadı")}: ${err?.toString() || ""}`
-      );
+      onShowToast(describeMediaError(err, t("universal.fetchError", "Could not load media info")), "error");
     } finally {
       setLoading(false);
     }
@@ -166,12 +164,28 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
         `${t("universal.downloadComplete", "Başarıyla indirildi")}: ${savedPath.split(/[\\/]/).pop()}`
       );
     } catch (err: any) {
-      onShowToast(
-        `${t("universal.downloadError", "İndirme hatası")}: ${err?.toString() || ""}`
-      );
+      onShowToast(describeMediaError(err, t("universal.downloadError", "Download failed")), "error");
     } finally {
       setDownloading(false);
       setPendingDownloadFormat(null);
+    }
+  };
+
+  // Backend returns "CODE: yt-dlp detail" (see classify_ytdlp_error in sophy-core).
+  const describeMediaError = (err: unknown, fallbackTitle: string): string => {
+    const raw = String(err ?? "");
+    const code = raw.split(":")[0]?.trim();
+    switch (code) {
+      case "MEDIA_NO_FORMATS":
+        return t("universal.errNoFormats", "This link has no downloadable video or audio. It may be an image-only post.");
+      case "MEDIA_UNSUPPORTED":
+        return t("universal.errUnsupported", "This website or link type is not supported.");
+      case "MEDIA_PRIVATE":
+        return t("universal.errPrivate", "This content is private, age-restricted or requires login.");
+      default: {
+        const detail = raw.replace(/^MEDIA_FAILED:\s*/, "").replace(/^ERROR:\s*/, "");
+        return detail ? `${fallbackTitle}: ${detail}` : fallbackTitle;
+      }
     }
   };
 

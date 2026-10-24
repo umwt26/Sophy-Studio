@@ -17,7 +17,7 @@ import { SunoHistoryDrawer } from "./components/SunoHistoryDrawer";
 import { AdModal } from "./components/AdModal";
 import { UpdateModal } from "./components/UpdateModal";
 import { clearUpdateAttempt, readUpdateAttempt } from "./utils/updateAttempt";
-import { Toast } from "./components/Toast";
+import { Toast, type ToastKind } from "./components/Toast";
 import { applyTheme, loadSavedTheme } from "./utils/theme";
 import type { AppTab, AudioFormat, SongClip, SongData, UpdateInfo } from "./types";
 
@@ -51,6 +51,7 @@ export default function App() {
   const [updatePreviouslyFailed, setUpdatePreviouslyFailed] = useState(false);
   const [history, setHistory] = useState<SongData[]>([]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastKind, setToastKind] = useState<ToastKind>("success");
   const toastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Initialize theme on app mount
@@ -148,10 +149,11 @@ export default function App() {
     };
   }, []);
 
-  const showToast = (message: string) => {
+  const showToast = (message: string, kind: ToastKind = "success") => {
     setToastMessage(message);
+    setToastKind(kind);
     if (toastTimeout.current) clearTimeout(toastTimeout.current);
-    toastTimeout.current = setTimeout(() => setToastMessage(null), 3400);
+    toastTimeout.current = setTimeout(() => setToastMessage(null), kind === "error" ? 6000 : 3400);
   };
 
   const handleFetch = async (url: string) => {
@@ -218,7 +220,7 @@ export default function App() {
       });
       showToast(`Kaydedildi: ${savedPath.split(/[\\/]/).pop()}`);
     } catch (err: any) {
-      showToast(`İndirme hatası: ${err.toString()}`);
+      showToast(`${t("universal.downloadError", "Download failed")}: ${err.toString()}`, "error");
     } finally {
       setDownloading(false);
       setPendingSunoFormat(null);
@@ -368,7 +370,7 @@ export default function App() {
         <UpdateModal updateInfo={updateInfo} previouslyFailed={updatePreviouslyFailed} />
       )}
 
-      {toastMessage && <Toast message={toastMessage} />}
+      {toastMessage && <Toast message={toastMessage} kind={toastKind} />}
     </div>
   );
 }

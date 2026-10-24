@@ -149,7 +149,10 @@
     "emptyHistory": "No downloaded media history yet.",
     "loadAndDownload": "Load & Download",
     "otherPlatform": "Other",
-    "readyToDownload": "Media ready to download"
+    "readyToDownload": "Media ready to download",
+    "errNoFormats": "По этой ссылке нет видео или аудио для загрузки. Возможно, это публикация только с изображением.",
+    "errUnsupported": "Этот сайт или тип ссылки не поддерживается.",
+    "errPrivate": "Этот контент закрыт, имеет возрастные ограничения или требует входа."
   },
   "metadata": {
     "title": "Редактор Тегов",
@@ -186,7 +189,11 @@
     "errorSave": "Ошибка сохранения",
     "infoFile": "Файл:",
     "infoFormat": "Формат:",
-    "infoDuration": "Длительность:"
+    "infoDuration": "Длительность:",
+    "errCoverInvalid": "Не удалось прочитать обложку. Используйте изображение JPG, PNG, WEBP или BMP.",
+    "errVerify": "Теги записаны, но подтвердить их не удалось. Возможно, файл доступен только для чтения или используется другой программой.",
+    "errWrite": "Не удалось записать в файл. Закройте программы, которые его используют (плеер, DAW), и повторите попытку.",
+    "errRead": "Не удалось прочитать этот аудиофайл."
   },
   "detector": {
     "title": "Определение Тональности и BPM",

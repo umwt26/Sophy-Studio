@@ -149,7 +149,10 @@
     "emptyHistory": "No downloaded media history yet.",
     "loadAndDownload": "Load & Download",
     "otherPlatform": "Other",
-    "readyToDownload": "Media ready to download"
+    "readyToDownload": "Media ready to download",
+    "errNoFormats": "Dieser Link enthält kein herunterladbares Video oder Audio. Möglicherweise ist es ein reiner Bild-Beitrag.",
+    "errUnsupported": "Diese Website oder dieser Linktyp wird nicht unterstützt.",
+    "errPrivate": "Dieser Inhalt ist privat, altersbeschränkt oder erfordert eine Anmeldung."
   },
   "metadata": {
     "title": "Metadaten-Editor",
@@ -186,7 +189,11 @@
     "errorSave": "Speicherfehler",
     "infoFile": "Datei:",
     "infoFormat": "Format:",
-    "infoDuration": "Dauer:"
+    "infoDuration": "Dauer:",
+    "errCoverInvalid": "Das Coverbild konnte nicht gelesen werden. Verwende ein JPG-, PNG-, WEBP- oder BMP-Bild.",
+    "errVerify": "Die Tags wurden geschrieben, konnten aber nicht bestätigt werden. Die Datei ist eventuell schreibgeschützt oder wird von einem anderen Programm verwendet.",
+    "errWrite": "In die Datei konnte nicht geschrieben werden. Schließe Programme, die sie verwenden (Player, DAW), und versuche es erneut.",
+    "errRead": "Diese Audiodatei konnte nicht gelesen werden."
   },
   "detector": {
     "title": "Key & BPM Erkennung",

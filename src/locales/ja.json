@@ -149,7 +149,10 @@
     "emptyHistory": "No downloaded media history yet.",
     "loadAndDownload": "Load & Download",
     "otherPlatform": "Other",
-    "readyToDownload": "Media ready to download"
+    "readyToDownload": "Media ready to download",
+    "errNoFormats": "このリンクにはダウンロードできる動画や音声がありません。画像のみの投稿の可能性があります。",
+    "errUnsupported": "このサイトまたはリンクの種類には対応していません。",
+    "errPrivate": "このコンテンツは非公開、年齢制限付き、またはログインが必要です。"
   },
   "metadata": {
     "title": "メタデータ編集",
@@ -186,7 +189,11 @@
     "errorSave": "保存エラー",
     "infoFile": "ファイル:",
     "infoFormat": "形式:",
-    "infoDuration": "再生時間:"
+    "infoDuration": "再生時間:",
+    "errCoverInvalid": "カバー画像を読み込めませんでした。JPG、PNG、WEBP、BMP 画像を使用してください。",
+    "errVerify": "タグは書き込まれましたが確認できませんでした。ファイルが読み取り専用か、別のプログラムで使用中の可能性があります。",
+    "errWrite": "ファイルに書き込めませんでした。使用中のプログラム（プレーヤー、DAW）を閉じて、もう一度お試しください。",
+    "errRead": "この音声ファイルを読み込めませんでした。"
   },
   "detector": {
     "title": "Key & BPM 検出",

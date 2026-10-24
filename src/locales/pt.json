@@ -149,7 +149,10 @@
     "emptyHistory": "No downloaded media history yet.",
     "loadAndDownload": "Load & Download",
     "otherPlatform": "Other",
-    "readyToDownload": "Media ready to download"
+    "readyToDownload": "Media ready to download",
+    "errNoFormats": "Este link não tem vídeo ou áudio para baixar. Pode ser uma publicação só com imagem.",
+    "errUnsupported": "Este site ou tipo de link não é compatível.",
+    "errPrivate": "Este conteúdo é privado, tem restrição de idade ou exige login."
   },
   "metadata": {
     "title": "Editor de Metadados",
@@ -186,7 +189,11 @@
     "errorSave": "Erro ao salvar",
     "infoFile": "Arquivo:",
     "infoFormat": "Formato:",
-    "infoDuration": "Duração:"
+    "infoDuration": "Duração:",
+    "errCoverInvalid": "Não foi possível ler a imagem de capa. Use uma imagem JPG, PNG, WEBP ou BMP.",
+    "errVerify": "As tags foram gravadas, mas não puderam ser confirmadas. O arquivo pode ser somente leitura ou estar em uso por outro programa.",
+    "errWrite": "Não foi possível gravar no arquivo. Feche os programas que o estão usando (player, DAW) e tente novamente.",
+    "errRead": "Não foi possível ler este arquivo de áudio."
   },
   "detector": {
     "title": "Detector de Tom e BPM",

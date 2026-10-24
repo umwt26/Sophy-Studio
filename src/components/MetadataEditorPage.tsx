@@ -13,7 +13,7 @@ import {
 import type { AudioMetadata } from "../types";
 
 interface MetadataEditorPageProps {
-  onShowToast: (msg: string) => void;
+  onShowToast: (msg: string, kind?: "success" | "error") => void;
 }
 
 export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowToast }) => {
@@ -70,7 +70,7 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
       setRemoveCover(false);
       onShowToast(t("metadata.coverSelected", "Kapak görseli seçildi!"));
     } catch (err: any) {
-      onShowToast(`${t("metadata.errorSelectCover", "Kapak seçilemedi")}: ${err?.toString()}`);
+      onShowToast(`${t("metadata.errorSelectCover", "Could not select cover")}: ${err?.toString()}`, "error");
     }
   };
 
@@ -98,7 +98,7 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
         await applyCoverImage(selectedImg);
       }
     } catch (err: any) {
-      onShowToast(`${t("metadata.errorSelectCover", "Kapak seçilemedi")}: ${err?.toString()}`);
+      onShowToast(`${t("metadata.errorSelectCover", "Could not select cover")}: ${err?.toString()}`, "error");
     } finally {
       setSelectingCover(false);
     }
@@ -152,6 +152,23 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
     };
   }, []);
 
+  // Backend returns "CODE: detail" (see sophy-core metadata.rs).
+  const describeMetadataError = (err: unknown): string => {
+    const raw = String(err ?? "");
+    switch (raw.split(":")[0]?.trim()) {
+      case "METADATA_COVER_INVALID":
+        return t("metadata.errCoverInvalid", "The cover image could not be read. Use a JPG, PNG, WEBP or BMP image.");
+      case "METADATA_VERIFY_FAILED":
+        return t("metadata.errVerify", "The tags were written but could not be confirmed. The file may be read-only or in use by another program.");
+      case "METADATA_WRITE_FAILED":
+        return t("metadata.errWrite", "Could not write to the file. Close any program using it (player, DAW) and try again.");
+      case "METADATA_READ_FAILED":
+        return t("metadata.errRead", "This audio file could not be read.");
+      default:
+        return `${t("metadata.errorSave", "Save failed")}: ${raw}`;
+    }
+  };
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!metadata?.filePath) return;
@@ -176,7 +193,7 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
       await loadFileMetadata(metadata.filePath);
       onShowToast(t("metadata.saveSuccess", "Metadata başarıyla kaydedildi!"));
     } catch (err: any) {
-      onShowToast(`${t("metadata.errorSave", "Kaydetme hatası")}: ${err?.toString()}`);
+      onShowToast(describeMetadataError(err), "error");
     } finally {
       setSaving(false);
     }

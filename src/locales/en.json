@@ -149,7 +149,10 @@
     "emptyHistory": "No downloaded media history yet.",
     "loadAndDownload": "Load & Download",
     "otherPlatform": "Other",
-    "readyToDownload": "Media ready to download"
+    "readyToDownload": "Media ready to download",
+    "errNoFormats": "This link has no downloadable video or audio. It may be an image-only post.",
+    "errUnsupported": "This website or link type is not supported.",
+    "errPrivate": "This content is private, age-restricted or requires login."
   },
   "metadata": {
     "title": "Audio Metadata Editor",
@@ -186,7 +189,11 @@
     "errorSave": "Save error",
     "infoFile": "File:",
     "infoFormat": "Format:",
-    "infoDuration": "Duration:"
+    "infoDuration": "Duration:",
+    "errCoverInvalid": "The cover image could not be read. Use a JPG, PNG, WEBP or BMP image.",
+    "errVerify": "The tags were written but could not be confirmed. The file may be read-only or in use by another program.",
+    "errWrite": "Could not write to the file. Close any program using it (player, DAW) and try again.",
+    "errRead": "This audio file could not be read."
   },
   "detector": {
     "title": "Key & BPM Detect",

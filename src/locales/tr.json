@@ -149,7 +149,10 @@
     "emptyHistory": "Henüz indirilen medya geçmişi yok.",
     "loadAndDownload": "Yükle & İndir",
     "otherPlatform": "Diğer",
-    "readyToDownload": "Medya indirme işlemi hazır"
+    "readyToDownload": "Medya indirme işlemi hazır",
+    "errNoFormats": "Bu bağlantıda indirilebilir video ya da ses yok. Sadece görsel içeren bir gönderi olabilir.",
+    "errUnsupported": "Bu site ya da bağlantı türü desteklenmiyor.",
+    "errPrivate": "Bu içerik gizli, yaş kısıtlamalı ya da giriş gerektiriyor."
   },
   "metadata": {
     "title": "Audio Metadata Editor",
@@ -186,7 +189,11 @@
     "errorSave": "Kaydetme hatası",
     "infoFile": "Dosya:",
     "infoFormat": "Format:",
-    "infoDuration": "Süre:"
+    "infoDuration": "Süre:",
+    "errCoverInvalid": "Kapak görseli okunamadı. JPG, PNG, WEBP ya da BMP bir görsel kullan.",
+    "errVerify": "Etiketler yazıldı ama doğrulanamadı. Dosya salt okunur olabilir ya da başka bir program tarafından kullanılıyor olabilir.",
+    "errWrite": "Dosyaya yazılamadı. Dosyayı kullanan programı (oynatıcı, DAW) kapatıp tekrar dene.",
+    "errRead": "Bu ses dosyası okunamadı."
   },
   "detector": {
     "title": "Key & BPM Detect",

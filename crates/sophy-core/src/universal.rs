@@ -112,8 +112,7 @@ impl UniversalDownloader {
             .map_err(|e| format!("Komut çalıştırılamadı: {}", e))?;
 
         if !output.status.success() {
-            let stderr = String::from_utf8_lossy(&output.stderr);
-            return Err(format!("Medya bilgisi alınamadı: {}", stderr.trim()));
+            return Err(classify_ytdlp_error(&String::from_utf8_lossy(&output.stderr)));
         }
 
         let json_str = String::from_utf8_lossy(&output.stdout);
@@ -184,6 +183,10 @@ impl UniversalDownloader {
         let fmt = format_type.to_lowercase();
         if fmt == "audio" || fmt == "mp3" {
             cmd.args([
+                // Some sites (Pinterest, Reddit, Vimeo HLS...) only expose separate
+                // audio/video streams, others only muxed files: accept all of them.
+                "-f",
+                "ba/b/bv*+ba",
                 "-x",
                 "--audio-format",
                 "mp3",
@@ -192,8 +195,10 @@ impl UniversalDownloader {
             ]);
         } else {
             cmd.args([
+                // 1) mp4+m4a pair  2) any video+audio pair (e.g. Pinterest HLS, audio is .mp4)
+                // 3) muxed mp4  4) any muxed file  5) video-only (clips without sound)
                 "-f",
-                "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
+                "bv*[ext=mp4]+ba[ext=m4a]/bv*+ba/b[ext=mp4]/b/bv*",
                 "--merge-output-format",
                 "mp4",
             ]);
@@ -206,8 +211,36 @@ impl UniversalDownloader {
         if output.status.success() {
             Ok(out_dir.to_string_lossy().to_string())
         } else {
-            let stderr = String::from_utf8_lossy(&output.stderr);
-            Err(format!("İndirme başarısız oldu: {}", stderr.trim()))
+            Err(classify_ytdlp_error(&String::from_utf8_lossy(&output.stderr)))
         }
     }
+}
+
+/// Turns yt-dlp stderr into "CODE: detail" so the UI can show a translated message.
+/// Codes: MEDIA_NO_FORMATS, MEDIA_UNSUPPORTED, MEDIA_PRIVATE, MEDIA_FAILED.
+fn classify_ytdlp_error(stderr: &str) -> String {
+    let detail = stderr
+        .lines()
+        .rev()
+        .find(|l| l.contains("ERROR"))
+        .unwrap_or_else(|| stderr.lines().last().unwrap_or(""))
+        .trim()
+        .to_string();
+    let lower = stderr.to_lowercase();
+    let code = if lower.contains("requested format is not available")
+        || lower.contains("no video formats found")
+    {
+        "MEDIA_NO_FORMATS"
+    } else if lower.contains("unsupported url") {
+        "MEDIA_UNSUPPORTED"
+    } else if lower.contains("private")
+        || lower.contains("login required")
+        || lower.contains("sign in")
+        || lower.contains("http error 403")
+    {
+        "MEDIA_PRIVATE"
+    } else {
+        "MEDIA_FAILED"
+    };
+    format!("{}: {}", code, detail)
 }

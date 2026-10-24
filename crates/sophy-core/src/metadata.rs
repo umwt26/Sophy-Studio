@@ -41,6 +41,58 @@ pub struct SaveMetadataInput {
 
 use id3::TagLike;
 
+/// Longest edge for embedded covers. Large/odd covers are a common reason
+/// players and Windows Explorer silently ignore embedded art.
+const COVER_MAX_EDGE: u32 = 1400;
+
+/// Decodes the user's image (JPEG/PNG/WEBP/BMP/GIF) and returns bytes + the REAL mime type.
+/// JPEG/PNG within limits are kept byte-for-byte; everything else is converted to JPEG.
+/// (Previously WEBP/BMP were embedded but labelled "image/jpeg", which most players reject.)
+fn normalize_cover(raw: &[u8]) -> Result<(Vec<u8>, &'static str), String> {
+    use image::{ImageFormat, ImageReader};
+    use std::io::Cursor;
+
+    let format = image::guess_format(raw)
+        .map_err(|_| "METADATA_COVER_INVALID: unsupported image".to_string())?;
+    let img = ImageReader::with_format(Cursor::new(raw), format)
+        .decode()
+        .map_err(|e| format!("METADATA_COVER_INVALID: {}", e))?;
+
+    let fits = img.width() <= COVER_MAX_EDGE && img.height() <= COVER_MAX_EDGE;
+    match format {
+        ImageFormat::Jpeg if fits => return Ok((raw.to_vec(), "image/jpeg")),
+        ImageFormat::Png if fits && raw.len() <= 1_500_000 => return Ok((raw.to_vec(), "image/png")),
+        _ => {}
+    }
+
+    let img = if fits {
+        img
+    } else {
+        img.resize(COVER_MAX_EDGE, COVER_MAX_EDGE, image::imageops::FilterType::Lanczos3)
+    };
+    let rgb = img.to_rgb8();
+    let mut out = Vec::new();
+    image::codecs::jpeg::JpegEncoder::new_with_quality(&mut out, 90)
+        .encode_image(&rgb)
+        .map_err(|e| format!("METADATA_COVER_INVALID: {}", e))?;
+    Ok((out, "image/jpeg"))
+}
+
+fn decode_cover_b64(b64: &str) -> Result<Option<(Vec<u8>, &'static str)>, String> {
+    use base64::Engine;
+    if b64.trim().is_empty() {
+        return Ok(None);
+    }
+    let clean = match b64.find(',') {
+        Some(idx) => &b64[idx + 1..],
+        None => b64,
+    };
+    let raw = base64::engine::general_purpose::STANDARD
+        .decode(clean.trim())
+        .map_err(|e| format!("METADATA_COVER_INVALID: {}", e))?;
+    normalize_cover(&raw).map(Some)
+}
+
 pub struct MetadataManager;
 
 impl MetadataManager {
@@ -192,35 +244,19 @@ impl MetadataManager {
 
             if input.remove_cover.unwrap_or(false) {
                 id3_tag.remove_all_pictures();
-            } else if let Some(ref b64) = input.cover_base64 {
-                if !b64.trim().is_empty() {
-                    use base64::Engine;
-                    let clean_b64 = if let Some(idx) = b64.find(',') {
-                        &b64[idx + 1..]
-                    } else {
-                        b64.as_str()
-                    };
-
-                    if let Ok(data) = base64::engine::general_purpose::STANDARD.decode(clean_b64.trim()) {
-                        let mime = match input.cover_mime_type.as_deref() {
-                            Some("image/png") => "image/png",
-                            Some("image/gif") => "image/gif",
-                            Some("image/bmp") => "image/bmp",
-                            _ => "image/jpeg",
-                        };
-                        id3_tag.remove_all_pictures();
-                        id3_tag.add_frame(id3::frame::Picture {
-                            mime_type: mime.to_string(),
-                            picture_type: id3::frame::PictureType::CoverFront,
-                            description: String::new(),
-                            data,
-                        });
-                    }
-                }
+            } else if let Some((data, mime)) = decode_cover_b64(input.cover_base64.as_deref().unwrap_or(""))? {
+                id3_tag.remove_all_pictures();
+                id3_tag.add_frame(id3::frame::Picture {
+                    mime_type: mime.to_string(),
+                    picture_type: id3::frame::PictureType::CoverFront,
+                    description: String::new(),
+                    data,
+                });
             }
 
-            id3_tag.write_to_path(path, id3::Version::Id3v23)
-                .map_err(|e| format!("ID3 etiketleri kaydedilemedi: {}", e))?;
+            id3_tag
+                .write_to_path(path, id3::Version::Id3v23)
+                .map_err(|e| format!("METADATA_WRITE_FAILED: {}", e))?;
 
             // For WAV, also write basic RIFF INFO chunk for legacy Windows Explorer details
             if ext == "wav" {
@@ -239,17 +275,31 @@ impl MetadataManager {
                         riff_tag.set_year(y);
                     }
                 }
-                let _ = riff_tag.save_to_path(path, WriteOptions::default());
+                if let Some(ref genre) = input.genre {
+                    riff_tag.set_genre(genre.clone());
+                }
+                if let Some(ref comment) = input.comment {
+                    riff_tag.set_comment(comment.clone());
+                }
+                if let Some(ref track) = input.track_number {
+                    if let Ok(t) = track.trim().parse::<u32>() {
+                        riff_tag.set_track(t);
+                    }
+                }
+                // Windows Explorer reads WAV titles/artists from RIFF INFO, so this must not fail silently.
+                riff_tag
+                    .save_to_path(path, WriteOptions::default())
+                    .map_err(|e| format!("METADATA_WRITE_FAILED: {}", e))?;
             }
 
-            return Ok(());
+            return Self::verify_saved(path, input);
         }
 
         // 2. For FLAC, M4A, OGG: Use Lofty (Vorbis comments & MP4 Ilst)
         let mut tagged_file = Probe::open(path)
-            .map_err(|e| format!("Dosya açılamadı: {}", e))?
+            .map_err(|e| format!("METADATA_READ_FAILED: {}", e))?
             .read()
-            .map_err(|e| format!("Ses dosyası okunamadı: {}", e))?;
+            .map_err(|e| format!("METADATA_READ_FAILED: {}", e))?;
 
         let tag_type = tagged_file.primary_tag_type();
         let mut tag = match tagged_file.tag_mut(tag_type) {
@@ -286,37 +336,32 @@ impl MetadataManager {
         if input.remove_cover.unwrap_or(false) {
             tag.remove_picture_type(PictureType::CoverFront);
             tag.remove_picture_type(PictureType::Other);
-        } else if let Some(ref b64) = input.cover_base64 {
-            if !b64.trim().is_empty() {
-                use base64::Engine;
-                let clean_b64 = if let Some(idx) = b64.find(',') {
-                    &b64[idx + 1..]
-                } else {
-                    b64.as_str()
-                };
-
-                if let Ok(data) = base64::engine::general_purpose::STANDARD.decode(clean_b64.trim()) {
-                    let mime = match input.cover_mime_type.as_deref() {
-                        Some("image/png") => MimeType::Png,
-                        Some("image/gif") => MimeType::Gif,
-                        Some("image/bmp") => MimeType::Bmp,
-                        _ => MimeType::Jpeg,
-                    };
-                    let pic = Picture::new_unchecked(
-                        PictureType::CoverFront,
-                        Some(mime),
-                        None,
-                        data,
-                    );
-                    tag.remove_picture_type(PictureType::CoverFront);
-                    tag.push_picture(pic);
-                }
-            }
+        } else if let Some((data, mime)) = decode_cover_b64(input.cover_base64.as_deref().unwrap_or(""))? {
+            let mime = if mime == "image/png" { MimeType::Png } else { MimeType::Jpeg };
+            let pic = Picture::new_unchecked(PictureType::CoverFront, Some(mime), None, data);
+            tag.remove_picture_type(PictureType::CoverFront);
+            tag.push_picture(pic);
         }
 
         tag.save_to_path(path, WriteOptions::default())
-            .map_err(|e| format!("Etiketler dosyaya kaydedilemedi: {}", e))?;
+            .map_err(|e| format!("METADATA_WRITE_FAILED: {}", e))?;
 
+        Self::verify_saved(path, input)
+    }
+
+    /// Re-reads the file so the UI never reports success for a cover/title that did not stick.
+    fn verify_saved(path: &Path, input: &SaveMetadataInput) -> Result<(), String> {
+        let saved = Self::read_metadata(path).map_err(|e| format!("METADATA_VERIFY_FAILED: {}", e))?;
+        let wants_cover = !input.remove_cover.unwrap_or(false)
+            && input.cover_base64.as_deref().map(|b| !b.trim().is_empty()).unwrap_or(false);
+        if wants_cover && saved.cover_base64.is_none() {
+            return Err("METADATA_VERIFY_FAILED: cover was not stored".to_string());
+        }
+        if let Some(ref title) = input.title {
+            if saved.title.as_deref() != Some(title.as_str()) {
+                return Err("METADATA_VERIFY_FAILED: title was not stored".to_string());
+            }
+        }
         Ok(())
     }
 }

@@ -4,12 +4,12 @@ name: Build & Release (Windows)
 #   and uploads Sophy_Studio_Setup.exe to a DRAFT release (Portable: build artifact).
 #   Review the draft, add notes, then press "Publish" — only published releases reach users.
 # - Push to a release/** branch -> same, the draft's tag (v<major>.<minor>) is created on publish.
-# - Run manually -> build only (downloadable artifact).
+# - Push to a test/** branch or run manually -> build only (downloadable artifact, no release).
 
 on:
   push:
     tags: ["v*"]
-    branches: ["release/**"]
+    branches: ["release/**", "test/**"]
   workflow_dispatch:
 
 permissions:

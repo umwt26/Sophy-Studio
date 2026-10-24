@@ -36,6 +36,8 @@ interface AiStatus {
 }
 
 const STORE_KEY = "sophy.prompter.sessions.v1";
+/** Scripts the rule engine has no vocabulary for: Arabic, Hebrew, Devanagari & other Indic, Thai, Hangul, Han-only, Greek, Armenian, Georgian. */
+const UNSUPPORTED_SCRIPT = /[\u0590-\u06FF\u0750-\u077F\u0900-\u0DFF\u0E00-\u0E7F\u1100-\u11FF\uAC00-\uD7AF\u0370-\u03FF\u0530-\u058F\u10A0-\u10FF]/;
 const AI_KEY = "sophy.prompter.ai.v1";
 
 function loadSessions(): Session[] {
@@ -174,21 +176,22 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
     setBusy(true);
     setNotice(null);
     const target = session.id;
-    let brief = text;
     let understoodAs: string | undefined;
     try {
-      if (aiActive) {
+      // The rule engine is exact for its 8 languages, so it goes first. The small model is
+      // only used when the engine found nothing or the text is in a script it doesn't know;
+      // that keeps the model's occasional guesses (e.g. "accordion" -> "guitar") out.
+      let result = applyInput(session.state, text, lang);
+      if (aiActive && (!result.understood || UNSUPPORTED_SCRIPT.test(text))) {
         try {
           understoodAs = await invoke<string>("prompter_ai_understand", { text });
-          brief = understoodAs;
+          const viaAi = applyInput(session.state, understoodAs, lang);
+          if (viaAi.understood) result = viaAi;
         } catch (err) {
           setNotice(t("prompter.aiError", "AI mode could not process this request, the built-in engine was used instead."));
           console.debug("prompter ai:", err);
         }
       }
-      let result = applyInput(session.state, brief, lang);
-      // If AI rewrote it but the engine still found nothing, try the original text too.
-      if (!result.understood && brief !== text) result = applyInput(session.state, text, lang);
 
       if (!result.understood) {
         setNotice(

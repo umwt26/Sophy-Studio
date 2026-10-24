@@ -235,24 +235,28 @@ fn unload() {
     }
 }
 
-const SYSTEM_PROMPT: &str = "You rewrite a music request written in any language into one short English request for a song prompt builder. \
-Use standard English music terms: genre, instruments, mood, vocals (male/female/instrumental), BPM, musical key and song sections \
-(intro, verse, pre-chorus, chorus, hook, bridge, drop, beat switch, solo, outro). \
-If the request changes an existing song, keep the edit verbs: add, remove, more, less, set. \
-Never write lyrics. Output only the English request, nothing else.";
+const SYSTEM_PROMPT: &str = "Translate the user's music request into English, faithfully and briefly. \
+Keep every genre, instrument, mood, vocal type, tempo (BPM), key and song section exactly as the user said. \
+Do not add anything the user did not ask for, do not drop anything, do not guess. \
+If the request edits an existing song, keep the edit words: add, remove, more, less. \
+Never write lyrics. Output only the English translation on one line.";
 
-const FEW_SHOT: [(&str, &str); 3] = [
+const FEW_SHOT: [(&str, &str); 4] = [
     (
         "أريد أغنية راب حزينة مع بيانو وصوت نسائي، ١٤٠ نبضة",
         "A sad rap song with piano and female vocals, 140 BPM",
     ),
     (
-        "Basları biraz kıs ve girişe saksafon ekle",
-        "less bass, add saxophone to the intro",
+        "Una cumbia alegre con acordeón y voz femenina",
+        "A happy cumbia with accordion and female vocals",
     ),
     (
-        "Ein ruhiger Song zum Lernen ohne Gesang, mit Regengeräuschen",
-        "A chill lo-fi instrumental song with ambient rain texture, no vocals",
+        "잔잔한 피아노 발라드, 남자 보컬, 브리지 추가",
+        "A calm piano ballad with male vocals, add a bridge",
+    ),
+    (
+        "베이스를 줄이고 인트로에 색소폰을 추가해",
+        "less bass, add saxophone to the intro",
     ),
 ];
 

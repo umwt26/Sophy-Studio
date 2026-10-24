@@ -61,6 +61,8 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: ". -> target"
+          # bump when native build settings change (cached C/C++ objects don't notice)
+          key: static-msvc-runtime-1
 
       - name: Install dependencies
         run: npm ci

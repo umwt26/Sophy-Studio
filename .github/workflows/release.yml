@@ -22,7 +22,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Verify version consistency
         shell: pwsh
@@ -50,7 +50,7 @@ jobs:
           }
           "APP_VERSION=$pkg" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -75,12 +75,26 @@ jobs:
           if (-not $setup) { Write-Error "NSIS installer not found"; exit 1 }
           Copy-Item $setup.FullName out/Sophy_Studio_Setup.exe
           Copy-Item target/release/sophy.exe out/Sophy_Studio_Portable.exe
+          # Hard guard against the v1.1.5 situation: the binaries themselves must carry APP_VERSION.
+          foreach ($f in @("out/Sophy_Studio_Setup.exe", "out/Sophy_Studio_Portable.exe")) {
+            $pv = (Get-Item $f).VersionInfo.ProductVersion
+            Write-Host "$f ProductVersion=$pv"
+            if (-not $pv -or -not $pv.StartsWith("$env:APP_VERSION")) {
+              Write-Error "$f has ProductVersion '$pv', expected $env:APP_VERSION"
+              exit 1
+            }
+          }
+          # Installer hooks must not contain dropper-like commands (antivirus false positives).
+          $hooks = Get-Content src-tauri/hooks.nsh -Raw
+          foreach ($bad in @("powershell", "ExecutionPolicy", "DownloadFile", "taskkill")) {
+            if ($hooks -match [regex]::Escape($bad)) { Write-Error "hooks.nsh contains '$bad'"; exit 1 }
+          }
           Get-ChildItem out | ForEach-Object {
             $h = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower()
             Write-Host "$($_.Name)  $($_.Length) bytes  sha256=$h"
           }
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: Sophy-Studio-${{ env.APP_VERSION }}-windows
           path: out/*.exe

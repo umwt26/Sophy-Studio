@@ -68,7 +68,8 @@
     "metadata": "Metadata Editor",
     "detector": "Key & BPM Detect",
     "cutter": "Sample Cutter",
-    "settings": "Settings"
+    "settings": "Settings",
+    "prompter": "Suno Style Prompter"
   },
   "header": {
     "openMenu": "Open Menu"
@@ -82,7 +83,8 @@
     "cutterDesc": "8-second audio sample cutter",
     "settingsDesc": "Folders, theme colors & languages",
     "toolsSection": "Studio Tools",
-    "quickAccess": "Quick Access"
+    "quickAccess": "Quick Access",
+    "prompterDesc": "Style tags & song structure for Suno"
   },
   "home": {
     "heroSubtitle": "Clean desktop toolkit for AI audio downloads, media capture, 8s sample slicing, metadata editing, and Key & BPM analysis.",
@@ -117,7 +119,10 @@
     "tagRhythmAnalysis": "Rhythm Analysis",
     "tagOffline": "Offline",
     "tagSunoCutter": "Suno Cutter",
-    "tagLyrics": "Lyrics"
+    "tagLyrics": "Lyrics",
+    "prompterTitle": "Suno Style Prompter",
+    "prompterDesc": "Describe a song in any language and get ready-to-paste Suno style tags and a song structure. Works offline.",
+    "tagStructure": "Structure"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -359,5 +364,45 @@
     "cancel": "Cancel",
     "save": "Save",
     "retry": "Retry"
+  },
+  "prompter": {
+    "title": "Suno Style Prompter",
+    "subtitle": "Describe a song in your own words and get a ready-to-paste Style and Structure for Suno. It never writes lyrics.",
+    "newSession": "New session",
+    "sessions": "Sessions",
+    "untitled": "New session",
+    "deleteSession": "Delete session",
+    "emptyDesc": "Write what you want in one sentence. Then refine it: \"less bass\", \"BPM 140\", \"add saxophone to the intro\".",
+    "example1": "Dark UK drill, male vocals, heavy autotune, 142 BPM",
+    "example2": "Sad piano ballad with female vocals and strings",
+    "example3": "Chill lo-fi instrumental with vinyl crackle",
+    "inputPlaceholder": "Describe your song: genre, mood, instruments, vocals, tempo, structure...",
+    "revisePlaceholder": "Refine it: \"less bass\", \"BPM 140\", \"add saxophone to the intro\"...",
+    "send": "Generate",
+    "understoodAs": "Understood as",
+    "notUnderstood": "No musical details recognised. Use genre, instrument or mood words, or turn on AI mode to write in any language.",
+    "notUnderstoodAi": "No musical details found. Describe the genre, instruments, mood, vocals or tempo.",
+    "structureKept": "Your edited structure was kept. Use \"Regenerate structure\" to apply changes to it.",
+    "style": "Style of Music",
+    "stylePlaceholder": "Your Suno style tags will appear here.",
+    "structure": "Structure / Arrangement",
+    "structureDesc": "Replace the lines in parentheses with your own lyrics before pasting into Suno.",
+    "structurePlaceholder": "Section tags like [Intro], [Verse 1], [Chorus] will appear here.",
+    "regenerate": "Regenerate structure",
+    "copy": "Copy",
+    "copied": "Copied to clipboard.",
+    "copyJson": "Copy as JSON",
+    "aiEnable": "Enable AI mode (~400 MB)",
+    "aiEnableHint": "Downloads a small language model once (about 400 MB). Lets you write in any language. Runs offline on your CPU.",
+    "aiDownloading": "Downloading AI model",
+    "aiOn": "AI mode: On",
+    "aiOff": "AI mode: Off",
+    "aiReady": "AI mode is ready.",
+    "aiThinking": "Analysing...",
+    "aiError": "AI mode could not process this request, the built-in engine was used instead.",
+    "aiUnsupported": "AI mode needs a newer CPU (AVX2)",
+    "aiUnsupportedHint": "This processor lacks:",
+    "aiCorrupt": "The model download was incomplete or damaged and was removed. Please try again.",
+    "aiDownloadFailed": "The AI model could not be downloaded. Check your connection and try again."
   }
 }

@@ -7,8 +7,7 @@ import {
   ScissorsIcon,
   SettingsIcon,
   SunoIcon,
-  TagIcon,
-} from "./icons";
+  TagIcon, SparklesIcon } from "./icons";
 import logoImg from "../assets/logo.png";
 import { useTranslation } from "react-i18next";
 import type { AppTab } from "../types";
@@ -40,6 +39,7 @@ export function Header({
     suno: { label: t("nav.suno", "Suno Downloader"), Icon: SunoIcon },
     universal: { label: t("nav.universal", "Universal Downloader"), Icon: GlobeDownloadIcon },
     metadata: { label: t("nav.metadata", "Metadata Editor"), Icon: TagIcon },
+    prompter: { label: t("nav.prompter", "Suno Style Prompter"), Icon: SparklesIcon },
     detector: { label: t("nav.detector", "Key & BPM Detect"), Icon: PianoIcon },
     "sample-cutter": { label: t("nav.cutter", "Sample Kesici"), Icon: ScissorsIcon },
     settings: { label: t("nav.settings", "Ayarlar"), Icon: SettingsIcon },

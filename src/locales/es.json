@@ -68,7 +68,8 @@
     "metadata": "Editor de Metadatos",
     "detector": "Detector de Clave y BPM",
     "settings": "Ajustes",
-    "cutter": "Sample Cutter"
+    "cutter": "Sample Cutter",
+    "prompter": "Suno Style Prompter"
   },
   "header": {
     "openMenu": "Abrir Menú"
@@ -82,7 +83,8 @@
     "settingsDesc": "Carpetas, colores y temas",
     "toolsSection": "Herramientas de Estudio",
     "quickAccess": "Acceso Rápido",
-    "cutterDesc": "8-second audio sample cutter"
+    "cutterDesc": "8-second audio sample cutter",
+    "prompterDesc": "Etiquetas de estilo y estructura para Suno"
   },
   "home": {
     "heroSubtitle": "Kit de escritorio para descargas de audio IA, captura de medios, edición de etiquetas y análisis de Clave y BPM.",
@@ -117,7 +119,10 @@
     "tagRhythmAnalysis": "Rhythm Analysis",
     "tagOffline": "Offline",
     "tagSunoCutter": "Suno Cutter",
-    "tagLyrics": "Lyrics"
+    "tagLyrics": "Lyrics",
+    "prompterTitle": "Suno Style Prompter",
+    "prompterDesc": "Describe una canción en cualquier idioma y obtén etiquetas de estilo y una estructura listas para pegar en Suno. Funciona sin conexión.",
+    "tagStructure": "Estructura"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -359,5 +364,45 @@
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
     "anonymousUser": "User"
+  },
+  "prompter": {
+    "title": "Suno Style Prompter",
+    "subtitle": "Describe una canción con tus propias palabras y obtén un Style y una Structure listos para pegar en Suno. Nunca escribe letras.",
+    "newSession": "Nueva sesión",
+    "sessions": "Sesiones",
+    "untitled": "Nueva sesión",
+    "deleteSession": "Eliminar sesión",
+    "emptyDesc": "Escribe lo que quieres en una frase. Luego ajústalo: \"menos bajo\", \"BPM 140\", \"añade saxofón a la intro\".",
+    "example1": "UK drill oscuro, voz masculina, autotune intenso, 142 BPM",
+    "example2": "Balada triste de piano con voz femenina y cuerdas",
+    "example3": "Instrumental lo-fi tranquilo con crujido de vinilo",
+    "inputPlaceholder": "Describe tu canción: género, ambiente, instrumentos, voz, tempo, estructura...",
+    "revisePlaceholder": "Ajústalo: \"menos bajo\", \"BPM 140\", \"añade saxofón a la intro\"...",
+    "send": "Generar",
+    "understoodAs": "Entendido como",
+    "notUnderstood": "No se reconocieron detalles musicales. Usa palabras de género, instrumento o ambiente, o activa el modo IA para escribir en cualquier idioma.",
+    "notUnderstoodAi": "No se encontraron detalles musicales. Describe el género, los instrumentos, el ambiente, la voz o el tempo.",
+    "structureKept": "Se conservó tu estructura editada. Usa \"Regenerar estructura\" para aplicarle los cambios.",
+    "style": "Style of Music",
+    "stylePlaceholder": "Tus etiquetas de estilo para Suno aparecerán aquí.",
+    "structure": "Estructura / Arreglo",
+    "structureDesc": "Sustituye las líneas entre paréntesis por tu propia letra antes de pegarla en Suno.",
+    "structurePlaceholder": "Aquí aparecerán etiquetas de sección como [Intro], [Verse 1], [Chorus].",
+    "regenerate": "Regenerar estructura",
+    "copy": "Copiar",
+    "copied": "Copiado al portapapeles.",
+    "copyJson": "Copiar como JSON",
+    "aiEnable": "Activar modo IA (~400 MB)",
+    "aiEnableHint": "Descarga una sola vez un pequeño modelo de lenguaje (unos 400 MB). Te permite escribir en cualquier idioma. Funciona sin conexión en tu CPU.",
+    "aiDownloading": "Descargando modelo de IA",
+    "aiOn": "Modo IA: activado",
+    "aiOff": "Modo IA: desactivado",
+    "aiReady": "El modo IA está listo.",
+    "aiThinking": "Analizando...",
+    "aiError": "El modo IA no pudo procesar esta solicitud; se usó el motor integrado.",
+    "aiUnsupported": "El modo IA necesita una CPU más reciente (AVX2)",
+    "aiUnsupportedHint": "A este procesador le falta:",
+    "aiCorrupt": "La descarga del modelo estaba incompleta o dañada y se eliminó. Inténtalo de nuevo.",
+    "aiDownloadFailed": "No se pudo descargar el modelo de IA. Comprueba tu conexión e inténtalo de nuevo."
   }
 }

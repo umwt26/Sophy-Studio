@@ -68,7 +68,8 @@
     "metadata": "Редактор Тегов",
     "detector": "Определение Тональности и BPM",
     "settings": "Настройки",
-    "cutter": "Sample Cutter"
+    "cutter": "Sample Cutter",
+    "prompter": "Suno Style Prompter"
   },
   "header": {
     "openMenu": "Открыть Меню"
@@ -82,7 +83,8 @@
     "settingsDesc": "Папки, цвета и языки",
     "toolsSection": "Инструменты Студии",
     "quickAccess": "Быстрый Доступ",
-    "cutterDesc": "8-second audio sample cutter"
+    "cutterDesc": "8-second audio sample cutter",
+    "prompterDesc": "Теги стиля и структура песни для Suno"
   },
   "home": {
     "heroSubtitle": "Настольный набор инструментов для загрузки ИИ-музыки, захвата медиа, редактирования тегов и анализа тональности/BPM.",
@@ -117,7 +119,10 @@
     "tagRhythmAnalysis": "Rhythm Analysis",
     "tagOffline": "Offline",
     "tagSunoCutter": "Suno Cutter",
-    "tagLyrics": "Lyrics"
+    "tagLyrics": "Lyrics",
+    "prompterTitle": "Suno Style Prompter",
+    "prompterDesc": "Опишите песню на любом языке и получите готовые теги стиля и структуру для Suno. Работает офлайн.",
+    "tagStructure": "Структура"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -359,5 +364,45 @@
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
     "anonymousUser": "User"
+  },
+  "prompter": {
+    "title": "Suno Style Prompter",
+    "subtitle": "Опишите песню своими словами и получите готовые Style и Structure для вставки в Suno. Тексты песен не пишутся.",
+    "newSession": "Новая сессия",
+    "sessions": "Сессии",
+    "untitled": "Новая сессия",
+    "deleteSession": "Удалить сессию",
+    "emptyDesc": "Опишите задумку одним предложением, затем уточните: «меньше баса», «BPM 140», «добавь саксофон во вступление».",
+    "example1": "Мрачный UK drill, мужской вокал, сильный автотюн, 142 BPM",
+    "example2": "Грустная фортепианная баллада с женским вокалом и струнными",
+    "example3": "Спокойный lo-fi инструментал с треском винила",
+    "inputPlaceholder": "Опишите песню: жанр, настроение, инструменты, вокал, темп, структура...",
+    "revisePlaceholder": "Уточните: «меньше баса», «BPM 140», «добавь саксофон во вступление»...",
+    "send": "Создать",
+    "understoodAs": "Понято как",
+    "notUnderstood": "Музыкальные детали не распознаны. Используйте слова о жанре, инструментах или настроении либо включите режим ИИ, чтобы писать на любом языке.",
+    "notUnderstoodAi": "Музыкальные детали не найдены. Опишите жанр, инструменты, настроение, вокал или темп.",
+    "structureKept": "Ваша отредактированная структура сохранена. Нажмите «Пересоздать структуру», чтобы применить изменения.",
+    "style": "Style of Music",
+    "stylePlaceholder": "Здесь появятся ваши теги стиля для Suno.",
+    "structure": "Структура / Аранжировка",
+    "structureDesc": "Перед вставкой в Suno замените строки в скобках своим текстом.",
+    "structurePlaceholder": "Здесь появятся теги разделов, например [Intro], [Verse 1], [Chorus].",
+    "regenerate": "Пересоздать структуру",
+    "copy": "Копировать",
+    "copied": "Скопировано в буфер обмена.",
+    "copyJson": "Копировать как JSON",
+    "aiEnable": "Включить режим ИИ (~400 МБ)",
+    "aiEnableHint": "Один раз скачивает небольшую языковую модель (около 400 МБ). Позволяет писать на любом языке. Работает офлайн на процессоре.",
+    "aiDownloading": "Загрузка модели ИИ",
+    "aiOn": "Режим ИИ: вкл",
+    "aiOff": "Режим ИИ: выкл",
+    "aiReady": "Режим ИИ готов.",
+    "aiThinking": "Анализ...",
+    "aiError": "Режим ИИ не смог обработать запрос, использован встроенный движок.",
+    "aiUnsupported": "Режиму ИИ нужен более новый процессор (AVX2)",
+    "aiUnsupportedHint": "Этому процессору не хватает:",
+    "aiCorrupt": "Загрузка модели была неполной или повреждённой и удалена. Повторите попытку.",
+    "aiDownloadFailed": "Не удалось скачать модель ИИ. Проверьте подключение и повторите попытку."
   }
 }

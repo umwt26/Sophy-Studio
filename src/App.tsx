@@ -8,6 +8,7 @@ import { HomePage } from "./components/HomePage";
 import { SunoDownloaderPage } from "./components/SunoDownloaderPage";
 import { UniversalDownloaderPage } from "./components/UniversalDownloaderPage";
 import { MetadataEditorPage } from "./components/MetadataEditorPage";
+import { SunoPrompterPage } from "./components/SunoPrompterPage";
 import { KeyBpmDetectPage } from "./components/KeyBpmDetectPage";
 import { SampleCutterPage } from "./components/SampleCutterPage";
 import { SettingsPage } from "./components/SettingsPage";
@@ -317,6 +318,8 @@ export default function App() {
               onOpenFolder={handleOpenFolder}
             />
           )}
+
+          {activeTab === "prompter" && <SunoPrompterPage onShowToast={showToast} />}
 
           {activeTab === "settings" && (
             <SettingsPage onShowToast={showToast} />

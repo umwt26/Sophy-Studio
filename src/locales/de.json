@@ -68,7 +68,8 @@
     "metadata": "Metadaten-Editor",
     "detector": "Key & BPM Erkennung",
     "settings": "Einstellungen",
-    "cutter": "Sample Cutter"
+    "cutter": "Sample Cutter",
+    "prompter": "Suno Style Prompter"
   },
   "header": {
     "openMenu": "Menü Öffnen"
@@ -82,7 +83,8 @@
     "settingsDesc": "Ordner, Farben & Sprachen",
     "toolsSection": "Studio-Werkzeuge",
     "quickAccess": "Schnellzugriff",
-    "cutterDesc": "8-second audio sample cutter"
+    "cutterDesc": "8-second audio sample cutter",
+    "prompterDesc": "Style-Tags und Songstruktur für Suno"
   },
   "home": {
     "heroSubtitle": "Desktop-Toolkit für KI-Musikdownloads, Media-Capture, Metadaten-Bearbeitung und Key/BPM-Analyse.",
@@ -117,7 +119,10 @@
     "tagRhythmAnalysis": "Rhythm Analysis",
     "tagOffline": "Offline",
     "tagSunoCutter": "Suno Cutter",
-    "tagLyrics": "Lyrics"
+    "tagLyrics": "Lyrics",
+    "prompterTitle": "Suno Style Prompter",
+    "prompterDesc": "Beschreibe einen Song in jeder Sprache und erhalte Suno-Style-Tags und eine Songstruktur zum Einfügen. Funktioniert offline.",
+    "tagStructure": "Struktur"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -359,5 +364,45 @@
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
     "anonymousUser": "User"
+  },
+  "prompter": {
+    "title": "Suno Style Prompter",
+    "subtitle": "Beschreibe einen Song mit deinen eigenen Worten und erhalte Style und Struktur zum Einfügen in Suno. Es werden nie Songtexte geschrieben.",
+    "newSession": "Neue Sitzung",
+    "sessions": "Sitzungen",
+    "untitled": "Neue Sitzung",
+    "deleteSession": "Sitzung löschen",
+    "emptyDesc": "Beschreibe deinen Wunsch in einem Satz. Dann verfeinere ihn: \"weniger Bass\", \"BPM 140\", \"Saxophon ins Intro\".",
+    "example1": "Düsterer UK Drill, männlicher Gesang, starkes Autotune, 142 BPM",
+    "example2": "Traurige Klavierballade mit weiblichem Gesang und Streichern",
+    "example3": "Entspanntes Lo-Fi-Instrumental mit Vinyl-Knistern",
+    "inputPlaceholder": "Beschreibe deinen Song: Genre, Stimmung, Instrumente, Gesang, Tempo, Aufbau...",
+    "revisePlaceholder": "Verfeinern: \"weniger Bass\", \"BPM 140\", \"Saxophon ins Intro\"...",
+    "send": "Erstellen",
+    "understoodAs": "Verstanden als",
+    "notUnderstood": "Keine musikalischen Angaben erkannt. Nutze Genre-, Instrument- oder Stimmungswörter oder aktiviere den KI-Modus, um in jeder Sprache zu schreiben.",
+    "notUnderstoodAi": "Keine musikalischen Angaben gefunden. Beschreibe Genre, Instrumente, Stimmung, Gesang oder Tempo.",
+    "structureKept": "Deine bearbeitete Struktur wurde beibehalten. Mit \"Struktur neu erstellen\" übernimmst du die Änderungen.",
+    "style": "Style of Music",
+    "stylePlaceholder": "Deine Suno-Style-Tags erscheinen hier.",
+    "structure": "Struktur / Arrangement",
+    "structureDesc": "Ersetze die Zeilen in Klammern durch deine eigenen Texte, bevor du sie in Suno einfügst.",
+    "structurePlaceholder": "Abschnitts-Tags wie [Intro], [Verse 1], [Chorus] erscheinen hier.",
+    "regenerate": "Struktur neu erstellen",
+    "copy": "Kopieren",
+    "copied": "In die Zwischenablage kopiert.",
+    "copyJson": "Als JSON kopieren",
+    "aiEnable": "KI-Modus aktivieren (~400 MB)",
+    "aiEnableHint": "Lädt einmalig ein kleines Sprachmodell (ca. 400 MB). Damit kannst du in jeder Sprache schreiben. Läuft offline auf deiner CPU.",
+    "aiDownloading": "KI-Modell wird heruntergeladen",
+    "aiOn": "KI-Modus: An",
+    "aiOff": "KI-Modus: Aus",
+    "aiReady": "Der KI-Modus ist bereit.",
+    "aiThinking": "Wird analysiert...",
+    "aiError": "Der KI-Modus konnte diese Anfrage nicht verarbeiten, die integrierte Engine wurde verwendet.",
+    "aiUnsupported": "Der KI-Modus benötigt eine neuere CPU (AVX2)",
+    "aiUnsupportedHint": "Diesem Prozessor fehlt:",
+    "aiCorrupt": "Der Modell-Download war unvollständig oder beschädigt und wurde entfernt. Bitte versuche es erneut.",
+    "aiDownloadFailed": "Das KI-Modell konnte nicht heruntergeladen werden. Prüfe deine Verbindung und versuche es erneut."
   }
 }

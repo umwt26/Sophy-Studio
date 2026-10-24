@@ -10,6 +10,7 @@ import {
   TagIcon,
   ScissorsIcon,
   ChatBubbleIcon,
+  SparklesIcon,
 } from "./icons";
 import logoImg from "../assets/logo.png";
 import type { AppTab } from "../types";
@@ -74,6 +75,12 @@ export const StudioDrawer: React.FC<StudioDrawerProps> = ({
       title: t("nav.cutter", "Sample Kesici"),
       desc: t("drawer.cutterDesc", "8 saniyelik hassas sample kırpıcı"),
       Icon: ScissorsIcon,
+    },
+    {
+      id: "prompter",
+      title: t("nav.prompter", "Suno Style Prompter"),
+      desc: t("drawer.prompterDesc", "Style tags & song structure for Suno"),
+      Icon: SparklesIcon,
     },
     {
       id: "metadata",

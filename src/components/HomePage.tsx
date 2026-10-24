@@ -56,6 +56,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenFolder }) 
       tags: ["YouTube", "Instagram", "TikTok", "MP4 / MP3"],
     },
     {
+      id: "prompter",
+      title: t("home.prompterTitle", "Suno Style Prompter"),
+      desc: t(
+        "home.prompterDesc",
+        "Describe a song in any language and get ready-to-paste Suno style tags and a song structure. Works offline."
+      ),
+      Icon: SparklesIcon,
+      tags: ["Style of Music", t("home.tagStructure", "Structure"), t("home.tagOffline", "Offline"), "AI"],
+    },
+    {
       id: "metadata",
       title: t("home.metadataTitle", "Metadata Editor"),
       desc: t(

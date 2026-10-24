@@ -68,7 +68,8 @@
     "metadata": "Metadata Editor",
     "detector": "Key & BPM Detect",
     "cutter": "Sample Kesici",
-    "settings": "Ayarlar"
+    "settings": "Ayarlar",
+    "prompter": "Suno Style Prompter"
   },
   "header": {
     "openMenu": "Menüyü Aç"
@@ -82,7 +83,8 @@
     "cutterDesc": "8 saniyelik ses sample kırpma",
     "settingsDesc": "Klasör yolları, temalar ve dil",
     "toolsSection": "Araçlar",
-    "quickAccess": "Hızlı Erişim"
+    "quickAccess": "Hızlı Erişim",
+    "prompterDesc": "Suno için stil etiketleri ve şarkı yapısı"
   },
   "home": {
     "heroSubtitle": "Müzik indirme, medya yakalama, ses etiketleme, 8s sample kesici ve Key/BPM analizi araçları.",
@@ -117,7 +119,10 @@
     "tagRhythmAnalysis": "Ritim Analizi",
     "tagOffline": "Çevrimdışı",
     "tagSunoCutter": "Suno Kesici",
-    "tagLyrics": "Şarkı Sözü"
+    "tagLyrics": "Şarkı Sözü",
+    "prompterTitle": "Suno Style Prompter",
+    "prompterDesc": "Şarkını herhangi bir dilde anlat, Suno'ya yapıştırmaya hazır stil etiketleri ve şarkı yapısı al. Çevrimdışı çalışır.",
+    "tagStructure": "Yapı"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -359,5 +364,45 @@
     "cancel": "İptal",
     "save": "Kaydet",
     "retry": "Yeniden Dene"
+  },
+  "prompter": {
+    "title": "Suno Style Prompter",
+    "subtitle": "Şarkını kendi cümlelerinle anlat, Suno'ya yapıştırmaya hazır Style ve Structure al. Asla şarkı sözü yazmaz.",
+    "newSession": "Yeni oturum",
+    "sessions": "Oturumlar",
+    "untitled": "Yeni oturum",
+    "deleteSession": "Oturumu sil",
+    "emptyDesc": "İstediğini tek cümleyle yaz. Sonra düzelt: \"basları kıs\", \"BPM 140 yap\", \"girişe saksafon ekle\".",
+    "example1": "Karanlık UK drill, erkek vokal, yoğun autotune, 142 BPM",
+    "example2": "Kadın vokalli, yaylılı hüzünlü piyano baladı",
+    "example3": "Plak cızırtılı, sakin lo-fi enstrümantal",
+    "inputPlaceholder": "Şarkını anlat: tür, duygu, enstrümanlar, vokal, tempo, yapı...",
+    "revisePlaceholder": "Düzelt: \"basları kıs\", \"BPM 140 yap\", \"girişe saksafon ekle\"...",
+    "send": "Oluştur",
+    "understoodAs": "Anlaşılan",
+    "notUnderstood": "Müzikal bir detay tanınmadı. Tür, enstrüman ya da duygu kelimeleri kullan ya da her dilde yazmak için AI modunu aç.",
+    "notUnderstoodAi": "Müzikal bir detay bulunamadı. Türü, enstrümanları, duyguyu, vokali ya da tempoyu anlat.",
+    "structureKept": "Düzenlediğin yapı korundu. Değişiklikleri yapıya da uygulamak için \"Yapıyı yeniden oluştur\"a bas.",
+    "style": "Style of Music",
+    "stylePlaceholder": "Suno stil etiketlerin burada görünecek.",
+    "structure": "Structure / Düzenleme",
+    "structureDesc": "Suno'ya yapıştırmadan önce parantez içindeki satırları kendi sözlerinle değiştir.",
+    "structurePlaceholder": "[Intro], [Verse 1], [Chorus] gibi bölüm etiketleri burada görünecek.",
+    "regenerate": "Yapıyı yeniden oluştur",
+    "copy": "Kopyala",
+    "copied": "Panoya kopyalandı.",
+    "copyJson": "JSON olarak kopyala",
+    "aiEnable": "AI modunu aç (~400 MB)",
+    "aiEnableHint": "Küçük bir dil modelini bir kez indirir (yaklaşık 400 MB). Her dilde yazabilmeni sağlar. İşlemcinde çevrimdışı çalışır.",
+    "aiDownloading": "AI modeli indiriliyor",
+    "aiOn": "AI modu: Açık",
+    "aiOff": "AI modu: Kapalı",
+    "aiReady": "AI modu hazır.",
+    "aiThinking": "Analiz ediliyor...",
+    "aiError": "AI modu bu isteği işleyemedi, yerleşik motor kullanıldı.",
+    "aiUnsupported": "AI modu daha yeni bir işlemci ister (AVX2)",
+    "aiUnsupportedHint": "Bu işlemcide eksik olanlar:",
+    "aiCorrupt": "Model indirmesi eksik ya da bozuktu ve silindi. Lütfen tekrar dene.",
+    "aiDownloadFailed": "AI modeli indirilemedi. Bağlantını kontrol edip tekrar dene."
   }
 }

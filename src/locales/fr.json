@@ -68,7 +68,8 @@
     "metadata": "Éditeur de Métadonnées",
     "detector": "Détection Clé & BPM",
     "settings": "Paramètres",
-    "cutter": "Sample Cutter"
+    "cutter": "Sample Cutter",
+    "prompter": "Suno Style Prompter"
   },
   "header": {
     "openMenu": "Ouvrir Menu"
@@ -82,7 +83,8 @@
     "settingsDesc": "Dossiers, thèmes et langues",
     "toolsSection": "Outils Studio",
     "quickAccess": "Accès Rapide",
-    "cutterDesc": "8-second audio sample cutter"
+    "cutterDesc": "8-second audio sample cutter",
+    "prompterDesc": "Tags de style et structure pour Suno"
   },
   "home": {
     "heroSubtitle": "Boîte à outils de bureau pour le téléchargement audio IA, la capture média, l'édition de tags et l'analyse Clé/BPM.",
@@ -117,7 +119,10 @@
     "tagRhythmAnalysis": "Rhythm Analysis",
     "tagOffline": "Offline",
     "tagSunoCutter": "Suno Cutter",
-    "tagLyrics": "Lyrics"
+    "tagLyrics": "Lyrics",
+    "prompterTitle": "Suno Style Prompter",
+    "prompterDesc": "Décrivez une chanson dans n'importe quelle langue et obtenez des tags de style Suno et une structure prêts à coller. Fonctionne hors ligne.",
+    "tagStructure": "Structure"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -359,5 +364,45 @@
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
     "anonymousUser": "User"
+  },
+  "prompter": {
+    "title": "Suno Style Prompter",
+    "subtitle": "Décrivez une chanson avec vos propres mots et obtenez un Style et une Structure prêts à coller dans Suno. Aucune parole n'est écrite.",
+    "newSession": "Nouvelle session",
+    "sessions": "Sessions",
+    "untitled": "Nouvelle session",
+    "deleteSession": "Supprimer la session",
+    "emptyDesc": "Décrivez ce que vous voulez en une phrase, puis affinez : \"moins de basse\", \"BPM 140\", \"ajoute un saxophone à l'intro\".",
+    "example1": "UK drill sombre, voix masculine, autotune marqué, 142 BPM",
+    "example2": "Ballade triste au piano avec voix féminine et cordes",
+    "example3": "Instrumental lo-fi calme avec craquements de vinyle",
+    "inputPlaceholder": "Décrivez votre chanson : genre, ambiance, instruments, voix, tempo, structure...",
+    "revisePlaceholder": "Affinez : \"moins de basse\", \"BPM 140\", \"ajoute un saxophone à l'intro\"...",
+    "send": "Générer",
+    "understoodAs": "Compris comme",
+    "notUnderstood": "Aucun élément musical reconnu. Utilisez des mots de genre, d'instrument ou d'ambiance, ou activez le mode IA pour écrire dans n'importe quelle langue.",
+    "notUnderstoodAi": "Aucun élément musical trouvé. Décrivez le genre, les instruments, l'ambiance, la voix ou le tempo.",
+    "structureKept": "Votre structure modifiée a été conservée. Utilisez \"Régénérer la structure\" pour y appliquer les changements.",
+    "style": "Style of Music",
+    "stylePlaceholder": "Vos tags de style Suno apparaîtront ici.",
+    "structure": "Structure / Arrangement",
+    "structureDesc": "Remplacez les lignes entre parenthèses par vos propres paroles avant de coller dans Suno.",
+    "structurePlaceholder": "Les tags de sections comme [Intro], [Verse 1], [Chorus] apparaîtront ici.",
+    "regenerate": "Régénérer la structure",
+    "copy": "Copier",
+    "copied": "Copié dans le presse-papiers.",
+    "copyJson": "Copier en JSON",
+    "aiEnable": "Activer le mode IA (~400 Mo)",
+    "aiEnableHint": "Télécharge une seule fois un petit modèle de langage (environ 400 Mo). Permet d'écrire dans n'importe quelle langue. Fonctionne hors ligne sur votre processeur.",
+    "aiDownloading": "Téléchargement du modèle IA",
+    "aiOn": "Mode IA : activé",
+    "aiOff": "Mode IA : désactivé",
+    "aiReady": "Le mode IA est prêt.",
+    "aiThinking": "Analyse...",
+    "aiError": "Le mode IA n'a pas pu traiter cette demande, le moteur intégré a été utilisé.",
+    "aiUnsupported": "Le mode IA nécessite un processeur plus récent (AVX2)",
+    "aiUnsupportedHint": "Il manque à ce processeur :",
+    "aiCorrupt": "Le téléchargement du modèle était incomplet ou endommagé et a été supprimé. Veuillez réessayer.",
+    "aiDownloadFailed": "Impossible de télécharger le modèle IA. Vérifiez votre connexion et réessayez."
   }
 }

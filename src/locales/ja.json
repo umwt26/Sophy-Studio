@@ -68,7 +68,8 @@
     "metadata": "メタデータ編集",
     "detector": "Key & BPM 検出",
     "settings": "設定",
-    "cutter": "Sample Cutter"
+    "cutter": "Sample Cutter",
+    "prompter": "Suno Style Prompter"
   },
   "header": {
     "openMenu": "メニューを開く"
@@ -82,7 +83,8 @@
     "settingsDesc": "フォルダー、カラーテーマと言語",
     "toolsSection": "スタジオツール",
     "quickAccess": "クイックアクセス",
-    "cutterDesc": "8-second audio sample cutter"
+    "cutterDesc": "8-second audio sample cutter",
+    "prompterDesc": "Suno用のスタイルタグと曲構成"
   },
   "home": {
     "heroSubtitle": "AI音楽ダウンロード、メディア保存、タグ編集、Key/BPM解析のためのデスクトップツールキット。",
@@ -117,7 +119,10 @@
     "tagRhythmAnalysis": "Rhythm Analysis",
     "tagOffline": "Offline",
     "tagSunoCutter": "Suno Cutter",
-    "tagLyrics": "Lyrics"
+    "tagLyrics": "Lyrics",
+    "prompterTitle": "Suno Style Prompter",
+    "prompterDesc": "どの言語でも曲を説明するだけで、Sunoに貼り付けられるスタイルタグと曲構成を作成します。オフラインで動作します。",
+    "tagStructure": "構成"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -359,5 +364,45 @@
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
     "anonymousUser": "User"
+  },
+  "prompter": {
+    "title": "Suno Style Prompter",
+    "subtitle": "曲のイメージを自由に書くだけで、Sunoにそのまま貼り付けられるStyleとStructureを作成します。歌詞は書きません。",
+    "newSession": "新しいセッション",
+    "sessions": "セッション",
+    "untitled": "新しいセッション",
+    "deleteSession": "セッションを削除",
+    "emptyDesc": "作りたい曲を一文で書き、その後「ベースを控えめに」「BPM 140」「イントロにサックスを追加」のように調整します。",
+    "example1": "ダークなUKドリル、男性ボーカル、強めのオートチューン、142 BPM",
+    "example2": "女性ボーカルとストリングスの切ないピアノバラード",
+    "example3": "レコードノイズ入りのチルなローファイ・インスト",
+    "inputPlaceholder": "曲を説明してください：ジャンル、雰囲気、楽器、ボーカル、テンポ、構成…",
+    "revisePlaceholder": "調整：「ベースを控えめに」「BPM 140」「イントロにサックスを追加」…",
+    "send": "生成",
+    "understoodAs": "解釈",
+    "notUnderstood": "音楽的な要素を認識できませんでした。ジャンル・楽器・雰囲気の言葉を使うか、AIモードをオンにするとどの言語でも書けます。",
+    "notUnderstoodAi": "音楽的な要素が見つかりませんでした。ジャンル、楽器、雰囲気、ボーカル、テンポを書いてください。",
+    "structureKept": "編集した構成はそのまま残しました。変更を反映するには「構成を再生成」を押してください。",
+    "style": "Style of Music",
+    "stylePlaceholder": "Suno用のスタイルタグがここに表示されます。",
+    "structure": "構成 / アレンジ",
+    "structureDesc": "Sunoに貼り付ける前に、カッコ内の行を自分の歌詞に置き換えてください。",
+    "structurePlaceholder": "[Intro]、[Verse 1]、[Chorus] などのセクションタグがここに表示されます。",
+    "regenerate": "構成を再生成",
+    "copy": "コピー",
+    "copied": "クリップボードにコピーしました。",
+    "copyJson": "JSONとしてコピー",
+    "aiEnable": "AIモードを有効化（約400 MB）",
+    "aiEnableHint": "小さな言語モデルを一度だけダウンロードします（約400 MB）。どの言語でも書けるようになり、CPU上でオフライン動作します。",
+    "aiDownloading": "AIモデルをダウンロード中",
+    "aiOn": "AIモード：オン",
+    "aiOff": "AIモード：オフ",
+    "aiReady": "AIモードの準備ができました。",
+    "aiThinking": "解析中…",
+    "aiError": "AIモードでこのリクエストを処理できなかったため、内蔵エンジンを使用しました。",
+    "aiUnsupported": "AIモードにはより新しいCPU（AVX2）が必要です",
+    "aiUnsupportedHint": "このプロセッサに不足している機能：",
+    "aiCorrupt": "モデルのダウンロードが不完全または破損していたため削除しました。もう一度お試しください。",
+    "aiDownloadFailed": "AIモデルをダウンロードできませんでした。接続を確認して、もう一度お試しください。"
   }
 }

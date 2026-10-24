@@ -273,6 +273,11 @@ textarea {
   transition: border-color 0.12s, box-shadow 0.12s;
 }
 
+textarea.input {
+  height: auto;
+  line-height: 1.55;
+}
+
 .input.has-icon-left,
 .input-with-icon {
   padding-left: 36px !important;

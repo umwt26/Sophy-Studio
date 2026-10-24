@@ -40,6 +40,8 @@ interface AiStatus {
 }
 
 const STORE_KEY = "sophy.prompter.sessions.v1";
+/** Same inner spacing on every side of the result boxes. */
+const BOX_STYLE: React.CSSProperties = { height: "100%", padding: "12px 14px", lineHeight: "22px" };
 /** Scripts the rule engine has no vocabulary for: Arabic, Hebrew, Indic, Thai, Hangul, Greek, Armenian, Georgian. */
 const UNSUPPORTED_SCRIPT = /[֐-ۿݐ-ݿऀ-෿฀-๿ᄀ-ᇿ가-힯Ͱ-Ͽ԰-֏Ⴀ-ჿ]/;
 
@@ -232,6 +234,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
         commands: [...s.commands, { text, understoodAs, ok: result.understood }],
       }));
       setInput("");
+      if (inputRef.current) inputRef.current.style.height = "44px";
     } finally {
       setBusy(false);
     }
@@ -329,9 +332,12 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
             value={session.style}
             onChange={(e) => update(session.id, (s) => ({ ...s, style: e.target.value.slice(0, STYLE_LIMIT), updatedAt: Date.now() }))}
             placeholder={t("prompter.stylePlaceholder", "Your Suno style tags will appear here.")}
-            className="input resize-none py-2.5 text-[13px] font-mono leading-relaxed flex-1 min-h-0"
-            style={{ height: "100%" }}
+            className="input resize-none text-[13px] font-mono flex-1 min-h-0"
+            style={BOX_STYLE}
           />
+          <p className="text-[11px] text-[var(--color-text-muted)]">
+            {t("prompter.styleDesc", "Paste this into the Style of Music field in Suno.")}
+          </p>
         </div>
 
         <div className="section p-4 flex flex-col gap-2 min-w-0 min-h-0">
@@ -353,8 +359,8 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
               update(session.id, (s) => ({ ...s, structure: e.target.value.slice(0, STRUCTURE_LIMIT), structureEdited: true, updatedAt: Date.now() }))
             }
             placeholder={t("prompter.structurePlaceholder", "Section tags like [Intro], [Verse 1], [Chorus] will appear here.")}
-            className="input resize-none py-2.5 text-[13px] font-mono leading-relaxed flex-1 min-h-0"
-            style={{ height: "100%" }}
+            className="input resize-none text-[13px] font-mono flex-1 min-h-0"
+            style={BOX_STYLE}
           />
           <p className="text-[11px] text-[var(--color-text-muted)]">
             {t("prompter.structureDesc", "Replace the lines in parentheses with your own lyrics before pasting into Suno.")}
@@ -456,7 +462,13 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
           <textarea
             ref={inputRef}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              setInput(e.target.value);
+              // grow with the text (one line = 44px, max ~5 lines)
+              const el = e.target;
+              el.style.height = "44px";
+              el.style.height = `${Math.min(el.scrollHeight, 128)}px`;
+            }}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
@@ -473,10 +485,11 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
                 ? t("prompter.revisePlaceholder", "Refine it: \"less bass\", \"BPM 140\", \"add saxophone to the intro\"...")
                 : t("prompter.inputPlaceholder", "Describe your song: genre, mood, instruments, vocals, tempo, structure...")
             }
-            className="input flex-1 resize-none py-2.5 text-sm rounded-xl"
-            style={{ minHeight: 42, maxHeight: 128 }}
+            className="input flex-1 resize-none text-sm rounded-xl"
+            // 44px tall with 20px line height and 11px vertical padding: text sits centred
+            style={{ height: 44, maxHeight: 128, paddingTop: 11, paddingBottom: 11, lineHeight: "20px" }}
           />
-          <button type="submit" disabled={busy || preparing || !input.trim()} className="btn btn-primary h-[42px] w-[42px] p-0 rounded-xl" aria-label={t("prompter.send", "Send")}>
+          <button type="submit" disabled={busy || preparing || !input.trim()} className="btn btn-primary shrink-0 p-0 rounded-xl" style={{ height: 44, width: 44 }} aria-label={t("prompter.send", "Send")}>
             {busy ? <LoadingSpinner className="h-4 w-4 animate-spin" /> : <SendIcon className="h-4 w-4" />}
           </button>
         </form>

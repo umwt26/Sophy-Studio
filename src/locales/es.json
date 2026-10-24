@@ -411,6 +411,7 @@
     "applied": "Aplicado",
     "notApplied": "No reconocido",
     "waitForAi": "Un momento, se está preparando el modelo de IA...",
-    "aiNotReady": "El modelo de IA aún no se ha descargado; se usa el motor integrado."
+    "aiNotReady": "El modelo de IA aún no se ha descargado; se usa el motor integrado.",
+    "styleDesc": "Pega esto en el campo Style of Music de Suno."
   }
 }

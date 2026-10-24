@@ -411,6 +411,7 @@
     "applied": "Übernommen",
     "notApplied": "Nicht erkannt",
     "waitForAi": "Einen Moment, das KI-Modell wird vorbereitet...",
-    "aiNotReady": "Das KI-Modell ist noch nicht heruntergeladen, die integrierte Engine wird verwendet."
+    "aiNotReady": "Das KI-Modell ist noch nicht heruntergeladen, die integrierte Engine wird verwendet.",
+    "styleDesc": "Füge dies in Suno in das Feld \"Style of Music\" ein."
   }
 }

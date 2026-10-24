@@ -411,6 +411,7 @@
     "applied": "Uygulandı",
     "notApplied": "Anlaşılamadı",
     "waitForAi": "Biraz bekle, AI modeli hazırlanıyor...",
-    "aiNotReady": "AI modeli henüz inmedi, yerleşik motor kullanılıyor."
+    "aiNotReady": "AI modeli henüz inmedi, yerleşik motor kullanılıyor.",
+    "styleDesc": "Bunu Suno'daki Style of Music alanına yapıştır."
   }
 }

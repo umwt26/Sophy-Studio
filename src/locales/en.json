@@ -411,6 +411,7 @@
     "applied": "Applied",
     "notApplied": "Not recognised",
     "waitForAi": "Wait a moment, the AI model is being prepared...",
-    "aiNotReady": "The AI model isn't downloaded yet, the built-in engine is used."
+    "aiNotReady": "The AI model isn't downloaded yet, the built-in engine is used.",
+    "styleDesc": "Paste this into the Style of Music field in Suno."
   }
 }

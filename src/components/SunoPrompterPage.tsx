@@ -325,9 +325,11 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
   })();
 
   return (
-    <div className="page !gap-4">
+    // Fits the window: header + results + chat on one screen, no page scrolling.
+    // 92px = app top bar (52px) + main container vertical padding (2 x 20px).
+    <div className="page !gap-4" style={{ height: "calc(100vh - 92px)", minHeight: 520 }}>
       {/* Header */}
-      <div className="section section-pad flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="section px-4 py-3 shrink-0 flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] border border-[var(--color-accent)]/20">
             <SparklesIcon className="h-5 w-5" />
@@ -353,8 +355,8 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
       </div>
 
       {/* Results: Style | Structure side by side */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="section p-4 flex flex-col gap-2 min-w-0">
+      <div className="grid grid-cols-2 gap-4 flex-1 min-h-0">
+        <div className="section p-4 flex flex-col gap-2 min-w-0 min-h-0">
           <div className="flex items-center justify-between gap-2">
             <p className="section-title">{t("prompter.style", "Style of Music")}</p>
             <div className="flex items-center gap-2">
@@ -366,12 +368,12 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
             value={session.style}
             onChange={(e) => update(session.id, (s) => ({ ...s, style: e.target.value.slice(0, STYLE_LIMIT), updatedAt: Date.now() }))}
             placeholder={t("prompter.stylePlaceholder", "Your Suno style tags will appear here.")}
-            className="input resize-none py-2.5 text-[13px] font-mono leading-relaxed"
-            style={{ height: 320 }}
+            className="input resize-none py-2.5 text-[13px] font-mono leading-relaxed flex-1 min-h-0"
+            style={{ height: "100%" }}
           />
         </div>
 
-        <div className="section p-4 flex flex-col gap-2 min-w-0">
+        <div className="section p-4 flex flex-col gap-2 min-w-0 min-h-0">
           <div className="flex items-center justify-between gap-2">
             <p className="section-title">{t("prompter.structure", "Structure / Arrangement")}</p>
             <div className="flex items-center gap-2">
@@ -390,8 +392,8 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
               update(session.id, (s) => ({ ...s, structure: e.target.value.slice(0, STRUCTURE_LIMIT), structureEdited: true, updatedAt: Date.now() }))
             }
             placeholder={t("prompter.structurePlaceholder", "Section tags like [Intro], [Verse 1], [Chorus] will appear here.")}
-            className="input resize-none py-2.5 text-[13px] font-mono leading-relaxed"
-            style={{ height: 320 }}
+            className="input resize-none py-2.5 text-[13px] font-mono leading-relaxed flex-1 min-h-0"
+            style={{ height: "100%" }}
           />
           <p className="text-[11px] text-[var(--color-text-muted)]">
             {t("prompter.structureDesc", "Replace the lines in parentheses with your own lyrics before pasting into Suno.")}
@@ -400,13 +402,13 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
       </div>
 
       {/* Chat */}
-      <div className="section flex flex-col overflow-hidden">
-        <div className="flex items-center justify-between gap-2 px-4 py-2.5 border-b border-[var(--color-app-border)]">
+      <div className="section flex flex-col overflow-hidden shrink-0">
+        <div className="flex items-center justify-between gap-2 px-4 py-2 border-b border-[var(--color-app-border)]">
           <p className="text-xs font-medium text-[var(--color-text-secondary)] truncate">{session.title || t("prompter.untitled", "New chat")}</p>
           <CopyButton text={session.style || session.structure ? json : ""} label={t("prompter.copyJson", "Copy as JSON")} onCopied={copied} />
         </div>
 
-        <div ref={chatRef} className="flex flex-col gap-3 px-4 py-4 h-[220px] overflow-y-auto">
+        <div ref={chatRef} className="flex flex-col gap-3 px-4 py-3 overflow-y-auto" style={{ height: "clamp(110px, 22vh, 230px)" }}>
           {session.commands.length === 0 ? (
             <div className="m-auto flex flex-col items-center gap-3 text-center max-w-xl">
               <p className="text-xs text-[var(--color-text-secondary)]">

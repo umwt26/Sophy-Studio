@@ -85,6 +85,11 @@ jobs:
               exit 1
             }
           }
+          # The app must not depend on the Visual C++ Redistributable (msvcp140/vcruntime140).
+          python -m pip install --quiet pefile
+          $deps = python -c "import pefile,sys; pe=pefile.PE(sys.argv[1]); print(' '.join(sorted(e.dll.decode().lower() for e in pe.DIRECTORY_ENTRY_IMPORT)))" out/Sophy_Studio_Portable.exe
+          Write-Host "imports: $deps"
+          if ($deps -match 'msvcp1|vcruntime1|msvcr1') { Write-Error "Binary depends on the VC++ runtime: $deps"; exit 1 }
           # Installer hooks must not contain dropper-like commands (antivirus false positives).
           $hooks = Get-Content src-tauri/hooks.nsh -Raw
           foreach ($bad in @("powershell", "ExecutionPolicy", "DownloadFile", "taskkill")) {

@@ -2,8 +2,8 @@
 ;
 ; Keep this file minimal. Antivirus engines (Windows Defender included) score
 ; installers heuristically. A hidden script shell that bypasses execution
-; policy and downloads executables, force-killing processes, or silently
-; running uninstallers are classic "dropper" signatures; they caused the
+; policy and downloads executables, force-killing processes, or blindly
+; running uninstallers on every launch are classic "dropper" signatures; they caused the
 ; v1.1.x setups to be flagged and quarantined. CI rejects this file if such
 ; commands come back.
 ;
@@ -11,17 +11,51 @@
 ; - Upgrades over an existing currentUser install are handled by Tauri itself.
 ; - ffmpeg / ffprobe / yt-dlp are fetched by the app at runtime
 ;   (sophy_core::*::ensure_*_binary), so the installer downloads nothing.
+;
+; Legacy cleanup works from Windows' own "Installed apps" registry entries
+; (the same data Settings > Apps uses), never from guessed folders:
+;   - v0.1.0 was installed per-machine (Program Files, HKLM)
+;   - pre-rename builds were registered as "Sophy"
+; The current per-user "Sophy Studio" install is upgraded in place by Tauri
+; itself and is never uninstalled here. Uninstallers run with /S only, so the
+; "delete app data" option stays off: history and settings are kept.
+
+!macro SOPHY_REMOVE_LEGACY ID ROOT NAME
+  !define _SL_ID ${ID}
+  Push $R0
+  Push $R1
+  Push $R2
+  ReadRegStr $R0 ${ROOT} "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}" "UninstallString"
+  StrCmp $R0 "" sophy_legacy_done_${_SL_ID}
+  ; strip surrounding quotes
+  StrCpy $R2 $R0 1
+  StrCmp $R2 '"' 0 +3
+    StrCpy $R0 $R0 "" 1
+    StrCpy $R0 $R0 -1
+  ; safety: never remove the install that is being updated right now
+  StrCmp $R0 "$INSTDIR\uninstall.exe" sophy_legacy_done_${_SL_ID}
+  IfFileExists "$R0" 0 sophy_legacy_key_${_SL_ID}
+    ${GetParent} "$R0" $R1
+    DetailPrint "Removing previous Sophy installation: $R1"
+    ExecWait '"$R0" /S _?=$R1'
+    Delete "$R0"
+    RMDir "$R1"
+  sophy_legacy_key_${_SL_ID}:
+  ; orphaned entry (folder already gone) -> drop it so it no longer shows in Apps
+  DeleteRegKey ${ROOT} "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
+  sophy_legacy_done_${_SL_ID}:
+  Pop $R2
+  Pop $R1
+  Pop $R0
+  !undef _SL_ID
+!macroend
 
 !macro NSIS_HOOK_PREINSTALL
-  ; Legacy v0.1.0 was a machine-wide install under Program Files.
-  ; Only touch it if it actually exists.
-  IfFileExists "$PROGRAMFILES64\Sophy Studio\uninstall.exe" 0 +2
-    ExecWait '"$PROGRAMFILES64\Sophy Studio\uninstall.exe" /S'
+  !insertmacro SOPHY_REMOVE_LEGACY 1 HKLM "Sophy Studio"
+  !insertmacro SOPHY_REMOVE_LEGACY 2 HKLM "Sophy"
+  !insertmacro SOPHY_REMOVE_LEGACY 3 HKCU "Sophy"
 
-  IfFileExists "$PROGRAMFILES64\Sophy\uninstall.exe" 0 +2
-    ExecWait '"$PROGRAMFILES64\Sophy\uninstall.exe" /S'
-
-  ; Leftover per-user shortcut from the pre-rename "Sophy" builds
+  ; Leftover shortcuts from the pre-rename "Sophy" builds
   Delete "$DESKTOP\Sophy.lnk"
   Delete "$SMPROGRAMS\Sophy.lnk"
 !macroend

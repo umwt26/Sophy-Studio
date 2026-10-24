@@ -1,0 +1,51 @@
+name: Metadata probe (Windows)
+# Diagnostic: checks what Windows itself (Explorer property system) reads from files
+# tagged by sophy-core. Runs only on test/** branches.
+on:
+  push:
+    branches: ["test/**"]
+    paths: ["crates/sophy-core/**", ".github/workflows/metadata-probe.yml"]
+jobs:
+  probe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build probe
+        run: cargo build -p sophy-core --example tag_probe
+      - name: Make test files
+        shell: pwsh
+        run: |
+          choco install ffmpeg -y --no-progress | Out-Null
+          New-Item -ItemType Directory probe | Out-Null
+          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -c:a libmp3lame -b:a 192k probe/a.mp3
+          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -metadata title=OldTitle -metadata artist=OldArtist -c:a libmp3lame -id3v2_version 4 probe/b_v24.mp3
+          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -c:a pcm_s16le -ar 44100 probe/c.wav
+          ffmpeg -v error -i probe/b_v24.mp3 -vn -c:a pcm_s16le -ar 44100 probe/d_from_mp3.wav
+          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" -c:a pcm_s24le -ar 48000 probe/e_24bit.wav
+          ffmpeg -v error -f lavfi -i "sine=frequency=440:duration=3" probe/f.flac
+          ffmpeg -v error -f lavfi -i "testsrc=s=800x800" -frames:v 1 probe/cover.jpg
+      - name: Tag and read back with Windows Shell
+        shell: pwsh
+        run: |
+          $shell = New-Object -ComObject Shell.Application
+          $folder = $shell.Namespace((Resolve-Path probe).Path)
+          # find column indexes for Title / Contributing artists / Album
+          $cols = @{}
+          0..400 | ForEach-Object { $n = $folder.GetDetailsOf($null, $_); if ($n) { $cols[$n] = $_ } }
+          $want = @('Title','Contributing artists','Album','Genre','#','Year')
+          foreach ($f in Get-ChildItem probe -Include *.mp3,*.wav,*.flac -Recurse) {
+            $before = $folder.ParseName($f.Name)
+            $b = ($want | ForEach-Object { "$_=" + $folder.GetDetailsOf($before, $cols[$_]) }) -join '; '
+            $r = & target/debug/examples/tag_probe.exe $f.FullName probe/cover.jpg
+            Start-Sleep -Milliseconds 300
+            $shell2 = New-Object -ComObject Shell.Application
+            $folder2 = $shell2.Namespace((Resolve-Path probe).Path)
+            $after = $folder2.ParseName($f.Name)
+            $a = ($want | ForEach-Object { "$_=" + $folder2.GetDetailsOf($after, $cols[$_]) }) -join '; '
+            $streams = (ffprobe -v error -show_entries stream=codec_name -of csv=p=0 $f.FullName) -join ','
+            Write-Host "=== $($f.Name): $r"
+            Write-Host "    before: $b"
+            Write-Host "    after : $a"
+            Write-Host "    ffprobe streams: $streams"
+          }

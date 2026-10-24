@@ -45,6 +45,9 @@ pub fn run() {
       // Automatically clean up legacy machine-wide v0.1.0 duplicate installations & shortcuts
       cleanup_legacy_installations();
 
+      // Suno Style Prompter AI model: downloaded silently on first run (only on CPUs that can run it)
+      prompter_ai::spawn_auto_download(app.handle().clone());
+
       // Proactively ensure yt-dlp, ffmpeg and ffprobe binaries in background
       tauri::async_runtime::spawn(async move {
         let _ = sophy_core::UniversalDownloader::ensure_ytdlp_binary().await;

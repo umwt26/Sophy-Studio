@@ -33,6 +33,9 @@ interface AiStatus {
   missingCpuFeatures: string[];
   modelDownloaded: boolean;
   modelSizeBytes?: number | null;
+  downloading: boolean;
+  downloadedBytes: number;
+  totalBytes?: number | null;
 }
 
 const STORE_KEY = "sophy.prompter.sessions.v1";
@@ -117,7 +120,8 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
   const [ai, setAi] = useState<AiStatus | null>(null);
   const [aiEnabled, setAiEnabled] = useState<boolean>(() => {
     try {
-      return localStorage.getItem(AI_KEY) === "on";
+      // on by default; only an explicit "off" from the user turns it off
+      return localStorage.getItem(AI_KEY) !== "off";
     } catch {
       return false;
     }
@@ -130,10 +134,20 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
   useEffect(() => saveSessions(sessions), [sessions]);
 
   useEffect(() => {
-    invoke<AiStatus>("prompter_ai_status").then(setAi).catch(() => setAi(null));
-    const un = listen<{ downloaded: number; total?: number | null }>("prompter-ai-progress", (e) => setDownload(e.payload));
+    const refresh = () =>
+      invoke<AiStatus>("prompter_ai_status")
+        .then((st) => {
+          setAi(st);
+          setDownload(st.downloading ? { downloaded: st.downloadedBytes, total: st.totalBytes } : null);
+        })
+        .catch(() => setAi(null));
+    void refresh();
+    const unProgress = listen<{ downloaded: number; total?: number | null }>("prompter-ai-progress", (e) => setDownload(e.payload));
+    // The model downloads automatically in the background on first run; refresh when it finishes.
+    const unDone = listen("prompter-ai-finished", () => void refresh());
     return () => {
-      un.then((f) => f());
+      unProgress.then((f) => f()).catch(() => {});
+      unDone.then((f) => f()).catch(() => {});
     };
   }, []);
 
@@ -227,20 +241,13 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
     setNotice(null);
   };
 
-  const enableAi = async () => {
+  const retryDownload = async () => {
     if (!ai?.cpuSupported) return;
-    if (ai.modelDownloaded) {
-      setAiEnabled(true);
-      try { localStorage.setItem(AI_KEY, "on"); } catch { /* ignore */ }
-      return;
-    }
     setDownload({ downloaded: 0, total: null });
     try {
       await invoke("prompter_ai_download");
       const st = await invoke<AiStatus>("prompter_ai_status");
       setAi(st);
-      setAiEnabled(true);
-      try { localStorage.setItem(AI_KEY, "on"); } catch { /* ignore */ }
       onShowToast(t("prompter.aiReady", "AI mode is ready."));
     } catch (err) {
       const code = String(err).split(":")[0];
@@ -267,7 +274,6 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
   );
 
   const pct = download?.total ? Math.floor((download.downloaded / download.total) * 100) : null;
-  const mb = (n: number) => `${Math.round(n / 1_000_000)} MB`;
   const copied = () => onShowToast(t("prompter.copied", "Copied to clipboard."));
 
   const examples = [
@@ -306,8 +312,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
               <LoadingSpinner className="h-4 w-4 animate-spin text-[var(--color-accent)]" />
               <div className="flex-1">
                 <div className="text-[11px] text-[var(--color-text-secondary)]">
-                  {t("prompter.aiDownloading", "Downloading AI model")} {pct !== null ? `${pct}%` : ""}{" "}
-                  {download.total ? `(${mb(download.downloaded)} / ${mb(download.total)})` : ""}
+                  {t("prompter.aiDownloading", "Preparing AI model")} {pct !== null ? `${pct}%` : ""}
                 </div>
                 <div className="mt-1 h-1 rounded bg-[var(--color-app-border)] overflow-hidden">
                   <div className="h-full bg-[var(--color-accent)] transition-all" style={{ width: `${pct ?? 3}%` }} />
@@ -320,9 +325,9 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
               <span>{aiEnabled ? t("prompter.aiOn", "AI mode: On") : t("prompter.aiOff", "AI mode: Off")}</span>
             </button>
           ) : ai ? (
-            <button type="button" onClick={enableAi} className="btn btn-secondary h-8 px-3 text-xs" title={t("prompter.aiEnableHint", "Downloads a small language model once (about 400 MB). Lets you write in any language. Runs offline on your CPU.")}>
+            <button type="button" onClick={retryDownload} className="btn btn-secondary h-8 px-3 text-xs" title={t("prompter.aiEnableHint", "Lets you write in any language. Runs offline on your computer.")}>
               <SparklesIcon className="h-3.5 w-3.5" />
-              <span>{t("prompter.aiEnable", "Enable AI mode (~400 MB)")}</span>
+              <span>{t("prompter.aiEnable", "Download AI model")}</span>
             </button>
           ) : null}
         </div>

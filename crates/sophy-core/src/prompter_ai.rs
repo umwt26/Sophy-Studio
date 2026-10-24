@@ -11,11 +11,17 @@
 
 use serde::Serialize;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Mutex, OnceLock};
 
-const MODEL_FILE: &str = "qwen2.5-0.5b-instruct-q4_k_m.gguf";
+static DOWNLOADING: AtomicBool = AtomicBool::new(false);
+static DL_DONE: AtomicU64 = AtomicU64::new(0);
+static DL_TOTAL: AtomicU64 = AtomicU64::new(0);
+
+// Qwen2.5-1.5B-Instruct: much better multilingual understanding than 0.5B, still CPU-friendly.
+const MODEL_FILE: &str = "qwen2.5-1.5b-instruct-q4_k_m.gguf";
 const MODEL_URL: &str =
-    "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/main/qwen2.5-0.5b-instruct-q4_k_m.gguf";
+    "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q4_k_m.gguf";
 /// Inference threads, kept low so the rest of the app stays responsive on old CPUs.
 const THREADS: i32 = 2;
 
@@ -27,6 +33,10 @@ pub struct AiStatus {
     pub missing_cpu_features: Vec<String>,
     pub model_downloaded: bool,
     pub model_size_bytes: Option<u64>,
+    /// a download is running right now (e.g. the automatic first-run download)
+    pub downloading: bool,
+    pub downloaded_bytes: u64,
+    pub total_bytes: Option<u64>,
 }
 
 #[derive(Serialize, Clone)]
@@ -75,7 +85,7 @@ fn missing_cpu_features() -> Vec<String> {
 fn is_valid_model_file(p: &std::path::Path) -> bool {
     use std::io::Read;
     let Ok(meta) = std::fs::metadata(p) else { return false };
-    if meta.len() < 100_000_000 {
+    if meta.len() < 500_000_000 {
         return false;
     }
     let mut magic = [0u8; 4];
@@ -94,21 +104,54 @@ pub fn status() -> AiStatus {
         missing_cpu_features: missing,
         model_downloaded: downloaded,
         model_size_bytes: path.and_then(|p| std::fs::metadata(p).ok()).map(|m| m.len()),
+        downloading: DOWNLOADING.load(Ordering::SeqCst),
+        downloaded_bytes: DL_DONE.load(Ordering::SeqCst),
+        total_bytes: Some(DL_TOTAL.load(Ordering::SeqCst)).filter(|t| *t > 0),
     }
 }
 
 /// Downloads the model once, verifying it against the SHA-256 Hugging Face publishes
 /// for the file (X-Linked-ETag on the resolve URL) and the GGUF magic.
 pub async fn download(on_progress: impl Fn(DownloadProgress)) -> Result<(), String> {
-    use sha2::{Digest, Sha256};
-    use std::io::Write;
-
     if !missing_cpu_features().is_empty() {
         return Err("AI_CPU_UNSUPPORTED".into());
     }
+    if DOWNLOADING.swap(true, Ordering::SeqCst) {
+        return Err("AI_BUSY: download already running".into());
+    }
+    DL_DONE.store(0, Ordering::SeqCst);
+    DL_TOTAL.store(0, Ordering::SeqCst);
+    let r = download_inner(on_progress).await;
+    DOWNLOADING.store(false, Ordering::SeqCst);
+    r
+}
+
+/// Starts the download in the background if the CPU supports AI mode and the model is missing.
+/// Used on app start so users never have to click anything.
+pub async fn ensure_model(on_progress: impl Fn(DownloadProgress)) -> Result<(), String> {
+    let st = status();
+    if !st.cpu_supported || st.model_downloaded || st.downloading {
+        return Ok(());
+    }
+    download(on_progress).await
+}
+
+async fn download_inner(on_progress: impl Fn(DownloadProgress)) -> Result<(), String> {
+    use sha2::{Digest, Sha256};
+    use std::io::Write;
+
     let dir = models_dir().ok_or("AI_DOWNLOAD_FAILED: no app data folder")?;
     std::fs::create_dir_all(&dir).map_err(|e| format!("AI_DOWNLOAD_FAILED: {e}"))?;
     let final_path = dir.join(MODEL_FILE);
+    // Remove models from older versions (e.g. the 0.5B one) to free disk space.
+    if let Ok(entries) = std::fs::read_dir(&dir) {
+        for e in entries.flatten() {
+            let name = e.file_name().to_string_lossy().to_string();
+            if name != MODEL_FILE && !name.starts_with(&format!("{MODEL_FILE}.")) {
+                let _ = std::fs::remove_file(e.path());
+            }
+        }
+    }
     let part_path = dir.join(format!("{MODEL_FILE}.part"));
 
     let ua = format!("Sophy-Studio/{}", env!("CARGO_PKG_VERSION"));
@@ -156,6 +199,7 @@ pub async fn download(on_progress: impl Fn(DownloadProgress)) -> Result<(), Stri
         return Err(format!("AI_DOWNLOAD_FAILED: HTTP {}", resp.status()));
     }
     let total = resp.content_length();
+    DL_TOTAL.store(total.unwrap_or(0), Ordering::SeqCst);
     let mut file = std::fs::File::create(&part_path).map_err(|e| format!("AI_DOWNLOAD_FAILED: {e}"))?;
     let mut hasher = Sha256::new();
     let mut downloaded: u64 = 0;
@@ -169,6 +213,7 @@ pub async fn download(on_progress: impl Fn(DownloadProgress)) -> Result<(), Stri
         file.write_all(&chunk).map_err(|e| format!("AI_DOWNLOAD_FAILED: {e}"))?;
         hasher.update(&chunk);
         downloaded += chunk.len() as u64;
+        DL_DONE.store(downloaded, Ordering::SeqCst);
         if last_emit.elapsed().as_millis() > 200 {
             on_progress(DownloadProgress { downloaded, total });
             last_emit = std::time::Instant::now();

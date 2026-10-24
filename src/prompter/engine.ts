@@ -26,6 +26,8 @@ interface Tag {
   cat: Category;
   /** -1 = less, 0 = normal, 1 = more */
   level: number;
+  /** added as a genre default, not by the user: replaced when the genre changes */
+  auto?: boolean;
 }
 
 interface Section {
@@ -41,6 +43,8 @@ export interface PrompterState {
   sections: Section[];
   /** sections were explicitly given by the user (don't regenerate from genre) */
   customSections: boolean;
+  /** bpm came from the genre default, not from the user */
+  bpmAuto?: boolean;
 }
 
 export interface ApplyResult {
@@ -125,11 +129,25 @@ function findAll<T extends { patterns: string[] }>(text: string, items: T[]): Hi
 function hasAny(text: string, words: readonly string[]): number {
   let best = -1;
   for (const w of words) {
-    const idx = text.indexOf(normalize(w));
-    if (idx >= 0 && (best < 0 || idx < best)) best = idx;
+    const n = normalize(w);
+    const latin = LATIN.test(n[0] ?? "");
+    let from = 0;
+    while (true) {
+      const idx = text.indexOf(n, from);
+      if (idx < 0) break;
+      // Latin verbs must start a word ("kis" in "sarkisi" is not "kıs")
+      if (!latin || idx === 0 || !LATIN.test(text[idx - 1])) {
+        if (best < 0 || idx < best) best = idx;
+        break;
+      }
+      from = idx + 1;
+    }
   }
   return best;
 }
+
+/** Words that explicitly ask to COMBINE genres; anything else replaces the genre. */
+const GENRE_ADD = ["add", "ekle", "mix", "karistir", "fusion", "fuzyon", "blend", "hinzu", "mische", "ajoute", "melange", "agrega", "anade", "mezcla", "adicione", "misture", "добав", "смеш", "追加", "混ぜ"];
 
 // ---------------------------------------------------------------- defaults per family
 
@@ -228,10 +246,29 @@ function isInstrumental(state: PrompterState) {
   return state.tags.some((t) => t.id === "instrumental");
 }
 
-function upsert(state: PrompterState, id: string, cat: Category, level = 0) {
+function upsert(state: PrompterState, id: string, cat: Category, level = 0, auto = false) {
   const existing = state.tags.find((t) => t.id === id);
-  if (existing) existing.level = level || existing.level;
-  else state.tags.push({ id, cat, level });
+  if (existing) {
+    existing.level = level || existing.level;
+    if (!auto) existing.auto = false;
+  } else state.tags.push({ id, cat, level, auto });
+}
+
+/** Genre defaults: instruments, rhythm, production, BPM. Only fills what the user didn't set. */
+function applyGenreDefaults(state: PrompterState) {
+  if (!state.tags.some((t) => t.cat === "genre")) upsert(state, "pop", "genre", 0, true);
+  const fam = primaryFamily(state);
+  const g = state.tags.find((t) => t.cat === "genre")!;
+  if (!state.tags.some((t) => t.cat === "instrument")) {
+    for (const id of GENRE_INSTRUMENTS[g.id] ?? FAMILY_INSTRUMENTS[fam]) if (byId.has(id)) upsert(state, id, "instrument", 0, true);
+  }
+  const rhythm = FAMILY_RHYTHM[fam];
+  if (rhythm && !state.tags.some((t) => t.cat === "rhythm")) upsert(state, rhythm, "rhythm", 0, true);
+  if (!state.bpm || state.bpmAuto) {
+    state.bpm = byId.get(g.id)?.bpm;
+    state.bpmAuto = true;
+  }
+  if (!state.tags.some((t) => t.cat === "production")) upsert(state, fam === "lofi" ? "lofi-grit" : "spacious", "production", 0, true);
 }
 
 function buildSections(state: PrompterState) {
@@ -303,7 +340,7 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
 
   // --- tempo / key
   const bpm = parseBpm(text);
-  if (bpm) { state.bpm = bpm; understood = true; }
+  if (bpm) { state.bpm = bpm; state.bpmAuto = false; understood = true; }
   const key = parseKey(text);
   if (key) { state.key = key; understood = true; }
 
@@ -312,9 +349,11 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
   const sectionHits = findAll(text, SECTIONS);
   const newGenres = hits.filter((h) => h.item.cat === "genre" && opFor(text, h.pos, h.end) === "add");
 
-  // A new genre in an "add"-style sentence replaces the old genre(s) unless the user says add/with.
-  if (newGenres.length && !isFirst && hasAny(text, VERBS.add) < 0) {
-    state.tags = state.tags.filter((t) => t.cat !== "genre");
+  // A new genre replaces the old one(s) ("trap olsun", "make it drill") unless the user
+  // explicitly asks to combine them. Auto-added genre defaults are always replaced.
+  if (newGenres.length && !isFirst) {
+    const combine = hasAny(text, GENRE_ADD) >= 0;
+    state.tags = state.tags.filter((t) => !(t.cat === "genre" && (t.auto || !combine)) && !(t.auto && t.cat !== "genre"));
   }
 
   const sectionTargets = new Set<SectionKind>();
@@ -327,7 +366,7 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
       for (const s of state.sections) s.directives = s.directives.filter((d) => d !== e.label && d !== e.up && d !== e.down);
       continue;
     }
-    const level = op === "more" ? 1 : op === "less" ? -1 : 0;
+    const level = e.cat === "instrument" ? (op === "more" ? 1 : op === "less" ? -1 : 0) : 0;
     const group = GROUPS[e.id];
     if (group && (op === "less" || op === "more")) {
       const present = state.tags.filter((t) => group.includes(t.id));
@@ -336,9 +375,9 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
         continue;
       }
     }
-    if (e.cat === "genre" && !state.bpm && e.bpm) state.bpm = e.bpm;
+
     upsert(state, e.id, e.cat, level);
-    if (op === "less" || op === "more") {
+    if (e.cat === "instrument" && (op === "less" || op === "more")) {
       const t = state.tags.find((x) => x.id === e.id);
       if (t) t.level = level;
     }
@@ -390,21 +429,8 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
     state.customSections = true;
   }
 
-  // --- defaults for a fresh song
-  if (understood && isFirst) {
-    const genres = state.tags.filter((t) => t.cat === "genre");
-    if (!genres.length) upsert(state, "pop", "genre");
-    const fam = primaryFamily(state);
-    const g = state.tags.find((t) => t.cat === "genre")!;
-    const hasInstruments = state.tags.some((t) => t.cat === "instrument");
-    if (!hasInstruments) {
-      for (const id of GENRE_INSTRUMENTS[g.id] ?? FAMILY_INSTRUMENTS[fam]) if (byId.has(id)) upsert(state, id, "instrument");
-    }
-    const rhythm = FAMILY_RHYTHM[fam];
-    if (rhythm && !state.tags.some((t) => t.cat === "rhythm")) upsert(state, rhythm, "rhythm");
-    if (!state.bpm) state.bpm = byId.get(g.id)?.bpm;
-    if (!state.tags.some((t) => t.cat === "production")) upsert(state, fam === "lofi" ? "lofi-grit" : "spacious", "production");
-  }
+  // --- defaults for a fresh song, or re-derived after a genre change
+  if (understood && (isFirst || newGenres.length)) applyGenreDefaults(state);
   if (understood && !state.customSections && (isFirst || state.sections.length === 0 || newGenres.length)) {
     const keep = state.sections.filter((s) => s.directives.length);
     buildSections(state);

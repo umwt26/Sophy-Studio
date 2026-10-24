@@ -10,10 +10,25 @@ pub fn prompter_ai_status() -> prompter_ai::AiStatus {
 
 #[tauri::command]
 pub async fn prompter_ai_download(app: AppHandle) -> Result<(), String> {
-    prompter_ai::download(move |p| {
-        let _ = app.emit("prompter-ai-progress", p);
+    let emitter = app.clone();
+    let r = prompter_ai::download(move |p| {
+        let _ = emitter.emit("prompter-ai-progress", p);
     })
-    .await
+    .await;
+    let _ = app.emit("prompter-ai-finished", r.clone().err());
+    r
+}
+
+/// Called once on app start: downloads the model in the background if needed.
+pub fn spawn_auto_download(app: AppHandle) {
+    tauri::async_runtime::spawn(async move {
+        let emitter = app.clone();
+        let r = prompter_ai::ensure_model(move |p| {
+            let _ = emitter.emit("prompter-ai-progress", p);
+        })
+        .await;
+        let _ = app.emit("prompter-ai-finished", r.err());
+    });
 }
 
 #[tauri::command]

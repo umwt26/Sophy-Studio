@@ -3,7 +3,8 @@ name: Build & Release (Windows)
 # - Push a tag like v1.2 / v1.2.0  -> builds, verifies the tag matches the app version,
 #   and uploads Sophy_Studio_Setup.exe to a DRAFT release (Portable: build artifact).
 #   Review the draft, add notes, then press "Publish" — only published releases reach users.
-# - Push to a release/** branch or run manually -> build only (downloadable artifact).
+# - Push to a release/** branch -> same, the draft's tag (v<major>.<minor>) is created on publish.
+# - Run manually -> build only (downloadable artifact).
 
 on:
   push:
@@ -101,18 +102,24 @@ jobs:
           retention-days: 14
 
       - name: Upload to draft release
-        if: github.ref_type == 'tag'
+        if: github.ref_type == 'tag' || startsWith(github.ref, 'refs/heads/release/')
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $tag = "${{ github.ref_name }}"
+          if ("${{ github.ref_type }}" -eq "tag") {
+            $tag = "${{ github.ref_name }}"
+          } else {
+            # 1.2.0 -> v1.2 ; 1.2.3 -> v1.2.3. The draft's tag is created on this commit when you press Publish.
+            $p = $env:APP_VERSION.Split('.')
+            $tag = if ($p[2] -eq '0') { "v$($p[0]).$($p[1])" } else { "v$env:APP_VERSION" }
+          }
           gh release view $tag 2>$null
           if ($LASTEXITCODE -eq 0) {
             gh release upload $tag out/Sophy_Studio_Setup.exe --clobber
           } else {
             gh release create $tag out/Sophy_Studio_Setup.exe `
-              --draft --title "Sophy Studio $tag" --notes-file .github/release-notes.md
+              --target "${{ github.sha }}" --draft --title "Sophy Studio $tag" --notes-file .github/release-notes.md
           }
           # Portable is intentionally NOT attached: v1.1.x clients pick the first .exe asset,
           # so the release must only contain the installer. Portable stays in the build artifact.

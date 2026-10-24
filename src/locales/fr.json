@@ -54,7 +54,12 @@
     "updateHeaderDesc": "Sophy Studio has been updated with essential stability fixes, features, and security improvements. Please update to continue your uninterrupted workflow.",
     "dataGuaranteedNotice": "Your search history, studio settings, and downloaded tracks are safely preserved.",
     "updateNowBtn": "Update Now",
-    "noNotesAvailable": "No release notes available for this release."
+    "noNotesAvailable": "No release notes available for this release.",
+    "updateErrDownload": "Impossible de télécharger la mise à jour. Vérifiez votre connexion Internet et réessayez.",
+    "updateErrCorrupt": "Le fichier téléchargé était incomplet ou endommagé ; il n'a pas été exécuté. Veuillez réessayer.",
+    "updateErrAntivirus": "La Sécurité Windows a bloqué le programme d'installation. Téléchargez-le manuellement depuis GitHub ou autorisez-le dans la Sécurité Windows.",
+    "updateErrLaunch": "Impossible de lancer le programme d'installation.",
+    "updateNotApplied": "La dernière tentative de mise à jour n'a pas abouti. Réessayez ou téléchargez le programme d'installation manuellement depuis GitHub."
   },
   "nav": {
     "home": "Accueil",
@@ -97,7 +102,7 @@
     "tipOffline": "Toutes les analyses et conversions s'exécutent localement sur votre appareil sans envoi vers Internet.",
     "cutterTitle": "Sample Cutter (8s)",
     "cutterDesc": "Trim seamless 8-second audio samples from your tracks for Suno and music production.",
-    "releaseNotesTitle": "v1.0 Official Release & Updates",
+    "releaseNotesTitle": "{{version}} Official Release & Updates",
     "releaseMonth": "October 2026",
     "rel1Title": "Sample Cutter (8s Waveform Slicer)",
     "rel1Desc": "Interactive audio waveform with a fixed 8-second sliding window for seamless Suno sample trims (320k MP3 / WAV).",
@@ -260,7 +265,7 @@
     "accentColor": "Accent Color",
     "accentColorDesc": "Pick any custom color via the color wheel.",
     "swatchesTitle": "Presets & Recent Colors",
-    "releaseNotesTitle": "v1.0 Release Notes",
+    "releaseNotesTitle": "{{version}} Release Notes",
     "relSunoTitle": "Suno Downloader 2.0 & Side Drawer History",
     "relSunoDesc": "Download Suno tracks as 320k MP3, uncompressed WAV, original stream, cover art, and synced lyrics (.lrc/.txt). Left slide-over history drawer with instant search.",
     "relUniTitle": "Universal Media Downloader & Categorization",

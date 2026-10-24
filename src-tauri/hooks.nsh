@@ -1,40 +1,32 @@
+; Sophy Studio NSIS hooks
+;
+; Keep this file minimal. Antivirus engines (Windows Defender included) score
+; installers heuristically, and patterns such as hidden PowerShell with
+; "-ExecutionPolicy Bypass" + WebClient.DownloadFile, force-killing processes,
+; or silently running uninstallers are classic "dropper" signatures. Those
+; patterns caused v1.1.x setups to be flagged and quarantined.
+;
+; - Running-instance handling is done by Tauri's own NSIS template.
+; - Upgrades over an existing currentUser install are handled by Tauri itself.
+; - ffmpeg / ffprobe / yt-dlp are fetched by the app at runtime
+;   (sophy_core::*::ensure_*_binary), so the installer downloads nothing.
+
 !macro NSIS_HOOK_PREINSTALL
-  ; 1. Terminate any running sophy.exe processes so binaries aren't locked
-  nsExec::Exec 'taskkill /F /IM sophy.exe /T'
-  Sleep 300
+  ; Legacy v0.1.0 was a machine-wide install under Program Files.
+  ; Only touch it if it actually exists.
+  IfFileExists "$PROGRAMFILES64\Sophy Studio\uninstall.exe" 0 +2
+    ExecWait '"$PROGRAMFILES64\Sophy Studio\uninstall.exe" /S'
 
-  ; 2. Check if legacy machine-wide v0.1.0 exists in Program Files and uninstall it silently
-  IfFileExists "$PROGRAMFILES\Sophy Studio\uninstall.exe" 0 +4
-    ExecWait '"$PROGRAMFILES\Sophy Studio\uninstall.exe" /S _?="$PROGRAMFILES\Sophy Studio"'
-    RMDir /r "$PROGRAMFILES\Sophy Studio"
-    DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Sophy Studio"
+  IfFileExists "$PROGRAMFILES64\Sophy\uninstall.exe" 0 +2
+    ExecWait '"$PROGRAMFILES64\Sophy\uninstall.exe" /S'
 
-  IfFileExists "$PROGRAMFILES\Sophy\uninstall.exe" 0 +4
-    ExecWait '"$PROGRAMFILES\Sophy\uninstall.exe" /S _?="$PROGRAMFILES\Sophy"'
-    RMDir /r "$PROGRAMFILES\Sophy"
-    DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Sophy"
-
-  ; 3. Clean up legacy public & common shortcuts from old machine-wide install
-  Delete "$COMMONDESKTOP\Sophy Studio.lnk"
-  Delete "$COMMONDESKTOP\Sophy.lnk"
-  Delete "$COMMONPROGRAMS\Sophy Studio.lnk"
-  Delete "$COMMONPROGRAMS\Sophy.lnk"
+  ; Leftover per-user shortcut from the pre-rename "Sophy" builds
   Delete "$DESKTOP\Sophy.lnk"
   Delete "$SMPROGRAMS\Sophy.lnk"
-
-  ; 4. Check if an older currentUser version exists and clean it up before writing new files
-  ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Sophy Studio" "UninstallString"
-  StrCmp $0 "" +3 0
-  StrCmp $0 "$INSTDIR\uninstall.exe" +2 0
-    ExecWait '$0 /S _?=$LOCALAPPDATA\Sophy Studio'
 !macroend
 
 !macro NSIS_HOOK_POSTINSTALL
-  ; Create LocalAppData/SophyStudio/bin directory
   CreateDirectory "$LOCALAPPDATA\SophyStudio\bin"
-
-  ; Silently start background download of ffmpeg, ffprobe and yt-dlp if not already present
-  ExecShell "" "powershell.exe" "-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -Command `if (!(Test-Path '$LOCALAPPDATA\SophyStudio\bin\ffmpeg.exe')) { try { (New-Object System.Net.WebClient).DownloadFile('https://github.com/eugeneware/ffmpeg-static/releases/latest/download/ffmpeg-win32-x64', '$LOCALAPPDATA\SophyStudio\bin\ffmpeg.exe') } catch {} }; if (!(Test-Path '$LOCALAPPDATA\SophyStudio\bin\ffprobe.exe')) { try { (New-Object System.Net.WebClient).DownloadFile('https://github.com/eugeneware/ffmpeg-static/releases/latest/download/ffprobe-win32-x64', '$LOCALAPPDATA\SophyStudio\bin\ffprobe.exe') } catch {} }; if (!(Test-Path '$LOCALAPPDATA\SophyStudio\bin\yt-dlp.exe')) { try { (New-Object System.Net.WebClient).DownloadFile('https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe', '$LOCALAPPDATA\SophyStudio\bin\yt-dlp.exe') } catch {} }`"
 !macroend
 
 !macro NSIS_HOOK_PREUNINSTALL

@@ -12,16 +12,41 @@ import {
 } from "./icons";
 import { MarkdownRenderer } from "./MarkdownRenderer";
 import type { UpdateInfo } from "../types";
+import { recordUpdateAttempt } from "../utils/updateAttempt";
 
 interface UpdateModalProps {
   updateInfo: UpdateInfo;
+  /** True when the installer for this version was already launched once and the app is still old. */
+  previouslyFailed?: boolean;
   onClose?: () => void;
 }
 
-export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo }) => {
+export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo, previouslyFailed = false }) => {
   const { t } = useTranslation();
   const [updating, setUpdating] = useState(false);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(
+    previouslyFailed
+      ? t("app.updateNotApplied", "The previous update attempt did not complete. Retry, or download the installer manually from GitHub.")
+      : null
+  );
+
+  const describeError = (err: unknown): string => {
+    const raw = typeof err === "string" ? err : err instanceof Error ? err.message : "";
+    const code = raw.split(":")[0]?.trim();
+    switch (code) {
+      case "UPDATE_DOWNLOAD_FAILED":
+        return t("app.updateErrDownload", "The update could not be downloaded. Check your internet connection and try again.");
+      case "UPDATE_CORRUPT":
+        return t("app.updateErrCorrupt", "The downloaded file was incomplete or damaged, so it was not run. Please try again.");
+      case "UPDATE_BLOCKED_BY_AV":
+        return t("app.updateErrAntivirus", "Windows Security blocked the installer. Download it manually from GitHub, or allow it in Windows Security.");
+      case "UPDATE_LAUNCH_FAILED":
+      case "UPDATE_WRITE_FAILED":
+        return t("app.updateErrLaunch", "The installer could not be started.");
+      default:
+        return t("app.autoUpdateFailed", "Could not download automatic update.");
+    }
+  };
 
   const handleOpenReleaseWeb = () => {
     invoke("open_url", { url: updateInfo.url }).catch(() => {
@@ -38,15 +63,19 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo }) => {
     try {
       setUpdating(true);
       setErrorMsg(null);
-      await invoke("install_update", { downloadUrl: updateInfo.download_url });
+      await invoke("install_update", {
+        downloadUrl: updateInfo.download_url,
+        version: updateInfo.latest_version,
+        expectedSize: updateInfo.download_size ?? null,
+        expectedSha256: updateInfo.download_sha256 ?? null,
+      });
+      // Installer launched; the app is about to exit. Remember the attempt so a
+      // failed install cannot turn into an endless update loop on next launch.
+      recordUpdateAttempt(updateInfo.latest_version, updateInfo.current_version);
     } catch (err: unknown) {
       console.error("Auto update failed:", err);
       setUpdating(false);
-          setErrorMsg(
-        typeof err === "string"
-          ? err
-          : t("app.autoUpdateFailed", "Could not download automatic update.")
-      );
+      setErrorMsg(describeError(err));
     }
   };
 
@@ -132,7 +161,7 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo }) => {
             <div className="flex-1 min-w-0">
               <p className="font-bold text-rose-200">{errorMsg}</p>
               <p className="mt-0.5 text-[11px] text-rose-300/80">
-                {t("app.manualWebNotice", "You can directly download the setup file from our website.")}
+                {t("app.manualWebNotice", "You can download the installer directly from the GitHub release page.")}
               </p>
             </div>
           </div>

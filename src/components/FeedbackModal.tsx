@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { useTranslation } from "react-i18next";
 import { CloseIcon, ChatBubbleIcon, SendIcon } from "./icons";
+import { APP_VERSION_LABEL } from "../version";
 
 interface FeedbackModalProps {
   isOpen: boolean;
@@ -81,14 +82,14 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
 
   const handleOpenMailto = () => {
     const subject = encodeURIComponent(
-      `[Sophy Studio v1.1] ${category} - ${name || t("feedback.anonymousUser", "Kullanıcı")}`
+      `[Sophy Studio ${APP_VERSION_LABEL}] ${category} - ${name || t("feedback.anonymousUser", "Kullanıcı")}`
     );
     const body = encodeURIComponent(
       `Bildirim Türü: ${category}\n` +
       `Ad Soyad: ${name}\n` +
       `E-posta: ${email}\n` +
       `Mesaj:\n${message}\n\n` +
-      `--\nSophy Studio v1.1`
+      `--\nSophy Studio ${APP_VERSION_LABEL}`
     );
     window.open(`mailto:umutszg46@gmail.com?subject=${subject}&body=${body}`, "_blank");
   };

@@ -35,6 +35,8 @@ export interface UpdateInfo {
   release_notes: string;
   url: string;
   download_url?: string | null;
+  download_size?: number | null;
+  download_sha256?: string | null;
 }
 
 export type AppTab = "home" | "suno" | "universal" | "metadata" | "detector" | "sample-cutter" | "settings";

@@ -13,6 +13,7 @@ import {
 } from "./icons";
 import logoImg from "../assets/logo.png";
 import type { AppTab } from "../types";
+import { APP_VERSION_LABEL } from "../version";
 
 interface StudioDrawerProps {
   isOpen: boolean;
@@ -117,7 +118,7 @@ export const StudioDrawer: React.FC<StudioDrawerProps> = ({
                 <span className="text-sm font-bold tracking-tight text-[var(--color-text-primary)]">
                   Sophy Studio
                 </span>
-                <span className="chip text-[10px] font-mono">v1.1</span>
+                <span className="chip text-[10px] font-mono">{APP_VERSION_LABEL}</span>
               </div>
               <p className="text-[11px] text-[var(--color-text-secondary)]">
                 {t("app.subtitle", "Ses & Medya Araçları")}

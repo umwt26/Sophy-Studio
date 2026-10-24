@@ -16,6 +16,7 @@ import { FeedbackModal } from "./components/FeedbackModal";
 import { SunoHistoryDrawer } from "./components/SunoHistoryDrawer";
 import { AdModal } from "./components/AdModal";
 import { UpdateModal } from "./components/UpdateModal";
+import { clearUpdateAttempt, readUpdateAttempt } from "./utils/updateAttempt";
 import { Toast } from "./components/Toast";
 import { applyTheme, loadSavedTheme } from "./utils/theme";
 import type { AppTab, AudioFormat, SongClip, SongData, UpdateInfo } from "./types";
@@ -47,6 +48,7 @@ export default function App() {
 
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [updateInfo, setUpdateInfo] = useState<UpdateInfo | null>(null);
+  const [updatePreviouslyFailed, setUpdatePreviouslyFailed] = useState(false);
   const [history, setHistory] = useState<SongData[]>([]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const toastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -60,9 +62,20 @@ export default function App() {
   useEffect(() => {
     invoke<UpdateInfo>("check_for_updates")
       .then((res) => {
+        const attempt = readUpdateAttempt();
         if (res && res.has_update) {
+          // Loop guard: if we already launched the installer for this exact version
+          // and the app is still on the same old version, the install did not apply.
+          // Show the manual path instead of silently re-running the same installer.
+          setUpdatePreviouslyFailed(
+            !!attempt &&
+              attempt.target === res.latest_version &&
+              attempt.from === res.current_version
+          );
           setUpdateInfo(res);
           setUpdateModalOpen(true);
+        } else if (attempt) {
+          clearUpdateAttempt();
         }
       })
       .catch((e) => {
@@ -352,7 +365,7 @@ export default function App() {
       )}
 
       {updateModalOpen && updateInfo && (
-        <UpdateModal updateInfo={updateInfo} />
+        <UpdateModal updateInfo={updateInfo} previouslyFailed={updatePreviouslyFailed} />
       )}
 
       {toastMessage && <Toast message={toastMessage} />}

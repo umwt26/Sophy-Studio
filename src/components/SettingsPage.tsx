@@ -22,6 +22,7 @@ import { ACCENT_COLORS, loadSavedTheme, saveTheme } from "../utils/theme";
 import type { AppThemeConfig, FolderSettings, ThemeMode } from "../types";
 import { ColorWheelPicker } from "./ColorWheelPicker";
 import logoImg from "../assets/logo.png";
+import { APP_VERSION_LABEL } from "../version";
 
 interface SettingsPageProps {
   onShowToast: (msg: string) => void;
@@ -625,7 +626,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                   <div className="flex items-center gap-2">
                     <h2 className="text-base font-bold text-[var(--color-text-primary)]">Sophy Studio</h2>
                     <span className="chip text-[10px] font-bold px-2 py-0.5 bg-[var(--color-accent)] text-black border-transparent">
-                      v1.1
+                      {APP_VERSION_LABEL}
                     </span>
                   </div>
                   <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">

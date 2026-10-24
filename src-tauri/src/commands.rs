@@ -257,11 +257,15 @@ pub struct UpdateCheckResult {
     pub release_notes: String,
     pub url: String,
     pub download_url: Option<String>,
+    /// Expected installer size in bytes (from the GitHub asset), used to detect truncated downloads.
+    pub download_size: Option<u64>,
+    /// Expected SHA-256 of the installer (GitHub asset `digest`, "sha256:<hex>"), when available.
+    pub download_sha256: Option<String>,
 }
 
 fn compare_semver(latest: &str, current: &str) -> bool {
     let parse = |v: &str| -> Vec<u64> {
-        let clean = v.trim_start_matches('v');
+        let clean = v.trim().trim_start_matches(['v', 'V']);
         let ver_part = clean.split(['-', '+']).next().unwrap_or(clean);
         let mut nums: Vec<u64> = ver_part
             .split('.')
@@ -286,13 +290,38 @@ fn compare_semver(latest: &str, current: &str) -> bool {
     false
 }
 
+/// Picks the NSIS installer from a GitHub release's assets.
+/// Prefers "*setup*.exe"; never picks the portable build (running the portable exe
+/// "as an installer" just launches the old app again and looks like an update loop).
+fn pick_installer_asset(assets: &[serde_json::Value]) -> Option<&serde_json::Value> {
+    let name_of = |a: &serde_json::Value| a["name"].as_str().unwrap_or("").to_lowercase();
+    assets
+        .iter()
+        .find(|a| {
+            let n = name_of(a);
+            n.ends_with(".exe") && n.contains("setup")
+        })
+        .or_else(|| {
+            assets.iter().find(|a| {
+                let n = name_of(a);
+                n.ends_with(".exe") && !n.contains("portable")
+            })
+        })
+}
+
+fn http_client(timeout_secs: u64) -> Result<reqwest::Client, String> {
+    reqwest::Client::builder()
+        .user_agent(format!("Sophy-Studio/{}", env!("CARGO_PKG_VERSION")))
+        .connect_timeout(std::time::Duration::from_secs(15))
+        .timeout(std::time::Duration::from_secs(timeout_secs))
+        .build()
+        .map_err(|e| e.to_string())
+}
+
 #[tauri::command]
 pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult, String> {
     let current_version = env!("CARGO_PKG_VERSION").to_string();
-    let client = reqwest::Client::builder()
-        .user_agent(&format!("Sophy-Studio/{}", env!("CARGO_PKG_VERSION")))
-        .build()
-        .map_err(|e| e.to_string())?;
+    let client = http_client(20)?;
 
     let default_repo = "umwt26/Sophy-Studio";
     let target_repo = repo.as_deref().unwrap_or(default_repo);
@@ -303,48 +332,62 @@ pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult
     ];
 
     for endpoint in endpoints {
-        if let Ok(resp) = client.get(&endpoint).send().await {
-            if resp.status().is_success() {
-                if let Ok(json) = resp.json::<serde_json::Value>().await {
-                    let tag = json["tag_name"]
-                        .as_str()
-                        .or_else(|| json["version"].as_str())
-                        .unwrap_or("")
-                        .trim_start_matches('v')
-                        .to_string();
-
-                    if !tag.is_empty() {
-                        let is_newer = compare_semver(&tag, &current_version);
-                        let release_url = json["html_url"]
-                            .as_str()
-                            .or_else(|| json["url"].as_str())
-                            .unwrap_or(&format!("https://github.com/{}/releases", target_repo))
-                            .to_string();
-                        let notes = json["body"].as_str().unwrap_or("").to_string();
-
-                        let download_url = json["assets"].as_array().and_then(|arr| {
-                            arr.iter().find_map(|asset| {
-                                let name = asset["name"].as_str().unwrap_or("").to_lowercase();
-                                if name.ends_with(".exe") {
-                                    asset["browser_download_url"].as_str().map(|s| s.to_string())
-                                } else {
-                                    None
-                                }
-                            })
-                        });
-
-                        return Ok(UpdateCheckResult {
-                            has_update: is_newer,
-                            current_version: current_version.clone(),
-                            latest_version: tag,
-                            release_notes: notes,
-                            url: release_url,
-                            download_url,
-                        });
-                    }
-                }
-            }
+        let Ok(resp) = client
+            .get(&endpoint)
+            .header("Accept", "application/vnd.github+json")
+            .send()
+            .await
+        else {
+            continue;
+        };
+        if !resp.status().is_success() {
+            continue;
         }
+        let Ok(json) = resp.json::<serde_json::Value>().await else {
+            continue;
+        };
+
+        let tag = json["tag_name"]
+            .as_str()
+            .or_else(|| json["version"].as_str())
+            .unwrap_or("")
+            .trim()
+            .trim_start_matches(['v', 'V'])
+            .to_string();
+        if tag.is_empty() {
+            continue;
+        }
+
+        let is_newer = compare_semver(&tag, &current_version);
+        let release_url = json["html_url"]
+            .as_str()
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| format!("https://github.com/{}/releases", target_repo));
+        let notes = json["body"].as_str().unwrap_or("").to_string();
+
+        let asset = json["assets"]
+            .as_array()
+            .and_then(|arr| pick_installer_asset(arr));
+        let download_url = asset
+            .and_then(|a| a["browser_download_url"].as_str())
+            .map(|s| s.to_string())
+            .or_else(|| json["download_url"].as_str().map(|s| s.to_string()));
+        let download_size = asset.and_then(|a| a["size"].as_u64());
+        let download_sha256 = asset
+            .and_then(|a| a["digest"].as_str())
+            .and_then(|d| d.strip_prefix("sha256:"))
+            .map(|h| h.to_lowercase());
+
+        return Ok(UpdateCheckResult {
+            has_update: is_newer,
+            current_version: current_version.clone(),
+            latest_version: tag,
+            release_notes: notes,
+            url: release_url,
+            download_url,
+            download_size,
+            download_sha256,
+        });
     }
 
     Ok(UpdateCheckResult {
@@ -354,44 +397,122 @@ pub async fn check_for_updates(repo: Option<String>) -> Result<UpdateCheckResult
         release_notes: String::new(),
         url: format!("https://github.com/{}/releases", target_repo),
         download_url: None,
+        download_size: None,
+        download_sha256: None,
     })
 }
 
+/// %LOCALAPPDATA%\SophyStudio\updates — a stable, app-owned folder instead of %TEMP%.
+pub(crate) fn updates_dir() -> Option<std::path::PathBuf> {
+    std::env::var_os("LOCALAPPDATA")
+        .map(std::path::PathBuf::from)
+        .or_else(|| std::env::temp_dir().parent().map(|p| p.to_path_buf()))
+        .map(|base| base.join("SophyStudio").join("updates"))
+}
+
+fn sha256_hex(bytes: &[u8]) -> String {
+    use sha2::{Digest, Sha256};
+    let digest = Sha256::digest(bytes);
+    digest.iter().map(|b| format!("{:02x}", b)).collect()
+}
+
+/// Error codes are stable prefixes ("UPDATE_xxx: detail") so the UI can translate them.
 #[tauri::command]
-pub async fn install_update(app: tauri::AppHandle, download_url: String) -> Result<(), String> {
-    let client = reqwest::Client::builder()
-        .user_agent(&format!("Sophy-Studio/{}", env!("CARGO_PKG_VERSION")))
-        .build()
-        .map_err(|e| e.to_string())?;
+pub async fn install_update(
+    app: tauri::AppHandle,
+    download_url: String,
+    version: Option<String>,
+    expected_size: Option<u64>,
+    expected_sha256: Option<String>,
+) -> Result<(), String> {
+    if !download_url.starts_with("https://github.com/")
+        && !download_url.starts_with("https://objects.githubusercontent.com/")
+        && !download_url.starts_with("https://release-assets.githubusercontent.com/")
+    {
+        return Err("UPDATE_BAD_SOURCE: update must come from GitHub".to_string());
+    }
 
-    let resp = client.get(&download_url).send().await.map_err(|e| format!("İndirme hatası: {}", e))?;
+    let client = http_client(600)?;
+    let resp = client
+        .get(&download_url)
+        .send()
+        .await
+        .map_err(|e| format!("UPDATE_DOWNLOAD_FAILED: {}", e))?;
     if !resp.status().is_success() {
-        return Err(format!("Dosya sunucudan alınamadı: HTTP {}", resp.status()));
+        return Err(format!("UPDATE_DOWNLOAD_FAILED: HTTP {}", resp.status()));
     }
 
-    let bytes = resp.bytes().await.map_err(|e| format!("İndirilen veri okunamadı: {}", e))?;
-    let temp_dir = std::env::temp_dir();
-    let installer_path = temp_dir.join("Sophy_Studio_Update_Setup.exe");
-    std::fs::write(&installer_path, bytes).map_err(|e| format!("Dosya yazılamadı: {}", e))?;
+    let bytes = resp
+        .bytes()
+        .await
+        .map_err(|e| format!("UPDATE_DOWNLOAD_FAILED: {}", e))?;
 
-    #[cfg(target_os = "windows")]
-    {
-        use std::os::windows::process::CommandExt;
-        const CREATE_NEW_PROCESS_GROUP: u32 = 0x00000200;
-        let mut cmd = std::process::Command::new(&installer_path);
-        cmd.creation_flags(CREATE_NEW_PROCESS_GROUP);
-        cmd.spawn().map_err(|e| format!("Kurulum sihirbazı başlatılamadı: {}", e))?;
+    // Integrity checks: a truncated / HTML error page / tampered file must never be executed.
+    if bytes.len() < 1_000_000 || !bytes.starts_with(b"MZ") {
+        return Err(format!(
+            "UPDATE_CORRUPT: unexpected file ({} bytes)",
+            bytes.len()
+        ));
+    }
+    if let Some(size) = expected_size {
+        if bytes.len() as u64 != size {
+            return Err(format!(
+                "UPDATE_CORRUPT: size mismatch ({} != {})",
+                bytes.len(),
+                size
+            ));
+        }
+    }
+    if let Some(expected) = expected_sha256.as_deref().filter(|s| !s.is_empty()) {
+        let actual = sha256_hex(&bytes);
+        if !actual.eq_ignore_ascii_case(expected) {
+            return Err("UPDATE_CORRUPT: checksum mismatch".to_string());
+        }
     }
 
-    #[cfg(not(target_os = "windows"))]
-    {
-        std::process::Command::new(&installer_path)
-            .spawn()
-            .map_err(|e| format!("Kurulum başlatılamadı: {}", e))?;
+    let dir = updates_dir().ok_or_else(|| "UPDATE_WRITE_FAILED: no app data folder".to_string())?;
+    std::fs::create_dir_all(&dir).map_err(|e| format!("UPDATE_WRITE_FAILED: {}", e))?;
+
+    let safe_version: String = version
+        .unwrap_or_else(|| "latest".to_string())
+        .chars()
+        .filter(|c| c.is_ascii_alphanumeric() || *c == '.' || *c == '-')
+        .collect();
+    let installer_path = dir.join(format!("Sophy_Studio_{}_Setup.exe", safe_version));
+    let part_path = dir.join(format!("Sophy_Studio_{}_Setup.exe.part", safe_version));
+
+    let _ = std::fs::remove_file(&part_path);
+    let _ = std::fs::remove_file(&installer_path);
+    std::fs::write(&part_path, &bytes).map_err(|e| format!("UPDATE_WRITE_FAILED: {}", e))?;
+    std::fs::rename(&part_path, &installer_path)
+        .map_err(|e| format!("UPDATE_WRITE_FAILED: {}", e))?;
+
+    // If antivirus removed the file right after it was written, report that clearly.
+    if !installer_path.exists() {
+        return Err("UPDATE_BLOCKED_BY_AV: installer was removed by antivirus".to_string());
+    }
+
+    // Same flags Tauri's official updater uses for NSIS:
+    //   /P      passive mode (progress bar only, no wizard pages)
+    //   /UPDATE update in place, never run the old uninstaller
+    //   /R      relaunch Sophy Studio when installation finishes
+    let mut cmd = std::process::Command::new(&installer_path);
+    cmd.args(["/P", "/UPDATE", "/R"]);
+
+    match cmd.spawn() {
+        Ok(_) => {}
+        Err(e) => {
+            // Windows error 225: "Operation did not complete successfully because the file
+            // contains a virus or potentially unwanted software."
+            if e.raw_os_error() == Some(225) {
+                return Err(format!("UPDATE_BLOCKED_BY_AV: {}", e));
+            }
+            return Err(format!("UPDATE_LAUNCH_FAILED: {}", e));
+        }
     }
 
     std::thread::spawn(move || {
-        std::thread::sleep(std::time::Duration::from_millis(600));
+        std::thread::sleep(std::time::Duration::from_millis(800));
         app.exit(0);
     });
 
@@ -587,13 +708,13 @@ pub async fn send_feedback(
         "Ad Soyad": sender_name,
         "E-posta": sender_email,
         "Mesaj": message.trim(),
-        "Sürüm": "Sophy Studio v1.1 (Windows x64)",
+        "Sürüm": format!("Sophy Studio v{} (Windows x64)", env!("CARGO_PKG_VERSION")),
         "_template": "table"
     });
 
     let resp = client
         .post("https://formsubmit.co/ajax/umutszg46@gmail.com")
-        .header("User-Agent", "SophyStudio/1.1")
+        .header("User-Agent", format!("SophyStudio/{}", env!("CARGO_PKG_VERSION")))
         .header("Accept", "application/json")
         .header("Content-Type", "application/json")
         .header("Origin", "https://sophy.studio")
@@ -629,12 +750,17 @@ pub fn cleanup_legacy_installations() {
             let _ = std::fs::remove_file(common_programs.join("Sophy.lnk"));
         }
 
-        // If legacy C:\Program Files\Sophy Studio\uninstall.exe exists, invoke silent uninstall
-        let legacy_uninst = std::path::PathBuf::from(r"C:\Program Files\Sophy Studio\uninstall.exe");
-        if legacy_uninst.exists() {
-            let _ = std::process::Command::new(&legacy_uninst)
-                .args(&["/S", r"_?=C:\Program Files\Sophy Studio"])
-                .spawn();
+        // NOTE: the app no longer launches the legacy uninstaller on every start.
+        // Spawning uninstallers from a running app is a malware-like behaviour that
+        // antivirus heuristics punish; the installer hook handles the legacy cleanup once.
+
+        // Remove downloaded update installers that are no longer needed.
+        if let Some(dir) = updates_dir() {
+            if let Ok(entries) = std::fs::read_dir(&dir) {
+                for entry in entries.flatten() {
+                    let _ = std::fs::remove_file(entry.path());
+                }
+            }
         }
     }
 }

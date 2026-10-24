@@ -1,0 +1,102 @@
+name: Build & Release (Windows)
+
+# - Push a tag like v1.2 / v1.2.0  -> builds, verifies the tag matches the app version,
+#   and uploads Sophy_Studio_Setup.exe + Sophy_Studio_Portable.exe to a DRAFT release.
+#   Review the draft, add notes, then press "Publish" — only published releases reach users.
+# - Push to a release/** branch or run manually -> build only (downloadable artifact).
+
+on:
+  push:
+    tags: ["v*"]
+    branches: ["release/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify version consistency
+        shell: pwsh
+        run: |
+          $pkg   = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $conf  = (Get-Content src-tauri/tauri.conf.json -Raw | ConvertFrom-Json).version
+          $cargo = (Select-String -Path src-tauri/Cargo.toml -Pattern '^version\s*=\s*"(.+)"' | Select-Object -First 1).Matches.Groups[1].Value
+          Write-Host "package.json=$pkg tauri.conf.json=$conf Cargo.toml=$cargo"
+          if ($pkg -ne $conf -or $pkg -ne $cargo) {
+            Write-Error "Version mismatch between package.json / tauri.conf.json / src-tauri/Cargo.toml"
+            exit 1
+          }
+          if ("${{ github.ref_type }}" -eq "tag") {
+            function Norm([string]$v) {
+              $core = ($v.TrimStart('v','V') -split '[-+]')[0]
+              $parts = @($core -split '\.' | ForEach-Object { [int]$_ })
+              while ($parts.Count -lt 3) { $parts += 0 }
+              return ($parts[0..2] -join '.')
+            }
+            $tag = "${{ github.ref_name }}"
+            if ((Norm $tag) -ne (Norm $pkg)) {
+              Write-Error "Tag $tag does not match app version $pkg. A release whose installer has an older version than its tag makes every user loop on the update screen."
+              exit 1
+            }
+          }
+          "APP_VERSION=$pkg" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ". -> target"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build installer
+        run: npx tauri build --bundles nsis
+
+      - name: Collect binaries
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path out | Out-Null
+          $setup = Get-ChildItem -Path target/release/bundle/nsis -Filter *-setup.exe | Select-Object -First 1
+          if (-not $setup) { Write-Error "NSIS installer not found"; exit 1 }
+          Copy-Item $setup.FullName out/Sophy_Studio_Setup.exe
+          Copy-Item target/release/sophy.exe out/Sophy_Studio_Portable.exe
+          Get-ChildItem out | ForEach-Object {
+            $h = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower()
+            Write-Host "$($_.Name)  $($_.Length) bytes  sha256=$h"
+          }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Sophy-Studio-${{ env.APP_VERSION }}-windows
+          path: out/*.exe
+          retention-days: 14
+
+      - name: Upload to draft release
+        if: github.ref_type == 'tag'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = "${{ github.ref_name }}"
+          gh release view $tag 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $tag out/Sophy_Studio_Setup.exe out/Sophy_Studio_Portable.exe --clobber
+          } else {
+            gh release create $tag out/Sophy_Studio_Setup.exe out/Sophy_Studio_Portable.exe `
+              --draft --title "Sophy Studio $tag" --notes "Release notes coming soon."
+          }

@@ -54,7 +54,12 @@
     "updateHeaderDesc": "Sophy Studio daha yüksek kararlılık, yeni özellikler ve güvenlik iyileştirmeleriyle güncellendi. Kesintisiz stüdyo deneyimi için lütfen yeni sürüme geçin.",
     "dataGuaranteedNotice": "Arama geçmişiniz, stüdyo ayarlarınız ve indirilen parçalarınız güvenle korunur.",
     "updateNowBtn": "Hemen Güncelle",
-    "noNotesAvailable": "Bu sürüm için detaylı not bulunamadı."
+    "noNotesAvailable": "Bu sürüm için detaylı not bulunamadı.",
+    "updateErrDownload": "Güncelleme indirilemedi. İnternet bağlantını kontrol edip tekrar dene.",
+    "updateErrCorrupt": "İndirilen dosya eksik ya da bozuk olduğu için çalıştırılmadı. Lütfen tekrar dene.",
+    "updateErrAntivirus": "Windows Güvenliği kurulum dosyasını engelledi. Dosyayı GitHub'dan elle indir ya da Windows Güvenliği'nde izin ver.",
+    "updateErrLaunch": "Kurulum dosyası başlatılamadı.",
+    "updateNotApplied": "Önceki güncelleme denemesi tamamlanmadı. Tekrar dene ya da kurulum dosyasını GitHub'dan elle indir."
   },
   "nav": {
     "home": "Ana Sayfa",
@@ -97,7 +102,7 @@
     "tipDragDrop": "Ses dosyalarını doğrudan pencereye sürükleyip bırakabilirsiniz.",
     "tipCoverArt": "Metadata editöründe albüm kapağı olarak JPG veya PNG kullanın.",
     "tipOffline": "Tüm analiz ve dönüşümler yerel olarak, internet yüklemesi olmadan çalışır.",
-    "releaseNotesTitle": "v1.0 Resmi Sürüm & Yenilikler",
+    "releaseNotesTitle": "{{version}} Resmi Sürüm & Yenilikler",
     "releaseMonth": "Ekim 2026",
     "rel1Title": "Sample Kesici (8s Waveform Slicer)",
     "rel1Desc": "İnteraktif ses dalga formu üzerinde 8 saniyelik sabit kayan pencere ile Suno için kusursuz sample kırpma (320k MP3 / WAV).",
@@ -260,7 +265,7 @@
     "aboutDesc": "Ses ve medya indirme araçları paketi.",
     "developer": "Geliştirici",
     "rights": "Tüm hakları saklıdır.",
-    "releaseNotesTitle": "v1.0 Güncelleme Notları",
+    "releaseNotesTitle": "{{version}} Güncelleme Notları",
     "relSunoTitle": "Suno Downloader 2.0 & Yan Geçmiş Menüsü",
     "relSunoDesc": "Suno şarkılarını 320k MP3, uncompressed WAV, orijinal akış, kapak görseli ve senkronize şarkı sözleriyle (.lrc/.txt) indirme. Soldan açılan şık arama geçmişi ile önceki parçaları tek tıkla geri getirme.",
     "relUniTitle": "Universal Media Downloader & Sınıflandırma",

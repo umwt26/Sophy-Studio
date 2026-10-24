@@ -64,7 +64,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
       });
 
       if (res === "activation_needed") {
-        onShowToast(t("feedback.activationSent", "Geri bildirim gönderildi! Aktivasyon maili umutszg46@gmail.com adresine iletildi."));
+        onShowToast(t("feedback.activationSent", "Feedback sent! Thank you."));
       } else {
         onShowToast(t("feedback.successToast", "Geri bildiriminiz başarıyla iletildi, teşekkürler!"));
       }

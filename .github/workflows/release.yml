@@ -1,10 +1,10 @@
 name: Build & Release (Windows)
 
 # - Push a tag like v1.2 / v1.2.0  -> builds, verifies the tag matches the app version,
-#   and uploads Sophy_Studio_Setup.exe to a DRAFT release (Portable: build artifact).
+#   and uploads Sophy_Studio_Setup.exe to a DRAFT release. Portable builds never leave the runner.
 #   Review the draft, add notes, then press "Publish" — only published releases reach users.
 # - Push to a release/** branch -> same, the draft's tag (v<major>.<minor>) is created on publish.
-# - Push to a test/** branch or run manually -> build only (downloadable artifact, no release).
+# - Push to a test/** branch or run manually -> build only (installer artifact, no release).
 
 on:
   push:
@@ -115,9 +115,19 @@ jobs:
 
       - uses: actions/upload-artifact@v5
         with:
-          name: Sophy-Studio-${{ env.APP_VERSION }}-windows
-          path: out/*.exe
-          retention-days: 14
+          name: Sophy-Studio-${{ env.APP_VERSION }}-setup
+          path: out/Sophy_Studio_Setup.exe
+          retention-days: 7
+
+      - name: Remove internal test-build draft (portable builds are never kept on GitHub)
+        if: github.ref_type == 'tag' || startsWith(github.ref, 'refs/heads/release/')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view test-build 2>$null
+          if ($LASTEXITCODE -eq 0) { gh release delete test-build --yes }
+          exit 0
 
       - name: Upload to draft release
         if: github.ref_type == 'tag' || startsWith(github.ref, 'refs/heads/release/')
@@ -139,34 +149,4 @@ jobs:
             gh release create $tag out/Sophy_Studio_Setup.exe `
               --target "${{ github.sha }}" --draft --title "Sophy Studio $tag" --notes-file .github/release-notes.md
           }
-          # Portable is intentionally NOT attached: v1.1.x clients pick the first .exe asset,
-          # so the release must only contain the installer. Portable stays in the build artifact.
-
-      - name: Upload test build to hidden draft
-        # Drafts are invisible to /releases/latest, so users never get these as updates.
-        if: startsWith(github.ref, 'refs/heads/test/')
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          $tag = "test-build"
-          gh release view $tag 2>$null
-          if ($LASTEXITCODE -ne 0) {
-            gh release create $tag --draft --prerelease --target "${{ github.sha }}" `
-              --title "Test build (internal, not for users)" --notes "Built from ${{ github.ref_name }} @ ${{ github.sha }}"
-          } else {
-            gh release edit $tag --notes "Built from ${{ github.ref_name }} @ ${{ github.sha }}"
-          }
-          gh release upload $tag out/Sophy_Studio_Portable.exe out/Sophy_Studio_Setup.exe --clobber
-
-      - name: Publish build diagnostics to hidden draft
-        if: always() && startsWith(github.ref, 'refs/heads/test/')
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if (-not (Test-Path build-diag.txt)) { "no diagnostics (failed before collect)" | Set-Content build-diag.txt }
-          if (Test-Path build-log-head.txt) { "--- build log ---" | Add-Content build-diag.txt; Get-Content build-log-head.txt | Add-Content build-diag.txt }
-          gh release view test-build 2>$null
-          if ($LASTEXITCODE -ne 0) { gh release create test-build --draft --prerelease --title "Test build (internal, not for users)" --notes "internal" }
-          gh release upload test-build build-diag.txt --clobber
+          # Only the installer is published. Portable builds are never uploaded to GitHub.

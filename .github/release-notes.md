@@ -1,13 +1,16 @@
-# Sophy Studio v1.2
+# Sophy Studio v1.2.1
 
-A patch release that fixes the in-app updater.
+### New: Suno Style Prompter
+Describe a song in your own words and get a ready-to-paste **Style of Music** and **Structure** for Suno.
+- Understands English, Turkish, German, French, Spanish, Portuguese, Russian and Japanese out of the box; refine with follow-ups like "less bass", "BPM 140", "add saxophone to the intro".
+- Built-in offline AI understands requests in other languages too. It is downloaded automatically on first launch and runs on your own computer.
+- Never writes lyrics: the structure only contains section tags and placeholders for your own words.
+- Chats are saved and can be reopened from the **Chats** panel.
 
 ### Fixes
-- **Update loop fixed:** the app no longer asks to update again and again after installing.
-- **No more antivirus warnings from the installer:** removed the installer steps that Windows Security mistook for malware. Required tools (FFmpeg, yt-dlp) are still set up automatically by the app.
-- **Old versions removed properly:** leftover older Sophy installs (the original Program Files version and the pre-rename "Sophy" app) are uninstalled automatically, so only one Sophy Studio stays in your apps list.
-- **Safer updates:** the installer is verified (size and checksum) before it runs, installs in place with a progress bar, and Sophy Studio reopens by itself when it finishes.
-- **Clearer errors:** if a download fails or is blocked, the update screen explains why and offers a manual download.
+- **Metadata Editor:** WAV tags (title, artist, album...) now show up in Windows Explorer and players; cover images in WebP/BMP are converted so they actually display; failed saves are reported instead of silently ignored.
+- **Universal Downloader:** Pinterest videos download correctly; clearer error messages.
+- No Visual C++ Redistributable needed.
 
 Your history, settings and downloaded files are kept.
 

@@ -359,7 +359,7 @@
     "sendBtn": "Send",
     "sending": "Sending...",
     "successToast": "Your feedback has been successfully sent, thank you!",
-    "activationSent": "Feedback sent! An activation email was delivered to umutszg46@gmail.com.",
+    "activationSent": "Feedback enviado! Obrigado.",
     "errEmptyMessage": "Please enter a message or description.",
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",

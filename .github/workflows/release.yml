@@ -123,3 +123,20 @@ jobs:
           }
           # Portable is intentionally NOT attached: v1.1.x clients pick the first .exe asset,
           # so the release must only contain the installer. Portable stays in the build artifact.
+
+      - name: Upload test build to hidden draft
+        # Drafts are invisible to /releases/latest, so users never get these as updates.
+        if: startsWith(github.ref, 'refs/heads/test/')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = "test-build"
+          gh release view $tag 2>$null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $tag --draft --prerelease --target "${{ github.sha }}" `
+              --title "Test build (internal, not for users)" --notes "Built from ${{ github.ref_name }} @ ${{ github.sha }}"
+          } else {
+            gh release edit $tag --notes "Built from ${{ github.ref_name }} @ ${{ github.sha }}"
+          }
+          gh release upload $tag out/Sophy_Studio_Portable.exe out/Sophy_Studio_Setup.exe --clobber

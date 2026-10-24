@@ -72,13 +72,17 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path out | Out-Null
+          "collect started" | Set-Content build-diag.txt
+          trap { "ERROR: $_" | Add-Content build-diag.txt; break }
           $setup = Get-ChildItem -Path target/release/bundle/nsis -Filter *-setup.exe | Select-Object -First 1
           if (-not $setup) { Write-Error "NSIS installer not found"; exit 1 }
           Copy-Item $setup.FullName out/Sophy_Studio_Setup.exe
           Copy-Item target/release/sophy.exe out/Sophy_Studio_Portable.exe
           # Hard guard against the v1.1.5 situation: the binaries themselves must carry APP_VERSION.
+          "setup: $($setup.FullName)" | Add-Content build-diag.txt
           foreach ($f in @("out/Sophy_Studio_Setup.exe", "out/Sophy_Studio_Portable.exe")) {
             $pv = (Get-Item $f).VersionInfo.ProductVersion
+            "$f ProductVersion=$pv size=$((Get-Item $f).Length)" | Add-Content build-diag.txt
             Write-Host "$f ProductVersion=$pv"
             if (-not $pv -or -not $pv.StartsWith("$env:APP_VERSION")) {
               Write-Error "$f has ProductVersion '$pv', expected $env:APP_VERSION"
@@ -86,10 +90,11 @@ jobs:
             }
           }
           # The app must not depend on the Visual C++ Redistributable (msvcp140/vcruntime140).
-          python -m pip install --quiet pefile
-          $deps = python -c "import pefile,sys; pe=pefile.PE(sys.argv[1]); print(' '.join(sorted(e.dll.decode().lower() for e in pe.DIRECTORY_ENTRY_IMPORT)))" out/Sophy_Studio_Portable.exe
+          python -m pip install --quiet pefile 2>&1 | Out-Null
+          $deps = python -c "import pefile,sys; pe=pefile.PE(sys.argv[1]); print(' '.join(sorted(e.dll.decode().lower() for e in pe.DIRECTORY_ENTRY_IMPORT)))" out/Sophy_Studio_Portable.exe 2>&1
+          "imports: $deps" | Add-Content build-diag.txt
           Write-Host "imports: $deps"
-          if ($deps -match 'msvcp1|vcruntime1|msvcr1') { Write-Error "Binary depends on the VC++ runtime: $deps"; exit 1 }
+          if ($deps -match 'msvcp1|vcruntime1|msvcr1') { "FAIL: VC++ runtime dependency" | Add-Content build-diag.txt; Write-Error "Binary depends on the VC++ runtime: $deps"; exit 1 }
           # Installer hooks must not contain dropper-like commands (antivirus false positives).
           $hooks = Get-Content src-tauri/hooks.nsh -Raw
           foreach ($bad in @("powershell", "ExecutionPolicy", "DownloadFile", "taskkill")) {
@@ -145,3 +150,14 @@ jobs:
             gh release edit $tag --notes "Built from ${{ github.ref_name }} @ ${{ github.sha }}"
           }
           gh release upload $tag out/Sophy_Studio_Portable.exe out/Sophy_Studio_Setup.exe --clobber
+
+      - name: Publish build diagnostics to hidden draft
+        if: always() && startsWith(github.ref, 'refs/heads/test/')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if (-not (Test-Path build-diag.txt)) { "no diagnostics (failed before collect)" | Set-Content build-diag.txt }
+          gh release view test-build 2>$null
+          if ($LASTEXITCODE -ne 0) { gh release create test-build --draft --prerelease --title "Test build (internal, not for users)" --notes "internal" }
+          gh release upload test-build build-diag.txt --clobber

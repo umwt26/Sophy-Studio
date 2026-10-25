@@ -17,6 +17,8 @@ A small Windows app that keeps the boring parts of making music out of your brow
   <a href="#made-by-beli">Made by Beli!</a>
 </p>
 
+<p><sub><b>English</b> · <a href="README_TR.md">Türkçe</a> · <a href="README_DE.md">Deutsch</a> · <a href="README_FR.md">Français</a> · <a href="README_ES.md">Español</a> · <a href="README_PT.md">Português</a> · <a href="README_RU.md">Русский</a> · <a href="README_JA.md">日本語</a></sub></p>
+
 <p>
   <img src="https://img.shields.io/github/v/release/umwt26/Sophy-Studio?style=flat-square&label=version&labelColor=0f1013&color=5b9dff" alt="Latest version" />
   <img src="https://img.shields.io/badge/windows-10%20%7C%2011-5b9dff?style=flat-square&labelColor=0f1013" alt="Windows 10 and 11" />
@@ -140,6 +142,8 @@ Six tools in one window, grouped the way you actually work: **get the audio**, *
 | Installer | NSIS, per-user |
 
 <br />
+
+<a id="made-by-beli"></a>
 
 ## Made by Beli!
 

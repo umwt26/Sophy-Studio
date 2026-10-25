@@ -57,7 +57,6 @@ The biggest update so far: a brand-new look, colour themes that change the whole
 
 ## 🚀 Smoother updates and installs
 
-- ✅ Setup **no longer asks you to uninstall the old version first**. It removes the previous Sophy Studio silently and installs the new one on top.
 - 🔒 History, settings, downloads and shortcuts are kept.
 
 ## ⚡ Lighter on older PCs

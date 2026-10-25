@@ -22,7 +22,6 @@ import {
   UserIcon,
   SettingsIcon,
   DocumentTextIcon,
-  ShieldCheckIcon,
   BoltIcon,
   CheckCircleIcon,
   ChatBubbleIcon,
@@ -46,7 +45,6 @@ const RELEASE_ITEMS: { key: string; Icon: React.ComponentType<{ className?: stri
   { key: "sponsors", Icon: ArrowDownTrayIcon },
   { key: "icons", Icon: SunoDownloaderIcon },
   { key: "font", Icon: DocumentTextIcon },
-  { key: "installer", Icon: ShieldCheckIcon },
   { key: "performance", Icon: BoltIcon },
   { key: "fixes", Icon: CheckCircleIcon },
 ];

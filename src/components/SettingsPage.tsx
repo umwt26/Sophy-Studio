@@ -60,7 +60,7 @@ const SOCIAL_LINKS = [
   { label: "@beli26", network: "YouTube", href: "https://www.youtube.com/@beli26", Icon: YouTubeIcon },
   { label: "Beli!", network: "Spotify", href: "https://open.spotify.com/intl-tr/artist/0abGcEf1RCkROklu9iYoR7", Icon: SpotifyIcon },
   { label: "@umwt26", network: "GitHub", href: "https://github.com/umwt26", Icon: GitHubIcon },
-  { label: "Filera", network: "Discord", href: "https://discord.gg/R9c7g78g", Icon: DiscordIcon },
+  { label: "Filera", network: "Discord", href: "https://discord.gg/vwzjuhnpyP", Icon: DiscordIcon },
 ];
 
 // Fixed palettes for the mode previews, so each card shows its own mode

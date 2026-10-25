@@ -1,117 +1,181 @@
 <div align="center">
 
-# 🎵 Sophy Studio — All-In-One Audio & Music Production Suite
+<img src="src-tauri/icons/128x128@2x.png" alt="Sophy Studio" width="88" />
 
-**The Modern Audio Workstation: Suno Song Downloader, Metadata Editor & Key & BPM Detect.**
+<h1>Sophy Studio</h1>
 
-[![Release](https://img.shields.io/badge/Release-v0.1.0-blue.svg?style=for-the-badge&logo=github)](https://github.com/umwt26/Sophy-Studio/releases)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows)](https://github.com/umwt26/Sophy-Studio)
-[![Built With](https://img.shields.io/badge/Built%20With-Tauri%202%20%7C%20Rust%20%7C%20React%2019-teal.svg?style=for-the-badge)](https://tauri.app)
-[![Developer](https://img.shields.io/badge/Developer-Beli!%20(@umw26t)-E4405F.svg?style=for-the-badge&logo=instagram)](https://www.instagram.com/umw26t/)
+<p><b>Download it. Shape it. Tag it. Ship it.</b><br />
+A small Windows app that keeps the boring parts of making music out of your browser.</p>
 
-<br />
+<p>
+  <a href="https://github.com/umwt26/Sophy-Studio/releases/latest"><b>Download for Windows</b></a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/umwt26/Sophy-Studio/releases">Release notes</a>
+  &nbsp;·&nbsp;
+  <a href="https://discord.gg/vwzjuhnpyP">Discord</a>
+  &nbsp;·&nbsp;
+  <a href="#made-by-beli">Made by Beli!</a>
+</p>
 
-🌐 **Language / Dil:** [English](README.md) • [Türkçe](README_TR.md) • [Deutsch](README_DE.md) • [Français](README_FR.md) • [Español](README_ES.md) • [Русский](README_RU.md) • [Português](README_PT.md) • [日本語](README_JA.md)
+<p>
+  <img src="https://img.shields.io/github/v/release/umwt26/Sophy-Studio?style=flat-square&label=version&labelColor=0f1013&color=5b9dff" alt="Latest version" />
+  <img src="https://img.shields.io/badge/windows-10%20%7C%2011-5b9dff?style=flat-square&labelColor=0f1013" alt="Windows 10 and 11" />
+  <img src="https://img.shields.io/badge/price-free-5b9dff?style=flat-square&labelColor=0f1013" alt="Free" />
+  <img src="https://img.shields.io/badge/languages-8-5b9dff?style=flat-square&labelColor=0f1013" alt="8 languages" />
+</p>
 
-</div>
+<img src="docs/screenshots/gorunum.gif" alt="Switching colour themes in Sophy Studio" width="100%" />
 
----
+<sub>One app, nine colour themes, and a colour picker for everything in between.</sub>
 
-## 💡 About Sophy Studio
-
-> **Tired of Suno download limits, restrictive quotas, and sluggish web interfaces?**  
-> Welcome to **Sophy Studio**! Creative music generation shouldn't be locked behind tedious download steps. Sophy Studio empowers creators, producers, and listeners to extract clean, studio-grade audio, lossless WAVs, artwork, and lyrics straight from Suno links into neatly structured folders on your computer — completely free, unlimited, and blisteringly fast.
-
----
-
-## ✨ Key Features
-
-- **⚡ Instant Track Analysis:** Paste any Suno track link (`suno.com/s/...`, `suno.com/song/...`, or UUID) and retrieve full metadata, tags, lyrics, artist details, and artwork in under a second.
-- **🎧 Studio Audio Formats:**
-  - **MP3 (320 kbps)** — Clean high-bitrate conversion with embedded ID3 metadata tags (Title, Artist, Style/Genre, and Cover Art).
-  - **WAV (Lossless 44.1 kHz 16-bit)** — Uncompressed audio ready for import directly into your DAW (FL Studio, Ableton, Logic Pro, etc.).
-  - **Original Audio** — Direct stream capture without transcoding.
-- **📦 Download All (.zip):** Package the 320kbps MP3, original high-res cover art (.jpg), and lyrics (.txt) into an organized `.zip` file in a single click.
-- **🕒 Local Search History:** Never lose a track again. Sophy Studio stores your analyzed tracks locally so you can reload any previous song instantly.
-- **🌍 8 Interface Languages:** English, Türkçe, Deutsch, Français, Español, Русский, Português, and 日本語 with dynamic real-time switching.
-- **🚀 Automatic Remote Update Checker:** Directly checks GitHub Releases on startup to alert you as soon as a new version is released.
-- **📁 Organized Local Library:** Automatically manages your downloads under `Documents\Sophy Studio\` sorted into clean subdirectories (`Audio`, `Cover Art`, `Lyrics`, `All`).
-
----
-
-## 📸 Screenshots Showcase
-
-### 1. Song Details & Download Toolkit
-Inspect track style, prompt tags, model version, and trigger high-speed downloads:
-<div align="center">
-  <img src="assets/screenshots/04_song_details.png" alt="Sophy Song Details" width="850" />
 </div>
 
 <br />
 
-### 2. Audio Format Selection (MP3 320k / Lossless WAV / Original)
-Choose your preferred audio rendering format tailored for casual listening or DAW editing:
-<div align="center">
-  <img src="assets/screenshots/05_audio_formats.png" alt="Sophy Audio Format Modal" width="850" />
-</div>
+## What's inside
+
+Six tools in one window, grouped the way you actually work: **get the audio**, **make something with it**, **clean it up**. Everything runs on your own PC. There are no accounts and no upload queues.
 
 <br />
 
-### 3. Local Search History
-Quickly reload previously fetched tracks or clear history at your discretion:
-<div align="center">
-  <img src="assets/screenshots/01_search_history.png" alt="Sophy Search History" width="850" />
-</div>
+### 01 &nbsp;/&nbsp; Download
+
+**Suno Downloader.** Paste a Suno link and get the track as 320 kbps MP3, lossless WAV or the original stream, plus cover art, lyrics, or everything zipped together. Tags and artwork are written into the file, and your recent tracks stay in a searchable history.
+
+**Universal Downloader.** One box for YouTube, Instagram, TikTok, Facebook, X, Pinterest, Reddit, SoundCloud and more. Pick **MP4 video** or **MP3 320k audio**. Every download lands in a history you can filter, sort and reopen.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader" /></td>
+    <td width="50%"><img src="docs/screenshots/ana-sayfa.png" alt="Home screen" /></td>
+  </tr>
+  <tr>
+    <td><sub><b>Universal Downloader:</b> fetch, preview, choose video or audio.</sub></td>
+    <td><sub><b>Home:</b> every tool grouped in one place (shown here in Turkish).</sub></td>
+  </tr>
+</table>
+
+### 02 &nbsp;/&nbsp; Create
+
+**Suno Style Prompter.** Describe a song in your own words, in any language, and get a ready-to-paste **Style of Music** (up to 1,000 characters) and **Structure** (up to 5,000). Refine it like a conversation: *"less bass"*, *"BPM 140"*, *"add saxophone to the intro"*. It never writes lyrics, so the words stay yours. It works offline: a rule engine understands eight languages instantly, and a small built-in AI model (Qwen2.5 1.5B, running locally through llama.cpp) handles the rest.
+
+**Sample Cutter.** Load any track, slide a fixed 8-second window across the waveform, preview it in a loop and export the slice as MP3 or WAV. Built for Suno's audio upload.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/prompter.png" alt="Suno Style Prompter" /></td>
+    <td width="50%"><img src="docs/screenshots/sample-cutter.png" alt="Sample Cutter" /></td>
+  </tr>
+  <tr>
+    <td><sub><b>Style Prompter:</b> chat on the bottom, Style and Structure on top, one click to copy.</sub></td>
+    <td><sub><b>Sample Cutter:</b> an exact 8-second slice, nudged to the frame.</sub></td>
+  </tr>
+</table>
+
+### 03 &nbsp;/&nbsp; Edit &amp; analyze
+
+**Metadata Editor.** Title, artist, album, year, genre, track number, comment and cover art for MP3, WAV, FLAC and M4A. WAV tags are laid out the way Windows Explorer expects, and every save is read back to make sure it actually stuck.
+
+**Key &amp; BPM Detect.** Drop a file and get its key, the Camelot code with harmonic neighbours, and the tempo. You can fine-tune the BPM (−1, +1, ÷2, ×2). Analysis runs locally with Essentia.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/metadata-editor.png" alt="Metadata Editor" /></td>
+    <td width="50%"><img src="docs/screenshots/bpm-detect.png" alt="Key and BPM Detect" /></td>
+  </tr>
+  <tr>
+    <td><sub><b>Metadata Editor:</b> tags and artwork, written straight into the file.</sub></td>
+    <td><sub><b>Key &amp; BPM:</b> key, Camelot wheel position and tempo in seconds.</sub></td>
+  </tr>
+</table>
 
 <br />
 
-### 4. International Multi-Language Support
-Switch on the fly between 8 supported world languages:
-<div align="center">
-  <img src="assets/screenshots/03_languages.png" alt="Sophy Language Dropdown" width="850" />
-</div>
+## Make it yours
+
+- **Colour themes that reach everything:** 9 presets (Ocean, Lagoon, Forest, Amber, Ember, Crimson, Orchid, Violet, Graphite) or any colour. They tint backgrounds, the sidebar, borders and selections, not just buttons. Background tone sets how strong the tint is.
+- **Light, dark or follow Windows.**
+- **Accessibility:** text size from Small to Extra large without breaking the layout, display zoom from 90% to 150%, and a reduce-motion switch.
+- **8 languages:** English, Türkçe, Deutsch, Français, Español, Português, Русский, 日本語.
+- **Your folders:** choose where audio, cover art, lyrics, zip files and media go, separately.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/lang.png" alt="Language settings" /></td>
+    <td width="50%"><img src="docs/screenshots/erisilebilirlik.png" alt="Accessibility settings" /></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/output-folders.png" alt="Output folders" /></td>
+    <td width="50%"><img src="docs/screenshots/about.png" alt="About" /></td>
+  </tr>
+</table>
 
 <br />
 
-### 5. Minimalist Home Interface
-Distraction-free dark mode interface designed for maximum productivity:
-<div align="center">
-  <img src="assets/screenshots/02_main_screen.png" alt="Sophy Main Screen" width="850" />
-</div>
+## Install
 
----
+1. Download **`Sophy_Studio_Setup.exe`** from the [latest release](https://github.com/umwt26/Sophy-Studio/releases/latest).
+2. Run it. No admin rights needed; it installs for your Windows user only.
+3. Open Sophy Studio from the Start menu or desktop.
 
-## 📥 Installation
+**Requirements:** 64-bit Windows 10 or 11. The Visual C++ Redistributable is not needed.
 
-### Windows Installer (Setup)
-1. Download the latest `Sophy_Studio_Setup.exe` from the [Releases](https://github.com/umwt26/Sophy-Studio/releases) page.
-2. Run the installer and follow the modern setup wizard.
-3. Launch **Sophy Studio** from your Desktop or Start Menu!
+**First launch:** Sophy Studio fetches FFmpeg and yt-dlp, and the offline AI model for the Prompter, in the background. After that the analysis tools work without internet.
 
----
+**Updates:** the app checks GitHub on start-up and updates itself in place. Your history, settings and downloads are kept.
 
-## 🛠️ Tech Stack & Architecture
+**Older PCs:** built to run on first-gen i3/i5 machines without a graphics card. If the processor can't run the AI model, the Prompter quietly falls back to its rule engine.
 
-| Layer | Technologies |
-| :--- | :--- |
-| **Desktop Shell** | [Tauri 2](https://v2.tauri.app) + [Rust](https://www.rust-lang.org/) |
-| **Frontend UI** | [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS v4](https://tailwindcss.com/) |
-| **Media Engine** | Custom Rust decryption pipeline & [FFmpeg](https://ffmpeg.org/) (silent mode) |
-| **Installer** | Customized NSIS 3.x setup wizard |
+<br />
 
----
+## Under the hood
 
-## 🧑‍💻 Developer & Credits
+| Part | Built with |
+|---|---|
+| App shell | Tauri 2 · Rust |
+| Interface | React 19 · TypeScript · Tailwind CSS 4 · i18next |
+| Audio | FFmpeg · lofty / id3 · Essentia.js (WebAssembly) |
+| Downloads | Suno API client · yt-dlp |
+| Offline AI | llama.cpp · Qwen2.5-1.5B-Instruct (Q4_K_M) |
+| Installer | NSIS, per-user |
 
-Crafted with ❤️ by **Beli! (Discord: @umw35t)**.
+<br />
 
-- 📸 **Instagram:** [@umw26t](https://www.instagram.com/umw26t/)
-- 🌐 **GitHub:** [umwt26](https://github.com/umwt26)
-- ⚡ **Discord Server:** [Filera](https://discord.gg/vwzjuhnpyP)
+## Made by Beli!
 
----
+Sophy Studio is designed, built and maintained by **Beli!**, a producer and artist who wanted the tools that used to live in ten browser tabs in one place.
 
-## 📄 License & Disclaimer
+<table>
+  <tr>
+    <td valign="top" width="33%">
+      <b>Listen</b><br /><br />
+      <a href="https://open.spotify.com/artist/0abGcEf1RCkROklu9iYoR7">Spotify · Beli!</a><br />
+      <a href="https://www.youtube.com/@beli26">YouTube · @beli26</a><br />
+      <a href="https://www.tiktok.com/@belionthebeat">TikTok · @belionthebeat</a>
+    </td>
+    <td valign="top" width="33%">
+      <b>Follow</b><br /><br />
+      <a href="https://www.instagram.com/umw26t/">Instagram · @umw26t</a><br />
+      <a href="https://www.instagram.com/_beli26/">Instagram · @_beli26</a><br />
+      <a href="https://x.com/_beli26">X · @_beli26</a>
+    </td>
+    <td valign="top" width="33%">
+      <b>Talk &amp; build</b><br /><br />
+      <a href="https://discord.gg/vwzjuhnpyP">Discord · Filera</a><br />
+      <a href="https://github.com/umwt26">GitHub · @umwt26</a><br />
+      <a href="https://github.com/umwt26/Sophy-Studio/issues">Report a bug</a>
+    </td>
+  </tr>
+</table>
 
-This project is licensed under the MIT License.  
-*Disclaimer: Sophy Studio is an independent open-source toolkit and is not officially affiliated with or endorsed by Suno AI. Please respect the copyrights and terms of service of the creators and platforms.*
+**Supported by** [Filerawave](https://www.filerawave.com), a Turkey-based music and video distribution platform for independent artists, and [Filera Music](https://www.filera.page).
+
+Ideas or problems? Use **Send Feedback** inside the app, open an issue, or say hi on Discord.
+
+<br />
+
+## License
+
+MIT.
+
+Sophy Studio is an independent project and is not affiliated with or endorsed by Suno, YouTube, Instagram, TikTok or any other platform it works with. Only download content you have the right to use, and respect the creators and the terms of each platform.

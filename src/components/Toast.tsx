@@ -14,11 +14,11 @@ export function Toast({ message, kind = "success" }: ToastProps) {
       <div
         role={isError ? "alert" : "status"}
         className={`flex items-start gap-2.5 rounded-md border bg-[var(--color-app-surface)] px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.35)] ${
-          isError ? "border-rose-500/40" : "border-[var(--color-app-border)]"
+          isError ? "border-[var(--color-danger)]/40" : "border-[var(--color-app-border)]"
         }`}
       >
         {isError ? (
-          <AlertCircleIcon className="h-4.5 w-4.5 shrink-0 mt-0.5 text-rose-400" />
+          <AlertCircleIcon className="h-4.5 w-4.5 shrink-0 mt-0.5 text-[var(--color-danger)]" />
         ) : (
           <CheckCircleIcon className="h-4.5 w-4.5 shrink-0 mt-0.5 text-[var(--color-accent)]" />
         )}

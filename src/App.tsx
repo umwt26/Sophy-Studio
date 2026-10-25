@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { listen, type Event } from "@tauri-apps/api/event";
 import { useTranslation } from "react-i18next";
-import { Header } from "./components/Header";
-import { StudioDrawer } from "./components/StudioDrawer";
+import { Sidebar } from "./components/Sidebar";
 import { HomePage } from "./components/HomePage";
 import { SunoDownloaderPage } from "./components/SunoDownloaderPage";
 import { UniversalDownloaderPage } from "./components/UniversalDownloaderPage";
@@ -13,13 +12,14 @@ import { KeyBpmDetectPage } from "./components/KeyBpmDetectPage";
 import { SampleCutterPage } from "./components/SampleCutterPage";
 import { SettingsPage } from "./components/SettingsPage";
 import { AudioFormatModal } from "./components/AudioFormatModal";
-import { FeedbackModal } from "./components/FeedbackModal";
+import { FeedbackPage } from "./components/FeedbackPage";
 import { SunoHistoryDrawer } from "./components/SunoHistoryDrawer";
 import { AdModal } from "./components/AdModal";
 import { UpdateModal } from "./components/UpdateModal";
 import { clearUpdateAttempt, readUpdateAttempt } from "./utils/updateAttempt";
 import { Toast, type ToastKind } from "./components/Toast";
 import { applyTheme, loadSavedTheme } from "./utils/theme";
+import { applyAccessibility, loadAccessibility } from "./utils/accessibility";
 import type { AppTab, AudioFormat, SongClip, SongData, UpdateInfo } from "./types";
 
 const HISTORY_STORAGE_KEY = "sophy_search_history";
@@ -33,13 +33,11 @@ function formatDuration(sec?: number): string {
 export default function App() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<AppTab>("home");
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [song, setSong] = useState<SongData | null>(null);
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [audioModalOpen, setAudioModalOpen] = useState(false);
   const [sunoDrawerOpen, setSunoDrawerOpen] = useState(false);
-  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
 
   // Ad interstitial modal state for Suno downloads
   const [pendingSunoFormat, setPendingSunoFormat] = useState<
@@ -58,6 +56,15 @@ export default function App() {
   // Initialize theme on app mount
   useEffect(() => {
     applyTheme(loadSavedTheme());
+    applyAccessibility(loadAccessibility());
+    // "Follow Windows" mode reacts to OS theme changes while the app is open
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const onChange = () => {
+      const config = loadSavedTheme();
+      if (config.mode === "system") applyTheme(config);
+    };
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
   }, []);
 
   // Check for updates from GitHub in the background
@@ -252,34 +259,18 @@ export default function App() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-[var(--color-app-bg)] text-[var(--color-text-primary)]">
-      <Header
+    <div className="app-shell text-[var(--color-text-primary)]">
+      <Sidebar
         activeTab={activeTab}
-        onOpenMenu={() => setDrawerOpen(true)}
-        onNavigateHome={() => setActiveTab("home")}
-        onOpenSettings={() => setActiveTab("settings")}
+        onSelectTab={setActiveTab}
         updateVersion={updateInfo?.has_update ? updateInfo.latest_version : undefined}
         onOpenUpdate={() => setUpdateModalOpen(true)}
       />
 
-      <StudioDrawer
-        isOpen={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        activeTab={activeTab}
-        onSelectTab={setActiveTab}
-        onOpenFeedback={() => setFeedbackModalOpen(true)}
-      />
-
-      <main
-        className="flex-1 overflow-y-scroll bg-[var(--color-app-bg)]"
-        style={{ scrollbarGutter: "stable" }}
-      >
-        <div className="mx-auto flex w-full max-w-5xl flex-col px-4 py-4 sm:px-6 sm:py-5">
+      <main className="app-main">
+        <div className="app-content flex flex-col">
           {activeTab === "home" && (
-            <HomePage
-              onNavigate={(tab) => setActiveTab(tab)}
-              onOpenFolder={handleOpenFolder}
-            />
+            <HomePage onNavigate={(tab) => setActiveTab(tab)} />
           )}
 
           {activeTab === "suno" && (
@@ -321,6 +312,8 @@ export default function App() {
 
           {activeTab === "prompter" && <SunoPrompterPage onShowToast={showToast} />}
 
+          {activeTab === "feedback" && <FeedbackPage onShowToast={showToast} />}
+
           {activeTab === "settings" && (
             <SettingsPage onShowToast={showToast} />
           )}
@@ -334,12 +327,6 @@ export default function App() {
         />
       )}
 
-      {/* User Feedback Modal */}
-      <FeedbackModal
-        isOpen={feedbackModalOpen}
-        onClose={() => setFeedbackModalOpen(false)}
-        onShowToast={showToast}
-      />
 
       {/* Suno History Slide-over Drawer (1/4 screen) */}
       <SunoHistoryDrawer

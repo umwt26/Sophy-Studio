@@ -39,15 +39,18 @@ export interface UpdateInfo {
   download_sha256?: string | null;
 }
 
-export type AppTab = "home" | "suno" | "universal" | "metadata" | "detector" | "sample-cutter" | "prompter" | "settings";
+export type AppTab = "home" | "suno" | "universal" | "metadata" | "detector" | "sample-cutter" | "prompter" | "feedback" | "settings";
 
 export type ThemeMode = "dark" | "light" | "system";
-export type ThemeColor = "blue" | "red" | "green" | "purple" | "orange" | "pink" | "custom" | string;
+/** A preset id from THEME_PRESETS, or a "#rrggbb" custom colour */
+export type ThemeColor = string;
+/** How strongly the theme colour tints backgrounds and borders */
+export type ThemeTint = "none" | "subtle" | "rich";
 
 export interface AppThemeConfig {
   mode: ThemeMode;
   color: ThemeColor;
-  customHex?: string;
+  tint: ThemeTint;
 }
 
 export interface FolderSettings {

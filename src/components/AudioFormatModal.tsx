@@ -38,7 +38,7 @@ export function AudioFormatModal({ onClose, onSelect }: AudioFormatModalProps) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 animate-fade-in backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-fade-in">
       <div className="relative w-full max-w-md rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-6 shadow-2xl animate-scale-in">
         <button
           type="button"
@@ -74,7 +74,7 @@ export function AudioFormatModal({ onClose, onSelect }: AudioFormatModalProps) {
                 <p className="text-xs font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                   {option.title}
                 </p>
-                <p className="mt-0.5 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
+                <p className="mt-0.5 text-[0.6875rem] leading-relaxed text-[var(--color-text-secondary)]">
                   {option.description}
                 </p>
               </div>

@@ -36,15 +36,15 @@ export const SunoHistoryDrawer: React.FC<SunoHistoryDrawerProps> = ({
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex animate-fade-in">
+    <div className="fixed inset-0 z-50 flex justify-end">
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+        className="drawer-backdrop fixed inset-0 bg-black/50"
       />
 
       {/* Drawer Panel on Left (approx 1/4 screen width) */}
-      <aside className="relative flex h-full w-84 max-w-[85vw] flex-col border-r border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-4 shadow-2xl z-10 animate-slide-in-right">
+      <aside className="relative flex h-full w-84 max-w-[85vw] flex-col border-l border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-4 z-10 drawer-panel">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--color-app-border)] pb-3">
           <div className="flex items-center gap-2">
@@ -55,7 +55,7 @@ export const SunoHistoryDrawer: React.FC<SunoHistoryDrawerProps> = ({
               <h2 className="text-xs font-bold text-[var(--color-text-primary)]">
                 {t("app.historyTitle", "Suno Geçmişi")}
               </h2>
-              <p className="text-[10px] text-[var(--color-text-tertiary)]">
+              <p className="text-[0.625rem] text-[var(--color-text-tertiary)]">
                 {history.length} {t("app.historyCount", "kayıtlı şarkı")}
               </p>
             </div>
@@ -67,7 +67,7 @@ export const SunoHistoryDrawer: React.FC<SunoHistoryDrawerProps> = ({
                 type="button"
                 onClick={onClearHistory}
                 title={t("app.clearHistory", "Temizle")}
-                className="btn btn-secondary text-xs px-2 py-1 text-rose-400 hover:border-rose-500/30"
+                className="btn btn-secondary text-xs px-2 py-1 text-[var(--color-danger)] hover:border-[var(--color-danger)]/30"
               >
                 <TrashIcon className="h-3.5 w-3.5" />
               </button>
@@ -128,7 +128,7 @@ export const SunoHistoryDrawer: React.FC<SunoHistoryDrawerProps> = ({
                     }}
                     className="flex flex-1 items-center gap-2.5 text-left min-w-0"
                   >
-                    <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-black/40">
+                    <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-[var(--color-app-surface-2)]">
                       {item.coverUrl ? (
                         <img
                           src={item.coverUrl}
@@ -149,10 +149,10 @@ export const SunoHistoryDrawer: React.FC<SunoHistoryDrawerProps> = ({
                       <h4 className="truncate text-xs font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">
                         {item.title}
                       </h4>
-                      <p className="truncate text-[11px] text-[var(--color-text-secondary)]">
+                      <p className="truncate text-[0.6875rem] text-[var(--color-text-secondary)]">
                         {item.artist}
                       </p>
-                      <div className="mt-0.5 flex items-center gap-1.5 text-[10px] text-[var(--color-text-tertiary)] font-mono">
+                      <div className="mt-0.5 flex items-center gap-1.5 text-[0.625rem] text-[var(--color-text-tertiary)] font-mono">
                         {item.duration && <span>{item.duration}</span>}
                         {item.duration && item.createdAt && <span>•</span>}
                         {item.createdAt && <span>{item.createdAt}</span>}
@@ -177,7 +177,7 @@ export const SunoHistoryDrawer: React.FC<SunoHistoryDrawerProps> = ({
                         e.stopPropagation();
                         onRemoveItem(itemId);
                       }}
-                      className="btn btn-secondary text-xs px-2 py-1 text-rose-400 hover:border-rose-500/30"
+                      className="btn btn-secondary text-xs px-2 py-1 text-[var(--color-danger)] hover:border-[var(--color-danger)]/30"
                     >
                       <TrashIcon className="h-3 w-3" />
                     </button>

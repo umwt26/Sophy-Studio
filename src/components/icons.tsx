@@ -10,6 +10,25 @@ export function MenuIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function SidebarIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect x="3" y="4" width="18" height="16" rx="2.5" />
+      <line x1="9" x2="9" y1="4" y2="20" />
+    </svg>
+  );
+}
+
+export function MonitorIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect x="2.5" y="3.5" width="19" height="13" rx="2" />
+      <line x1="8" x2="16" y1="21" y2="21" />
+      <line x1="12" x2="12" y1="16.5" y2="21" />
+    </svg>
+  );
+}
+
 export function HomeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>

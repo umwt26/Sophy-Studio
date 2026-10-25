@@ -4,6 +4,7 @@ import { listen } from "@tauri-apps/api/event";
 import { useTranslation } from "react-i18next";
 import { applyInput, emptyState, render, STRUCTURE_LIMIT, STYLE_LIMIT, type PrompterState } from "../prompter/engine";
 import { ChatBubbleIcon, CheckIcon, LoadingSpinner, PlusIcon, SendIcon, SparklesIcon } from "./icons";
+import { PageHeader } from "./PageHeader";
 import { PrompterChatsDrawer } from "./PrompterChatsDrawer";
 
 interface Props {
@@ -90,7 +91,7 @@ function CopyButton({ text, label, onCopied }: { text: string; label: string; on
           /* clipboard blocked */
         }
       }}
-      className="btn btn-secondary h-7 px-2.5 text-[11px]"
+      className="btn btn-secondary h-7 px-2.5 text-[0.6875rem]"
     >
       {done ? <CheckIcon className="h-3.5 w-3.5 text-[var(--color-success)]" /> : null}
       <span>{label}</span>
@@ -101,7 +102,7 @@ function CopyButton({ text, label, onCopied }: { text: string; label: string; on
 function Counter({ value, limit }: { value: number; limit: number }) {
   const near = value > limit * 0.9;
   return (
-    <span className={`font-mono text-[11px] ${near ? "text-amber-400" : "text-[var(--color-text-muted)]"}`}>
+    <span className={`font-mono text-[0.6875rem] ${near ? "text-[var(--color-warning)]" : "text-[var(--color-text-muted)]"}`}>
       {value} / {limit}
     </span>
   );
@@ -289,34 +290,27 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
 
   return (
     // Fits the window: header + results + chat on one screen, no page scrolling.
-    // 92px = app top bar (52px) + main container vertical padding (2 x 20px).
-    <div className="page !gap-4" style={{ height: "calc(100vh - 92px)", minHeight: 520 }}>
-      {/* Header */}
-      <div className="section px-4 py-3 shrink-0 flex flex-col md:flex-row md:items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] border border-[var(--color-accent)]/20">
-            <SparklesIcon className="h-5 w-5" />
-          </div>
-          <div className="min-w-0">
-            <h1 className="text-sm font-semibold text-[var(--color-text-primary)]">{t("prompter.title", "Suno Style Prompter")}</h1>
-            <p className="text-xs text-[var(--color-text-secondary)] truncate">
-              {t("prompter.subtitle", "Describe a song in your own words and get a ready-to-paste Style and Structure for Suno. It never writes lyrics.")}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 self-start md:self-auto">
-          {/* Same size and style for both header actions */}
-          <button type="button" onClick={() => setChatsOpen(true)} className="btn btn-secondary h-9 w-40 px-3 text-xs gap-2" title={t("prompter.chats", "Chats")}>
-            <ChatBubbleIcon className="h-4 w-4 text-[var(--color-accent)]" />
-            <span>{t("prompter.chats", "Chats")}</span>
-            {savedChats.length > 0 && <span className="font-mono text-[10px] text-[var(--color-text-muted)]">{savedChats.length}</span>}
-          </button>
-          <button type="button" onClick={startChat} className="btn btn-secondary h-9 w-40 px-3 text-xs gap-2">
-            <PlusIcon className="h-4 w-4 text-[var(--color-accent)]" />
-            <span>{t("prompter.newChat", "New chat")}</span>
-          </button>
-        </div>
-      </div>
+    // 48px = main container vertical padding (2 x 24px).
+    <div className="page !gap-4" style={{ height: "calc(100vh - 48px)", minHeight: 520 }}>
+      <PageHeader
+        Icon={SparklesIcon}
+        title={t("prompter.title", "Suno Style Prompter")}
+        desc={t("prompter.subtitle", "Describe a song in your own words and get a ready-to-paste Style and Structure for Suno. It never writes lyrics.")}
+        actions={
+          <>
+            {/* Same size and style for both header actions */}
+            <button type="button" onClick={() => setChatsOpen(true)} className="btn btn-secondary w-36 gap-2" title={t("prompter.chats", "Chats")}>
+              <ChatBubbleIcon className="h-4 w-4 text-[var(--color-accent)]" />
+              <span>{t("prompter.chats", "Chats")}</span>
+              {savedChats.length > 0 && <span className="font-mono text-[0.625rem] text-[var(--color-text-muted)]">{savedChats.length}</span>}
+            </button>
+            <button type="button" onClick={startChat} className="btn btn-secondary w-36 gap-2">
+              <PlusIcon className="h-4 w-4 text-[var(--color-accent)]" />
+              <span>{t("prompter.newChat", "New chat")}</span>
+            </button>
+          </>
+        }
+      />
 
       {/* Results: Style | Structure side by side */}
       <div className="grid grid-cols-2 gap-4 flex-1 min-h-0">
@@ -332,10 +326,10 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
             value={session.style}
             onChange={(e) => update(session.id, (s) => ({ ...s, style: e.target.value.slice(0, STYLE_LIMIT), updatedAt: Date.now() }))}
             placeholder={t("prompter.stylePlaceholder", "Your Suno style tags will appear here.")}
-            className="input resize-none text-[13px] font-mono flex-1 min-h-0"
+            className="input resize-none text-[0.8125rem] font-mono flex-1 min-h-0"
             style={BOX_STYLE}
           />
-          <p className="text-[11px] text-[var(--color-text-muted)]">
+          <p className="text-[0.6875rem] text-[var(--color-text-muted)]">
             {t("prompter.styleDesc", "Paste this into the Style of Music field in Suno.")}
           </p>
         </div>
@@ -346,7 +340,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
             <div className="flex items-center gap-2">
               <Counter value={session.structure.length} limit={STRUCTURE_LIMIT} />
               {session.structureEdited && (
-                <button type="button" onClick={regenerateStructure} className="btn btn-secondary h-7 px-2.5 text-[11px]">
+                <button type="button" onClick={regenerateStructure} className="btn btn-secondary h-7 px-2.5 text-[0.6875rem]">
                   {t("prompter.regenerate", "Regenerate structure")}
                 </button>
               )}
@@ -359,10 +353,10 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
               update(session.id, (s) => ({ ...s, structure: e.target.value.slice(0, STRUCTURE_LIMIT), structureEdited: true, updatedAt: Date.now() }))
             }
             placeholder={t("prompter.structurePlaceholder", "Section tags like [Intro], [Verse 1], [Chorus] will appear here.")}
-            className="input resize-none text-[13px] font-mono flex-1 min-h-0"
+            className="input resize-none text-[0.8125rem] font-mono flex-1 min-h-0"
             style={BOX_STYLE}
           />
-          <p className="text-[11px] text-[var(--color-text-muted)]">
+          <p className="text-[0.6875rem] text-[var(--color-text-muted)]">
             {t("prompter.structureDesc", "Replace the lines in parentheses with your own lyrics before pasting into Suno.")}
           </p>
         </div>
@@ -390,7 +384,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
                       setInput(ex);
                       inputRef.current?.focus();
                     }}
-                    className="chip text-[11px] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-accent)]"
+                    className="chip text-[0.6875rem] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-accent)]"
                   >
                     {ex}
                   </button>
@@ -401,7 +395,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
             session.commands.map((c, idx) => (
               <div key={idx} className="flex flex-col items-end gap-1">
                 <div
-                  className={`max-w-[80%] rounded-2xl rounded-br-md px-3.5 py-2 text-[13px] leading-relaxed ${
+                  className={`max-w-[80%] rounded-2xl rounded-br-md px-3.5 py-2 text-[0.8125rem] leading-relaxed ${
                     c.ok
                       ? "bg-[var(--color-accent)] text-[var(--color-accent-fg)]"
                       : "bg-[var(--color-app-surface-2)] text-[var(--color-text-secondary)] border border-[var(--color-app-border)]"
@@ -409,7 +403,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
                 >
                   {c.text}
                 </div>
-                <span className="text-[10px] text-[var(--color-text-muted)] flex items-center gap-1">
+                <span className="text-[0.625rem] text-[var(--color-text-muted)] flex items-center gap-1">
                   {c.ok ? <CheckIcon className="h-3 w-3 text-[var(--color-success)]" /> : null}
                   {c.ok ? t("prompter.applied", "Applied") : t("prompter.notApplied", "Not recognised")}
                   {c.understoodAs && c.understoodAs !== c.text ? ` · ${t("prompter.understoodAs", "Understood as")}: ${c.understoodAs}` : ""}
@@ -419,7 +413,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
           )}
           {busy && (
             <div className="flex justify-end">
-              <span className="flex items-center gap-2 text-[11px] text-[var(--color-text-muted)]">
+              <span className="flex items-center gap-2 text-[0.6875rem] text-[var(--color-text-muted)]">
                 <LoadingSpinner className="h-3.5 w-3.5 animate-spin" />
                 {t("prompter.aiThinking", "Analysing...")}
               </span>
@@ -427,11 +421,11 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
           )}
         </div>
 
-        {notice && <p className="px-4 pb-2 text-[11px] text-amber-400">{notice}</p>}
+        {notice && <p className="px-4 pb-2 text-[0.6875rem] text-[var(--color-warning)]">{notice}</p>}
 
         {preparing && (
           <div className="px-4 pb-2.5">
-            <div className="flex items-center justify-between text-[11px] text-[var(--color-text-secondary)]">
+            <div className="flex items-center justify-between text-[0.6875rem] text-[var(--color-text-secondary)]">
               <span className="flex items-center gap-1.5">
                 <LoadingSpinner className="h-3.5 w-3.5 animate-spin text-[var(--color-accent)]" />
                 {t("prompter.aiDownloading", "Preparing AI model")}
@@ -444,7 +438,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
           </div>
         )}
         {downloadFailed && (
-          <p className="px-4 pb-2 text-[11px] text-[var(--color-text-muted)]">
+          <p className="px-4 pb-2 text-[0.6875rem] text-[var(--color-text-muted)]">
             {t("prompter.aiNotReady", "The AI model isn't downloaded yet, the built-in engine is used.")}{" "}
             <button type="button" onClick={retryDownload} className="text-[var(--color-accent)] hover:underline">
               {t("prompter.aiEnable", "Download AI model")}

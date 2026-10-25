@@ -24,9 +24,9 @@ function DownloadCard({ icon, title, subtitle, disabled, onClick }: DownloadCard
       </div>
       <div className="min-w-0">
         <p className="text-xs font-bold text-[var(--color-text-primary)]">{title}</p>
-        <p className="text-[11px] text-[var(--color-text-secondary)] mt-0.5">{subtitle}</p>
+        <p className="text-[0.6875rem] text-[var(--color-text-secondary)] mt-0.5">{subtitle}</p>
       </div>
-      <span className="mt-auto flex items-center gap-1 text-[11px] font-semibold text-[var(--color-accent)] pt-1">
+      <span className="mt-auto flex items-center gap-1 text-[0.6875rem] font-semibold text-[var(--color-accent)] pt-1">
         <DownloadIcon className="h-3 w-3" />
         <span>{t("suno.download", "İndir")}</span>
       </span>

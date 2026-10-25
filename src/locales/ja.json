@@ -88,7 +88,6 @@
   },
   "home": {
     "heroSubtitle": "AI音楽ダウンロード、メディア保存、タグ編集、Key/BPM解析のためのデスクトップツールキット。",
-    "openOutputFolder": "スタジオフォルダー",
     "sunoTitle": "Suno Downloader",
     "sunoDesc": "Suno AIのトラックをスタジオ品質の320k MP3、ロスレスWAV、高解像度カバー、同期歌詞で保存。",
     "universalTitle": "Universal Media Downloader",
@@ -104,16 +103,7 @@
     "tipOffline": "すべての解析と変換は外部サーバーに送信されず、端末内で完結します。",
     "cutterTitle": "Sample Cutter (8s)",
     "cutterDesc": "Trim seamless 8-second audio samples from your tracks for Suno and music production.",
-    "releaseNotesTitle": "{{version}} Official Release & Updates",
     "releaseMonth": "October 2026",
-    "rel1Title": "Sample Cutter (8s Waveform Slicer)",
-    "rel1Desc": "Interactive audio waveform with a fixed 8-second sliding window for seamless Suno sample trims (320k MP3 / WAV).",
-    "rel2Title": "Suno 2.0 & Universal Downloader",
-    "rel2Desc": "Studio 320k MP3, WAV, cover art, and lyrics. Universal media capture with categorizable history.",
-    "rel3Title": "Essentia Key & BPM Analysis",
-    "rel3Desc": "12-Chroma HPCP with Camelot wheel, harmonic mixing pairs, and fine BPM adjustments.",
-    "rel4Title": "UI Polish & Official v1.0",
-    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0 release.",
     "tagCoverArt": "Cover Art",
     "tagTagEditor": "Tag Editor",
     "tagRhythmAnalysis": "Rhythm Analysis",
@@ -122,7 +112,51 @@
     "tagLyrics": "Lyrics",
     "prompterTitle": "Suno Style Prompter",
     "prompterDesc": "どの言語でも曲を説明するだけで、Sunoに貼り付けられるスタイルタグと曲構成を作成します。オフラインで動作します。",
-    "tagStructure": "構成"
+    "tagStructure": "構成",
+    "whatsNew": {
+      "title": "{{version}} の新機能",
+      "subtitle": "今回のアップデートで変わったことのすべて。",
+      "layout": {
+        "title": "新しく、わかりやすいレイアウト",
+        "desc": "メニューボタンはなくなり、すべてのツールが固定サイドバーに「ダウンロード」「作成」「編集と解析」のグループで並びます。ワンクリックでアイコン表示に折りたため、狭いウィンドウでは自動で折りたたまれます。各ページのタイトル行は同じ形で、操作ボタンは右側にあります。"
+      },
+      "themes": {
+        "title": "アプリ全体が変わるカラーテーマ",
+        "desc": "9 つのテーマ（オーシャン、ラグーン、フォレスト、アンバー、エンバー、クリムゾン、オーキッド、バイオレット、グラファイト）か、カラーピッカーで好きな色を選べます。テーマは背景、サイドバー、枠線、選択中のページ、選択範囲にも反映されます。背景のトーン（ニュートラル、控えめ、しっかり）で強さを調整でき、ライトモードでは文字が読みやすいよう濃い色合いが使われます。"
+      },
+      "accessibility": {
+        "title": "新しいアクセシビリティ設定",
+        "desc": "文字サイズ（小〜特大）でレイアウトを崩さずに文字を拡大、表示サイズでインターフェース全体を 90%〜150% に拡大、「動きを減らす」でアニメーションをオフにできます。"
+      },
+      "settings": {
+        "title": "設定画面を一新",
+        "desc": "新しい並び順：言語、外観、アクセシビリティ、フォルダー、情報。言語カードは各言語をその言語名とあなたの言語の両方で表示します。外観ではライト・ダーク・システムのプレビュー、カラーピッカー、その下にプリセットカラーがあります。"
+      },
+      "font": {
+        "title": "新しい書体：Coolvetica",
+        "desc": "インターフェース全体でトルコ語やキリル文字を含めて Coolvetica を使用します。日本語はシステムフォントで表示されます。"
+      },
+      "installer": {
+        "title": "もっと手軽なアップデートとインストール",
+        "desc": "セットアップは古いバージョンのアンインストールを求めなくなりました。以前の Sophy Studio を自動で静かに削除し、新しいバージョンを上からインストールします。履歴、設定、ダウンロード、ショートカットはそのまま残ります。"
+      },
+      "performance": {
+        "title": "古い PC でも軽快に",
+        "desc": "ぼかしや光彩の効果を取り除き、アニメーションは GPU に負担の少ない軽い動きだけにしたため、性能の低いパソコンでもなめらかに動きます。"
+      },
+      "fixes": {
+        "title": "修正",
+        "desc": "ライトモードのホバー色、いくつかのページで欠けていたアイコン背景、未翻訳のまま残っていた文字、起動時の不要なオンラインフォント読み込みを修正しました。ホームの「スタジオフォルダー」ボタンを削除しました。"
+      },
+      "feedback": {
+        "title": "フィードバック専用ページ",
+        "desc": "「フィードバックを送信」はポップアップではなく、サイドバーの専用ページになりました。不具合・アイデア・その他を選び、好きなだけ書けて、書くとよい内容のヒントも表示されます。アプリのバージョンは自動で添付されます。"
+      },
+      "motion": {
+        "title": "なめらかなアニメーション",
+        "desc": "ページ、カード、設定がふわっと表示され、ボタンは押すと反応し、テーマの切り替えもなめらかに。履歴とチャットのパネルは右からきれいにスライドして開きます。"
+      }
+    }
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -292,14 +326,68 @@
     "dialogSelectAllFolder": "Select Batch Downloads Folder",
     "dialogSelectCoverFolder": "Select Cover Art Folder",
     "dialogSelectLyricsFolder": "Select Lyrics Folder",
-    "dialogSelectUniversalFolder": "Select Universal Media Folder"
+    "dialogSelectUniversalFolder": "Select Universal Media Folder",
+    "appearanceDesc": "Sophy Studio の見た目を選びます。変更はすぐに反映されます。",
+    "modeTitle": "モード",
+    "modeHint": "ライト、ダーク、または Windows の設定に従います。",
+    "modeSystemShort": "システム",
+    "tintTitle": "背景のトーン",
+    "tintHint": "テーマカラーを背景、サイドバー、枠線にどれだけ反映するか。",
+    "tintNone": "ニュートラル",
+    "tintSubtle": "控えめ",
+    "tintRich": "しっかり",
+    "colorThemeTitle": "カラーテーマ",
+    "colorThemeHint": "ボタン、選択中のページ、ハイライト、選択範囲の色を決めます。",
+    "customColor": "カスタム",
+    "customHint": "暗すぎる色や明るすぎる色は、文字が読みやすいように少し調整されます。",
+    "aboutTagline": "オールインワンのオーディオ＆メディアツールキット。",
+    "folderError": "フォルダーを選択できませんでした",
+    "folderOpenError": "フォルダーを開けませんでした",
+    "themes": {
+      "ocean": "オーシャン",
+      "lagoon": "ラグーン",
+      "forest": "フォレスト",
+      "amber": "アンバー",
+      "ember": "エンバー",
+      "crimson": "クリムゾン",
+      "orchid": "オーキッド",
+      "violet": "バイオレット",
+      "graphite": "グラファイト"
+    },
+    "tabAccessibility": "アクセシビリティ",
+    "languageNote": "選んだ言語は保存され、次に Sophy Studio を開いたときにも使われます。",
+    "presetColors": "プリセットカラー",
+    "accessibilityDesc": "文字やインターフェースを読みやすく、使いやすくします。",
+    "textSizeTitle": "文字サイズ",
+    "textSizeHint": "レイアウトを変えずにすべての文字を大きく、または小さくします。",
+    "sizeSmall": "小",
+    "sizeDefault": "標準",
+    "sizeLarge": "大",
+    "sizeXLarge": "特大",
+    "textPreviewTitle": "Suno Downloader",
+    "textPreviewBody": "Sophy Studio 全体の文字はこのように表示されます。",
+    "displaySizeTitle": "表示サイズ",
+    "displaySizeHint": "文字、アイコン、ボタン、余白を含むインターフェース全体を拡大します。",
+    "reduceMotionTitle": "動きを減らす",
+    "reduceMotionHint": "アニメーションと切り替え効果をオフにします。",
+    "languageNames": {
+      "en": "英語",
+      "tr": "トルコ語",
+      "de": "ドイツ語",
+      "fr": "フランス語",
+      "es": "スペイン語",
+      "pt": "ポルトガル語",
+      "ru": "ロシア語",
+      "ja": "日本語"
+    }
   },
   "suno": {
     "emptyTitle": "Sunoトラックをダウンロード",
     "download": "ダウンロード",
     "audioSub": "MP3, WAV またはオリジナル",
     "coverSub": "最大解像度",
-    "lyricsSub": "歌詞ファイル (.lrc / .txt)"
+    "lyricsSub": "歌詞ファイル (.lrc / .txt)",
+    "emptyDesc": "上のバーに Suno の曲のリンクを貼り付けるとダウンロードできます。"
   },
   "modal": {
     "saveAudio": "音声形式を選択",
@@ -363,7 +451,18 @@
     "errEmptyMessage": "Please enter a message or description.",
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
-    "anonymousUser": "User"
+    "anonymousUser": "User",
+    "typeBugDesc": "何かが動かない、または挙動がおかしい。",
+    "typeIdeaDesc": "ほしい機能や改善点。",
+    "typeOtherDesc": "そのほか伝えたいこと。",
+    "successTitle": "ありがとうございます！",
+    "successBody": "メッセージを送信しました。いただいた声はすべて読み、次のアップデートに役立てます。",
+    "sendAnother": "もう一件送る",
+    "tipsTitle": "役立つ情報",
+    "tip1": "使っていたツールとクリックした場所。",
+    "tip2": "期待していた動作と、実際に起きたこと。",
+    "tip3": "ダウンロードや編集に失敗した場合は、リンクやファイル形式。",
+    "privacyNote": "名前とメールは任意です。返信がほしい場合のみ入力してください。アプリのバージョン（{{version}}）は自動で添付されます。"
   },
   "prompter": {
     "title": "Suno Style Prompter",
@@ -413,5 +512,13 @@
     "waitForAi": "少々お待ちください。AIモデルを準備しています…",
     "aiNotReady": "AIモデルはまだダウンロードされていないため、内蔵エンジンを使用しています。",
     "styleDesc": "これをSunoの「Style of Music」欄に貼り付けてください。"
+  },
+  "sidebar": {
+    "download": "ダウンロード",
+    "create": "作成",
+    "edit": "編集と解析",
+    "collapse": "サイドバーを折りたたむ",
+    "expand": "サイドバーを広げる",
+    "updateAvailable": "v{{version}} に更新"
   }
 }

@@ -10,6 +10,7 @@ import {
   CloseIcon,
   SparklesIcon,
 } from "./icons";
+import { PageHeader } from "./PageHeader";
 
 interface SampleCutterPageProps {
   onShowToast: (msg: string) => void;
@@ -388,41 +389,20 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
 
   return (
     <div className="page pb-12">
-      {/* Header */}
-      <div className="page-header">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] shadow-sm border border-[var(--color-accent)]/20">
-            <ScissorsIcon className="h-5 w-5" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="page-title text-base font-bold text-[var(--color-text-primary)]">
-                {t("cutter.title", "Sample Kesici (8s)")}
-              </h1>
-              <span className="chip text-[10px] font-bold px-2 py-0.5 bg-[var(--color-accent)] text-black border-transparent">
-                8.0s Fixed
-              </span>
-            </div>
-            <p className="page-subtitle text-xs text-[var(--color-text-secondary)] mt-0.5">
-              {t(
-                "cutter.subtitle",
-                "Ses dosyasından tam 8 saniyelik stüdyo kesitleri kırpın ve yüksek kalitede kaydedin."
-              )}
-            </p>
-          </div>
-        </div>
-
-        {onOpenFolder && (
-          <button
-            type="button"
-            onClick={onOpenFolder}
-            className="btn btn-secondary text-xs gap-1.5 self-start sm:self-auto"
-          >
-            <FolderIcon className="text-[var(--color-accent)] h-4 w-4" />
-            <span>{t("cutter.openFolder", "Ses Klasörü")}</span>
-          </button>
-        )}
-      </div>
+      <PageHeader
+        Icon={ScissorsIcon}
+        title={t("cutter.title", "Sample Cutter (8s)")}
+        badge="8.0s"
+        desc={t("cutter.subtitle", "Trim exact 8-second studio slices from an audio file and save them in high quality.")}
+        actions={
+          onOpenFolder && (
+            <button type="button" onClick={onOpenFolder} className="btn btn-secondary">
+              <FolderIcon className="text-[var(--color-accent)] h-4 w-4" />
+              <span>{t("cutter.openFolder", "Audio Folder")}</span>
+            </button>
+          )
+        }
+      />
 
       {/* Upload Zone / Active Track Info */}
       {!audioBuffer ? (
@@ -463,7 +443,7 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
                 <h3 className="text-xs font-bold text-[var(--color-text-primary)] truncate max-w-xs sm:max-w-md">
                   {fileName}
                 </h3>
-                <div className="flex items-center gap-2 mt-0.5 text-[10px] text-[var(--color-text-tertiary)] font-mono">
+                <div className="flex items-center gap-2 mt-0.5 text-[0.625rem] text-[var(--color-text-tertiary)] font-mono">
                   <span>{formatTime(duration)}</span>
                   <span>•</span>
                   <span>{fileSize}</span>
@@ -488,7 +468,7 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
                   setAudioBuffer(null);
                   setFilePath(null);
                 }}
-                className="icon-btn h-8 w-8 text-rose-400 hover:text-rose-300"
+                className="icon-btn h-8 w-8 text-[var(--color-danger)] hover:opacity-80"
                 title={t("common.close", "Kapat")}
               >
                 <CloseIcon className="h-4 w-4" />
@@ -498,7 +478,7 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
 
           {/* Interactive Waveform & 8s Sliding Window */}
           <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between text-[11px] text-[var(--color-text-tertiary)] font-mono px-1">
+            <div className="flex items-center justify-between text-[0.6875rem] text-[var(--color-text-tertiary)] font-mono px-1">
               <span>00:00.0</span>
               <span className="text-[var(--color-accent)] font-semibold">
                 {t("cutter.dragInstruction", "Kaydırıcıyı sağa-sola taşıyarak 8s aralığı belirleyin")}
@@ -509,7 +489,7 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
             <div
               ref={waveformContainerRef}
               onClick={handleWaveformClick}
-              className="relative h-28 w-full rounded-2xl bg-black/60 border border-[var(--color-app-border)] p-2 cursor-pointer select-none overflow-hidden group shadow-inner"
+              className="relative h-28 w-full rounded-2xl bg-[var(--color-app-bg)] border border-[var(--color-app-border)] p-2 cursor-pointer select-none overflow-hidden group shadow-inner"
             >
               {/* Canvas Waveform */}
               <canvas ref={canvasRef} className="h-full w-full pointer-events-none" />
@@ -527,10 +507,10 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
                 className="absolute inset-y-1 rounded-xl border-2 border-[var(--color-accent)] bg-[var(--color-accent)]/15 shadow-[0_0_20px_var(--color-accent-soft)] cursor-grab active:cursor-grabbing flex flex-col justify-between transition-colors z-10"
               >
                 {/* Top Grip Handle (Matches Suno reference video) */}
-                <div className="self-center -mt-2 px-3 py-0.5 rounded-full bg-[var(--color-accent)] text-black shadow-md flex items-center justify-center gap-0.5">
-                  <span className="w-0.5 h-2.5 bg-black/80 rounded-full" />
-                  <span className="w-0.5 h-2.5 bg-black/80 rounded-full" />
-                  <span className="w-0.5 h-2.5 bg-black/80 rounded-full" />
+                <div className="self-center -mt-2 px-3 py-0.5 rounded-full bg-[var(--color-accent)] text-[var(--color-accent-fg)] shadow-md flex items-center justify-center gap-0.5">
+                  <span className="w-0.5 h-2.5 bg-[var(--color-accent-fg)] opacity-70 rounded-full" />
+                  <span className="w-0.5 h-2.5 bg-[var(--color-accent-fg)] opacity-70 rounded-full" />
+                  <span className="w-0.5 h-2.5 bg-[var(--color-accent-fg)] opacity-70 rounded-full" />
                 </div>
 
                 {/* Live Playhead inside the 8s slice */}
@@ -542,7 +522,7 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
                 )}
 
                 {/* Bottom Duration Badge */}
-                <div className="self-center -mb-1 px-2 py-0.2 rounded-full bg-black/80 text-[var(--color-accent)] text-[9px] font-mono font-bold border border-[var(--color-accent)]/40">
+                <div className="self-center -mb-1 px-2 py-0.2 rounded-full bg-[var(--color-app-bg)] text-[var(--color-accent)] text-[0.5625rem] font-mono font-bold border border-[var(--color-accent)]/40">
                   8.0s
                 </div>
               </div>
@@ -556,7 +536,7 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
               <button
                 type="button"
                 onClick={togglePlay}
-                className="h-10 w-10 rounded-xl bg-[var(--color-accent)] hover:brightness-110 text-black flex items-center justify-center shadow-lg transition-transform active:scale-95"
+                className="h-10 w-10 rounded-xl bg-[var(--color-accent)] hover:brightness-110 text-[var(--color-accent-fg)] flex items-center justify-center shadow-lg transition-transform active:scale-95"
                 title={isPlaying ? t("cutter.pause", "Durdur") : t("cutter.play", "8s Kesiti Çal")}
               >
                 {isPlaying ? <PauseIcon className="h-5 w-5" /> : <PlayIcon className="h-5 w-5 ml-0.5" />}
@@ -577,7 +557,7 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
             </div>
 
             {/* Time Indicators */}
-            <div className="flex items-center gap-2 font-mono text-xs bg-black/40 px-3 py-1.5 rounded-lg border border-[var(--color-app-border)]">
+            <div className="flex items-center gap-2 font-mono text-xs bg-[var(--color-app-bg)] px-3 py-1.5 rounded-lg border border-[var(--color-app-border)]">
               <span className="text-[var(--color-text-secondary)]">{t("cutter.start", "Başlangıç:")}</span>
               <span className="font-bold text-[var(--color-text-primary)]">{formatTime(startSec)}</span>
               <span className="text-[var(--color-text-tertiary)]">—</span>
@@ -589,34 +569,34 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
 
             {/* Precision Nudge Buttons */}
             <div className="flex items-center gap-1">
-              <span className="text-[10px] text-[var(--color-text-tertiary)] mr-1">
+              <span className="text-[0.625rem] text-[var(--color-text-tertiary)] mr-1">
                 {t("cutter.fineTune", "İnce Ayar:")}
               </span>
               <button
                 type="button"
                 onClick={() => nudge(-1.0)}
-                className="chip text-[10px] px-2 py-1 hover:border-[var(--color-accent)] cursor-pointer"
+                className="chip text-[0.625rem] px-2 py-1 hover:border-[var(--color-accent)] cursor-pointer"
               >
                 -1s
               </button>
               <button
                 type="button"
                 onClick={() => nudge(-0.1)}
-                className="chip text-[10px] px-2 py-1 hover:border-[var(--color-accent)] cursor-pointer"
+                className="chip text-[0.625rem] px-2 py-1 hover:border-[var(--color-accent)] cursor-pointer"
               >
                 -0.1s
               </button>
               <button
                 type="button"
                 onClick={() => nudge(0.1)}
-                className="chip text-[10px] px-2 py-1 hover:border-[var(--color-accent)] cursor-pointer"
+                className="chip text-[0.625rem] px-2 py-1 hover:border-[var(--color-accent)] cursor-pointer"
               >
                 +0.1s
               </button>
               <button
                 type="button"
                 onClick={() => nudge(1.0)}
-                className="chip text-[10px] px-2 py-1 hover:border-[var(--color-accent)] cursor-pointer"
+                className="chip text-[0.625rem] px-2 py-1 hover:border-[var(--color-accent)] cursor-pointer"
               >
                 +1s
               </button>
@@ -643,12 +623,12 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
               type="button"
               disabled={exporting !== null}
               onClick={() => handleExport("wav")}
-              className="btn btn-primary w-full sm:w-auto text-xs px-6 py-2.5 gap-2 shadow-lg shadow-[var(--color-accent-soft)]"
+              className="btn btn-primary w-full sm:w-auto text-xs px-6 py-2.5 gap-2"
             >
               {exporting === "wav" ? (
                 <span className="spinner" />
               ) : (
-                <SparklesIcon className="h-4 w-4 text-black" />
+                <SparklesIcon className="h-4 w-4 text-[var(--color-accent-fg)]" />
               )}
               <span>{t("cutter.exportWav", "8s WAV Olarak Kaydet (Lossless)")}</span>
             </button>

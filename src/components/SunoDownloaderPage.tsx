@@ -4,7 +4,8 @@ import { SearchBar } from "./SearchBar";
 import { SongDetails } from "./SongDetails";
 import { DownloadGrid } from "./DownloadGrid";
 import { LyricsPanel } from "./LyricsPanel";
-import { SearchIcon } from "./icons";
+import { SearchIcon, SunoIcon } from "./icons";
+import { PageHeader } from "./PageHeader";
 import type { SongData } from "../types";
 
 interface SunoDownloaderPageProps {
@@ -36,6 +37,12 @@ export const SunoDownloaderPage: React.FC<SunoDownloaderPageProps> = ({
 
   return (
     <div className="page pb-8">
+      <PageHeader
+        Icon={SunoIcon}
+        title={t("nav.suno", "Suno Downloader")}
+        desc={t("drawer.sunoDesc", "320k MP3, WAV, cover art & lyrics")}
+      />
+
       {/* Search Input Bar */}
       <SearchBar
         onFetch={onFetch}
@@ -51,13 +58,10 @@ export const SunoDownloaderPage: React.FC<SunoDownloaderPageProps> = ({
           </div>
           <div>
             <p className="text-sm font-bold text-[var(--color-text-primary)]">
-              {t("suno.emptyTitle", "Suno Şarkısı İndir")}
+              {t("suno.emptyTitle", "Download a Suno Track")}
             </p>
             <p className="text-xs text-[var(--color-text-secondary)] mt-1">
-              {t(
-                "suno.emptyDesc",
-                "Yukarıdaki arama çubuğuna Suno şarkı bağlantısını yapıştırıp indirin."
-              )}
+              {t("suno.emptyDesc", "Paste a Suno song link into the bar above to download it.")}
             </p>
           </div>
         </div>

@@ -9,6 +9,7 @@ import {
   HistoryIcon,
 } from "./icons";
 import { AdModal } from "./AdModal";
+import { PageHeader } from "./PageHeader";
 import { UniversalHistoryDrawer } from "./UniversalHistoryDrawer";
 import type { UniversalHistoryItem, UniversalMediaInfo } from "../types";
 
@@ -199,24 +200,12 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
 
   return (
     <div className="page pb-8">
-      {/* Top Header Card */}
-      <div className="section section-pad flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <GlobeDownloadIcon className="h-5 w-5 text-[var(--color-accent)]" />
-            <h1 className="text-base font-bold text-[var(--color-text-primary)]">
-              {t("universal.title", "Universal Media Downloader")}
-            </h1>
-          </div>
-          <p className="section-desc mt-1">
-            {t(
-              "universal.subtitle",
-              "YouTube, Instagram, TikTok, Facebook ve tüm platformlardan MP4 video veya MP3 ses indirin."
-            )}
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2 self-start sm:self-auto">
+      <PageHeader
+        Icon={GlobeDownloadIcon}
+        title={t("universal.title", "Universal Media Downloader")}
+        desc={t("universal.subtitle", "Download MP4 video or MP3 audio from Instagram, YouTube, TikTok, Facebook, Twitter/X, and all major platforms.")}
+        actions={
+        <>
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
@@ -226,7 +215,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
             <HistoryIcon className="h-4 w-4 text-[var(--color-accent)]" />
             <span>{t("app.history", "Geçmiş")}</span>
             {history.length > 0 && (
-              <span className="chip text-[10px] px-1.5 py-0 font-mono">{history.length}</span>
+              <span className="chip text-[0.625rem] px-1.5 py-0 font-mono">{history.length}</span>
             )}
           </button>
 
@@ -237,11 +226,12 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
               className="btn btn-secondary text-xs gap-1.5"
             >
               <FolderIcon className="text-[var(--color-accent)]" />
-              <span>{t("universal.openFolder", "Medya Klasörü")}</span>
+              <span>{t("universal.openFolder", "Media Folder")}</span>
             </button>
           )}
-        </div>
-      </div>
+        </>
+        }
+      />
 
       {/* Input Section */}
       <div className="section section-pad">
@@ -282,7 +272,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
 
         {/* Supported platforms tags */}
         <div className="mt-4 flex flex-wrap items-center gap-1.5 pt-3 border-t border-[var(--color-app-border-soft)]">
-          <span className="text-[11px] font-semibold text-[var(--color-text-muted)] mr-1">
+          <span className="text-[0.6875rem] font-semibold text-[var(--color-text-muted)] mr-1">
             {t("universal.supported", "Desteklenen Siteler:")}
           </span>
           {[
@@ -295,7 +285,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
             "Reddit",
             "SoundCloud",
           ].map((site) => (
-            <span key={site} className="chip text-[10.5px]">
+            <span key={site} className="chip text-[0.6562rem]">
               {site}
             </span>
           ))}
@@ -335,7 +325,7 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
                     </span>
                   )}
                   {mediaInfo.extractor && (
-                    <span className="chip chip-accent uppercase text-[10px]">
+                    <span className="chip chip-accent uppercase text-[0.625rem]">
                       {mediaInfo.extractor}
                     </span>
                   )}

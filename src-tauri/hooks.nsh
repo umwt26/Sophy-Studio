@@ -8,7 +8,9 @@
 ; commands come back.
 ;
 ; - Running-instance handling is done by Tauri's own NSIS template.
-; - Upgrades over an existing currentUser install are handled by Tauri itself.
+; - Upgrades over an existing currentUser install: installer.nsi (Tauri's
+;   template with one change) removes the old copy silently, keeping app data,
+;   then installs the new version. No "uninstall first?" page is shown.
 ; - ffmpeg / ffprobe / yt-dlp are fetched by the app at runtime
 ;   (sophy_core::*::ensure_*_binary), so the installer downloads nothing.
 ;
@@ -16,8 +18,8 @@
 ; (the same data Settings > Apps uses), never from guessed folders:
 ;   - v0.1.0 was installed per-machine (Program Files, HKLM)
 ;   - pre-rename builds were registered as "Sophy"
-; The current per-user "Sophy Studio" install is upgraded in place by Tauri
-; itself and is never uninstalled here. Uninstallers run with /S only, so the
+; The current per-user "Sophy Studio" install is handled by installer.nsi
+; and is never uninstalled here. Uninstallers run with /S only, so the
 ; "delete app data" option stays off: history and settings are kept.
 
 !macro SOPHY_REMOVE_LEGACY ID ROOT NAME

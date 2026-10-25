@@ -494,7 +494,8 @@ pub async fn install_update(
 
     // Same flags Tauri's official updater uses for NSIS:
     //   /P      passive mode (progress bar only, no wizard pages)
-    //   /UPDATE update in place, never run the old uninstaller
+    //   /UPDATE keep app data and shortcuts (our installer.nsi removes the old
+    //           copy silently first, then installs the new one)
     //   /R      relaunch Sophy Studio when installation finishes
     let mut cmd = std::process::Command::new(&installer_path);
     cmd.args(["/P", "/UPDATE", "/R"]);

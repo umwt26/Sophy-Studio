@@ -88,7 +88,6 @@
   },
   "home": {
     "heroSubtitle": "Настольный набор инструментов для загрузки ИИ-музыки, захвата медиа, редактирования тегов и анализа тональности/BPM.",
-    "openOutputFolder": "Папка Студии",
     "sunoTitle": "Suno Downloader",
     "sunoDesc": "Скачивайте треки Suno AI в 320k MP3, WAV без потерь, исходном потоке, с обложкой высокого разрешения и синхронным текстом.",
     "universalTitle": "Universal Media Downloader",
@@ -104,16 +103,7 @@
     "tipOffline": "Все анализы и конвертации выполняются локально на вашем устройстве без загрузки в интернет.",
     "cutterTitle": "Sample Cutter (8s)",
     "cutterDesc": "Trim seamless 8-second audio samples from your tracks for Suno and music production.",
-    "releaseNotesTitle": "{{version}} Official Release & Updates",
     "releaseMonth": "October 2026",
-    "rel1Title": "Sample Cutter (8s Waveform Slicer)",
-    "rel1Desc": "Interactive audio waveform with a fixed 8-second sliding window for seamless Suno sample trims (320k MP3 / WAV).",
-    "rel2Title": "Suno 2.0 & Universal Downloader",
-    "rel2Desc": "Studio 320k MP3, WAV, cover art, and lyrics. Universal media capture with categorizable history.",
-    "rel3Title": "Essentia Key & BPM Analysis",
-    "rel3Desc": "12-Chroma HPCP with Camelot wheel, harmonic mixing pairs, and fine BPM adjustments.",
-    "rel4Title": "UI Polish & Official v1.0",
-    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0 release.",
     "tagCoverArt": "Cover Art",
     "tagTagEditor": "Tag Editor",
     "tagRhythmAnalysis": "Rhythm Analysis",
@@ -122,7 +112,51 @@
     "tagLyrics": "Lyrics",
     "prompterTitle": "Suno Style Prompter",
     "prompterDesc": "Опишите песню на любом языке и получите готовые теги стиля и структуру для Suno. Работает офлайн.",
-    "tagStructure": "Структура"
+    "tagStructure": "Структура",
+    "whatsNew": {
+      "title": "Что нового в {{version}}",
+      "subtitle": "Всё, что изменилось в этом обновлении.",
+      "layout": {
+        "title": "Новый, более понятный макет",
+        "desc": "Кнопки меню больше нет: все инструменты теперь на постоянной боковой панели и разделены на группы «Загрузка», «Создание» и «Правка и анализ». Её можно свернуть до значков одним щелчком; в узком окне она сворачивается сама. На каждой странице одинаковая строка заголовка с действиями справа."
+      },
+      "themes": {
+        "title": "Цветовые темы для всего приложения",
+        "desc": "Выберите одну из 9 тем (Океан, Лагуна, Лес, Янтарь, Угли, Багровый, Орхидея, Фиалка, Графит) или любой цвет в палитре. Тема теперь окрашивает фон, боковую панель, рамки, активную страницу и выделение. «Оттенок фона» (Нейтральный, Лёгкий, Насыщенный) задаёт силу; в светлом режиме используются более тёмные оттенки, чтобы текст оставался читаемым."
+      },
+      "accessibility": {
+        "title": "Новые специальные возможности",
+        "desc": "Размер текста (от мелкого до очень крупного) увеличивает весь текст, не ломая макет, масштаб интерфейса увеличивает всё от 90 % до 150 %, а «Уменьшить движение» отключает анимации."
+      },
+      "settings": {
+        "title": "Обновлённые настройки",
+        "desc": "Новый порядок: Язык, Оформление, Специальные возможности, Папки, О программе. Карточки языков показывают каждый язык на нём самом и на вашем; в «Оформлении» есть превью светлой, тёмной и системной темы, палитра и готовые цвета под ней."
+      },
+      "font": {
+        "title": "Новый шрифт: Coolvetica",
+        "desc": "Весь интерфейс использует Coolvetica, включая турецкие буквы и кириллицу. Для японского используется системный шрифт."
+      },
+      "installer": {
+        "title": "Проще обновлять и устанавливать",
+        "desc": "Установщик больше не просит сначала удалить старую версию. Он тихо удаляет предыдущую Sophy Studio и устанавливает новую поверх. История, настройки, загрузки и ярлыки сохраняются."
+      },
+      "performance": {
+        "title": "Легче для старых ПК",
+        "desc": "Эффекты размытия и свечения удалены, анимации используют только лёгкие движения, щадящие видеокарту, поэтому приложение остаётся плавным на слабых компьютерах."
+      },
+      "fixes": {
+        "title": "Исправления",
+        "desc": "Исправлены цвета при наведении в светлом режиме, отсутствующие фоны значков на нескольких страницах, оставшиеся непереведённые тексты и ненужный запрос онлайн-шрифта при запуске. Кнопка «Папка студии» убрана с главной страницы."
+      },
+      "feedback": {
+        "title": "У отзывов теперь своя страница",
+        "desc": "«Отправить отзыв» теперь полноценная страница на боковой панели вместо всплывающего окна: выберите «Ошибка», «Идея» или «Другое», пишите сколько нужно и смотрите подсказки, что указать. Версия приложения добавляется автоматически."
+      },
+      "motion": {
+        "title": "Плавные анимации",
+        "desc": "Страницы, карточки и настройки появляются плавно, кнопки откликаются на нажатие, смена темы проходит мягко, а панели «История» и «Чаты» теперь аккуратно выезжают справа."
+      }
+    }
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -292,14 +326,68 @@
     "dialogSelectAllFolder": "Select Batch Downloads Folder",
     "dialogSelectCoverFolder": "Select Cover Art Folder",
     "dialogSelectLyricsFolder": "Select Lyrics Folder",
-    "dialogSelectUniversalFolder": "Select Universal Media Folder"
+    "dialogSelectUniversalFolder": "Select Universal Media Folder",
+    "appearanceDesc": "Выберите, как выглядит Sophy Studio. Изменения применяются сразу.",
+    "modeTitle": "Режим",
+    "modeHint": "Светлый, тёмный или как в Windows.",
+    "modeSystemShort": "Система",
+    "tintTitle": "Оттенок фона",
+    "tintHint": "Насколько цвет темы заметен в фоне, боковой панели и рамках.",
+    "tintNone": "Нейтральный",
+    "tintSubtle": "Лёгкий",
+    "tintRich": "Насыщенный",
+    "colorThemeTitle": "Цветовая тема",
+    "colorThemeHint": "Задаёт цвет кнопок, активной страницы, выделений и подсветки.",
+    "customColor": "Свой",
+    "customHint": "Слишком тёмные или светлые цвета немного корректируются, чтобы текст оставался читаемым.",
+    "aboutTagline": "Универсальный набор инструментов для аудио и медиа.",
+    "folderError": "Не удалось выбрать папку",
+    "folderOpenError": "Не удалось открыть папку",
+    "themes": {
+      "ocean": "Океан",
+      "lagoon": "Лагуна",
+      "forest": "Лес",
+      "amber": "Янтарь",
+      "ember": "Угли",
+      "crimson": "Багровый",
+      "orchid": "Орхидея",
+      "violet": "Фиалка",
+      "graphite": "Графит"
+    },
+    "tabAccessibility": "Специальные возможности",
+    "languageNote": "Язык запоминается и будет использован при следующем запуске Sophy Studio.",
+    "presetColors": "Готовые цвета",
+    "accessibilityDesc": "Сделайте текст и интерфейс удобнее для чтения и работы.",
+    "textSizeTitle": "Размер текста",
+    "textSizeHint": "Увеличивает или уменьшает весь текст, не меняя макет.",
+    "sizeSmall": "Мелкий",
+    "sizeDefault": "Обычный",
+    "sizeLarge": "Крупный",
+    "sizeXLarge": "Очень крупный",
+    "textPreviewTitle": "Suno Downloader",
+    "textPreviewBody": "Так текст будет выглядеть во всём Sophy Studio.",
+    "displaySizeTitle": "Масштаб интерфейса",
+    "displaySizeHint": "Увеличивает весь интерфейс: текст, значки, кнопки и отступы.",
+    "reduceMotionTitle": "Уменьшить движение",
+    "reduceMotionHint": "Отключает анимации и переходы.",
+    "languageNames": {
+      "en": "Английский",
+      "tr": "Турецкий",
+      "de": "Немецкий",
+      "fr": "Французский",
+      "es": "Испанский",
+      "pt": "Португальский",
+      "ru": "Русский",
+      "ja": "Японский"
+    }
   },
   "suno": {
     "emptyTitle": "Скачать Трек Suno",
     "download": "Скачать",
     "audioSub": "MP3, WAV или оригинал",
     "coverSub": "Полное разрешение",
-    "lyricsSub": "Файл текста (.lrc / .txt)"
+    "lyricsSub": "Файл текста (.lrc / .txt)",
+    "emptyDesc": "Вставьте ссылку на трек Suno в строку выше, чтобы скачать его."
   },
   "modal": {
     "saveAudio": "Выбор Аудиоформата",
@@ -363,7 +451,18 @@
     "errEmptyMessage": "Please enter a message or description.",
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
-    "anonymousUser": "User"
+    "anonymousUser": "User",
+    "typeBugDesc": "Что-то не работает или ведёт себя странно.",
+    "typeIdeaDesc": "Функция или улучшение, которое вы хотели бы видеть.",
+    "typeOtherDesc": "Всё остальное, что вы хотите нам сказать.",
+    "successTitle": "Спасибо!",
+    "successBody": "Сообщение отправлено. Каждый отзыв читается и помогает сделать следующее обновление.",
+    "sendAnother": "Отправить ещё",
+    "tipsTitle": "Полезные подробности",
+    "tip1": "Каким инструментом вы пользовались и что нажали.",
+    "tip2": "Что вы ожидали и что произошло вместо этого.",
+    "tip3": "Ссылка или тип файла, если загрузка или правка не удалась.",
+    "privacyNote": "Имя и e-mail необязательны; укажите их, только если хотите получить ответ. Версия приложения ({{version}}) добавляется автоматически."
   },
   "prompter": {
     "title": "Suno Style Prompter",
@@ -413,5 +512,13 @@
     "waitForAi": "Подождите, модель ИИ готовится...",
     "aiNotReady": "Модель ИИ ещё не загружена, используется встроенный движок.",
     "styleDesc": "Вставьте это в поле Style of Music в Suno."
+  },
+  "sidebar": {
+    "download": "Загрузка",
+    "create": "Создание",
+    "edit": "Правка и анализ",
+    "collapse": "Свернуть боковую панель",
+    "expand": "Развернуть боковую панель",
+    "updateAvailable": "Обновить до v{{version}}"
   }
 }

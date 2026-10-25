@@ -66,7 +66,7 @@ export function SearchBar({
           <HistoryIcon className="h-4 w-4 text-[var(--color-accent)]" />
           <span className="hidden sm:inline">{t("app.history", "Geçmiş")}</span>
           {typeof historyCount === "number" && historyCount > 0 ? (
-            <span className="chip text-[10px] px-1.5 py-0 font-mono">{historyCount}</span>
+            <span className="chip text-[0.625rem] px-1.5 py-0 font-mono">{historyCount}</span>
           ) : null}
         </button>
       )}

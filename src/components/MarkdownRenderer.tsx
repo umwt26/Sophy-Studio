@@ -27,7 +27,7 @@ function renderInline(text: string): React.ReactNode[] {
       return (
         <code
           key={index}
-          className="rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-1.5 py-0.5 font-mono text-[11px] text-[var(--color-accent)]"
+          className="rounded-md border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-1.5 py-0.5 font-mono text-[0.6875rem] text-[var(--color-accent)]"
         >
           {part.slice(1, -1)}
         </code>
@@ -84,10 +84,10 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
         elements.push(
           <div
             key={`code-${idx}`}
-            className="my-2.5 overflow-x-auto rounded-xl border border-[var(--color-app-border)] bg-black/60 p-3 font-mono text-xs text-[var(--color-text-primary)]"
+            className="my-2.5 overflow-x-auto rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-bg)] p-3 font-mono text-xs text-[var(--color-text-primary)]"
           >
             {codeBlockLang && (
-              <div className="mb-1 text-[10px] font-mono text-[var(--color-text-tertiary)] uppercase">
+              <div className="mb-1 text-[0.625rem] font-mono text-[var(--color-text-tertiary)] uppercase">
                 {codeBlockLang}
               </div>
             )}
@@ -169,7 +169,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
         <div
           key={`li-${idx}`}
           className={`flex items-start gap-2.5 text-xs text-[var(--color-text-secondary)] leading-relaxed my-1 ${
-            isIndentedList ? "ml-5 pl-2 border-l border-[var(--color-app-border)]/60 text-[11px]" : "ml-1"
+            isIndentedList ? "ml-5 pl-2 border-l border-[var(--color-app-border)]/60 text-[0.6875rem]" : "ml-1"
           }`}
         >
           <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]/80" />

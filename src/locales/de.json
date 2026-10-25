@@ -88,7 +88,6 @@
   },
   "home": {
     "heroSubtitle": "Desktop-Toolkit für KI-Musikdownloads, Media-Capture, Metadaten-Bearbeitung und Key/BPM-Analyse.",
-    "openOutputFolder": "Studio-Ordner",
     "sunoTitle": "Suno Downloader",
     "sunoDesc": "Laden Sie Suno AI Tracks in 320k MP3, WAV, Original-Audio, hochauflösendem Cover und Text herunter.",
     "universalTitle": "Universal Media Downloader",
@@ -104,16 +103,7 @@
     "tipOffline": "Alle Analysen und Konvertierungen laufen lokal auf Ihrem Gerät ohne Internet-Upload.",
     "cutterTitle": "Sample Cutter (8s)",
     "cutterDesc": "Trim seamless 8-second audio samples from your tracks for Suno and music production.",
-    "releaseNotesTitle": "{{version}} Official Release & Updates",
     "releaseMonth": "October 2026",
-    "rel1Title": "Sample Cutter (8s Waveform Slicer)",
-    "rel1Desc": "Interactive audio waveform with a fixed 8-second sliding window for seamless Suno sample trims (320k MP3 / WAV).",
-    "rel2Title": "Suno 2.0 & Universal Downloader",
-    "rel2Desc": "Studio 320k MP3, WAV, cover art, and lyrics. Universal media capture with categorizable history.",
-    "rel3Title": "Essentia Key & BPM Analysis",
-    "rel3Desc": "12-Chroma HPCP with Camelot wheel, harmonic mixing pairs, and fine BPM adjustments.",
-    "rel4Title": "UI Polish & Official v1.0",
-    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0 release.",
     "tagCoverArt": "Cover Art",
     "tagTagEditor": "Tag Editor",
     "tagRhythmAnalysis": "Rhythm Analysis",
@@ -122,7 +112,51 @@
     "tagLyrics": "Lyrics",
     "prompterTitle": "Suno Style Prompter",
     "prompterDesc": "Beschreibe einen Song in jeder Sprache und erhalte Suno-Style-Tags und eine Songstruktur zum Einfügen. Funktioniert offline.",
-    "tagStructure": "Struktur"
+    "tagStructure": "Struktur",
+    "whatsNew": {
+      "title": "Neu in {{version}}",
+      "subtitle": "Alles, was sich mit diesem Update geändert hat.",
+      "layout": {
+        "title": "Ein neues, klareres Layout",
+        "desc": "Die Menütaste ist weg: Alle Werkzeuge stehen jetzt in einer festen Seitenleiste, gruppiert in Download, Erstellen sowie Bearbeiten & Analysieren. Mit einem Klick auf Symbole einklappbar; in schmalen Fenstern klappt sie sich selbst ein. Jede Seite hat dieselbe Titelzeile mit ihren Aktionen rechts."
+      },
+      "themes": {
+        "title": "Farbthemen für die ganze App",
+        "desc": "Wähle eines von 9 Themen (Ozean, Lagune, Wald, Bernstein, Glut, Karmesin, Orchidee, Violett, Graphit) oder eine beliebige Farbe im Farbwähler. Das Thema färbt jetzt Hintergründe, Seitenleiste, Rahmen, die aktive Seite und Auswahlen. Der Hintergrundton (Neutral, Dezent, Kräftig) bestimmt die Stärke; im hellen Modus werden dunklere Töne verwendet, damit Text lesbar bleibt."
+      },
+      "accessibility": {
+        "title": "Neue Einstellungen für Barrierefreiheit",
+        "desc": "Die Textgröße (Klein bis Sehr groß) vergrößert allen Text ohne das Layout zu stören, die Anzeigegröße zoomt die gesamte Oberfläche von 90 % bis 150 %, und „Bewegung reduzieren“ schaltet Animationen aus."
+      },
+      "settings": {
+        "title": "Neu gestaltete Einstellungen",
+        "desc": "Neue Reihenfolge: Sprache, Darstellung, Barrierefreiheit, Ordner, Info. Sprachkarten zeigen jede Sprache in ihrem eigenen Namen und in deiner Sprache; die Darstellung bietet Vorschaukarten für Hell, Dunkel und System, den Farbwähler und darunter vorgegebene Farben."
+      },
+      "font": {
+        "title": "Neue Schrift: Coolvetica",
+        "desc": "Die gesamte Oberfläche verwendet Coolvetica, einschließlich türkischer und kyrillischer Buchstaben. Japanisch nutzt die Systemschrift."
+      },
+      "installer": {
+        "title": "Einfachere Updates und Installation",
+        "desc": "Das Setup fragt nicht mehr, ob zuerst die alte Version deinstalliert werden soll. Es entfernt das vorherige Sophy Studio still und installiert die neue Version darüber. Verlauf, Einstellungen, Downloads und Verknüpfungen bleiben erhalten."
+      },
+      "performance": {
+        "title": "Leichter für ältere PCs",
+        "desc": "Unschärfe- und Leuchteffekte wurden entfernt, Animationen nutzen nur leichte, GPU-schonende Bewegungen, damit die App auch auf schwachen Rechnern flüssig bleibt."
+      },
+      "fixes": {
+        "title": "Fehlerbehebungen",
+        "desc": "Hover-Farben im hellen Modus, fehlende Symbolhintergründe auf mehreren Seiten, übrig gebliebene unübersetzte Texte und eine unnötige Online-Schriftanfrage beim Start wurden behoben. Die Schaltfläche „Studio-Ordner“ wurde von der Startseite entfernt."
+      },
+      "feedback": {
+        "title": "Feedback hat eine eigene Seite",
+        "desc": "„Feedback senden“ ist jetzt eine vollständige Seite in der Seitenleiste statt eines Pop-ups: Wähle Fehler, Idee oder Sonstiges, schreib so viel du willst und sieh Tipps, was hilfreich ist. Die App-Version wird automatisch angehängt."
+      },
+      "motion": {
+        "title": "Flüssige Animationen",
+        "desc": "Seiten, Karten und Einstellungen blenden sanft ein, Schaltflächen reagieren beim Drücken, Themenwechsel gehen weich über, und die Verlaufs- und Chat-Leisten gleiten jetzt sauber von rechts herein."
+      }
+    }
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -292,14 +326,68 @@
     "dialogSelectAllFolder": "Select Batch Downloads Folder",
     "dialogSelectCoverFolder": "Select Cover Art Folder",
     "dialogSelectLyricsFolder": "Select Lyrics Folder",
-    "dialogSelectUniversalFolder": "Select Universal Media Folder"
+    "dialogSelectUniversalFolder": "Select Universal Media Folder",
+    "appearanceDesc": "Lege fest, wie Sophy Studio aussieht. Änderungen gelten sofort.",
+    "modeTitle": "Modus",
+    "modeHint": "Hell, dunkel oder der Windows-Einstellung folgen.",
+    "modeSystemShort": "System",
+    "tintTitle": "Hintergrundton",
+    "tintHint": "Wie stark die Themenfarbe in Hintergründen, Seitenleiste und Rahmen sichtbar ist.",
+    "tintNone": "Neutral",
+    "tintSubtle": "Dezent",
+    "tintRich": "Kräftig",
+    "colorThemeTitle": "Farbthema",
+    "colorThemeHint": "Bestimmt die Farbe von Schaltflächen, der aktiven Seite, Hervorhebungen und Auswahlen.",
+    "customColor": "Eigene",
+    "customHint": "Sehr dunkle oder sehr helle Farben werden leicht angepasst, damit Text lesbar bleibt.",
+    "aboutTagline": "All-in-one-Toolkit für Audio und Medien.",
+    "folderError": "Ordner konnte nicht ausgewählt werden",
+    "folderOpenError": "Ordner konnte nicht geöffnet werden",
+    "themes": {
+      "ocean": "Ozean",
+      "lagoon": "Lagune",
+      "forest": "Wald",
+      "amber": "Bernstein",
+      "ember": "Glut",
+      "crimson": "Karmesin",
+      "orchid": "Orchidee",
+      "violet": "Violett",
+      "graphite": "Graphit"
+    },
+    "tabAccessibility": "Barrierefreiheit",
+    "languageNote": "Die Sprache wird gespeichert und beim nächsten Start von Sophy Studio verwendet.",
+    "presetColors": "Vorgegebene Farben",
+    "accessibilityDesc": "Mache Text und Oberfläche leichter lesbar und bedienbar.",
+    "textSizeTitle": "Textgröße",
+    "textSizeHint": "Vergrößert oder verkleinert allen Text, ohne das Layout zu verändern.",
+    "sizeSmall": "Klein",
+    "sizeDefault": "Standard",
+    "sizeLarge": "Groß",
+    "sizeXLarge": "Sehr groß",
+    "textPreviewTitle": "Suno Downloader",
+    "textPreviewBody": "So sieht Text überall in Sophy Studio aus.",
+    "displaySizeTitle": "Anzeigegröße",
+    "displaySizeHint": "Zoomt die gesamte Oberfläche: Text, Symbole, Schaltflächen und Abstände.",
+    "reduceMotionTitle": "Bewegung reduzieren",
+    "reduceMotionHint": "Schaltet Animationen und Übergänge aus.",
+    "languageNames": {
+      "en": "Englisch",
+      "tr": "Türkisch",
+      "de": "Deutsch",
+      "fr": "Französisch",
+      "es": "Spanisch",
+      "pt": "Portugiesisch",
+      "ru": "Russisch",
+      "ja": "Japanisch"
+    }
   },
   "suno": {
     "emptyTitle": "Suno-Track Herunterladen",
     "download": "Herunterladen",
     "audioSub": "MP3, WAV oder Original",
     "coverSub": "Volle Auflösung",
-    "lyricsSub": "Songtextdatei (.lrc / .txt)"
+    "lyricsSub": "Songtextdatei (.lrc / .txt)",
+    "emptyDesc": "Füge oben einen Suno-Songlink ein, um ihn herunterzuladen."
   },
   "modal": {
     "saveAudio": "Audioformat Wählen",
@@ -363,7 +451,18 @@
     "errEmptyMessage": "Please enter a message or description.",
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
-    "anonymousUser": "User"
+    "anonymousUser": "User",
+    "typeBugDesc": "Etwas funktioniert nicht oder verhält sich seltsam.",
+    "typeIdeaDesc": "Eine Funktion oder Verbesserung, die du dir wünschst.",
+    "typeOtherDesc": "Alles andere, was du uns sagen möchtest.",
+    "successTitle": "Danke!",
+    "successBody": "Deine Nachricht wurde gesendet. Jede Rückmeldung wird gelesen und fließt in das nächste Update ein.",
+    "sendAnother": "Weitere senden",
+    "tipsTitle": "Hilfreiche Angaben",
+    "tip1": "Welches Werkzeug du benutzt hast und worauf du geklickt hast.",
+    "tip2": "Was du erwartet hast und was stattdessen passiert ist.",
+    "tip3": "Der Link oder Dateityp, falls ein Download oder eine Bearbeitung fehlschlug.",
+    "privacyNote": "Name und E-Mail sind optional; gib sie nur an, wenn du eine Antwort möchtest. Die App-Version ({{version}}) wird automatisch mitgesendet."
   },
   "prompter": {
     "title": "Suno Style Prompter",
@@ -413,5 +512,13 @@
     "waitForAi": "Einen Moment, das KI-Modell wird vorbereitet...",
     "aiNotReady": "Das KI-Modell ist noch nicht heruntergeladen, die integrierte Engine wird verwendet.",
     "styleDesc": "Füge dies in Suno in das Feld \"Style of Music\" ein."
+  },
+  "sidebar": {
+    "download": "Download",
+    "create": "Erstellen",
+    "edit": "Bearbeiten & Analysieren",
+    "collapse": "Seitenleiste einklappen",
+    "expand": "Seitenleiste ausklappen",
+    "updateAvailable": "Auf v{{version}} aktualisieren"
   }
 }

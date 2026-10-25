@@ -4,6 +4,7 @@ import { getCurrentWebview } from "@tauri-apps/api/webview";
 import { useTranslation } from "react-i18next";
 import { analyzeAudio } from "../utils/audioAnalysis";
 import { FolderIcon, MusicalNoteIcon, PianoIcon } from "./icons";
+import { PageHeader } from "./PageHeader";
 import { AdModal } from "./AdModal";
 import type { KeyBpmResult } from "../types";
 
@@ -148,36 +149,17 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
 
   return (
     <div className="page">
-      {/* Top Header Card */}
-      <div className="section section-pad flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] border border-[var(--color-accent)]/20">
-            <PianoIcon className="h-5 w-5" />
-          </div>
-          <div>
-            <h1 className="text-sm font-semibold text-[var(--color-text-primary)]">
-              {t("detector.title", "Key & BPM Detect")}
-            </h1>
-            <p className="text-xs text-[var(--color-text-secondary)]">
-              {t("detector.subtitle", "Harmonik ton, Camelot kodu ve tempo analizi.")}
-            </p>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={handleSelectFile}
-          disabled={analyzing || selecting}
-          className="btn btn-secondary self-start sm:self-auto"
-        >
-          <FolderIcon className="h-4 w-4" />
-          <span>
-            {analyzing
-              ? t("detector.analyzing", "Analiz Ediliyor...")
-              : t("detector.selectFile", "Dosya Yükle")}
-          </span>
-        </button>
-      </div>
+      <PageHeader
+        Icon={PianoIcon}
+        title={t("detector.title", "Key & BPM Detect")}
+        desc={t("detector.subtitle", "Harmonic key, Camelot code and tempo analysis.")}
+        actions={
+          <button type="button" onClick={handleSelectFile} disabled={analyzing || selecting} className="btn btn-secondary">
+            <FolderIcon className="h-4 w-4" />
+            <span>{analyzing ? t("detector.analyzing", "Analyzing...") : t("detector.selectFile", "Load File")}</span>
+          </button>
+        }
+      />
 
       {/* Upload Drop Zone if no result */}
       {!result && !analyzing && (
@@ -231,11 +213,11 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
               <span className="text-xs font-medium text-[var(--color-text-primary)] truncate max-w-sm">
                 {fileName}
               </span>
-              <span className="chip text-[11px] font-mono">
+              <span className="chip text-[0.6875rem] font-mono">
                 {Math.floor(result.duration / 60)}:
                 {String(Math.floor(result.duration % 60)).padStart(2, "0")}
               </span>
-              <span className="chip text-[11px] font-medium text-emerald-400 border-emerald-500/20 bg-emerald-500/10">
+              <span className="chip text-[0.6875rem] font-medium text-[var(--color-success)] border-[var(--color-success)]/20 bg-[var(--color-success)]/10">
                 %{result.confidence} {t("detector.confidence", "Güven")}
               </span>
             </div>
@@ -259,7 +241,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
                     {t("detector.musicalKey", "Müzikal Ton (Key)")}
                   </span>
                   <div
-                    className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold text-black"
+                    className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold text-[var(--color-accent-fg)]"
                     style={{ backgroundColor: result.camelotColor }}
                   >
                     <span>CAMELOT</span>
@@ -306,7 +288,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
                         animation: `pulse ${Math.max(0.2, 60 / currentBpm)}s infinite ease-in-out`,
                       }}
                     />
-                    <span className="text-[10px] font-mono font-medium text-[var(--color-accent)]">
+                    <span className="text-[0.625rem] font-mono font-medium text-[var(--color-accent)]">
                       TEMPO
                     </span>
                   </div>

@@ -31,10 +31,10 @@ export const PrompterChatsDrawer: React.FC<Props> = ({ isOpen, onClose, chats, a
   const filtered = q ? visible.filter((c) => c.title.toLowerCase().includes(q) || c.style.toLowerCase().includes(q)) : visible;
 
   return (
-    <div className="fixed inset-0 z-50 flex animate-fade-in">
-      <div onClick={onClose} className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" />
+    <div className="fixed inset-0 z-50 flex justify-end">
+      <div onClick={onClose} className="drawer-backdrop fixed inset-0 bg-black/50" />
 
-      <aside className="relative flex h-full w-84 max-w-[85vw] flex-col border-r border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-4 shadow-2xl z-10 animate-slide-in-right">
+      <aside className="relative flex h-full w-84 max-w-[85vw] flex-col border-l border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-4 z-10 drawer-panel">
         <div className="flex items-center justify-between border-b border-[var(--color-app-border)] pb-3">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-accent-subtle)] text-[var(--color-accent)]">
@@ -42,7 +42,7 @@ export const PrompterChatsDrawer: React.FC<Props> = ({ isOpen, onClose, chats, a
             </div>
             <div>
               <h2 className="text-xs font-bold text-[var(--color-text-primary)]">{t("prompter.chats", "Chats")}</h2>
-              <p className="text-[10px] text-[var(--color-text-tertiary)]">
+              <p className="text-[0.625rem] text-[var(--color-text-tertiary)]">
                 {visible.length} {t("prompter.chatsCount", "saved chats")}
               </p>
             </div>
@@ -53,7 +53,7 @@ export const PrompterChatsDrawer: React.FC<Props> = ({ isOpen, onClose, chats, a
                 type="button"
                 onClick={onClearAll}
                 title={t("prompter.clearChats", "Delete all chats")}
-                className="btn btn-secondary text-xs px-2 py-1 text-rose-400 hover:border-rose-500/30"
+                className="btn btn-secondary text-xs px-2 py-1 text-[var(--color-danger)] hover:border-[var(--color-danger)]/30"
               >
                 <TrashIcon className="h-3.5 w-3.5" />
               </button>
@@ -107,8 +107,8 @@ export const PrompterChatsDrawer: React.FC<Props> = ({ isOpen, onClose, chats, a
                   className="flex-1 min-w-0 text-left"
                 >
                   <h4 className="truncate text-xs font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">{c.title}</h4>
-                  <p className="truncate text-[11px] text-[var(--color-text-secondary)]">{c.style || "—"}</p>
-                  <div className="mt-0.5 flex items-center gap-1.5 text-[10px] text-[var(--color-text-tertiary)] font-mono whitespace-nowrap">
+                  <p className="truncate text-[0.6875rem] text-[var(--color-text-secondary)]">{c.style || "—"}</p>
+                  <div className="mt-0.5 flex items-center gap-1.5 text-[0.625rem] text-[var(--color-text-tertiary)] font-mono whitespace-nowrap">
                     <span>{new Date(c.updatedAt).toLocaleString(i18n.language, { dateStyle: "short", timeStyle: "short" })}</span>
                     <span>•</span>
                     <span>
@@ -131,7 +131,7 @@ export const PrompterChatsDrawer: React.FC<Props> = ({ isOpen, onClose, chats, a
                     type="button"
                     onClick={() => onRemove(c.id)}
                     title={t("prompter.deleteSession", "Delete chat")}
-                    className="btn btn-secondary text-xs px-2 py-1 text-rose-400 hover:border-rose-500/30"
+                    className="btn btn-secondary text-xs px-2 py-1 text-[var(--color-danger)] hover:border-[var(--color-danger)]/30"
                   >
                     <TrashIcon className="h-3 w-3" />
                   </button>

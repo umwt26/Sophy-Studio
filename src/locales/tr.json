@@ -88,7 +88,6 @@
   },
   "home": {
     "heroSubtitle": "Müzik indirme, medya yakalama, ses etiketleme, 8s sample kesici ve Key/BPM analizi araçları.",
-    "openOutputFolder": "Stüdyo Klasörü",
     "sunoTitle": "Suno Downloader",
     "sunoDesc": "Suno AI parçalarını stüdyo kalitesinde 320k MP3, kayıpsız WAV, kapak görseli ve senkron sözlerle indirin.",
     "universalTitle": "Universal Media Downloader",
@@ -104,16 +103,7 @@
     "tipDragDrop": "Ses dosyalarını doğrudan pencereye sürükleyip bırakabilirsiniz.",
     "tipCoverArt": "Metadata editöründe albüm kapağı olarak JPG veya PNG kullanın.",
     "tipOffline": "Tüm analiz ve dönüşümler yerel olarak, internet yüklemesi olmadan çalışır.",
-    "releaseNotesTitle": "{{version}} Resmi Sürüm & Yenilikler",
     "releaseMonth": "Ekim 2026",
-    "rel1Title": "Sample Kesici (8s Waveform Slicer)",
-    "rel1Desc": "İnteraktif ses dalga formu üzerinde 8 saniyelik sabit kayan pencere ile Suno için kusursuz sample kırpma (320k MP3 / WAV).",
-    "rel2Title": "Suno 2.0 & Universal Downloader",
-    "rel2Desc": "320k MP3, stüdyo WAV, albüm kapağı ve söz indirme. YouTube, Instagram, TikTok medya indirici ve kategorize edilmiş geçmiş.",
-    "rel3Title": "Essentia Key & BPM Analizi",
-    "rel3Desc": "12-Chroma HPCP ile Camelot çarkı, harmonik miksleme tonları ve BPM ince ayarı.",
-    "rel4Title": "Arayüz İyileştirmeleri & v1.0",
-    "rel4Desc": "Arama çubuğu metin çakışması düzeltildi, bağımsız klasör yolları ve resmi v1.0 sürümüne geçiş.",
     "tagCoverArt": "Albüm Kapağı",
     "tagTagEditor": "Etiket Düzenleme",
     "tagRhythmAnalysis": "Ritim Analizi",
@@ -122,7 +112,51 @@
     "tagLyrics": "Şarkı Sözü",
     "prompterTitle": "Suno Style Prompter",
     "prompterDesc": "Şarkını herhangi bir dilde anlat, Suno'ya yapıştırmaya hazır stil etiketleri ve şarkı yapısı al. Çevrimdışı çalışır.",
-    "tagStructure": "Yapı"
+    "tagStructure": "Yapı",
+    "whatsNew": {
+      "title": "{{version}} ile gelen yenilikler",
+      "subtitle": "Bu güncellemede değişen her şey.",
+      "layout": {
+        "title": "Yeni ve daha anlaşılır düzen",
+        "desc": "Menü butonu kalktı: tüm araçlar artık sabit bir kenar çubuğunda, İndir, Üret ve Düzenle ve Analiz gruplarına ayrılmış halde duruyor. Tek tıkla ikonlara küçültebilirsin; dar pencerelerde kendiliğinden küçülür. Her sayfanın başlığı ve butonları aynı düzende."
+      },
+      "themes": {
+        "title": "Tüm uygulamayı değiştiren renk temaları",
+        "desc": "9 temadan birini (Okyanus, Lagün, Orman, Kehribar, Kor, Kızıl, Orkide, Menekşe, Grafit) ya da renk seçiciden istediğin rengi seç. Tema artık arka planları, kenar çubuğunu, kenarlıkları, açık sayfayı ve seçimleri de renklendiriyor. Arka plan tonu (Nötr, Hafif, Belirgin) ne kadar baskın olacağını belirler; açık modda yazılar okunur kalsın diye daha koyu tonlar kullanılır."
+      },
+      "accessibility": {
+        "title": "Yeni Erişilebilirlik ayarları",
+        "desc": "Yazı boyutu (Küçük'ten Çok büyük'e) düzeni bozmadan tüm yazıları büyütür, Görüntü boyutu tüm arayüzü %90 ile %150 arasında yakınlaştırır, Hareketi azalt ise animasyonları kapatır."
+      },
+      "settings": {
+        "title": "Yenilenen Ayarlar",
+        "desc": "Yeni sıra: Dil, Görünüm, Erişilebilirlik, Klasörler, Hakkında. Dil kartları her dili kendi adıyla ve senin dilinde gösterir; Görünüm'de Açık, Koyu ve Sistem için önizleme kartları, renk seçici ve altında hazır renkler var."
+      },
+      "font": {
+        "title": "Yeni yazı tipi: Coolvetica",
+        "desc": "Tüm arayüz artık Türkçe ve Kiril harfleri dahil Coolvetica kullanıyor. Japonca için sistem yazı tipi kullanılır."
+      },
+      "installer": {
+        "title": "Daha zahmetsiz güncelleme ve kurulum",
+        "desc": "Kurulum artık önce eski sürümü kaldırmanı istemiyor. Önceki Sophy Studio'yu sessizce kaldırıp yenisini üstüne kuruyor. Geçmişin, ayarların, indirdiklerin ve kısayolların korunur."
+      },
+      "performance": {
+        "title": "Eski bilgisayarlarda daha hafif",
+        "desc": "Bulanıklık ve parlama efektleri kaldırıldı, animasyonlar sadece hafif ve ekran kartını yormayan hareketler kullanıyor; uygulama düşük donanımlı bilgisayarlarda da akıcı kalıyor."
+      },
+      "fixes": {
+        "title": "Düzeltmeler",
+        "desc": "Açık moddaki hover renkleri, birkaç sayfada eksik görünen ikon arka planları, çevrilmeden kalmış metinler ve açılışta yapılan gereksiz internet font isteği düzeltildi. Ana sayfadaki Stüdyo Klasörü butonu kaldırıldı."
+      },
+      "feedback": {
+        "title": "Geri bildirimin kendi sayfası var",
+        "desc": "Geri Bildirim artık açılır pencere değil, kenar çubuğunda ayrı bir sayfa: Hata, Öneri ya da Diğer'i seç, istediğin kadar yaz ve neleri eklemenin işe yarayacağını gör. Uygulama sürümü otomatik eklenir."
+      },
+      "motion": {
+        "title": "Akıcı animasyonlar",
+        "desc": "Sayfalar, kartlar ve ayarlar yumuşakça beliriyor, butonlar basınca tepki veriyor, tema değişimleri yumuşak geçiyor; Geçmiş ve Sohbetler panelleri artık sağdan düzgünce kayarak açılıyor."
+      }
+    }
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -292,14 +326,68 @@
     "dialogSelectAllFolder": "Toplu İndirme Klasörü Seç",
     "dialogSelectCoverFolder": "Cover Art Klasörü Seç",
     "dialogSelectLyricsFolder": "Lyrics Klasörü Seç",
-    "dialogSelectUniversalFolder": "Universal Media Klasörü Seç"
+    "dialogSelectUniversalFolder": "Universal Media Klasörü Seç",
+    "appearanceDesc": "Sophy Studio'nun görünümünü seçin. Değişiklikler anında uygulanır.",
+    "modeTitle": "Mod",
+    "modeHint": "Açık, koyu ya da Windows ayarını takip et.",
+    "modeSystemShort": "Sistem",
+    "tintTitle": "Arka plan tonu",
+    "tintHint": "Tema renginin arka planlara, kenar çubuğuna ve kenarlıklara ne kadar yansıyacağı.",
+    "tintNone": "Nötr",
+    "tintSubtle": "Hafif",
+    "tintRich": "Belirgin",
+    "colorThemeTitle": "Renk teması",
+    "colorThemeHint": "Butonların, açık sayfanın, vurguların ve seçimlerin rengini belirler.",
+    "customColor": "Özel",
+    "customHint": "Çok koyu ya da çok açık renkler, yazılar okunur kalsın diye biraz ayarlanır.",
+    "aboutTagline": "Hepsi bir arada ses ve medya araç seti.",
+    "folderError": "Klasör seçilemedi",
+    "folderOpenError": "Klasör açılamadı",
+    "themes": {
+      "ocean": "Okyanus",
+      "lagoon": "Lagün",
+      "forest": "Orman",
+      "amber": "Kehribar",
+      "ember": "Kor",
+      "crimson": "Kızıl",
+      "orchid": "Orkide",
+      "violet": "Menekşe",
+      "graphite": "Grafit"
+    },
+    "tabAccessibility": "Erişilebilirlik",
+    "languageNote": "Seçtiğin dil hatırlanır ve Sophy Studio'yu bir sonraki açışında da kullanılır.",
+    "presetColors": "Hazır renkler",
+    "accessibilityDesc": "Yazıları ve arayüzü daha kolay okunur ve kullanılır hale getir.",
+    "textSizeTitle": "Yazı boyutu",
+    "textSizeHint": "Düzeni bozmadan tüm yazıları büyütür ya da küçültür.",
+    "sizeSmall": "Küçük",
+    "sizeDefault": "Varsayılan",
+    "sizeLarge": "Büyük",
+    "sizeXLarge": "Çok büyük",
+    "textPreviewTitle": "Suno Downloader",
+    "textPreviewBody": "Yazılar Sophy Studio'nun her yerinde böyle görünecek.",
+    "displaySizeTitle": "Görüntü boyutu",
+    "displaySizeHint": "Tüm arayüzü yakınlaştırır: yazılar, ikonlar, butonlar ve boşluklar.",
+    "reduceMotionTitle": "Hareketi azalt",
+    "reduceMotionHint": "Animasyonları ve geçiş efektlerini kapatır.",
+    "languageNames": {
+      "en": "İngilizce",
+      "tr": "Türkçe",
+      "de": "Almanca",
+      "fr": "Fransızca",
+      "es": "İspanyolca",
+      "pt": "Portekizce",
+      "ru": "Rusça",
+      "ja": "Japonca"
+    }
   },
   "suno": {
     "emptyTitle": "Suno Parçası İndir",
     "download": "İndir",
     "audioSub": "MP3, WAV veya orijinal",
     "coverSub": "Tam çözünürlük",
-    "lyricsSub": "Söz dosyası (.lrc / .txt)"
+    "lyricsSub": "Söz dosyası (.lrc / .txt)",
+    "emptyDesc": "İndirmek için yukarıdaki çubuğa bir Suno şarkı bağlantısı yapıştırın."
   },
   "modal": {
     "saveAudio": "Format Seçimi",
@@ -356,7 +444,18 @@
     "errEmptyMessage": "Lütfen bir mesaj veya açıklama yazın.",
     "errFailed": "Gönderilemedi: ",
     "placeholderEmail": "ornek@gmail.com",
-    "anonymousUser": "Kullanıcı"
+    "anonymousUser": "Kullanıcı",
+    "typeBugDesc": "Bir şey çalışmıyor ya da tuhaf davranıyor.",
+    "typeIdeaDesc": "Görmek istediğin bir özellik ya da iyileştirme.",
+    "typeOtherDesc": "Söylemek istediğin başka herhangi bir şey.",
+    "successTitle": "Teşekkürler!",
+    "successBody": "Mesajın gönderildi. Her not okunur ve bir sonraki güncellemeyi şekillendirir.",
+    "sendAnother": "Yeni bir tane gönder",
+    "tipsTitle": "İşe yarayan ayrıntılar",
+    "tip1": "Hangi aracı kullanıyordun ve neye tıkladın.",
+    "tip2": "Ne olmasını bekliyordun, onun yerine ne oldu.",
+    "tip3": "Bir indirme ya da düzenleme başarısız olduysa bağlantı veya dosya türü.",
+    "privacyNote": "Ad ve e-posta isteğe bağlıdır; sadece cevap almak istersen ekle. Uygulama sürümü ({{version}}) otomatik olarak eklenir."
   },
   "common": {
     "close": "Kapat",
@@ -413,5 +512,13 @@
     "waitForAi": "Biraz bekle, AI modeli hazırlanıyor...",
     "aiNotReady": "AI modeli henüz inmedi, yerleşik motor kullanılıyor.",
     "styleDesc": "Bunu Suno'daki Style of Music alanına yapıştır."
+  },
+  "sidebar": {
+    "download": "İndir",
+    "create": "Üret",
+    "edit": "Düzenle ve Analiz",
+    "collapse": "Kenar çubuğunu daralt",
+    "expand": "Kenar çubuğunu genişlet",
+    "updateAvailable": "v{{version}} sürümüne güncelle"
   }
 }

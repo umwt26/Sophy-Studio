@@ -10,6 +10,7 @@ import {
   TagIcon,
   TrashIcon,
 } from "./icons";
+import { PageHeader } from "./PageHeader";
 import type { AudioMetadata } from "../types";
 
 interface MetadataEditorPageProps {
@@ -201,36 +202,17 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
 
   return (
     <div className="page">
-      {/* Header bar */}
-      <div className="section section-pad flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent-subtle)] text-[var(--color-accent)] border border-[var(--color-accent)]/20">
-            <TagIcon className="h-5 w-5" />
-          </div>
-          <div>
-            <h1 className="text-sm font-semibold text-[var(--color-text-primary)]">
-              {t("metadata.title", "Audio Metadata Editor")}
-            </h1>
-            <p className="text-xs text-[var(--color-text-secondary)]">
-              {t("metadata.subtitle", "Şarkı bilgileri, sanatçı, albüm ve kapak resmi düzenleyici.")}
-            </p>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={handleSelectFile}
-          disabled={loading || saving}
-          className="btn btn-secondary self-start sm:self-auto"
-        >
-          <FolderIcon className="h-4 w-4" />
-          <span>
-            {loading
-              ? t("metadata.reading", "Okunuyor...")
-              : t("metadata.selectFile", "Dosya Seç")}
-          </span>
-        </button>
-      </div>
+      <PageHeader
+        Icon={TagIcon}
+        title={t("metadata.title", "Audio Metadata Editor")}
+        desc={t("metadata.subtitle", "Edit title, artist, album and cover art of your audio files.")}
+        actions={
+          <button type="button" onClick={handleSelectFile} disabled={loading || saving} className="btn btn-secondary">
+            <FolderIcon className="h-4 w-4" />
+            <span>{loading ? t("metadata.reading", "Reading...") : t("metadata.selectFile", "Select File")}</span>
+          </button>
+        }
+      />
 
       {!metadata && !loading && (
         <div
@@ -296,7 +278,7 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
                 <button
                   type="button"
                   onClick={() => setRemoveCover(true)}
-                  className="btn btn-secondary text-xs text-rose-400 hover:border-rose-500/40"
+                  className="btn btn-secondary text-xs text-[var(--color-danger)] hover:border-[var(--color-danger)]/40"
                   title={t("common.delete", "Kaldır")}
                 >
                   <TrashIcon className="h-3.5 w-3.5" />
@@ -304,7 +286,7 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
               )}
             </div>
 
-            <div className="mt-2 space-y-1.5 border-t border-[var(--color-app-border)] pt-3 text-[11px] text-[var(--color-text-secondary)]">
+            <div className="mt-2 space-y-1.5 border-t border-[var(--color-app-border)] pt-3 text-[0.6875rem] text-[var(--color-text-secondary)]">
               <p className="truncate">
                 <span className="text-[var(--color-text-tertiary)]">{t("metadata.infoFile", "Dosya:")}</span>{" "}
                 <span className="font-mono text-[var(--color-text-primary)]">{metadata.filePath.split(/[\\/]/).pop()}</span>

@@ -150,12 +150,12 @@ export function AdModal({
   const isUnlocked = secondsRemaining <= 0;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-fade-in">
       <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-2xl animate-scale-in">
         {/* Header Bar */}
         <div className="flex items-center justify-between border-b border-[var(--color-app-border)] pb-3">
           <div className="flex items-center gap-2">
-            <span className="chip font-medium text-[10px] text-[var(--color-accent)] border-[var(--color-accent)]/20 bg-[var(--color-accent-subtle)]">
+            <span className="chip font-medium text-[0.625rem] text-[var(--color-accent)] border-[var(--color-accent)]/20 bg-[var(--color-accent-subtle)]">
               {t("app.sponsorTag", "SPONSOR")}
             </span>
             <span className="text-xs text-[var(--color-text-secondary)]">
@@ -185,8 +185,7 @@ export function AdModal({
                 alt={t(sponsor.titleKey, sponsor.id)}
                 className="h-36 w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 rounded-md bg-black/70 px-2 py-0.5 text-xs font-medium text-white backdrop-blur-sm">
+              <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 rounded-md bg-black/70 px-2 py-0.5 text-xs font-medium text-white">
                 <span>{t(sponsor.titleKey, sponsor.id)}</span>
                 <ExternalLinkIcon className="h-3 w-3 text-[var(--color-accent)]" />
               </div>
@@ -213,7 +212,7 @@ export function AdModal({
               <button
                 type="button"
                 onClick={() => handleOpenLink(sponsor.url)}
-                className="flex items-center gap-1 text-[11px] font-medium text-[#1DB954] hover:underline"
+                className="flex items-center gap-1 text-[0.6875rem] font-medium text-[#1DB954] hover:underline"
               >
                 <span>Spotify</span>
                 <ExternalLinkIcon className="h-3 w-3" />
@@ -243,7 +242,7 @@ export function AdModal({
             <button
               type="button"
               onClick={handleConfirmAction}
-              className="btn btn-primary w-full py-2.5 text-xs font-bold shadow-lg animate-pulse"
+              className="btn btn-primary w-full py-2.5 text-xs font-bold shadow-lg"
             >
               <ArrowDownTrayIcon className="h-4 w-4" />
               <span>{effectiveActionTitle}</span>
@@ -260,7 +259,7 @@ export function AdModal({
             </button>
           )}
 
-          <div className="flex items-center justify-between text-[11px] text-[var(--color-text-tertiary)] px-1">
+          <div className="flex items-center justify-between text-[0.6875rem] text-[var(--color-text-tertiary)] px-1">
             <span>
               {isUnlocked
                 ? t("app.adReady", "Hazır! Butona basarak devam edebilirsiniz.")

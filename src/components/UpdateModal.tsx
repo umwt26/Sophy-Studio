@@ -87,18 +87,14 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo, previously
     : `v${updateInfo.latest_version}`;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#07090e]/95 backdrop-blur-2xl p-4 sm:p-6 md:p-10 animate-fade-in select-none">
-      {/* Background ambient glow effect */}
-      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-96 w-[700px] rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
-      <div className="pointer-events-none absolute -bottom-40 left-1/2 -translate-x-1/2 h-96 w-[600px] rounded-full bg-[var(--color-accent)]/5 blur-[120px]" />
-
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--color-app-bg)] p-4 sm:p-6 md:p-10 animate-fade-in select-none">
       {/* Main Fullscreen Dashboard Card */}
-      <div className="relative flex h-full max-h-[820px] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)]/90 shadow-2xl backdrop-blur-xl">
+      <div className="relative flex h-full max-h-[820px] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)]">
         {/* Top Header Section */}
-        <div className="relative border-b border-[var(--color-app-border)] px-6 py-5 sm:px-8 sm:py-6 bg-gradient-to-b from-[var(--color-app-surface-2)]/60 to-transparent">
+        <div className="relative border-b border-[var(--color-app-border)] px-6 py-5 sm:px-8 sm:py-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
-              <span className="flex items-center gap-1.5 rounded-full bg-[var(--color-accent)]/15 border border-[var(--color-accent)]/30 px-3 py-1 text-[11px] font-bold text-[var(--color-accent)] uppercase tracking-wider shadow-sm">
+              <span className="flex items-center gap-1.5 rounded-full bg-[var(--color-accent)]/15 border border-[var(--color-accent)]/30 px-3 py-1 text-[0.6875rem] font-bold text-[var(--color-accent)] uppercase tracking-wider shadow-sm">
                 <SparklesIcon className="h-3.5 w-3.5 text-[var(--color-accent)]" />
                 {t("app.mandatoryUpdate", "Mandatory Update")}
               </span>
@@ -111,7 +107,7 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo, previously
               </div>
             </div>
 
-            <span className="chip text-[10px] font-mono text-[var(--color-text-tertiary)] uppercase">
+            <span className="chip text-[0.625rem] font-mono text-[var(--color-text-tertiary)] uppercase">
               Sophy Studio Desktop
             </span>
           </div>
@@ -136,12 +132,12 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo, previously
                 {t("app.releaseNotes", "Release Notes")}
               </h2>
             </div>
-            <span className="text-[11px] text-[var(--color-text-tertiary)] font-mono">
+            <span className="text-[0.6875rem] text-[var(--color-text-tertiary)] font-mono">
               Release {latestVersion}
             </span>
           </div>
 
-          <div className="flex-1 min-h-0 overflow-y-auto rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/40 p-4 sm:p-5 pr-3 shadow-inner">
+          <div className="flex-1 min-h-0 overflow-y-auto rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-bg)] p-4 sm:p-5 pr-3">
             {updateInfo.release_notes ? (
               <MarkdownRenderer content={updateInfo.release_notes} />
             ) : (
@@ -154,13 +150,13 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo, previously
 
         {/* Error Notification Alert */}
         {errorMsg && (
-          <div className="mx-6 sm:mx-8 mb-3 rounded-2xl border border-rose-500/40 bg-rose-500/10 p-3.5 text-xs text-rose-300 flex items-start gap-3 animate-shake">
-            <div className="h-5 w-5 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 mt-0.5">
+          <div className="mx-6 sm:mx-8 mb-3 rounded-2xl border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 p-3.5 text-xs text-[var(--color-danger)] flex items-start gap-3 animate-shake">
+            <div className="h-5 w-5 rounded-full bg-[var(--color-danger)]/20 text-[var(--color-danger)] flex items-center justify-center shrink-0 mt-0.5">
               !
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-rose-200">{errorMsg}</p>
-              <p className="mt-0.5 text-[11px] text-rose-300/80">
+              <p className="font-bold text-[var(--color-danger)]">{errorMsg}</p>
+              <p className="mt-0.5 text-[0.6875rem] text-[var(--color-danger)]">
                 {t("app.manualWebNotice", "You can download the installer directly from the GitHub release page.")}
               </p>
             </div>
@@ -168,10 +164,10 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo, previously
         )}
 
         {/* Footer & Actions */}
-        <div className="border-t border-[var(--color-app-border)] bg-[var(--color-app-surface-2)]/80 px-6 py-4 sm:px-8 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] px-6 py-4 sm:px-8 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
-            <ShieldCheckIcon className="h-4 w-4 text-emerald-400 shrink-0" />
-            <span className="text-[11px] leading-snug">
+            <ShieldCheckIcon className="h-4 w-4 text-[var(--color-success)] shrink-0" />
+            <span className="text-[0.6875rem] leading-snug">
               {t(
                 "app.dataGuaranteedNotice",
                 "Your search history, studio settings, and downloaded tracks are safely preserved."
@@ -206,7 +202,7 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ updateInfo, previously
                 type="button"
                 disabled={updating}
                 onClick={handleUpdateClick}
-                className="btn btn-primary w-full sm:w-auto px-8 py-3 text-sm font-bold shadow-xl shadow-[var(--color-accent-soft)] hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2.5"
+                className="btn btn-primary w-full sm:w-auto px-8 py-3 text-sm font-bold transition-all flex items-center justify-center gap-2.5"
               >
                 {updating ? (
                   <>

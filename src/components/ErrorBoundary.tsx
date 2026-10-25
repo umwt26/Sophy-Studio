@@ -37,9 +37,9 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-[#0b0e14] text-[#f1f5f9] p-6 select-none font-sans">
-          <div className="max-w-md w-full border border-rose-500/30 bg-[#12161f] rounded-2xl p-6 shadow-2xl flex flex-col items-center text-center">
-            <div className="h-12 w-12 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 mb-4">
+        <div className="min-h-screen w-full flex items-center justify-center bg-[var(--color-app-bg)] text-[var(--color-text-primary)] p-6 select-none font-sans">
+          <div className="max-w-md w-full border border-[var(--color-danger)]/30 bg-[var(--color-app-surface)] rounded-2xl p-6 flex flex-col items-center text-center">
+            <div className="h-12 w-12 rounded-xl bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/30 flex items-center justify-center text-[var(--color-danger)] mb-4">
               <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                 <circle cx="12" cy="12" r="10" />
                 <line x1="12" y1="8" x2="12" y2="12" />
@@ -47,10 +47,10 @@ export class ErrorBoundary extends Component<Props, State> {
               </svg>
             </div>
             
-            <h2 className="text-base font-bold text-white mb-1">
+            <h2 className="text-base font-bold text-[var(--color-text-primary)] mb-1">
               {i18n.t("app.errorTitle", "Bir Arayüz Hatası Oluştu")}
             </h2>
-            <p className="text-xs text-slate-400 mb-4 leading-relaxed">
+            <p className="text-xs text-[var(--color-text-secondary)] mb-4 leading-relaxed">
               {i18n.t(
                 "app.errorDesc",
                 "İstenen arayüz bileşeni yüklenirken beklenmeyen bir durum oluştu. Stüdyoyu güvenle sıfırlayabilirsiniz."
@@ -58,7 +58,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </p>
 
             {this.state.error && (
-              <pre className="text-[10px] font-mono text-rose-300/80 bg-black/40 p-2.5 rounded-lg w-full overflow-x-auto text-left mb-4 border border-rose-500/20 max-h-24">
+              <pre className="text-[0.625rem] font-mono text-[var(--color-danger)] bg-[var(--color-app-bg)] p-2.5 rounded-lg w-full overflow-x-auto text-left mb-4 border border-[var(--color-danger)]/20 max-h-24">
                 {this.state.error.message || String(this.state.error)}
               </pre>
             )}
@@ -66,7 +66,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <button
               type="button"
               onClick={this.handleReset}
-              className="w-full py-2.5 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-black font-bold text-xs transition-colors shadow-lg shadow-sky-500/20"
+              className="btn btn-primary w-full"
             >
               {i18n.t("app.errorReset", "Stüdyoyu Yeniden Başlat")}
             </button>

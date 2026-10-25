@@ -38,7 +38,7 @@ export function SongDetails({ song }: SongDetailsProps) {
 
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 pt-1">
           {song.genres.map((genre) => (
-            <span key={genre} className="chip text-[11px]">
+            <span key={genre} className="chip text-[0.6875rem]">
               {genre}
             </span>
           ))}

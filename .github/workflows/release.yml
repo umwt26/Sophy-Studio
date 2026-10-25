@@ -104,9 +104,11 @@ jobs:
           Write-Host "imports: $deps"
           if ($deps -match 'msvcp1|vcruntime1|msvcr1') { "FAIL: VC++ runtime dependency" | Add-Content build-diag.txt; Write-Error "Binary depends on the VC++ runtime: $deps"; exit 1 }
           # Installer hooks must not contain dropper-like commands (antivirus false positives).
-          $hooks = Get-Content src-tauri/hooks.nsh -Raw
-          foreach ($bad in @("powershell", "ExecutionPolicy", "DownloadFile", "taskkill")) {
-            if ($hooks -match [regex]::Escape($bad)) { Write-Error "hooks.nsh contains '$bad'"; exit 1 }
+          foreach ($nsi in @("src-tauri/hooks.nsh", "src-tauri/installer.nsi")) {
+            $text = Get-Content $nsi -Raw
+            foreach ($bad in @("powershell", "ExecutionPolicy", "DownloadFile", "taskkill")) {
+              if ($text -match [regex]::Escape($bad)) { Write-Error "$nsi contains '$bad'"; exit 1 }
+            }
           }
           Get-ChildItem out | ForEach-Object {
             $h = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower()

@@ -88,7 +88,6 @@
   },
   "home": {
     "heroSubtitle": "Kit de desktop para downloads de áudio IA, captura de mídia, edição de metadados e análise de Tom e BPM.",
-    "openOutputFolder": "Pasta do Studio",
     "sunoTitle": "Suno Downloader",
     "sunoDesc": "Baixe faixas Suno AI em MP3 320k, WAV sem perdas, fluxo original, capa em alta resolução e letra sincronizada.",
     "universalTitle": "Universal Media Downloader",
@@ -104,16 +103,7 @@
     "tipOffline": "Todas as análises e conversões são executadas localmente no seu dispositivo sem envio à internet.",
     "cutterTitle": "Sample Cutter (8s)",
     "cutterDesc": "Trim seamless 8-second audio samples from your tracks for Suno and music production.",
-    "releaseNotesTitle": "{{version}} Official Release & Updates",
     "releaseMonth": "October 2026",
-    "rel1Title": "Sample Cutter (8s Waveform Slicer)",
-    "rel1Desc": "Interactive audio waveform with a fixed 8-second sliding window for seamless Suno sample trims (320k MP3 / WAV).",
-    "rel2Title": "Suno 2.0 & Universal Downloader",
-    "rel2Desc": "Studio 320k MP3, WAV, cover art, and lyrics. Universal media capture with categorizable history.",
-    "rel3Title": "Essentia Key & BPM Analysis",
-    "rel3Desc": "12-Chroma HPCP with Camelot wheel, harmonic mixing pairs, and fine BPM adjustments.",
-    "rel4Title": "UI Polish & Official v1.0",
-    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0 release.",
     "tagCoverArt": "Cover Art",
     "tagTagEditor": "Tag Editor",
     "tagRhythmAnalysis": "Rhythm Analysis",
@@ -122,7 +112,51 @@
     "tagLyrics": "Lyrics",
     "prompterTitle": "Suno Style Prompter",
     "prompterDesc": "Descreva uma música em qualquer idioma e receba tags de estilo e uma estrutura prontas para colar no Suno. Funciona offline.",
-    "tagStructure": "Estrutura"
+    "tagStructure": "Estrutura",
+    "whatsNew": {
+      "title": "Novidades da {{version}}",
+      "subtitle": "Tudo o que mudou nesta atualização.",
+      "layout": {
+        "title": "Um layout novo e mais claro",
+        "desc": "O botão de menu saiu: todas as ferramentas agora ficam numa barra lateral fixa, agrupadas em Baixar, Criar e Editar e analisar. Recolha para ícones com um clique; em janelas estreitas ela se recolhe sozinha. Cada página tem a mesma linha de título com suas ações à direita."
+      },
+      "themes": {
+        "title": "Temas de cor para o app inteiro",
+        "desc": "Escolha um dos 9 temas (Oceano, Lagoa, Floresta, Âmbar, Brasa, Carmesim, Orquídea, Violeta, Grafite) ou qualquer cor no seletor. O tema agora colore fundos, a barra lateral, bordas, a página ativa e as seleções. O tom de fundo (Neutro, Suave, Intenso) define a intensidade; o modo claro usa tons mais escuros para manter o texto legível."
+      },
+      "accessibility": {
+        "title": "Novas configurações de acessibilidade",
+        "desc": "O tamanho do texto (de Pequeno a Muito grande) aumenta todo o texto sem quebrar o layout, o tamanho da exibição amplia toda a interface de 90% a 150%, e Reduzir movimento desativa as animações."
+      },
+      "settings": {
+        "title": "Configurações redesenhadas",
+        "desc": "Nova ordem: Idioma, Aparência, Acessibilidade, Pastas, Sobre. Os cartões de idioma mostram cada idioma com o próprio nome e no seu; Aparência tem prévias para Claro, Escuro e Sistema, o seletor de cor e cores predefinidas abaixo."
+      },
+      "font": {
+        "title": "Nova fonte: Coolvetica",
+        "desc": "Toda a interface usa Coolvetica, incluindo letras turcas e cirílicas. O japonês usa a fonte do sistema."
+      },
+      "installer": {
+        "title": "Atualizações e instalação mais simples",
+        "desc": "O instalador não pede mais para desinstalar a versão antiga primeiro. Ele remove o Sophy Studio anterior em silêncio e instala o novo por cima. Seu histórico, configurações, downloads e atalhos são mantidos."
+      },
+      "performance": {
+        "title": "Mais leve em PCs antigos",
+        "desc": "Os efeitos de desfoque e brilho foram removidos e as animações usam apenas movimentos leves e amigáveis à GPU, para o app continuar fluido em computadores modestos."
+      },
+      "fixes": {
+        "title": "Correções",
+        "desc": "Corrigidos as cores de hover no modo claro, fundos de ícones ausentes em várias páginas, textos sem tradução e uma requisição de fonte online desnecessária ao iniciar. O botão Pasta do estúdio foi removido da página inicial."
+      },
+      "feedback": {
+        "title": "Feedback tem sua própria página",
+        "desc": "Enviar feedback agora é uma página completa na barra lateral em vez de um pop-up: escolha Erro, Ideia ou Outro, escreva o quanto quiser e veja dicas do que incluir. A versão do app é anexada automaticamente."
+      },
+      "motion": {
+        "title": "Animações suaves",
+        "desc": "Páginas, cartões e configurações aparecem suavemente, os botões reagem ao clique, as trocas de tema se misturam, e os painéis de Histórico e Chats agora deslizam limpos pela direita."
+      }
+    }
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -292,14 +326,68 @@
     "dialogSelectAllFolder": "Select Batch Downloads Folder",
     "dialogSelectCoverFolder": "Select Cover Art Folder",
     "dialogSelectLyricsFolder": "Select Lyrics Folder",
-    "dialogSelectUniversalFolder": "Select Universal Media Folder"
+    "dialogSelectUniversalFolder": "Select Universal Media Folder",
+    "appearanceDesc": "Escolha a aparência do Sophy Studio. As mudanças são aplicadas na hora.",
+    "modeTitle": "Modo",
+    "modeHint": "Claro, escuro ou seguir a configuração do Windows.",
+    "modeSystemShort": "Sistema",
+    "tintTitle": "Tom de fundo",
+    "tintHint": "Quanto da cor do tema aparece nos fundos, na barra lateral e nas bordas.",
+    "tintNone": "Neutro",
+    "tintSubtle": "Suave",
+    "tintRich": "Intenso",
+    "colorThemeTitle": "Tema de cor",
+    "colorThemeHint": "Define a cor dos botões, da página ativa, dos destaques e das seleções.",
+    "customColor": "Personalizado",
+    "customHint": "Cores muito escuras ou muito claras são ajustadas levemente para manter o texto legível.",
+    "aboutTagline": "Kit de ferramentas de áudio e mídia tudo em um.",
+    "folderError": "Não foi possível selecionar a pasta",
+    "folderOpenError": "Não foi possível abrir a pasta",
+    "themes": {
+      "ocean": "Oceano",
+      "lagoon": "Lagoa",
+      "forest": "Floresta",
+      "amber": "Âmbar",
+      "ember": "Brasa",
+      "crimson": "Carmesim",
+      "orchid": "Orquídea",
+      "violet": "Violeta",
+      "graphite": "Grafite"
+    },
+    "tabAccessibility": "Acessibilidade",
+    "languageNote": "O idioma é lembrado e usado na próxima vez que você abrir o Sophy Studio.",
+    "presetColors": "Cores predefinidas",
+    "accessibilityDesc": "Deixe o texto e a interface mais fáceis de ler e usar.",
+    "textSizeTitle": "Tamanho do texto",
+    "textSizeHint": "Aumenta ou diminui todo o texto sem mudar o layout.",
+    "sizeSmall": "Pequeno",
+    "sizeDefault": "Padrão",
+    "sizeLarge": "Grande",
+    "sizeXLarge": "Muito grande",
+    "textPreviewTitle": "Suno Downloader",
+    "textPreviewBody": "É assim que o texto vai aparecer em todo o Sophy Studio.",
+    "displaySizeTitle": "Tamanho da exibição",
+    "displaySizeHint": "Amplia toda a interface: texto, ícones, botões e espaçamentos.",
+    "reduceMotionTitle": "Reduzir movimento",
+    "reduceMotionHint": "Desativa animações e transições.",
+    "languageNames": {
+      "en": "Inglês",
+      "tr": "Turco",
+      "de": "Alemão",
+      "fr": "Francês",
+      "es": "Espanhol",
+      "pt": "Português",
+      "ru": "Russo",
+      "ja": "Japonês"
+    }
   },
   "suno": {
     "emptyTitle": "Baixar Faixa do Suno",
     "download": "Baixar",
     "audioSub": "MP3, WAV ou original",
     "coverSub": "Alta resolução",
-    "lyricsSub": "Arquivo de letra (.lrc / .txt)"
+    "lyricsSub": "Arquivo de letra (.lrc / .txt)",
+    "emptyDesc": "Cole um link de música do Suno na barra acima para baixá-la."
   },
   "modal": {
     "saveAudio": "Escolher Formato de Áudio",
@@ -363,7 +451,18 @@
     "errEmptyMessage": "Please enter a message or description.",
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
-    "anonymousUser": "User"
+    "anonymousUser": "User",
+    "typeBugDesc": "Algo não funciona ou se comporta de forma estranha.",
+    "typeIdeaDesc": "Um recurso ou melhoria que você gostaria.",
+    "typeOtherDesc": "Qualquer outra coisa que queira nos dizer.",
+    "successTitle": "Obrigado!",
+    "successBody": "Sua mensagem foi enviada. Cada comentário é lido e ajuda a moldar a próxima atualização.",
+    "sendAnother": "Enviar outro",
+    "tipsTitle": "Detalhes úteis",
+    "tip1": "Qual ferramenta você usava e onde clicou.",
+    "tip2": "O que você esperava e o que aconteceu no lugar.",
+    "tip3": "O link ou tipo de arquivo, se um download ou edição falhou.",
+    "privacyNote": "Nome e e-mail são opcionais; adicione apenas se quiser resposta. A versão do app ({{version}}) é incluída automaticamente."
   },
   "prompter": {
     "title": "Suno Style Prompter",
@@ -413,5 +512,13 @@
     "waitForAi": "Aguarde, o modelo de IA está sendo preparado...",
     "aiNotReady": "O modelo de IA ainda não foi baixado; o mecanismo integrado está sendo usado.",
     "styleDesc": "Cole isto no campo Style of Music do Suno."
+  },
+  "sidebar": {
+    "download": "Baixar",
+    "create": "Criar",
+    "edit": "Editar e analisar",
+    "collapse": "Recolher barra lateral",
+    "expand": "Expandir barra lateral",
+    "updateAvailable": "Atualizar para v{{version}}"
   }
 }

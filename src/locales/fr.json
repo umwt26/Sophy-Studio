@@ -88,7 +88,6 @@
   },
   "home": {
     "heroSubtitle": "Boîte à outils de bureau pour le téléchargement audio IA, la capture média, l'édition de tags et l'analyse Clé/BPM.",
-    "openOutputFolder": "Dossier Studio",
     "sunoTitle": "Suno Downloader",
     "sunoDesc": "Téléchargez des morceaux Suno AI en MP3 320k, WAV, flux original, pochette haute résolution et paroles.",
     "universalTitle": "Universal Media Downloader",
@@ -104,16 +103,7 @@
     "tipOffline": "Toutes les analyses et conversions s'exécutent localement sur votre appareil sans envoi vers Internet.",
     "cutterTitle": "Sample Cutter (8s)",
     "cutterDesc": "Trim seamless 8-second audio samples from your tracks for Suno and music production.",
-    "releaseNotesTitle": "{{version}} Official Release & Updates",
     "releaseMonth": "October 2026",
-    "rel1Title": "Sample Cutter (8s Waveform Slicer)",
-    "rel1Desc": "Interactive audio waveform with a fixed 8-second sliding window for seamless Suno sample trims (320k MP3 / WAV).",
-    "rel2Title": "Suno 2.0 & Universal Downloader",
-    "rel2Desc": "Studio 320k MP3, WAV, cover art, and lyrics. Universal media capture with categorizable history.",
-    "rel3Title": "Essentia Key & BPM Analysis",
-    "rel3Desc": "12-Chroma HPCP with Camelot wheel, harmonic mixing pairs, and fine BPM adjustments.",
-    "rel4Title": "UI Polish & Official v1.0",
-    "rel4Desc": "Resolved search bar icon text collision, customizable folder routing, and official v1.0 release.",
     "tagCoverArt": "Cover Art",
     "tagTagEditor": "Tag Editor",
     "tagRhythmAnalysis": "Rhythm Analysis",
@@ -122,7 +112,51 @@
     "tagLyrics": "Lyrics",
     "prompterTitle": "Suno Style Prompter",
     "prompterDesc": "Décrivez une chanson dans n'importe quelle langue et obtenez des tags de style Suno et une structure prêts à coller. Fonctionne hors ligne.",
-    "tagStructure": "Structure"
+    "tagStructure": "Structure",
+    "whatsNew": {
+      "title": "Nouveautés de la {{version}}",
+      "subtitle": "Tout ce qui a changé dans cette mise à jour.",
+      "layout": {
+        "title": "Une nouvelle disposition, plus claire",
+        "desc": "Le bouton de menu a disparu : tous les outils sont désormais dans une barre latérale fixe, regroupés en Télécharger, Créer et Modifier et analyser. Réduisez-la en icônes d'un clic ; dans une fenêtre étroite, elle se réduit toute seule. Chaque page a la même ligne de titre avec ses actions à droite."
+      },
+      "themes": {
+        "title": "Des thèmes de couleur pour toute l'application",
+        "desc": "Choisissez l'un des 9 thèmes (Océan, Lagon, Forêt, Ambre, Braise, Cramoisi, Orchidée, Violet, Graphite) ou n'importe quelle couleur dans le sélecteur. Le thème teinte désormais les fonds, la barre latérale, les bordures, la page active et les sélections. La teinte de fond (Neutre, Légère, Marquée) règle son intensité ; le mode clair utilise des tons plus foncés pour garder le texte lisible."
+      },
+      "accessibility": {
+        "title": "Nouveaux réglages d'accessibilité",
+        "desc": "La taille du texte (de Petit à Très grand) agrandit tout le texte sans casser la mise en page, la taille d'affichage zoome toute l'interface de 90 % à 150 %, et « Réduire les animations » les désactive."
+      },
+      "settings": {
+        "title": "Paramètres repensés",
+        "desc": "Nouvel ordre : Langue, Apparence, Accessibilité, Dossiers, À propos. Les cartes de langue affichent chaque langue dans son propre nom et dans la vôtre ; l'Apparence propose des aperçus Clair, Sombre et Système, le sélecteur de couleur et des couleurs prédéfinies en dessous."
+      },
+      "font": {
+        "title": "Nouvelle police : Coolvetica",
+        "desc": "Toute l'interface utilise Coolvetica, y compris les lettres turques et cyrilliques. Le japonais utilise la police du système."
+      },
+      "installer": {
+        "title": "Mises à jour et installation simplifiées",
+        "desc": "L'installateur ne vous demande plus de désinstaller d'abord l'ancienne version. Il supprime silencieusement le Sophy Studio précédent et installe le nouveau par-dessus. Votre historique, vos réglages, vos téléchargements et vos raccourcis sont conservés."
+      },
+      "performance": {
+        "title": "Plus léger sur les anciens PC",
+        "desc": "Les effets de flou et de halo ont été supprimés et les animations n'utilisent que des mouvements légers, adaptés au GPU, pour rester fluides sur les petites configurations."
+      },
+      "fixes": {
+        "title": "Corrections",
+        "desc": "Couleurs de survol en mode clair, fonds d'icônes manquants sur plusieurs pages, textes non traduits restants et requête de police en ligne inutile au démarrage corrigés. Le bouton Dossier du studio a été retiré de l'accueil."
+      },
+      "feedback": {
+        "title": "Les retours ont leur propre page",
+        "desc": "« Envoyer un retour » est désormais une page complète dans la barre latérale au lieu d'une fenêtre : choisissez Bug, Idée ou Autre, écrivez autant que nécessaire et consultez les conseils sur quoi inclure. La version de l'app est jointe automatiquement."
+      },
+      "motion": {
+        "title": "Animations fluides",
+        "desc": "Les pages, cartes et réglages apparaissent en douceur, les boutons réagissent au clic, les changements de thème se fondent, et les panneaux Historique et Discussions glissent désormais proprement depuis la droite."
+      }
+    }
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -292,14 +326,68 @@
     "dialogSelectAllFolder": "Select Batch Downloads Folder",
     "dialogSelectCoverFolder": "Select Cover Art Folder",
     "dialogSelectLyricsFolder": "Select Lyrics Folder",
-    "dialogSelectUniversalFolder": "Select Universal Media Folder"
+    "dialogSelectUniversalFolder": "Select Universal Media Folder",
+    "appearanceDesc": "Choisissez l'apparence de Sophy Studio. Les changements s'appliquent immédiatement.",
+    "modeTitle": "Mode",
+    "modeHint": "Clair, sombre ou suivre le réglage de Windows.",
+    "modeSystemShort": "Système",
+    "tintTitle": "Teinte de fond",
+    "tintHint": "Dans quelle mesure la couleur du thème apparaît dans les fonds, la barre latérale et les bordures.",
+    "tintNone": "Neutre",
+    "tintSubtle": "Légère",
+    "tintRich": "Marquée",
+    "colorThemeTitle": "Thème de couleur",
+    "colorThemeHint": "Définit la couleur des boutons, de la page active, des surlignages et des sélections.",
+    "customColor": "Personnalisé",
+    "customHint": "Les couleurs très sombres ou très claires sont légèrement ajustées pour garder le texte lisible.",
+    "aboutTagline": "Boîte à outils audio et média tout-en-un.",
+    "folderError": "Impossible de sélectionner le dossier",
+    "folderOpenError": "Impossible d'ouvrir le dossier",
+    "themes": {
+      "ocean": "Océan",
+      "lagoon": "Lagon",
+      "forest": "Forêt",
+      "amber": "Ambre",
+      "ember": "Braise",
+      "crimson": "Cramoisi",
+      "orchid": "Orchidée",
+      "violet": "Violet",
+      "graphite": "Graphite"
+    },
+    "tabAccessibility": "Accessibilité",
+    "languageNote": "La langue est mémorisée et utilisée à la prochaine ouverture de Sophy Studio.",
+    "presetColors": "Couleurs prédéfinies",
+    "accessibilityDesc": "Rendez le texte et l'interface plus faciles à lire et à utiliser.",
+    "textSizeTitle": "Taille du texte",
+    "textSizeHint": "Agrandit ou réduit tout le texte sans modifier la mise en page.",
+    "sizeSmall": "Petit",
+    "sizeDefault": "Par défaut",
+    "sizeLarge": "Grand",
+    "sizeXLarge": "Très grand",
+    "textPreviewTitle": "Suno Downloader",
+    "textPreviewBody": "Voici à quoi ressemblera le texte dans Sophy Studio.",
+    "displaySizeTitle": "Taille d'affichage",
+    "displaySizeHint": "Zoome toute l'interface : texte, icônes, boutons et espacements.",
+    "reduceMotionTitle": "Réduire les animations",
+    "reduceMotionHint": "Désactive les animations et les transitions.",
+    "languageNames": {
+      "en": "Anglais",
+      "tr": "Turc",
+      "de": "Allemand",
+      "fr": "Français",
+      "es": "Espagnol",
+      "pt": "Portugais",
+      "ru": "Russe",
+      "ja": "Japonais"
+    }
   },
   "suno": {
     "emptyTitle": "Télécharger un Morceau Suno",
     "download": "Télécharger",
     "audioSub": "MP3, WAV ou original",
     "coverSub": "Haute résolution",
-    "lyricsSub": "Fichier paroles (.lrc / .txt)"
+    "lyricsSub": "Fichier paroles (.lrc / .txt)",
+    "emptyDesc": "Collez un lien de chanson Suno dans la barre ci-dessus pour la télécharger."
   },
   "modal": {
     "saveAudio": "Choisir le Format Audio",
@@ -363,7 +451,18 @@
     "errEmptyMessage": "Please enter a message or description.",
     "errFailed": "Failed to send: ",
     "placeholderEmail": "name@example.com",
-    "anonymousUser": "User"
+    "anonymousUser": "User",
+    "typeBugDesc": "Quelque chose ne fonctionne pas ou se comporte bizarrement.",
+    "typeIdeaDesc": "Une fonctionnalité ou une amélioration que vous aimeriez.",
+    "typeOtherDesc": "Tout ce que vous voulez nous dire d'autre.",
+    "successTitle": "Merci !",
+    "successBody": "Votre message a été envoyé. Chaque retour est lu et aide à préparer la prochaine mise à jour.",
+    "sendAnother": "En envoyer un autre",
+    "tipsTitle": "Détails utiles",
+    "tip1": "L'outil que vous utilisiez et ce sur quoi vous avez cliqué.",
+    "tip2": "Ce que vous attendiez et ce qui s'est passé à la place.",
+    "tip3": "Le lien ou le type de fichier, si un téléchargement ou une modification a échoué.",
+    "privacyNote": "Le nom et l'e-mail sont facultatifs ; ajoutez-les seulement si vous souhaitez une réponse. La version de l'app ({{version}}) est incluse automatiquement."
   },
   "prompter": {
     "title": "Suno Style Prompter",
@@ -413,5 +512,13 @@
     "waitForAi": "Un instant, le modèle IA est en préparation...",
     "aiNotReady": "Le modèle IA n'est pas encore téléchargé, le moteur intégré est utilisé.",
     "styleDesc": "Collez ceci dans le champ Style of Music de Suno."
+  },
+  "sidebar": {
+    "download": "Télécharger",
+    "create": "Créer",
+    "edit": "Modifier et analyser",
+    "collapse": "Réduire la barre latérale",
+    "expand": "Développer la barre latérale",
+    "updateAvailable": "Mettre à jour vers v{{version}}"
   }
 }

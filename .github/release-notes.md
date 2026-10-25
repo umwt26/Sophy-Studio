@@ -1,16 +1,49 @@
-# Sophy Studio v1.2.1
+# Sophy Studio v1.3
 
-### New: Suno Style Prompter
-Describe a song in your own words and get a ready-to-paste **Style of Music** and **Structure** for Suno.
-- Understands English, Turkish, German, French, Spanish, Portuguese, Russian and Japanese out of the box; refine with follow-ups like "less bass", "BPM 140", "add saxophone to the intro".
-- Built-in offline AI understands requests in other languages too. It is downloaded automatically on first launch and runs on your own computer.
-- Never writes lyrics: the structure only contains section tags and placeholders for your own words.
-- Chats are saved and can be reopened from the **Chats** panel.
+### A new, clearer layout
+- The menu button is gone: every tool now sits in a fixed **sidebar**, grouped into **Download**, **Create** and **Edit & Analyze**.
+- Collapse the sidebar to icons with one click; on narrow windows it collapses by itself.
+- Every page has the same title row, with its actions on the right.
+
+### Colour themes that change the whole app
+- 9 themes: Ocean, Lagoon, Forest, Amber, Ember, Crimson, Orchid, Violet and Graphite, plus any colour from the **colour picker**.
+- The theme now tints backgrounds, the sidebar, borders, the active page and selections, not just buttons.
+- **Background tone** (Neutral, Subtle, Rich) sets how strong the tint is. Light mode uses deeper shades so text stays readable.
+
+### New: Accessibility
+- **Text size**: Small, Default, Large, Extra large. Enlarges all text without breaking the layout.
+- **Display size**: zooms the whole interface from 90% to 150%.
+- **Reduce motion**: turns animations off.
+
+### Redesigned Settings
+- New order: Language, Appearance, Accessibility, Folders, About.
+- Language cards show each language in its own name and in yours.
+- Appearance has preview cards for Light, Dark and System, the colour picker, and preset colours below it.
+
+### Feedback has its own page
+- Send Feedback is now a full page in the sidebar instead of a pop-up: pick Bug, Idea or Other and see tips on what to include.
+- The app version is attached automatically.
+
+### Smooth animations
+- Pages, cards and settings fade in gently, buttons react when pressed and theme changes blend smoothly.
+- The History and Chats panels now slide in cleanly from the right.
+
+### New typeface: Coolvetica
+- Used across the whole interface, including Turkish and Cyrillic letters. Japanese uses the system font.
+
+### Smoother updates and installs
+- Setup no longer asks you to uninstall the old version first. It removes the previous Sophy Studio silently and installs the new one on top.
+- Your history, settings, downloads and shortcuts are kept.
+
+### Lighter on older PCs
+- Blur and glow effects were removed; animations only use light, GPU-friendly motion.
 
 ### Fixes
-- **Metadata Editor:** WAV tags (title, artist, album...) now show up in Windows Explorer and players; cover images in WebP/BMP are converted so they actually display; failed saves are reported instead of silently ignored.
-- **Universal Downloader:** Pinterest videos download correctly; clearer error messages.
-- No Visual C++ Redistributable needed.
+- Hover colours in light mode.
+- Missing icon backgrounds on several pages.
+- Leftover untranslated texts.
+- An unnecessary online font request at start-up.
+- The Studio Folder button was removed from the home page.
 
 Your history, settings and downloaded files are kept.
 

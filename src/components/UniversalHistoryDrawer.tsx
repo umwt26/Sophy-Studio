@@ -93,15 +93,15 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex animate-fade-in">
+    <div className="fixed inset-0 z-50 flex justify-end">
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+        className="drawer-backdrop fixed inset-0 bg-black/50"
       />
 
       {/* Drawer Panel on Left (approx 1/4 screen width) */}
-      <aside className="relative flex h-full w-84 max-w-[85vw] flex-col border-r border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-4 shadow-2xl z-10 animate-slide-in-right">
+      <aside className="relative flex h-full w-84 max-w-[85vw] flex-col border-l border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-4 z-10 drawer-panel">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--color-app-border)] pb-3">
           <div className="flex items-center gap-2">
@@ -112,7 +112,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
               <h2 className="text-xs font-bold text-[var(--color-text-primary)]">
                 {t("universal.historyTitle", "Medya Geçmişi")}
               </h2>
-              <p className="text-[10px] text-[var(--color-text-tertiary)]">
+              <p className="text-[0.625rem] text-[var(--color-text-tertiary)]">
                 {Array.isArray(history) ? history.length : 0} {t("universal.historyCount", "indirilen içerik")}
               </p>
             </div>
@@ -124,7 +124,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                 type="button"
                 onClick={onClearHistory}
                 title={t("app.clearHistory", "Temizle")}
-                className="btn btn-secondary text-xs px-2 py-1 text-rose-400 hover:border-rose-500/30"
+                className="btn btn-secondary text-xs px-2 py-1 text-[var(--color-danger)] hover:border-[var(--color-danger)]/30"
               >
                 <TrashIcon className="h-3.5 w-3.5" />
               </button>
@@ -158,14 +158,14 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
 
           {/* Sort & Platform Bar */}
           <div className="flex items-center justify-between gap-2 pt-1">
-            <span className="text-[10px] font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider">
+            <span className="text-[0.625rem] font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider">
               {t("universal.sortBy", "Sırala:")}
             </span>
             <div className="flex items-center gap-1">
               <button
                 type="button"
                 onClick={() => setSortBy("newest")}
-                className={`chip text-[10px] px-2 py-0.5 ${
+                className={`chip text-[0.625rem] px-2 py-0.5 ${
                   sortBy === "newest" ? "border-[var(--color-accent)] text-[var(--color-accent)] font-bold" : ""
                 }`}
               >
@@ -174,7 +174,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
               <button
                 type="button"
                 onClick={() => setSortBy("oldest")}
-                className={`chip text-[10px] px-2 py-0.5 ${
+                className={`chip text-[0.625rem] px-2 py-0.5 ${
                   sortBy === "oldest" ? "border-[var(--color-accent)] text-[var(--color-accent)] font-bold" : ""
                 }`}
               >
@@ -183,7 +183,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
               <button
                 type="button"
                 onClick={() => setSortBy("title")}
-                className={`chip text-[10px] px-2 py-0.5 ${
+                className={`chip text-[0.625rem] px-2 py-0.5 ${
                   sortBy === "title" ? "border-[var(--color-accent)] text-[var(--color-accent)] font-bold" : ""
                 }`}
               >
@@ -201,9 +201,9 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                   key={plat.id}
                   type="button"
                   onClick={() => setSelectedPlatform(plat.id)}
-                  className={`chip text-[10px] px-2 py-0.5 cursor-pointer ${
+                  className={`chip text-[0.625rem] px-2 py-0.5 cursor-pointer ${
                     selectedPlatform === plat.id
-                      ? "bg-[var(--color-accent)] text-black font-bold border-transparent"
+                      ? "bg-[var(--color-accent)] text-[var(--color-accent-fg)] font-bold border-transparent"
                       : "hover:border-[var(--color-accent)]/50"
                   }`}
                 >
@@ -245,7 +245,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                   className="group relative flex flex-col gap-2 rounded-xl border border-[var(--color-app-border)] bg-[var(--color-app-surface-2)] p-2.5 transition-colors hover:border-[var(--color-accent)]/40"
                 >
                   <div className="flex items-start gap-2.5">
-                    <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded-lg bg-black/40 flex items-center justify-center">
+                    <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded-lg bg-[var(--color-app-surface-2)] flex items-center justify-center">
                       {item.thumbnail ? (
                         <img
                           src={item.thumbnail}
@@ -260,18 +260,18 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                       ) : (
                         <MusicalNoteIcon className="h-5 w-5 text-[var(--color-text-tertiary)]" />
                       )}
-                      <span className="absolute bottom-1 right-1 chip text-[9px] px-1 py-0 font-mono font-bold bg-black/75">
+                      <span className="absolute bottom-1 right-1 chip text-[0.5625rem] px-1 py-0 font-mono font-bold bg-black/75">
                         {formatLabel}
                       </span>
                     </div>
 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 mb-0.5">
-                        <span className="chip text-[9px] px-1.5 py-0 font-medium">
+                        <span className="chip text-[0.5625rem] px-1.5 py-0 font-medium">
                           {platformLabel}
                         </span>
                         {dateText && (
-                          <span className="text-[10px] text-[var(--color-text-tertiary)] font-mono">
+                          <span className="text-[0.625rem] text-[var(--color-text-tertiary)] font-mono">
                             {dateText}
                           </span>
                         )}
@@ -280,7 +280,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                       <h4 className="truncate text-xs font-semibold text-[var(--color-text-primary)]">
                         {titleText}
                       </h4>
-                      <p className="truncate text-[10px] text-[var(--color-text-tertiary)] font-mono mt-0.5">
+                      <p className="truncate text-[0.625rem] text-[var(--color-text-tertiary)] font-mono mt-0.5">
                         {urlText}
                       </p>
                     </div>
@@ -301,7 +301,7 @@ export const UniversalHistoryDrawer: React.FC<UniversalHistoryDrawerProps> = ({
                     <button
                       type="button"
                       onClick={() => onRemoveItem(item.id)}
-                      className="icon-btn h-6 w-6 text-rose-400 hover:text-rose-300"
+                      className="icon-btn h-6 w-6 text-[var(--color-danger)] hover:opacity-80"
                       title={t("common.delete", "Sil")}
                     >
                       <TrashIcon className="h-3 w-3" />

@@ -59,7 +59,19 @@
     "updateErrCorrupt": "Le fichier téléchargé était incomplet ou endommagé ; il n'a pas été exécuté. Veuillez réessayer.",
     "updateErrAntivirus": "La Sécurité Windows a bloqué le programme d'installation. Téléchargez-le manuellement depuis GitHub ou autorisez-le dans la Sécurité Windows.",
     "updateErrLaunch": "Impossible de lancer le programme d'installation.",
-    "updateNotApplied": "La dernière tentative de mise à jour n'a pas abouti. Réessayez ou téléchargez le programme d'installation manuellement depuis GitHub."
+    "updateNotApplied": "La dernière tentative de mise à jour n'a pas abouti. Réessayez ou téléchargez le programme d'installation manuellement depuis GitHub.",
+    "adWait": "Disponible dans {{seconds}} secondes...",
+    "adReady": "Prêt ! Appuyez sur le bouton pour continuer.",
+    "sponsorSupport": "Proposé avec le soutien de nos sponsors",
+    "sponsorSongReady": "Morceau Suno prêt à télécharger",
+    "sponsorActions": {
+      "cover": "Télécharger la pochette",
+      "lyrics": "Télécharger les paroles",
+      "all": "Tout télécharger (.zip)",
+      "mp3": "Télécharger en MP3 (320k)",
+      "wav": "Télécharger en WAV sans perte",
+      "original": "Télécharger l'audio original"
+    }
   },
   "nav": {
     "home": "Accueil",
@@ -155,6 +167,14 @@
       "motion": {
         "title": "Animations fluides",
         "desc": "Les pages, cartes et réglages apparaissent en douceur, les boutons réagissent au clic, les changements de thème se fondent, et les panneaux Historique et Discussions glissent désormais proprement depuis la droite."
+      },
+      "sponsors": {
+        "title": "Des sponsors avant chaque grande action",
+        "desc": "Une courte carte sponsor apparaît désormais avant les téléchargements, l'export d'extraits, l'enregistrement des tags et l'affichage des résultats d'analyse. Une barre se remplit et le bouton se débloque après quelques secondes. Les sponsors permettent à Sophy Studio de rester gratuit."
+      },
+      "icons": {
+        "title": "Nouvelles icônes Suno",
+        "desc": "Suno Downloader et Suno Style Prompter ont leurs propres icônes, qui suivent le thème de couleur comme toutes les autres. Les cartes de l'accueil s'illuminent dans la couleur du thème au survol."
       }
     }
   },
@@ -232,7 +252,8 @@
     "errCoverInvalid": "Impossible de lire l'image de pochette. Utilisez une image JPG, PNG, WEBP ou BMP.",
     "errVerify": "Les tags ont été écrits mais n'ont pas pu être confirmés. Le fichier est peut-être en lecture seule ou utilisé par un autre programme.",
     "errWrite": "Impossible d'écrire dans le fichier. Fermez les programmes qui l'utilisent (lecteur, DAW) et réessayez.",
-    "errRead": "Impossible de lire ce fichier audio."
+    "errRead": "Impossible de lire ce fichier audio.",
+    "sponsorAction": "Enregistrer les tags dans le fichier"
   },
   "detector": {
     "title": "Détection Clé & BPM",
@@ -427,7 +448,8 @@
     "noFileToExport": "No audio file loaded to export.",
     "exportSuccess": "Sample cut & saved successfully!",
     "exportError": "Failed to cut sample: {{error}}",
-    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample."
+    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample.",
+    "sponsorAction": "Enregistrer l'extrait de 8 s ({{format}})"
   },
   "feedback": {
     "title": "Send Feedback",

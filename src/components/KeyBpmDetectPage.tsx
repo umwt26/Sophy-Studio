@@ -349,6 +349,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
         <AdModal
           actionTitle={t("detector.showResults", "Sonuçları Göster")}
           actionDesc={t("detector.readyResults", "Key & BPM analiz sonuçları hazır.")}
+          actionIcon={PianoIcon}
           lockSeconds={5}
           onClose={() => {
             setShowAdModal(false);

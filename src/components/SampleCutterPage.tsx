@@ -11,6 +11,7 @@ import {
   SparklesIcon,
 } from "./icons";
 import { PageHeader } from "./PageHeader";
+import { useSponsorGate } from "./AdModal";
 
 interface SampleCutterPageProps {
   onShowToast: (msg: string) => void;
@@ -32,6 +33,7 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
   onOpenFolder,
 }) => {
   const { t } = useTranslation();
+  const { gate, modal: sponsorModal } = useSponsorGate();
 
   const [filePath, setFilePath] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
@@ -344,13 +346,21 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
     }
   };
 
-  // Export Sample
-  const handleExport = async (format: "mp3" | "wav") => {
+  // Export Sample (a sponsor is shown first)
+  const handleExport = (format: "mp3" | "wav") => {
     if (!filePath) {
-      onShowToast(t("cutter.noFileToExport", "Dışa aktarmak için bir dosya yükleyin."));
+      onShowToast(t("cutter.noFileToExport", "Load a file to export."));
       return;
     }
+    gate(
+      () => runExport(format),
+      t("cutter.sponsorAction", { format: format.toUpperCase(), defaultValue: "Save 8s sample ({{format}})" }),
+      fileName || undefined
+    );
+  };
 
+  const runExport = async (format: "mp3" | "wav") => {
+    if (!filePath) return;
     try {
       setExporting(format);
       stopPlayback();
@@ -635,6 +645,8 @@ export const SampleCutterPage: React.FC<SampleCutterPageProps> = ({
           </div>
         </div>
       )}
+
+      {sponsorModal}
     </div>
   );
 };

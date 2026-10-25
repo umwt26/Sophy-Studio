@@ -1,16 +1,40 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { invoke } from "@tauri-apps/api/core";
 import { ArrowDownTrayIcon, CloseIcon, ExternalLinkIcon, MusicIcon } from "./icons";
 import sponsorFilerawave from "../assets/sponsor_filerawave.jpg";
 import sponsorFileraLabel from "../assets/sponsor_filera_label.png";
 
+type IconType = React.ComponentType<{ className?: string }>;
+
 export interface AdModalProps {
   onClose: () => void;
   onConfirm: () => void;
   actionTitle?: string;
   actionDesc?: string;
+  /** Icon on the confirm button; defaults to a download arrow */
+  actionIcon?: IconType;
   lockSeconds?: number;
+}
+
+/**
+ * Shows a sponsor before a heavy action (download, export, save, analysis).
+ * `gate(run, title)` opens the sponsor; `run` executes when the user confirms.
+ * Render `modal` once in the page.
+ */
+export function useSponsorGate() {
+  const [pending, setPending] = useState<{ run: () => void; title: string; desc?: string; Icon?: IconType } | null>(null);
+  const gate = (run: () => void, title: string, desc?: string, Icon?: IconType) => setPending({ run, title, desc, Icon });
+  const modal = pending ? (
+    <AdModal
+      actionTitle={pending.title}
+      actionDesc={pending.desc}
+      actionIcon={pending.Icon}
+      onConfirm={pending.run}
+      onClose={() => setPending(null)}
+    />
+  ) : null;
+  return { gate, modal };
 }
 
 type Sponsor =
@@ -110,10 +134,11 @@ export function AdModal({
   onConfirm,
   actionTitle,
   actionDesc,
+  actionIcon: ActionIcon = ArrowDownTrayIcon,
   lockSeconds = 5,
 }: AdModalProps) {
   const { t } = useTranslation();
-  const effectiveActionTitle = actionTitle || t("app.startDownload", "İndirmeyi Başlat");
+  const effectiveActionTitle = actionTitle || t("app.startDownload", "Start Download");
   // Fixed random sponsor for this impression instance
   const [sponsor] = useState(() => SPONSORS[Math.floor(Math.random() * SPONSORS.length)]);
   const [secondsRemaining, setSecondsRemaining] = useState(lockSeconds);
@@ -151,7 +176,7 @@ export function AdModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-fade-in">
-      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-2xl animate-scale-in">
+      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-[var(--color-app-border)] bg-[var(--color-app-surface)] p-5 shadow-2xl animate-scale-in" role="dialog" aria-modal="true">
         {/* Header Bar */}
         <div className="flex items-center justify-between border-b border-[var(--color-app-border)] pb-3">
           <div className="flex items-center gap-2">
@@ -159,7 +184,7 @@ export function AdModal({
               {t("app.sponsorTag", "SPONSOR")}
             </span>
             <span className="text-xs text-[var(--color-text-secondary)]">
-              {actionDesc || t("app.sponsorSupport", "Sponsorlarımızın desteğiyle sunulmaktadır")}
+              {actionDesc || t("app.sponsorSupport", "Brought to you with the support of our sponsors")}
             </span>
           </div>
 
@@ -242,35 +267,40 @@ export function AdModal({
             <button
               type="button"
               onClick={handleConfirmAction}
-              className="btn btn-primary w-full py-2.5 text-xs font-bold shadow-lg"
+              className="btn btn-primary w-full animate-fade-up"
             >
-              <ArrowDownTrayIcon className="h-4 w-4" />
+              <ActionIcon className="h-4 w-4" />
               <span>{effectiveActionTitle}</span>
             </button>
           ) : (
             <button
               type="button"
               disabled
-              className="btn btn-secondary w-full py-2.5 text-xs font-semibold opacity-60 cursor-not-allowed"
+              className="btn btn-secondary relative w-full overflow-hidden"
             >
-              <span>
-                {actionTitle} ({secondsRemaining}s)
+              {/* Fills up while the sponsor is shown */}
+              <span
+                className="absolute inset-y-0 left-0 bg-[var(--color-accent-line)]"
+                style={{ width: `${((lockSeconds - secondsRemaining) / lockSeconds) * 100}%`, transition: "width 0.25s linear" }}
+              />
+              <span className="relative">
+                {effectiveActionTitle} ({secondsRemaining}s)
               </span>
             </button>
           )}
 
-          <div className="flex items-center justify-between text-[0.6875rem] text-[var(--color-text-tertiary)] px-1">
+          <div className="flex items-center justify-between text-[0.6875rem] text-[var(--color-text-muted)] px-1">
             <span>
               {isUnlocked
-                ? t("app.adReady", "Hazır! Butona basarak devam edebilirsiniz.")
-                : t("app.adWait", `${secondsRemaining} saniye sonra aktifleşecek...`)}
+                ? t("app.adReady", "Ready! Press the button to continue.")
+                : t("app.adWait", { seconds: secondsRemaining, defaultValue: "Available in {{seconds}} seconds..." })}
             </span>
             <button
               type="button"
               onClick={onClose}
               className="hover:text-[var(--color-text-secondary)] transition-colors"
             >
-              {t("common.cancel", "İptal")}
+              {t("common.cancel", "Cancel")}
             </button>
           </div>
         </div>

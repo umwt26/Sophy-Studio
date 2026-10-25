@@ -24,6 +24,14 @@
 - Send Feedback is now a full page in the sidebar instead of a pop-up: pick Bug, Idea or Other and see tips on what to include.
 - The app version is attached automatically.
 
+### Sponsors before every big action
+- A short sponsor card now appears before downloads, sample exports, saving tags and showing analysis results.
+- A bar fills up while it is shown; the button unlocks after a few seconds. Sponsors keep Sophy Studio free.
+
+### New Suno icons
+- Suno Downloader and Suno Style Prompter have their own icons, which follow the colour theme.
+- Home page cards light up in the theme colour when you point at them.
+
 ### Smooth animations
 - Pages, cards and settings fade in gently, buttons react when pressed and theme changes blend smoothly.
 - The History and Chats panels now slide in cleanly from the right.

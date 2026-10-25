@@ -4,7 +4,7 @@ import { SearchBar } from "./SearchBar";
 import { SongDetails } from "./SongDetails";
 import { DownloadGrid } from "./DownloadGrid";
 import { LyricsPanel } from "./LyricsPanel";
-import { SearchIcon, SunoIcon } from "./icons";
+import { SearchIcon, SunoDownloaderIcon } from "./icons";
 import { PageHeader } from "./PageHeader";
 import type { SongData } from "../types";
 
@@ -38,7 +38,7 @@ export const SunoDownloaderPage: React.FC<SunoDownloaderPageProps> = ({
   return (
     <div className="page pb-8">
       <PageHeader
-        Icon={SunoIcon}
+        Icon={SunoDownloaderIcon}
         title={t("nav.suno", "Suno Downloader")}
         desc={t("drawer.sunoDesc", "320k MP3, WAV, cover art & lyrics")}
       />

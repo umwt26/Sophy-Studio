@@ -59,7 +59,19 @@
     "updateErrCorrupt": "El archivo descargado estaba incompleto o dañado, por lo que no se ejecutó. Inténtalo de nuevo.",
     "updateErrAntivirus": "Seguridad de Windows bloqueó el instalador. Descárgalo manualmente desde GitHub o permítelo en Seguridad de Windows.",
     "updateErrLaunch": "No se pudo iniciar el instalador.",
-    "updateNotApplied": "El último intento de actualización no se completó. Vuelve a intentarlo o descarga el instalador manualmente desde GitHub."
+    "updateNotApplied": "El último intento de actualización no se completó. Vuelve a intentarlo o descarga el instalador manualmente desde GitHub.",
+    "adWait": "Disponible en {{seconds}} segundos...",
+    "adReady": "¡Listo! Pulsa el botón para continuar.",
+    "sponsorSupport": "Con el apoyo de nuestros patrocinadores",
+    "sponsorSongReady": "Canción de Suno lista para descargar",
+    "sponsorActions": {
+      "cover": "Descargar portada",
+      "lyrics": "Descargar letra",
+      "all": "Descargar todo (.zip)",
+      "mp3": "Descargar en MP3 (320k)",
+      "wav": "Descargar WAV sin pérdida",
+      "original": "Descargar audio original"
+    }
   },
   "nav": {
     "home": "Inicio",
@@ -155,6 +167,14 @@
       "motion": {
         "title": "Animaciones fluidas",
         "desc": "Las páginas, tarjetas y ajustes aparecen suavemente, los botones reaccionan al pulsarlos, los cambios de tema se funden, y los paneles de Historial y Chats ahora se deslizan limpiamente desde la derecha."
+      },
+      "sponsors": {
+        "title": "Patrocinadores antes de cada acción importante",
+        "desc": "Ahora aparece una breve tarjeta de patrocinador antes de las descargas, la exportación de muestras, el guardado de etiquetas y los resultados de análisis. Una barra se llena y el botón se desbloquea tras unos segundos. Los patrocinadores mantienen Sophy Studio gratis."
+      },
+      "icons": {
+        "title": "Nuevos iconos de Suno",
+        "desc": "Suno Downloader y Suno Style Prompter tienen sus propios iconos nuevos, que siguen el tema de color como los demás. Las tarjetas de inicio se iluminan con el color del tema al pasar el ratón."
       }
     }
   },
@@ -232,7 +252,8 @@
     "errCoverInvalid": "No se pudo leer la imagen de portada. Usa una imagen JPG, PNG, WEBP o BMP.",
     "errVerify": "Las etiquetas se escribieron pero no se pudieron confirmar. Puede que el archivo sea de solo lectura o que otro programa lo esté usando.",
     "errWrite": "No se pudo escribir en el archivo. Cierra cualquier programa que lo esté usando (reproductor, DAW) e inténtalo de nuevo.",
-    "errRead": "No se pudo leer este archivo de audio."
+    "errRead": "No se pudo leer este archivo de audio.",
+    "sponsorAction": "Guardar etiquetas en el archivo"
   },
   "detector": {
     "title": "Detector de Clave y BPM",
@@ -427,7 +448,8 @@
     "noFileToExport": "No audio file loaded to export.",
     "exportSuccess": "Sample cut & saved successfully!",
     "exportError": "Failed to cut sample: {{error}}",
-    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample."
+    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample.",
+    "sponsorAction": "Guardar muestra de 8 s ({{format}})"
   },
   "feedback": {
     "title": "Send Feedback",

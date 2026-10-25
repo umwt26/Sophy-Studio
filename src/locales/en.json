@@ -59,7 +59,19 @@
     "updateErrCorrupt": "The downloaded file was incomplete or damaged, so it was not run. Please try again.",
     "updateErrAntivirus": "Windows Security blocked the installer. Download it manually from GitHub, or allow it in Windows Security.",
     "updateErrLaunch": "The installer could not be started.",
-    "updateNotApplied": "The previous update attempt did not complete. Retry, or download the installer manually from GitHub."
+    "updateNotApplied": "The previous update attempt did not complete. Retry, or download the installer manually from GitHub.",
+    "adWait": "Available in {{seconds}} seconds...",
+    "adReady": "Ready! Press the button to continue.",
+    "sponsorSupport": "Brought to you with the support of our sponsors",
+    "sponsorSongReady": "Suno track ready to download",
+    "sponsorActions": {
+      "cover": "Download Cover Art",
+      "lyrics": "Download Lyrics",
+      "all": "Download All (.zip)",
+      "mp3": "Download as MP3 (320k)",
+      "wav": "Download Lossless WAV",
+      "original": "Download Original Audio"
+    }
   },
   "nav": {
     "home": "Home",
@@ -155,6 +167,14 @@
       "motion": {
         "title": "Smooth animations",
         "desc": "Pages, cards and settings fade in gently, buttons react when pressed, theme changes blend smoothly, and the History and Chats panels now slide in cleanly from the right."
+      },
+      "sponsors": {
+        "title": "Sponsors before every big action",
+        "desc": "A short sponsor card now appears before downloads, sample exports, saving tags and showing analysis results. A bar fills up while it is shown and the button unlocks after a few seconds. Sponsors keep Sophy Studio free."
+      },
+      "icons": {
+        "title": "New Suno icons",
+        "desc": "Suno Downloader and Suno Style Prompter have their own new icons, which follow the colour theme like every other icon. Home page cards now light up in the theme colour when you point at them."
       }
     }
   },
@@ -232,7 +252,8 @@
     "errCoverInvalid": "The cover image could not be read. Use a JPG, PNG, WEBP or BMP image.",
     "errVerify": "The tags were written but could not be confirmed. The file may be read-only or in use by another program.",
     "errWrite": "Could not write to the file. Close any program using it (player, DAW) and try again.",
-    "errRead": "This audio file could not be read."
+    "errRead": "This audio file could not be read.",
+    "sponsorAction": "Save tags to file"
   },
   "detector": {
     "title": "Key & BPM Detect",
@@ -420,7 +441,8 @@
     "noFileToExport": "No audio file loaded to export.",
     "exportSuccess": "Sample cut & saved successfully!",
     "exportError": "Failed to cut sample: {{error}}",
-    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample."
+    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample.",
+    "sponsorAction": "Save 8s sample ({{format}})"
   },
   "feedback": {
     "title": "Send Feedback",

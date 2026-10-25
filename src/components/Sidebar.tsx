@@ -8,8 +8,8 @@ import {
   ScissorsIcon,
   SettingsIcon,
   SidebarIcon,
-  SparklesIcon,
-  SunoIcon,
+  SunoPrompterIcon,
+  SunoDownloaderIcon,
   TagIcon,
 } from "./icons";
 import logoImg from "../assets/logo.png";
@@ -77,14 +77,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
     {
       label: t("sidebar.download", "Download"),
       items: [
-        { id: "suno", label: t("nav.suno", "Suno Downloader"), Icon: SunoIcon },
+        { id: "suno", label: t("nav.suno", "Suno Downloader"), Icon: SunoDownloaderIcon },
         { id: "universal", label: t("nav.universal", "Universal Downloader"), Icon: GlobeDownloadIcon },
       ],
     },
     {
       label: t("sidebar.create", "Create"),
       items: [
-        { id: "prompter", label: t("nav.prompter", "Suno Style Prompter"), Icon: SparklesIcon },
+        { id: "prompter", label: t("nav.prompter", "Suno Style Prompter"), Icon: SunoPrompterIcon },
         { id: "sample-cutter", label: t("nav.cutter", "Sample Cutter"), Icon: ScissorsIcon },
       ],
     },

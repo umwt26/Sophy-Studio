@@ -1,4 +1,31 @@
-import type { SVGProps } from "react";
+import { useId, type SVGProps } from "react";
+
+/**
+ * Icon drawn from an artwork file in public/icons. The artwork's shape (its
+ * alpha) is used as a mask over currentColor, so it follows the theme and
+ * text colour exactly like the line icons.
+ */
+function ArtworkIcon({ src, ...props }: SVGProps<SVGSVGElement> & { src: string }) {
+  const id = `art-${useId().replace(/:/g, "")}`;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <defs>
+        <mask id={id} maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24" style={{ maskType: "alpha" }}>
+          <image href={src} x="0" y="0" width="24" height="24" preserveAspectRatio="xMidYMid meet" />
+        </mask>
+      </defs>
+      <rect width="24" height="24" fill="currentColor" mask={`url(#${id})`} />
+    </svg>
+  );
+}
+
+export function SunoDownloaderIcon(props: SVGProps<SVGSVGElement>) {
+  return <ArtworkIcon src="/icons/sunodownloader.svg" {...props} />;
+}
+
+export function SunoPrompterIcon(props: SVGProps<SVGSVGElement>) {
+  return <ArtworkIcon src="/icons/sunoprompter.svg" {...props} />;
+}
 
 export function MenuIcon(props: SVGProps<SVGSVGElement>) {
   return (

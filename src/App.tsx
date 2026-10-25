@@ -249,13 +249,13 @@ export default function App() {
   };
 
   const getFormatActionTitle = (format: string | null) => {
-    if (format === "cover") return "Kapak Resmini İndir";
-    if (format === "lyrics") return "Şarkı Sözlerini İndir";
-    if (format === "all") return "Tümünü İndir (.zip)";
-    if (format === "mp3") return "MP3 Olarak İndir (320k)";
-    if (format === "wav") return "Kayıpsız WAV İndir";
-    if (format === "original") return "Orijinal Ses İndir";
-    return "İndirmeyi Başlat";
+    if (format === "cover") return t("app.sponsorActions.cover", "Download Cover Art");
+    if (format === "lyrics") return t("app.sponsorActions.lyrics", "Download Lyrics");
+    if (format === "all") return t("app.sponsorActions.all", "Download All (.zip)");
+    if (format === "mp3") return t("app.sponsorActions.mp3", "Download as MP3 (320k)");
+    if (format === "wav") return t("app.sponsorActions.wav", "Download Lossless WAV");
+    if (format === "original") return t("app.sponsorActions.original", "Download Original Audio");
+    return t("app.startDownload", "Start Download");
   };
 
   return (
@@ -342,7 +342,7 @@ export default function App() {
       {adModalOpen && pendingSunoFormat && (
         <AdModal
           actionTitle={getFormatActionTitle(pendingSunoFormat)}
-          actionDesc={song?.title || "Suno şarkısı indirilmeye hazır"}
+          actionDesc={song?.title || t("app.sponsorSongReady", "Suno track ready to download")}
           lockSeconds={5}
           onClose={() => {
             setAdModalOpen(false);

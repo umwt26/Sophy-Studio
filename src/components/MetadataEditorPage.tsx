@@ -11,6 +11,7 @@ import {
   TrashIcon,
 } from "./icons";
 import { PageHeader } from "./PageHeader";
+import { useSponsorGate } from "./AdModal";
 import type { AudioMetadata } from "../types";
 
 interface MetadataEditorPageProps {
@@ -19,6 +20,7 @@ interface MetadataEditorPageProps {
 
 export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowToast }) => {
   const { t } = useTranslation();
+  const { gate, modal: sponsorModal } = useSponsorGate();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [metadata, setMetadata] = useState<AudioMetadata | null>(null);
@@ -170,10 +172,20 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
     }
   };
 
-  const handleSave = async (e: React.FormEvent) => {
+  // Writing tags is shown behind a sponsor, like downloads
+  const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     if (!metadata?.filePath) return;
+    gate(
+      () => void runSave(),
+      t("metadata.sponsorAction", "Save tags to file"),
+      metadata.filePath.split(/[\\/]/).pop(),
+      SaveIcon
+    );
+  };
 
+  const runSave = async () => {
+    if (!metadata?.filePath) return;
     try {
       setSaving(true);
       await invoke("save_audio_metadata", {
@@ -425,6 +437,8 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
           </div>
         </form>
       )}
+
+      {sponsorModal}
     </div>
   );
 };

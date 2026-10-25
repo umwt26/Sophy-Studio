@@ -4,10 +4,12 @@ import {
   GlobeDownloadIcon,
   PianoIcon,
   ScissorsIcon,
-  SunoIcon,
+  SunoDownloaderIcon,
   TagIcon,
   ChevronRightIcon,
   SparklesIcon,
+  SunoPrompterIcon,
+  ArrowDownTrayIcon,
   InstagramIcon,
   TikTokIcon,
   TwitterXIcon,
@@ -41,6 +43,8 @@ const RELEASE_ITEMS: { key: string; Icon: React.ComponentType<{ className?: stri
   { key: "settings", Icon: SettingsIcon },
   { key: "feedback", Icon: ChatBubbleIcon },
   { key: "motion", Icon: SparklesIcon },
+  { key: "sponsors", Icon: ArrowDownTrayIcon },
+  { key: "icons", Icon: SunoDownloaderIcon },
   { key: "font", Icon: DocumentTextIcon },
   { key: "installer", Icon: ShieldCheckIcon },
   { key: "performance", Icon: BoltIcon },
@@ -66,7 +70,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           id: "suno",
           title: t("home.sunoTitle", "Suno Downloader"),
           desc: t("home.sunoDesc", "Download Suno AI tracks in studio 320k MP3, lossless WAV, original audio stream, cover art and lyrics."),
-          Icon: SunoIcon,
+          Icon: SunoDownloaderIcon,
           tags: ["MP3", "WAV", t("home.tagLyrics", "Lyrics")],
         },
         {
@@ -85,7 +89,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           id: "prompter",
           title: t("home.prompterTitle", "Suno Style Prompter"),
           desc: t("home.prompterDesc", "Describe a song in any language and get ready-to-paste Suno style tags and a song structure. Works offline."),
-          Icon: SparklesIcon,
+          Icon: SunoPrompterIcon,
           tags: [t("home.tagStructure", "Structure"), t("home.tagOffline", "Offline")],
         },
         {
@@ -153,14 +157,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 key={id}
                 type="button"
                 onClick={() => onNavigate(id)}
-                className="group section flex items-start gap-3.5 p-4 text-left cursor-pointer transition-colors hover:border-[var(--color-accent-line)] hover:bg-[var(--color-app-surface-2)]"
+                className="tool-card group section flex items-start gap-3.5 p-4 text-left cursor-pointer"
               >
                 <span className="icon-tile">
                   <Icon />
                 </span>
                 <span className="flex min-w-0 flex-1 flex-col gap-1">
                   <span className="flex items-center justify-between gap-2">
-                    <span className="text-[0.9062rem] font-semibold text-[var(--color-text-primary)]">{title}</span>
+                    <span className="tool-card-title text-[0.9062rem] font-semibold text-[var(--color-text-primary)] transition-colors">{title}</span>
                     <ChevronRightIcon className="h-4 w-4 shrink-0 text-[var(--color-text-muted)] transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]" />
                   </span>
                   <span className="text-[0.7812rem] leading-relaxed text-[var(--color-text-secondary)] line-clamp-2">{desc}</span>

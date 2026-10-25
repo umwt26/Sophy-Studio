@@ -982,7 +982,7 @@ textarea.input {
 
 /* Children appear one after another (home cards, settings rows) */
 .stagger > * {
-  animation: fade-up 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: fade-up 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
 }
 .stagger > *:nth-child(2) { animation-delay: 0.04s; }
 .stagger > *:nth-child(3) { animation-delay: 0.08s; }
@@ -993,7 +993,7 @@ textarea.input {
 .stagger > *:nth-child(n + 8) { animation-delay: 0.28s; }
 
 .animate-fade-up {
-  animation: fade-up 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: fade-up 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
 }
 
 @keyframes fade-up {
@@ -1025,6 +1025,36 @@ textarea.input {
   to {
     transform: scaleY(1);
   }
+}
+
+/* Home tool cards: frame, icon and title take the theme colour on hover */
+.tool-card {
+  transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.tool-card:hover {
+  border-color: var(--color-accent);
+  background: var(--color-app-surface-2);
+  box-shadow: 0 0 0 1px var(--color-accent), 0 8px 24px -12px var(--color-accent-line);
+  transform: translateY(-2px);
+}
+
+.tool-card:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.tool-card .icon-tile {
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.tool-card:hover .icon-tile {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+
+.tool-card:hover .section-title,
+.tool-card:hover .tool-card-title {
+  color: var(--color-accent);
 }
 
 /* Side panels (history, chats): slide in from the right edge over a fading backdrop */

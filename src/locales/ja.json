@@ -59,7 +59,19 @@
     "updateErrCorrupt": "ダウンロードしたファイルが不完全または破損していたため、実行しませんでした。もう一度お試しください。",
     "updateErrAntivirus": "Windows セキュリティがインストーラーをブロックしました。GitHub から手動でダウンロードするか、Windows セキュリティで許可してください。",
     "updateErrLaunch": "インストーラーを起動できませんでした。",
-    "updateNotApplied": "前回のアップデートは完了しませんでした。再試行するか、GitHub からインストーラーを手動でダウンロードしてください。"
+    "updateNotApplied": "前回のアップデートは完了しませんでした。再試行するか、GitHub からインストーラーを手動でダウンロードしてください。",
+    "adWait": "あと {{seconds}} 秒で利用できます...",
+    "adReady": "準備完了！ボタンを押して続行してください。",
+    "sponsorSupport": "スポンサーの支援により提供しています",
+    "sponsorSongReady": "Suno の曲をダウンロードできます",
+    "sponsorActions": {
+      "cover": "カバー画像をダウンロード",
+      "lyrics": "歌詞をダウンロード",
+      "all": "すべてダウンロード (.zip)",
+      "mp3": "MP3 でダウンロード (320k)",
+      "wav": "ロスレス WAV でダウンロード",
+      "original": "オリジナル音声をダウンロード"
+    }
   },
   "nav": {
     "home": "ホーム",
@@ -155,6 +167,14 @@
       "motion": {
         "title": "なめらかなアニメーション",
         "desc": "ページ、カード、設定がふわっと表示され、ボタンは押すと反応し、テーマの切り替えもなめらかに。履歴とチャットのパネルは右からきれいにスライドして開きます。"
+      },
+      "sponsors": {
+        "title": "大きな操作の前にスポンサー",
+        "desc": "ダウンロード、サンプルの書き出し、タグの保存、解析結果の表示の前に、短いスポンサーカードが表示されるようになりました。表示中はバーが進み、数秒後にボタンが押せるようになります。スポンサーのおかげで Sophy Studio は無料のままです。"
+      },
+      "icons": {
+        "title": "新しい Suno アイコン",
+        "desc": "Suno Downloader と Suno Style Prompter に専用の新しいアイコンが付き、ほかのアイコンと同じくカラーテーマに合わせて色が変わります。ホームのカードはカーソルを合わせるとテーマカラーで強調されます。"
       }
     }
   },
@@ -232,7 +252,8 @@
     "errCoverInvalid": "カバー画像を読み込めませんでした。JPG、PNG、WEBP、BMP 画像を使用してください。",
     "errVerify": "タグは書き込まれましたが確認できませんでした。ファイルが読み取り専用か、別のプログラムで使用中の可能性があります。",
     "errWrite": "ファイルに書き込めませんでした。使用中のプログラム（プレーヤー、DAW）を閉じて、もう一度お試しください。",
-    "errRead": "この音声ファイルを読み込めませんでした。"
+    "errRead": "この音声ファイルを読み込めませんでした。",
+    "sponsorAction": "タグをファイルに保存"
   },
   "detector": {
     "title": "Key & BPM 検出",
@@ -427,7 +448,8 @@
     "noFileToExport": "No audio file loaded to export.",
     "exportSuccess": "Sample cut & saved successfully!",
     "exportError": "Failed to cut sample: {{error}}",
-    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample."
+    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample.",
+    "sponsorAction": "8 秒サンプルを保存 ({{format}})"
   },
   "feedback": {
     "title": "Send Feedback",

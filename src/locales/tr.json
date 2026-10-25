@@ -59,7 +59,19 @@
     "updateErrCorrupt": "İndirilen dosya eksik ya da bozuk olduğu için çalıştırılmadı. Lütfen tekrar dene.",
     "updateErrAntivirus": "Windows Güvenliği kurulum dosyasını engelledi. Dosyayı GitHub'dan elle indir ya da Windows Güvenliği'nde izin ver.",
     "updateErrLaunch": "Kurulum dosyası başlatılamadı.",
-    "updateNotApplied": "Önceki güncelleme denemesi tamamlanmadı. Tekrar dene ya da kurulum dosyasını GitHub'dan elle indir."
+    "updateNotApplied": "Önceki güncelleme denemesi tamamlanmadı. Tekrar dene ya da kurulum dosyasını GitHub'dan elle indir.",
+    "adWait": "{{seconds}} saniye sonra aktif olacak...",
+    "adReady": "Hazır! Devam etmek için butona bas.",
+    "sponsorSupport": "Sponsorlarımızın desteğiyle sunulmaktadır",
+    "sponsorSongReady": "Suno parçası indirilmeye hazır",
+    "sponsorActions": {
+      "cover": "Kapak Görselini İndir",
+      "lyrics": "Şarkı Sözlerini İndir",
+      "all": "Tümünü İndir (.zip)",
+      "mp3": "MP3 Olarak İndir (320k)",
+      "wav": "Kayıpsız WAV İndir",
+      "original": "Orijinal Sesi İndir"
+    }
   },
   "nav": {
     "home": "Ana Sayfa",
@@ -155,6 +167,14 @@
       "motion": {
         "title": "Akıcı animasyonlar",
         "desc": "Sayfalar, kartlar ve ayarlar yumuşakça beliriyor, butonlar basınca tepki veriyor, tema değişimleri yumuşak geçiyor; Geçmiş ve Sohbetler panelleri artık sağdan düzgünce kayarak açılıyor."
+      },
+      "sponsors": {
+        "title": "Her büyük işlemden önce sponsorlar",
+        "desc": "İndirmelerden, sample dışa aktarmadan, etiket kaydetmeden ve analiz sonuçlarını göstermeden önce kısa bir sponsor kartı çıkıyor. Kart gösterilirken bir çubuk doluyor ve buton birkaç saniye sonra açılıyor. Sponsorlar Sophy Studio'nun ücretsiz kalmasını sağlıyor."
+      },
+      "icons": {
+        "title": "Yeni Suno ikonları",
+        "desc": "Suno Downloader ve Suno Style Prompter'ın kendine ait yeni ikonları var; diğer ikonlar gibi renk temasına uyuyorlar. Ana sayfadaki kartlar da üzerine gelince tema rengiyle belirginleşiyor."
       }
     }
   },
@@ -232,7 +252,8 @@
     "errCoverInvalid": "Kapak görseli okunamadı. JPG, PNG, WEBP ya da BMP bir görsel kullan.",
     "errVerify": "Etiketler yazıldı ama doğrulanamadı. Dosya salt okunur olabilir ya da başka bir program tarafından kullanılıyor olabilir.",
     "errWrite": "Dosyaya yazılamadı. Dosyayı kullanan programı (oynatıcı, DAW) kapatıp tekrar dene.",
-    "errRead": "Bu ses dosyası okunamadı."
+    "errRead": "Bu ses dosyası okunamadı.",
+    "sponsorAction": "Etiketleri dosyaya kaydet"
   },
   "detector": {
     "title": "Key & BPM Detect",
@@ -420,7 +441,8 @@
     "noFileToExport": "Dışa aktarılacak bir dosya seçilmedi.",
     "exportSuccess": "Sample başarıyla kesildi ve kaydedildi!",
     "exportError": "Sample kesilirken hata oluştu: {{error}}",
-    "tooShort": "Dosya süresi 8 saniyeden kısa, sample kesilemez."
+    "tooShort": "Dosya süresi 8 saniyeden kısa, sample kesilemez.",
+    "sponsorAction": "8 sn'lik sample'ı kaydet ({{format}})"
   },
   "feedback": {
     "title": "Geri Bildirim Gönder",

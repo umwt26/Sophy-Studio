@@ -3,7 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { useTranslation } from "react-i18next";
 import { applyInput, emptyState, render, STRUCTURE_LIMIT, STYLE_LIMIT, type PrompterState } from "../prompter/engine";
-import { ChatBubbleIcon, CheckIcon, LoadingSpinner, PlusIcon, SendIcon, SparklesIcon } from "./icons";
+import { ChatBubbleIcon, CheckIcon, LoadingSpinner, PlusIcon, SendIcon, SunoPrompterIcon } from "./icons";
 import { PageHeader } from "./PageHeader";
 import { PrompterChatsDrawer } from "./PrompterChatsDrawer";
 
@@ -293,7 +293,7 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
     // 48px = main container vertical padding (2 x 24px).
     <div className="page !gap-4" style={{ height: "calc(100vh - 48px)", minHeight: 520 }}>
       <PageHeader
-        Icon={SparklesIcon}
+        Icon={SunoPrompterIcon}
         title={t("prompter.title", "Suno Style Prompter")}
         desc={t("prompter.subtitle", "Describe a song in your own words and get a ready-to-paste Style and Structure for Suno. It never writes lyrics.")}
         actions={

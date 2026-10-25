@@ -59,7 +59,19 @@
     "updateErrCorrupt": "Die heruntergeladene Datei war unvollständig oder beschädigt und wurde nicht ausgeführt. Bitte versuche es erneut.",
     "updateErrAntivirus": "Windows-Sicherheit hat das Installationsprogramm blockiert. Lade es manuell von GitHub herunter oder erlaube es in Windows-Sicherheit.",
     "updateErrLaunch": "Das Installationsprogramm konnte nicht gestartet werden.",
-    "updateNotApplied": "Der letzte Update-Versuch wurde nicht abgeschlossen. Versuche es erneut oder lade das Installationsprogramm manuell von GitHub herunter."
+    "updateNotApplied": "Der letzte Update-Versuch wurde nicht abgeschlossen. Versuche es erneut oder lade das Installationsprogramm manuell von GitHub herunter.",
+    "adWait": "Verfügbar in {{seconds}} Sekunden...",
+    "adReady": "Fertig! Drücke die Schaltfläche, um fortzufahren.",
+    "sponsorSupport": "Mit freundlicher Unterstützung unserer Sponsoren",
+    "sponsorSongReady": "Suno-Track bereit zum Download",
+    "sponsorActions": {
+      "cover": "Cover herunterladen",
+      "lyrics": "Songtext herunterladen",
+      "all": "Alles herunterladen (.zip)",
+      "mp3": "Als MP3 herunterladen (320k)",
+      "wav": "Verlustfreies WAV herunterladen",
+      "original": "Original-Audio herunterladen"
+    }
   },
   "nav": {
     "home": "Startseite",
@@ -155,6 +167,14 @@
       "motion": {
         "title": "Flüssige Animationen",
         "desc": "Seiten, Karten und Einstellungen blenden sanft ein, Schaltflächen reagieren beim Drücken, Themenwechsel gehen weich über, und die Verlaufs- und Chat-Leisten gleiten jetzt sauber von rechts herein."
+      },
+      "sponsors": {
+        "title": "Sponsoren vor jeder großen Aktion",
+        "desc": "Vor Downloads, Sample-Exporten, dem Speichern von Tags und dem Anzeigen von Analyseergebnissen erscheint jetzt eine kurze Sponsorenkarte. Ein Balken füllt sich, und die Schaltfläche wird nach wenigen Sekunden freigegeben. Sponsoren halten Sophy Studio kostenlos."
+      },
+      "icons": {
+        "title": "Neue Suno-Symbole",
+        "desc": "Suno Downloader und Suno Style Prompter haben eigene neue Symbole, die wie alle anderen dem Farbthema folgen. Die Karten auf der Startseite leuchten beim Darüberfahren in der Themenfarbe auf."
       }
     }
   },
@@ -232,7 +252,8 @@
     "errCoverInvalid": "Das Coverbild konnte nicht gelesen werden. Verwende ein JPG-, PNG-, WEBP- oder BMP-Bild.",
     "errVerify": "Die Tags wurden geschrieben, konnten aber nicht bestätigt werden. Die Datei ist eventuell schreibgeschützt oder wird von einem anderen Programm verwendet.",
     "errWrite": "In die Datei konnte nicht geschrieben werden. Schließe Programme, die sie verwenden (Player, DAW), und versuche es erneut.",
-    "errRead": "Diese Audiodatei konnte nicht gelesen werden."
+    "errRead": "Diese Audiodatei konnte nicht gelesen werden.",
+    "sponsorAction": "Tags in Datei speichern"
   },
   "detector": {
     "title": "Key & BPM Erkennung",
@@ -427,7 +448,8 @@
     "noFileToExport": "No audio file loaded to export.",
     "exportSuccess": "Sample cut & saved successfully!",
     "exportError": "Failed to cut sample: {{error}}",
-    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample."
+    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample.",
+    "sponsorAction": "8-s-Sample speichern ({{format}})"
   },
   "feedback": {
     "title": "Send Feedback",

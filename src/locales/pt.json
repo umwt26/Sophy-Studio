@@ -59,7 +59,19 @@
     "updateErrCorrupt": "O arquivo baixado estava incompleto ou danificado, por isso não foi executado. Tente novamente.",
     "updateErrAntivirus": "A Segurança do Windows bloqueou o instalador. Baixe-o manualmente no GitHub ou permita-o na Segurança do Windows.",
     "updateErrLaunch": "Não foi possível iniciar o instalador.",
-    "updateNotApplied": "A última tentativa de atualização não foi concluída. Tente novamente ou baixe o instalador manualmente no GitHub."
+    "updateNotApplied": "A última tentativa de atualização não foi concluída. Tente novamente ou baixe o instalador manualmente no GitHub.",
+    "adWait": "Disponível em {{seconds}} segundos...",
+    "adReady": "Pronto! Pressione o botão para continuar.",
+    "sponsorSupport": "Oferecido com o apoio dos nossos patrocinadores",
+    "sponsorSongReady": "Faixa do Suno pronta para baixar",
+    "sponsorActions": {
+      "cover": "Baixar capa",
+      "lyrics": "Baixar letra",
+      "all": "Baixar tudo (.zip)",
+      "mp3": "Baixar em MP3 (320k)",
+      "wav": "Baixar WAV sem perdas",
+      "original": "Baixar áudio original"
+    }
   },
   "nav": {
     "home": "Início",
@@ -155,6 +167,14 @@
       "motion": {
         "title": "Animações suaves",
         "desc": "Páginas, cartões e configurações aparecem suavemente, os botões reagem ao clique, as trocas de tema se misturam, e os painéis de Histórico e Chats agora deslizam limpos pela direita."
+      },
+      "sponsors": {
+        "title": "Patrocinadores antes de cada ação importante",
+        "desc": "Agora um breve cartão de patrocinador aparece antes de downloads, exportação de amostras, salvamento de tags e resultados de análise. Uma barra se enche e o botão é liberado após alguns segundos. Os patrocinadores mantêm o Sophy Studio gratuito."
+      },
+      "icons": {
+        "title": "Novos ícones do Suno",
+        "desc": "Suno Downloader e Suno Style Prompter ganharam ícones próprios, que seguem o tema de cor como todos os outros. Os cartões da página inicial se destacam com a cor do tema ao passar o mouse."
       }
     }
   },
@@ -232,7 +252,8 @@
     "errCoverInvalid": "Não foi possível ler a imagem de capa. Use uma imagem JPG, PNG, WEBP ou BMP.",
     "errVerify": "As tags foram gravadas, mas não puderam ser confirmadas. O arquivo pode ser somente leitura ou estar em uso por outro programa.",
     "errWrite": "Não foi possível gravar no arquivo. Feche os programas que o estão usando (player, DAW) e tente novamente.",
-    "errRead": "Não foi possível ler este arquivo de áudio."
+    "errRead": "Não foi possível ler este arquivo de áudio.",
+    "sponsorAction": "Salvar tags no arquivo"
   },
   "detector": {
     "title": "Detector de Tom e BPM",
@@ -427,7 +448,8 @@
     "noFileToExport": "No audio file loaded to export.",
     "exportSuccess": "Sample cut & saved successfully!",
     "exportError": "Failed to cut sample: {{error}}",
-    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample."
+    "tooShort": "File duration is shorter than 8 seconds, cannot cut sample.",
+    "sponsorAction": "Salvar amostra de 8 s ({{format}})"
   },
   "feedback": {
     "title": "Send Feedback",

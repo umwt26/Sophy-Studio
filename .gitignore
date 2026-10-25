@@ -52,6 +52,6 @@ Thumbs.db
 dist-installer/
 dist-portable/
 
-# Local working notes
-AGENT_HANDOVER_SUMMARY.md
-CHAT_HISTORY_EXPORT.md
+# Local working notes / handover documents
+AGENT_HANDOVER*.md
+CHAT_HISTORY*.md

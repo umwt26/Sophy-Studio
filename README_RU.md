@@ -38,7 +38,10 @@
 
 Шесть инструментов в одном окне, сгруппированных так, как вы на самом деле работаете: **получить звук**, **сделать из него что-то**, **привести в порядок**. Всё работает на вашем компьютере. Никаких аккаунтов и очередей загрузки.
 
-<br />
+<p align="center">
+  <img src="docs/screenshots/ana-sayfa.png" alt="Home" width="100%" /><br />
+  <sub><b>Главная:</b> все инструменты в одном месте (здесь на турецком).</sub>
+</p>
 
 ### 01 &nbsp;/&nbsp; Загрузка
 
@@ -48,12 +51,12 @@
 
 <table>
   <tr>
+    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader" /></td>
     <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader" /></td>
-    <td width="50%"><img src="docs/screenshots/ana-sayfa.png" alt="Home" /></td>
   </tr>
   <tr>
+    <td><sub><b>Suno Downloader:</b> данные трека, теги, аудио, обложка и текст на одном экране.</sub></td>
     <td><sub><b>Universal Downloader:</b> получить, посмотреть, выбрать видео или аудио.</sub></td>
-    <td><sub><b>Главная:</b> все инструменты в одном месте (здесь на турецком).</sub></td>
   </tr>
 </table>
 

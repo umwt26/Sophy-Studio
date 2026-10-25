@@ -38,7 +38,10 @@
 
 6 つのツールをひとつのウィンドウに、実際の作業の流れどおりにまとめました：**音を手に入れる**、**それで何かを作る**、**仕上げる**。すべて自分の PC 上で動きます。アカウントもアップロード待ちもありません。
 
-<br />
+<p align="center">
+  <img src="docs/screenshots/ana-sayfa.png" alt="Home" width="100%" /><br />
+  <sub><b>ホーム：</b>すべてのツールをひとまとめに（画面はトルコ語表示）。</sub>
+</p>
 
 ### 01 &nbsp;/&nbsp; ダウンロード
 
@@ -48,12 +51,12 @@
 
 <table>
   <tr>
+    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader" /></td>
     <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader" /></td>
-    <td width="50%"><img src="docs/screenshots/ana-sayfa.png" alt="Home" /></td>
   </tr>
   <tr>
+    <td><sub><b>Suno Downloader：</b>曲の情報、タグ、音声、カバー、歌詞をひとつの画面で。</sub></td>
     <td><sub><b>Universal Downloader：</b>取得してプレビュー、動画か音声を選択。</sub></td>
-    <td><sub><b>ホーム：</b>すべてのツールをひとまとめに（画面はトルコ語表示）。</sub></td>
   </tr>
 </table>
 

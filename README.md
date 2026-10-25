@@ -38,7 +38,10 @@ A small Windows app that keeps the boring parts of making music out of your brow
 
 Six tools in one window, grouped the way you actually work: **get the audio**, **make something with it**, **clean it up**. Everything runs on your own PC. There are no accounts and no upload queues.
 
-<br />
+<p align="center">
+  <img src="docs/screenshots/ana-sayfa.png" alt="Home screen" width="100%" /><br />
+  <sub><b>Home:</b> every tool grouped in one place (shown here in Turkish).</sub>
+</p>
 
 ### 01 &nbsp;/&nbsp; Download
 
@@ -48,12 +51,12 @@ Six tools in one window, grouped the way you actually work: **get the audio**, *
 
 <table>
   <tr>
+    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader" /></td>
     <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader" /></td>
-    <td width="50%"><img src="docs/screenshots/ana-sayfa.png" alt="Home screen" /></td>
   </tr>
   <tr>
+    <td><sub><b>Suno Downloader:</b> track details, tags, audio, cover and lyrics in one view.</sub></td>
     <td><sub><b>Universal Downloader:</b> fetch, preview, choose video or audio.</sub></td>
-    <td><sub><b>Home:</b> every tool grouped in one place (shown here in Turkish).</sub></td>
   </tr>
 </table>
 

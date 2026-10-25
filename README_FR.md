@@ -38,7 +38,10 @@ Une petite app Windows qui sort de votre navigateur les parties ennuyeuses de la
 
 Six outils dans une seule fenêtre, rangés comme vous travaillez vraiment : **récupérer l'audio**, **en faire quelque chose**, **le mettre au propre**. Tout tourne sur votre PC. Pas de compte, pas de file d'attente d'envoi.
 
-<br />
+<p align="center">
+  <img src="docs/screenshots/ana-sayfa.png" alt="Home" width="100%" /><br />
+  <sub><b>Accueil :</b> tous les outils regroupés au même endroit (ici en turc).</sub>
+</p>
 
 ### 01 &nbsp;/&nbsp; Télécharger
 
@@ -48,12 +51,12 @@ Six outils dans une seule fenêtre, rangés comme vous travaillez vraiment : **r
 
 <table>
   <tr>
+    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader" /></td>
     <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader" /></td>
-    <td width="50%"><img src="docs/screenshots/ana-sayfa.png" alt="Home" /></td>
   </tr>
   <tr>
+    <td><sub><b>Suno Downloader :</b> infos du morceau, tags, audio, pochette et paroles au même endroit.</sub></td>
     <td><sub><b>Universal Downloader :</b> récupérer, prévisualiser, choisir vidéo ou audio.</sub></td>
-    <td><sub><b>Accueil :</b> tous les outils regroupés au même endroit (ici en turc).</sub></td>
   </tr>
 </table>
 

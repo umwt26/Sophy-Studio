@@ -38,7 +38,10 @@ Müzik yapmanın sıkıcı kısımlarını tarayıcından uzak tutan küçük bi
 
 Tek pencerede altı araç, gerçekten çalıştığın sırayla gruplanmış: **sesi al**, **onunla bir şey üret**, **düzenle**. Her şey kendi bilgisayarında çalışır. Hesap yok, yükleme kuyruğu yok.
 
-<br />
+<p align="center">
+  <img src="docs/screenshots/ana-sayfa.png" alt="Home" width="100%" /><br />
+  <sub><b>Ana sayfa:</b> tüm araçlar tek yerde, gruplanmış.</sub>
+</p>
 
 ### 01 &nbsp;/&nbsp; İndir
 
@@ -48,12 +51,12 @@ Tek pencerede altı araç, gerçekten çalıştığın sırayla gruplanmış: **
 
 <table>
   <tr>
+    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader" /></td>
     <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader" /></td>
-    <td width="50%"><img src="docs/screenshots/ana-sayfa.png" alt="Home" /></td>
   </tr>
   <tr>
+    <td><sub><b>Suno Downloader:</b> parça bilgileri, etiketler, ses, kapak ve sözler tek ekranda.</sub></td>
     <td><sub><b>Universal Downloader:</b> getir, önizle, video ya da ses seç.</sub></td>
-    <td><sub><b>Ana sayfa:</b> tüm araçlar tek yerde, gruplanmış.</sub></td>
   </tr>
 </table>
 

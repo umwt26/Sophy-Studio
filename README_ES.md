@@ -38,7 +38,10 @@ Una pequeña app de Windows que saca de tu navegador las partes aburridas de hac
 
 Seis herramientas en una sola ventana, agrupadas como realmente trabajas: **consigue el audio**, **haz algo con él**, **déjalo listo**. Todo se ejecuta en tu propio PC. Sin cuentas y sin colas de subida.
 
-<br />
+<p align="center">
+  <img src="docs/screenshots/ana-sayfa.png" alt="Home" width="100%" /><br />
+  <sub><b>Inicio:</b> todas las herramientas agrupadas en un solo lugar (aquí en turco).</sub>
+</p>
 
 ### 01 &nbsp;/&nbsp; Descargar
 
@@ -48,12 +51,12 @@ Seis herramientas en una sola ventana, agrupadas como realmente trabajas: **cons
 
 <table>
   <tr>
+    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader" /></td>
     <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader" /></td>
-    <td width="50%"><img src="docs/screenshots/ana-sayfa.png" alt="Home" /></td>
   </tr>
   <tr>
+    <td><sub><b>Suno Downloader:</b> detalles, etiquetas, audio, portada y letra en una sola vista.</sub></td>
     <td><sub><b>Universal Downloader:</b> obtén, previsualiza, elige vídeo o audio.</sub></td>
-    <td><sub><b>Inicio:</b> todas las herramientas agrupadas en un solo lugar (aquí en turco).</sub></td>
   </tr>
 </table>
 

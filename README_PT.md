@@ -38,7 +38,10 @@ Um pequeno app para Windows que tira do navegador as partes chatas de fazer mús
 
 Seis ferramentas em uma janela, agrupadas do jeito que você realmente trabalha: **pegue o áudio**, **faça algo com ele**, **deixe tudo certinho**. Tudo roda no seu próprio PC. Sem contas e sem filas de upload.
 
-<br />
+<p align="center">
+  <img src="docs/screenshots/ana-sayfa.png" alt="Home" width="100%" /><br />
+  <sub><b>Início:</b> todas as ferramentas agrupadas em um lugar (aqui em turco).</sub>
+</p>
 
 ### 01 &nbsp;/&nbsp; Baixar
 
@@ -48,12 +51,12 @@ Seis ferramentas em uma janela, agrupadas do jeito que você realmente trabalha:
 
 <table>
   <tr>
+    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader" /></td>
     <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader" /></td>
-    <td width="50%"><img src="docs/screenshots/ana-sayfa.png" alt="Home" /></td>
   </tr>
   <tr>
+    <td><sub><b>Suno Downloader:</b> detalhes da faixa, tags, áudio, capa e letra numa só tela.</sub></td>
     <td><sub><b>Universal Downloader:</b> buscar, pré-visualizar, escolher vídeo ou áudio.</sub></td>
-    <td><sub><b>Início:</b> todas as ferramentas agrupadas em um lugar (aqui em turco).</sub></td>
   </tr>
 </table>
 

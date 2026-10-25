@@ -38,7 +38,10 @@ Eine kleine Windows-App, die die lästigen Teile des Musikmachens aus deinem Bro
 
 Sechs Werkzeuge in einem Fenster, so gruppiert, wie du wirklich arbeitest: **Audio holen**, **etwas daraus machen**, **aufräumen**. Alles läuft auf deinem eigenen PC. Keine Konten, keine Upload-Warteschlangen.
 
-<br />
+<p align="center">
+  <img src="docs/screenshots/ana-sayfa.png" alt="Home" width="100%" /><br />
+  <sub><b>Startseite:</b> alle Werkzeuge gruppiert an einem Ort (hier auf Türkisch).</sub>
+</p>
 
 ### 01 &nbsp;/&nbsp; Download
 
@@ -48,12 +51,12 @@ Sechs Werkzeuge in einem Fenster, so gruppiert, wie du wirklich arbeitest: **Aud
 
 <table>
   <tr>
+    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader" /></td>
     <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader" /></td>
-    <td width="50%"><img src="docs/screenshots/ana-sayfa.png" alt="Home" /></td>
   </tr>
   <tr>
+    <td><sub><b>Suno Downloader:</b> Trackdetails, Tags, Audio, Cover und Songtext auf einen Blick.</sub></td>
     <td><sub><b>Universal Downloader:</b> abrufen, Vorschau ansehen, Video oder Audio wählen.</sub></td>
-    <td><sub><b>Startseite:</b> alle Werkzeuge gruppiert an einem Ort (hier auf Türkisch).</sub></td>
   </tr>
 </table>
 

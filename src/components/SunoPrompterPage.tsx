@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { useTranslation } from "react-i18next";
-import { applyInput, emptyState, render, STRUCTURE_LIMIT, STYLE_LIMIT, type PrompterState } from "../prompter/engine";
+import { applyInput, emptyState, isInstrumental, render, STRUCTURE_LIMIT, STYLE_LIMIT, type PrompterState } from "../prompter/engine";
 import { ChatBubbleIcon, CheckIcon, LoadingSpinner, PlusIcon, SendIcon, SunoPrompterIcon } from "./icons";
 import { PageHeader } from "./PageHeader";
 import { PrompterChatsDrawer } from "./PrompterChatsDrawer";
@@ -361,6 +361,13 @@ export const SunoPrompterPage: React.FC<Props> = ({ onShowToast }) => {
           </p>
         </div>
       </div>
+
+      {isInstrumental(session.state) && (
+        <div className="rounded-xl border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 px-4 py-2 text-xs font-medium text-[var(--color-text-primary)] flex items-center gap-2 shrink-0 animate-fade-in">
+          <span className="h-2 w-2 rounded-full bg-[var(--color-accent)] shrink-0" />
+          <span>{t("prompter.instrumentalHint", "No vocals: turn on the Instrumental switch in Suno.")}</span>
+        </div>
+      )}
 
       {/* Chat */}
       <div className="section flex flex-col overflow-hidden shrink-0">

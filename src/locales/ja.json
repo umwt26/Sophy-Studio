@@ -385,7 +385,7 @@
     "sizeDefault": "標準",
     "sizeLarge": "大",
     "sizeXLarge": "特大",
-    "textPreviewTitle": "Suno Downloader",
+    "textPreviewTitle": "Sophy Studio",
     "textPreviewBody": "Sophy Studio 全体の文字はこのように表示されます。",
     "displaySizeTitle": "表示サイズ",
     "displaySizeHint": "文字、アイコン、ボタン、余白を含むインターフェース全体を拡大します。",
@@ -533,7 +533,8 @@
     "notApplied": "認識できませんでした",
     "waitForAi": "少々お待ちください。AIモデルを準備しています…",
     "aiNotReady": "AIモデルはまだダウンロードされていないため、内蔵エンジンを使用しています。",
-    "styleDesc": "これをSunoの「Style of Music」欄に貼り付けてください。"
+    "styleDesc": "これをSunoの「Style of Music」欄に貼り付けてください。",
+    "instrumentalHint": "ボーカルなし: SunoでInstrumentalスイッチをオンにしてください。"
   },
   "sidebar": {
     "download": "ダウンロード",

@@ -159,7 +159,7 @@ export const LEXICON: LexEntry[] = [
   t("vocal", "harmonies", "Layered Harmonies", "harmon", "armoni", "гармони", "ハモ"),
   t("vocal", "melodic-vocals", "Melodic Rap Flow", "melodic flow", "melodik flow", "melodic rap", "melodik rap"),
   t("vocal", "emotional-vocals", "Raw Emotional Delivery", "emotional vocal", "duygusal vokal", "duygulu"),
-  t("vocal", "instrumental", "Instrumental", "instrumental", "enstrumantal", "enstrumental", "instrumentale", "sozsuz", "vokalsiz", "no vocals", "ohne gesang", "sans voix", "sin voz", "sem voz", "без вокал", "без слов", "инструментал", "インスト", "ボーカルなし"),
+  t("vocal", "instrumental", "Instrumental", "instrumental", "enstrumantal", "enstrumental", "instrumentale", "sozsuz", "vokalsiz", "vokal olmasin", "vokal istemiyorum", "vokal yok", "soz olmasin", "sozu olmasin", "sozler olmasin", "sozleri olmasin", "soz istemiyorum", "soz yok", "sarki sozu olmasin", "sesli olmasin", "no vocals", "no vocal", "without vocals", "without lyrics", "no lyrics", "no singing", "kein gesang", "keine vocals", "ohne vocals", "ohne text", "sans paroles", "sans chant", "sin letra", "sin vocal", "sem letra", "sem vocal", "без голоса", "ohne gesang", "sans voix", "sin voz", "sem voz", "без вокал", "без слов", "инструментал", "インスト", "ボーカルなし"),
 
   // ---------------- Mood ----------------
   t("mood", "dark", "Dark Tone", "dark", "karanlik", "kasvetli", "dunkel", "duster", "sombre", "obscur", "oscuro", "sombrio", "escuro", "мрачн", "темн", "тёмн", "ダーク", "暗い"),

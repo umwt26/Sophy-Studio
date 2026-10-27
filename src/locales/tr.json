@@ -385,7 +385,7 @@
     "sizeDefault": "Varsayılan",
     "sizeLarge": "Büyük",
     "sizeXLarge": "Çok büyük",
-    "textPreviewTitle": "Suno Downloader",
+    "textPreviewTitle": "Sophy Studio",
     "textPreviewBody": "Yazılar Sophy Studio'nun her yerinde böyle görünecek.",
     "displaySizeTitle": "Görüntü boyutu",
     "displaySizeHint": "Tüm arayüzü yakınlaştırır: yazılar, ikonlar, butonlar ve boşluklar.",
@@ -533,7 +533,8 @@
     "notApplied": "Anlaşılamadı",
     "waitForAi": "Biraz bekle, AI modeli hazırlanıyor...",
     "aiNotReady": "AI modeli henüz inmedi, yerleşik motor kullanılıyor.",
-    "styleDesc": "Bunu Suno'daki Style of Music alanına yapıştır."
+    "styleDesc": "Bunu Suno'daki Style of Music alanına yapıştır.",
+    "instrumentalHint": "Sözsüz: Suno'da Instrumental anahtarını aç."
   },
   "sidebar": {
     "download": "İndir",

@@ -427,7 +427,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                     </div>
                   </div>
                   <div className="rounded-[10px] border border-[var(--color-app-border-soft)] bg-[var(--color-app-bg)] px-4 py-3">
-                    <p className="text-[0.9375rem] text-[var(--color-text-primary)]">{t("settings.textPreviewTitle", "Suno Downloader")}</p>
+                    <p className="text-[0.9375rem] text-[var(--color-text-primary)]">Sophy Studio</p>
                     <p className="text-[0.8125rem] text-[var(--color-text-secondary)]">
                       {t("settings.textPreviewBody", "This is how text will look across Sophy Studio.")}
                     </p>

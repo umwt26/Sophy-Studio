@@ -126,6 +126,23 @@ function findAll<T extends { patterns: string[] }>(text: string, items: T[]): Hi
   return kept;
 }
 
+/** Every start index of any of `words` in `text` (Latin verbs must start a word). */
+function positionsOf(text: string, words: readonly string[]): number[] {
+  const out: number[] = [];
+  for (const w of words) {
+    const n = normalize(w);
+    const latin = LATIN.test(n[0] ?? "");
+    let from = 0;
+    while (true) {
+      const idx = text.indexOf(n, from);
+      if (idx < 0) break;
+      if (!latin || idx === 0 || !LATIN.test(text[idx - 1])) out.push(idx);
+      from = idx + 1;
+    }
+  }
+  return out;
+}
+
 function hasAny(text: string, words: readonly string[]): number {
   let best = -1;
   for (const w of words) {
@@ -145,6 +162,9 @@ function hasAny(text: string, words: readonly string[]): number {
   }
   return best;
 }
+
+/** Nouns that mark the main genre in "a drill-style trap song": the genre right before one wins. */
+const SONG_NOUNS = ["song", "track", "beat", "tune", "sarki", "parca", "lied", "titel", "chanson", "morceau", "cancion", "tema", "musica", "песн", "трек", "曲"];
 
 /** Words that explicitly ask to COMBINE genres; anything else replaces the genre. */
 const GENRE_ADD = ["add", "ekle", "mix", "karistir", "fusion", "fuzyon", "blend", "hinzu", "mische", "ajoute", "melange", "agrega", "anade", "mezcla", "adicione", "misture", "добав", "смеш", "追加", "混ぜ"];
@@ -242,7 +262,8 @@ function primaryFamily(state: PrompterState): Family {
   return (genre && byId.get(genre.id)?.family) || "pop";
 }
 
-function isInstrumental(state: PrompterState) {
+/** No vocals wanted: Suno's own Instrumental switch does this, so it is not written into the style. */
+export function isInstrumental(state: PrompterState) {
   return state.tags.some((t) => t.id === "instrumental");
 }
 
@@ -318,17 +339,35 @@ function parseCount(text: string, sectionPos: number): number | undefined {
 
 type Op = "add" | "remove" | "less" | "more";
 
-/** Decide the edit operation for an entity at `pos` from the nearest verb in the same clause. */
-function opFor(text: string, pos: number, end: number): Op {
-  const clauseStart = Math.max(text.lastIndexOf(",", pos), text.lastIndexOf(".", pos), text.lastIndexOf(" ve ", pos), text.lastIndexOf(" and ", pos), 0);
-  const nextBreak = [",", ".", " ve ", " and ", " und ", " et ", " y ", " e ", " и "]
-    .map((s) => text.indexOf(s, end))
-    .filter((n) => n >= 0);
+interface Span {
+  pos: number;
+  end: number;
+}
+
+const CLAUSE_BREAKS = [",", ".", ";", " ve ", " ama ", " fakat ", " and ", " but ", " und ", " aber ", " et ", " mais ", " y ", " pero ", " e ", " mas ", " и ", " но "];
+
+/**
+ * Decide the edit operation for the entity at `pos..end`. A remove/less/more verb only
+ * applies to the entity closest to it in the same clause, so "trap olsun ama vokal
+ * olmasın" removes the vocals, not the genre. Words inside an entity ("ohne Gesang",
+ * "sözü olmasın") belong to that entity and never count as verbs.
+ */
+function opFor(text: string, pos: number, end: number, spans: Span[]): Op {
+  const clauseStart = Math.max(0, ...CLAUSE_BREAKS.map((s) => text.lastIndexOf(s, pos)).filter((n) => n >= 0));
+  const nextBreak = CLAUSE_BREAKS.map((s) => text.indexOf(s, end)).filter((n) => n >= 0);
   const clauseEnd = nextBreak.length ? Math.min(...nextBreak) : text.length;
-  const clause = text.slice(clauseStart, clauseEnd);
-  if (hasAny(clause, VERBS.remove) >= 0) return "remove";
-  if (hasAny(clause, VERBS.less) >= 0) return "less";
-  if (hasAny(clause, VERBS.more) >= 0) return "more";
+  const inClause = spans.filter((s) => s.pos >= clauseStart && s.end <= clauseEnd);
+  const inside = (i: number) => inClause.some((s) => i >= s.pos && i < s.end);
+  const distance = (s: Span, i: number) => (i < s.pos ? s.pos - i : i >= s.end ? i - s.end + 1 : 0);
+  for (const op of ["remove", "less", "more"] as const) {
+    for (const rel of positionsOf(text.slice(clauseStart, clauseEnd), VERBS[op])) {
+      const v = clauseStart + rel;
+      if (inside(v)) continue;
+      let nearest: Span | undefined;
+      for (const s of inClause) if (!nearest || distance(s, v) < distance(nearest, v)) nearest = s;
+      if (nearest && nearest.pos === pos) return op;
+    }
+  }
   return "add";
 }
 
@@ -345,9 +384,19 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
   if (key) { state.key = key; understood = true; }
 
   // --- lexicon entities
-  const hits = findAll(text, LEXICON);
+  let hits = findAll(text, LEXICON);
   const sectionHits = findAll(text, SECTIONS);
-  const newGenres = hits.filter((h) => h.item.cat === "genre" && opFor(text, h.pos, h.end) === "add");
+  const spans: Span[] = [...hits, ...sectionHits];
+  let newGenres = hits.filter((h) => h.item.cat === "genre" && opFor(text, h.pos, h.end, spans) === "add");
+
+  // "a drill-style hood trap song": several genres without "mix/add" means one of them is
+  // only a flavour. Keep the one right before "song/şarkı/beat", else the first one named.
+  if (newGenres.length > 1 && hasAny(text, GENRE_ADD) < 0) {
+    const main =
+      newGenres.find((g) => positionsOf(text.slice(g.end, g.end + 14), SONG_NOUNS).length > 0) ?? newGenres[0];
+    hits = hits.filter((h) => !newGenres.includes(h) || h === main);
+    newGenres = [main];
+  }
 
   // A new genre replaces the old one(s) ("trap olsun", "make it drill") unless the user
   // explicitly asks to combine them. Auto-added genre defaults are always replaced.
@@ -359,7 +408,7 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
   const sectionTargets = new Set<SectionKind>();
   for (const h of hits) {
     const e: LexEntry = h.item;
-    const op = opFor(text, h.pos, h.end);
+    const op = opFor(text, h.pos, h.end, spans);
     understood = true;
     if (op === "remove") {
       state.tags = state.tags.filter((t) => t.id !== e.id);
@@ -418,7 +467,7 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
     // single section mentioned: add or remove it
     const h = structureHits[0];
     understood = true;
-    const op = opFor(text, h.pos, h.end);
+    const op = opFor(text, h.pos, h.end, spans);
     if (op === "remove") state.sections = state.sections.filter((s) => s.kind !== h.item.kind);
     else if (!state.sections.some((s) => s.kind === h.item.kind)) {
       const outroAt = state.sections.findIndex((s) => s.kind === "outro");
@@ -430,7 +479,8 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
   }
 
   // --- defaults for a fresh song, or re-derived after a genre change
-  if (understood && (isFirst || newGenres.length)) applyGenreDefaults(state);
+  // also refill when the last instrument was just removed ("remove the piano")
+  if (understood && (isFirst || newGenres.length || !state.tags.some((t) => t.cat === "instrument"))) applyGenreDefaults(state);
   if (understood && !state.customSections && (isFirst || state.sections.length === 0 || newGenres.length)) {
     const keep = state.sections.filter((s) => s.directives.length);
     buildSections(state);
@@ -463,7 +513,7 @@ export function render(state: PrompterState, lang = "en"): PromptOutput {
       if (state.bpm) parts.push(`${state.bpm} BPM`);
       if (state.key) parts.push(state.key);
     }
-    for (const t of state.tags.filter((x) => x.cat === cat)) parts.push(tagLabel(t));
+    for (const t of state.tags.filter((x) => x.cat === cat && x.id !== "instrumental")) parts.push(tagLabel(t));
   }
   const unique = [...new Set(parts)];
   let style = "";

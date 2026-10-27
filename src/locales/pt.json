@@ -385,7 +385,7 @@
     "sizeDefault": "Padrão",
     "sizeLarge": "Grande",
     "sizeXLarge": "Muito grande",
-    "textPreviewTitle": "Suno Downloader",
+    "textPreviewTitle": "Sophy Studio",
     "textPreviewBody": "É assim que o texto vai aparecer em todo o Sophy Studio.",
     "displaySizeTitle": "Tamanho da exibição",
     "displaySizeHint": "Amplia toda a interface: texto, ícones, botões e espaçamentos.",
@@ -533,7 +533,8 @@
     "notApplied": "Não reconhecido",
     "waitForAi": "Aguarde, o modelo de IA está sendo preparado...",
     "aiNotReady": "O modelo de IA ainda não foi baixado; o mecanismo integrado está sendo usado.",
-    "styleDesc": "Cole isto no campo Style of Music do Suno."
+    "styleDesc": "Cole isto no campo Style of Music do Suno.",
+    "instrumentalHint": "Sem voz: ative a opção Instrumental no Suno."
   },
   "sidebar": {
     "download": "Baixar",

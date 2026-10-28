@@ -8,11 +8,11 @@
 Modern müzik üreticileri ve içerik üreticileri için yüksek performanslı, hepsi bir arada masaüstü ve mobil ses stüdyosu.</p>
 
 <p>
-  <a href="https://github.com/umwt26/Sophy-Studio/releases/latest"><b>Windows İçin İndir (.exe)</b></a>
+  <a href="#-masaüstü-deneyimi-windows"><b>🖥️ Masaüstü (Windows)</b></a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/umwt26/Sophy-Studio/releases/latest"><b>Android İçin İndir (.apk)</b></a>
+  <a href="#-mobil-deneyimi-android"><b>📱 Mobil (Android)</b></a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/umwt26/Sophy-Studio/releases">Sürüm Notları</a>
+  <a href="https://github.com/umwt26/Sophy-Studio/releases/latest"><b>Sürümleri İndir</b></a>
   &nbsp;·&nbsp;
   <a href="https://discord.gg/vwzjuhnpyP">Discord Topluluğu</a>
   &nbsp;·&nbsp;
@@ -29,168 +29,216 @@ Modern müzik üreticileri ve içerik üreticileri için yüksek performanslı, 
   <img src="https://img.shields.io/badge/dil-8%20dil-38bdf8?style=flat-square&labelColor=0c0e14" alt="8 Dil Desteği" />
 </p>
 
-<br />
-
-<img src="docs/screenshots/gorunum.gif" alt="Sophy Studio Dinamik Temalar" width="100%" />
-
-<sub>Tek bir stüdyo paketi. 9 dinamik renk teması, özel renk tekerleği ve yeni yarı saydam <b>Liquid Glass</b> mobil teması.</sub>
-
 </div>
 
 <br />
 
 ---
 
-## 📱 v1.4.0 Yenilikleri — Sophy Studio Mobil Çıktı!
+## 🖥️ Masaüstü Deneyimi (Windows)
 
-Sophy Studio artık masaüstünün sınırlarını aşıp cebinize girdi! **v1.4.0** masaüstü sürümümüzle eş zamanlı olarak **Sophy Studio Mobil (Android)** sürümünü gururla sunuyoruz:
-
-<table>
-  <tr>
-    <td width="50%"><img src="docs/m-screenshots/m-share.gif" alt="Android Sistem Paylaşımı ile İndirme" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-homepage.jpg" alt="Sophy Studio Mobil Ana Sayfa" /></td>
-  </tr>
-  <tr>
-    <td><sub><b>Doğrudan Paylaş ve İndir:</b> Instagram, TikTok, YouTube veya Twitter'da gezinirken "Paylaş"a basıp Sophy Studio'yu seçtiğiniz an indirme işlemi hemen başlar.</sub></td>
-    <td><sub><b>Mobil Ana Sayfa:</b> Masaüstüyle birebir özellik eşitliği, dokunmatik hareketler ve akıcı mobil arayüz.</sub></td>
-  </tr>
-</table>
-
-- **Android Paylaş-ve-İndir:** Instagram, TikTok, YouTube, X (Twitter) veya tarayıcınızda herhangi bir videoda *Paylaş* butonuna basıp **Sophy Studio**'yu seçin; uygulama bağlantıyı otomatik olarak yakalayıp indirmeyi başlatır!
-- **Liquid Glass Teması:** Zarif akışkan cam efektleri, arka plan parlamaları ve dokunsal geri bildirimler.
-- **Akıllı Enstrümantal Prompter Motoru:** Doğal dil işleme motorumuz artık Style alanına gereksiz `Instrumental` etiketi yazmaz (Suno'nun kendi butonunu kullanmanız için arayüzde özel yönlendirme kutusu gösterir). "Olmasın", "without", "ohne" gibi kelimeleri tüm cümleyi silmek yerine sadece en yakınındaki enstrümana uygular (`opFor`).
+Masaüstü sürümü, **Tauri 2, Rust ve React 19** ile sıfırdan geliştirilmiş, dikkat dağıtmayan, yan menülü eksiksiz bir stüdyo ortamı sunar. Tüm işlemler hesap gerektirmeden, bulut gecikmesi olmadan ve ses kalitesinden ödün vermeden doğrudan bilgisayarınızda yerel çalışır.
 
 <br />
 
----
-
-## 🎛️ Eksiksiz Stüdyo Araç Kiti
-
-Tüm işlemler **hesap gerektirmeden, aboneliksiz ve harici sunuculara veri yüklemeden** kendi cihazınızda yerel olarak çalışır.
+### 1. Ana Sayfa Kontrol Paneli
+Tüm stüdyo araçları mantıksal bir iş akışıyla gruplanmıştır: **İndir**, **Üret** ve **Düzenle & Analiz Et**. Hızlı kullanım ipuçları ve sürüm notları karuseli eşlik eder.
 
 <p align="center">
-  <img src="docs/screenshots/ana-sayfa.png" alt="Sophy Studio Masaüstü Kontrol Paneli" width="100%" /><br />
-  <sub><b>Masaüstü Paneli:</b> İndirme, müzik üretimi ve ses analizi araçları yan menü düzeninde elinizin altında.</sub>
+  <img src="docs/screenshots/ana-sayfa.png" alt="Sophy Studio Masaüstü Ana Sayfa" width="100%" />
 </p>
 
 <br />
 
-### 01 &nbsp;/&nbsp; İndirme Araçları
+### 2. Suno Downloader 2.0
+Herhangi bir Suno şarkı bağlantısını yapıştırarak stüdyo kalitesinde 320 kbps MP3, kayıpsız sıkıştırılmamış WAV veya ham ses akışını indirin. Yüksek çözünürlüklü albüm kapağı ve senkronize şarkı sözleri (`.lrc` / `.txt`) otomatik olarak çıkartılıp dosyaya gömülür. Geçmiş şarkılarınıza tek tıkla dönmenizi sağlayan açılır arama geçmişi çekmecesini içerir.
 
-<table>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader Masaüstü" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-sunodownloader.jpg" alt="Suno Downloader Mobil" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Suno Downloader 2.0</b><br />
-      Suno şarkı linkini yapıştırarak stüdyo kalitesinde <b>320 kbps MP3</b>, kayıpsız <b>WAV</b> veya ham ses akışını indirin. Şarkı kapağını ve senkronize şarkı sözlerini (<code>.lrc</code> / <code>.txt</code>) otomatik olarak indirir ve ses dosyasına gömer. Hızlı arama geçmişi çekmecesiyle önceki parçalarınıza anında geri dönün.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader Masaüstü" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-univdownloader.jpg" alt="Universal Downloader Mobil" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Evrensel Medya İndirici (Universal Downloader)</b><br />
-      YouTube, Instagram, TikTok, Facebook, X (Twitter), Reddit, SoundCloud, Pinterest ve yüzlerce platformdan video veya ses indirin. Tek tıkla <b>MP4 video</b> veya <b>320k MP3 ses</b> seçimi yapın. Filtrelenebilir ve sıralanabilir indirme geçmişi sunar.
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader Masaüstü" width="100%" />
+</p>
 
 <br />
 
-### 02 &nbsp;/&nbsp; Üretim &amp; Yapay Zeka Araçları
+### 3. Evrensel Medya İndirici (Universal Downloader)
+YouTube, Instagram, TikTok, Facebook, X (Twitter), Reddit, SoundCloud, Pinterest ve yüzlerce platformdan video veya ses yakalayın. Tek tıkla **MP4 video** veya **320k MP3 ses** seçimi yapın. Filtrelenebilir ve sıralanabilir indirme geçmişi sunar.
 
-<table>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/prompter.png" alt="Suno Style Prompter Masaüstü" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-sunoprompter.jpg" alt="Suno Style Prompter Mobil" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Suno Style Prompter</b><br />
-      Aklınızdaki şarkıyı kendi cümlelerinizle dilediğiniz dilde anlatın; Suno için kopyalanmaya hazır <b>Style of Music</b> etiketleri ve <b>[Intro] / [Verse] / [Chorus] / [Drop] / [Outro]</b> şarkı düzeni şablonları oluştursun. Asla kendi kafasına göre söz yazmaz, yaratıcılık tamamen size aittir. 8 dilde çalışan kural motoru ve yerel offline yapay zeka (<code>llama.cpp</code>) ile desteklenir.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/sample-cutter.png" alt="Sample Cutter Masaüstü" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-samplecutter.jpg" alt="Sample Cutter Mobil" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Sample Kesici (8 Saniyelik Dalga Boyu Dilimleyici)</b><br />
-      Herhangi bir parçayı yükleyin, 8.0 saniyelik sabit döngü penceresini dalga boyu üzerinde kaydırın, gerçek zamanlı dinleyin ve 320k MP3 ya da kayıpsız WAV olarak dışa aktarın. Suno'nun devam ettirme (audio continuation) özelliği için özel olarak tasarlanmıştır.
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="docs/screenshots/universal-downloader.png" alt="Universal Medya İndirici Masaüstü" width="100%" />
+</p>
 
 <br />
 
-### 03 &nbsp;/&nbsp; Düzenleme &amp; Analiz
+### 4. Suno Style Prompter
+Aklınızdaki şarkıyı kendi cümlelerinizle 8 dilden birinde ifade edin; Suno AI için doğrudan kopyalanabilir **Style of Music** etiketleri (1.000 karaktere kadar) ve `[Intro]`, `[Verse]`, `[Chorus]`, `[Drop]`, `[Outro]` düzeninde şarkı yapısı şablonları (5.000 karaktere kadar) edinin. Asla söz yazmaz; yaratıcı sözler size aittir. Çok dilli kural motoru ve entegre yerel `llama.cpp` yapay zekasıyla tamamen çevrimdışı çalışır.
 
-<table>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/metadata-editor.png" alt="Metadata Editor Masaüstü" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-metadata.jpg" alt="Metadata Editor Mobil" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Ses Metadata Editörü &amp; Kapak Resmi Gömücü</b><br />
-      MP3, WAV, FLAC ve M4A formatlarındaki parçaların başlık, sanatçı, albüm, yıl, tür, parça numarası ve açıklamalarını düzenleyin. Albüm kapağı görselini ID3v2.3 standartlarında doğrudan dosyaya gömer; kapak Windows Gezgini'nde, DJ yazılımlarında ve telefonunuzda hemen görünür.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/bpm-detect.png" alt="Key and BPM Detect Masaüstü" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-keybpm.jpg" alt="Key and BPM Detect Mobil" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Müzikal Ton (Key) &amp; BPM Tespiti</b><br />
-      Ses dosyasını sürükleyip bırakarak parça tonunu, Camelot çarkındaki konumunu (örn. <code>8B / Do Majör</code>), uyumlu miks tonlarını ve kesin BPM değerini tespit edin. Tempo çarpanlarıyla (<code>-1</code>, <code>+1</code>, <code>/2</code>, <code>*2</code>) ince ayar yapabilirsiniz. Essentia.js WebAssembly ile tamamen çevrimdışı analiz eder.
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="docs/screenshots/prompter.png" alt="Suno Style Prompter Masaüstü" width="100%" />
+</p>
 
 <br />
 
----
+### 5. Sample Kesici (8 Saniyelik Dalga Boyu Dilimleyici)
+Herhangi bir ses parçasını yükleyin, 8.0 saniyelik sabit döngü penceresini dalga boyu üzerinde kaydırın, gerçek zamanlı önizleme yapın ve 320k MP3 ya da kayıpsız WAV olarak dışa aktarın. Suno AI ses devam ettirme (audio continuation) yüklemeleri için hassas olarak ayarlanmıştır.
 
-## 🎨 Kişiselleştirme &amp; Erişilebilirlik
+<p align="center">
+  <img src="docs/screenshots/sample-cutter.png" alt="Sample Kesici Masaüstü" width="100%" />
+</p>
 
-<table>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/lang.png" alt="Dil Ayarları" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-lang.jpg" alt="Mobil Dil Ayarları" /></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/erisilebilirlik.png" alt="Erişilebilirlik Ayarları" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-erisilebilirlik.jpg" alt="Mobil Erişilebilirlik Ayarları" /></td>
-  </tr>
-</table>
+<br />
 
-- **8 Dil Desteği:** Türkçe, English, Deutsch, Français, Español, Português, Русский ve 日本語 dillerinde eksiksiz kullanım.
-- **Dinamik Renk Temaları:** 9 özel palet (*Okyanus, Lagün, Orman, Kehribar, Kor, Yakut, Orkide, Menekşe, Grafit*), mobilde **Liquid Glass** ve 360° renk tekerleği.
-- **Erişilebilirlik:** Sayfa düzenini bozmadan Küçük'ten Çok Büyük'e yazı tipi ölçekleme, arayüz yakınlaştırma (%90 - %150) ve hareket azaltma seçeneği.
+### 6. Ses Metadata Editörü
+MP3, WAV, FLAC ve M4A dosyalarının başlık, sanatçı, albüm, yıl, tür, parça numarası ve açıklamalarını düzenleyin. Albüm kapağını ID3v2.3 standartlarında doğrudan dosyaya gömer; kapak Windows Gezgini'nde, DJ yazılımlarında ve dijital ses istasyonlarında anında görünür.
+
+<p align="center">
+  <img src="docs/screenshots/metadata-editor.png" alt="Ses Metadata Editörü Masaüstü" width="100%" />
+</p>
+
+<br />
+
+### 7. Müzikal Ton (Key) &amp; BPM Tespiti
+Herhangi bir ses dosyasını sürükleyip bırakarak parça tonunu, Camelot çarkındaki konumunu (örn. `8B / Do Majör`), DJ'ler için uyumlu miks tonlarını ve kesin tempo değerini tespit edin. İnce tempo çarpanlarıyla (`-1`, `+1`, `/2`, `*2`) ayar yapabilirsiniz. Essentia.js WebAssembly ile tamamen çevrimdışı analiz eder.
+
+<p align="center">
+  <img src="docs/screenshots/bpm-detect.png" alt="Key ve BPM Tespiti Masaüstü" width="100%" />
+</p>
+
+<br />
+
+### 8. Masaüstü Ayarları &amp; Kişiselleştirme
+Sophy Studio'yu yaratıcı çalışma ortamınıza uyarlayın:
+- **Dinamik Renk Temaları:** 9 özel palet (*Okyanus, Lagün, Orman, Kehribar, Kor, Yakut, Orkide, Menekşe, Grafit*) ve arka planları, kenarlıkları, butonları boyayan 360° renk tekerleği.
+- **Erişilebilirlik:** Düzeni bozmadan Küçük'ten Çok Büyük'e yazı tipi ölçekleme, arayüz yakınlaştırma (%90 - %150) ve hareket azaltma seçeneği.
 - **Özel Çıktı Klasörleri:** Ses, video, kapak, söz ve arşiv dosyalarınızı ayrı klasörlere yönlendirin.
+- **8 Dil Desteği:** Türkçe, English, Deutsch, Français, Español, Português, Русский ve 日本語.
+
+<p align="center">
+  <img src="docs/screenshots/gorunum.gif" alt="Dinamik Temalar Geçişi" width="100%" />
+</p>
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/lang.png" alt="Dil Ayarları Masaüstü" /></td>
+    <td width="50%"><img src="docs/screenshots/erisilebilirlik.png" alt="Erişilebilirlik Ayarları Masaüstü" /></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/output-folders.png" alt="Çıktı Klasörleri Masaüstü" /></td>
+    <td width="50%"><img src="docs/screenshots/about.png" alt="Hakkında Kısmı Masaüstü" /></td>
+  </tr>
+</table>
+
+<br />
+
+#### 📥 Windows İçin İndir
+1. [En Son Sürüm](https://github.com/umwt26/Sophy-Studio/releases/latest) sayfasından **`Sophy_Studio_Setup.exe`** dosyasını indirin.
+2. Kurulumu çalıştırın. Yönetici yetkisi gerektirmez; geçerli kullanıcı için temiz kurulum yapar ve verilerinize dokunmadan eski sürümleri otomatik temizler.
+3. Başlat menüsünden veya masaüstü kısayolundan başlatın.
 
 <br />
 
 ---
 
-## 📥 Kurulum
+## 📱 Mobil Deneyimi (Android)
 
-### Windows Masaüstü
-1. [En Son Sürüm](https://github.com/umwt26/Sophy-Studio/releases/latest) sayfasından **`Sophy_Studio_Setup.exe`** dosyasını indirin.
-2. Kurulumu çalıştırın. Yönetici yetkisi gerektirmez; eski sürümleri kullanıcı verilerinize dokunmadan otomatik temizler.
-3. Başlat menüsünden veya masaüstü kısayolundan Sophy Studio'yu açın.
+**Sophy Studio Mobil**, masaüstündeki eksiksiz prodüksiyon araç setini akıllı telefonunuza taşır; dokunmatik hareketler, tek elle kullanım ergonomisi ve mobil iş akışlarına özel olarak tasarlanmıştır.
 
-### Android Mobil
+<br />
+
+### ⚡ Mobil Öne Çıkan: Doğrudan Paylaş ve İndir (Share-to-Download)
+Linkleri elle kopyalayıp yapıştırmakla uğraşmayın. Instagram, TikTok, YouTube veya X (Twitter)'da gezinirken beğendiğiniz bir video veya parçada **Paylaş**'a basıp **Sophy Studio**'yu seçtiğiniz an indirme işlemi arka planda anında başlar!
+
+<p align="center">
+  <img src="docs/m-screenshots/m-share.gif" alt="Android Sistem Paylaşımı ile İndirme" width="45%" /><br />
+  <sub><b>Sistem Paylaşım Entegrasyonu:</b> Videoları doğrudan Sophy Studio ile paylaşarak tek dokunuşla indirin.</sub>
+</p>
+
+<br />
+
+### 💧 Mobil Öne Çıkan: Liquid Glass Teması
+Akışkan yarı saydam cam efektleri, arka plan parlamaları ve AMOLED ekranlar için optimize edilmiş derin kontrastlı özel mobil tema.
+
+<p align="center">
+  <img src="docs/m-screenshots/m-gorunum.gif" alt="Mobil Liquid Glass Teması" width="45%" /><br />
+  <sub><b>Liquid Glass:</b> Yarı saydam cam malzemeler, dinamik vurgular ve akıcı geçişler.</sub>
+</p>
+
+<br />
+
+### Mobil Araç Akışı (Ana Sayfadan Ayarlara)
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-homepage.jpg" alt="Mobil Ana Sayfa" width="90%" /><br />
+      <sub><b>1. Mobil Ana Sayfa Paneli</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-sunodownloader.jpg" alt="Mobil Suno Downloader" width="90%" /><br />
+      <sub><b>2. Suno Downloader (MP3/WAV/Kapak/Söz)</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-univdownloader.jpg" alt="Mobil Universal Downloader" width="90%" /><br />
+      <sub><b>3. Evrensel Medya İndirici (Video & Ses)</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-sunoprompter.jpg" alt="Mobil Style Prompter" width="90%" /><br />
+      <sub><b>4. Suno Style Prompter (Tür & Düzen)</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-samplecutter.jpg" alt="Mobil Sample Kesici" width="90%" /><br />
+      <sub><b>5. Sample Kesici (8s Dalga Boyu Dilimleyici)</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-metadata.jpg" alt="Mobil Metadata Editörü" width="90%" /><br />
+      <sub><b>6. Ses Metadata Editörü & Kapak Gömücü</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-keybpm.jpg" alt="Mobil Key ve BPM" width="90%" /><br />
+      <sub><b>7. Müzikal Ton & BPM Tespiti</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-lang.jpg" alt="Mobil Dil Ayarları" width="90%" /><br />
+      <sub><b>8. Dil ve Bölge Ayarları</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-erisilebilirlik.jpg" alt="Mobil Erişilebilirlik" width="90%" /><br />
+      <sub><b>9. Mobil Erişilebilirlik (Metin & Ekran Yakınlaştırma)</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-about.jpg" alt="Mobil Hakkında" width="90%" /><br />
+      <sub><b>10. Mobil Hakkında ve Sanatçı Profili</b></sub>
+    </td>
+  </tr>
+</table>
+
+<br />
+
+#### 📥 Android İçin İndir
 1. [En Son Sürüm](https://github.com/umwt26/Sophy-Studio/releases/latest) sayfasından **`Sophy_Studio_Mobile_v1.4.0.apk`** dosyasını indirin.
-2. Telefonunuzda APK dosyasına tıklayıp yükleyin.
-3. Uygulamayı açın ya da Instagram, TikTok veya YouTube'da bir videoda **Paylaş**'a basıp **Sophy Studio**'yu seçin!
+2. Telefonunuzda APK dosyasını açıp yüklemeyi onaylayın.
+3. Uygulamayı açın ya da Instagram, TikTok veya YouTube'da herhangi bir videoda **Paylaş**'a basıp **Sophy Studio**'yu seçin!
+
+<br />
+
+---
+
+## 🛠️ Teknoloji Mimarisi
+
+| Bileşen | Masaüstü (Windows) | Mobil (Android) |
+|---|---|---|
+| **Kabuk & Runtime** | Tauri 2 · Rust | Capacitor / Tauri Android |
+| **Arayüz (Frontend)** | React 19 · TypeScript · Tailwind CSS 4 | React 19 · TypeScript · Dokunmatik Hareketler |
+| **Ses İşleme** | FFmpeg · lofty / id3 · Essentia.js (WASM) | Web Audio API · Essentia.js (WASM) |
+| **İndirme Motoru** | Yerel Suno Client · yt-dlp binary | Suno API Client · Extractor Servisi |
+| **Offline Yapay Zeka** | llama.cpp · Qwen2.5-1.5B-Instruct (Q4_K_M) | Çok Dilli Doğal Dil Kural Motoru |
+| **Paketleme** | NSIS Kullanıcı Bazlı Kurulum (`.exe`) | Android Paketi (`.apk`) |
 
 <br />
 
@@ -200,7 +248,7 @@ Tüm işlemler **hesap gerektirmeden, aboneliksiz ve harici sunuculara veri yük
 
 ## 🎵 Geliştirici ve Tasarım: Beli!
 
-Sophy Studio; müzik yapımcısı, rap sanatçısı ve yazılımcı **Beli!** tarafından bağımsız olarak geliştirilmekte ve sürdürülmektedir.
+Sophy Studio; bağımsız müzik yapımcısı, rap sanatçısı ve yazılımcı **Beli!** tarafından geliştirilmektedir.
 
 <table>
   <tr>
@@ -233,4 +281,4 @@ Bağımsız sanatçıların müzik dağıtım platformu [Filerawave](https://www
 
 ## 📄 Lisans
 
-Bu proje **MIT Lisansı** ile korunmaktadır.
+Bu proje **MIT Lisansı** ile korunmaktadır — detaylar için [LICENSE](LICENSE) dosyasına göz atabilirsiniz.

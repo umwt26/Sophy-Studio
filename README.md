@@ -8,11 +8,11 @@
 The high-performance, all-in-one desktop &amp; mobile audio toolkit for modern creators and music producers.</p>
 
 <p>
-  <a href="https://github.com/umwt26/Sophy-Studio/releases/latest"><b>Download for Windows (.exe)</b></a>
+  <a href="#-desktop-experience-windows"><b>🖥️ Desktop (Windows)</b></a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/umwt26/Sophy-Studio/releases/latest"><b>Download for Android (.apk)</b></a>
+  <a href="#-mobile-experience-android"><b>📱 Mobile (Android)</b></a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/umwt26/Sophy-Studio/releases">Release Notes</a>
+  <a href="https://github.com/umwt26/Sophy-Studio/releases/latest"><b>Download Releases</b></a>
   &nbsp;·&nbsp;
   <a href="https://discord.gg/vwzjuhnpyP">Discord Community</a>
   &nbsp;·&nbsp;
@@ -29,170 +29,201 @@ The high-performance, all-in-one desktop &amp; mobile audio toolkit for modern c
   <img src="https://img.shields.io/badge/languages-8%20languages-38bdf8?style=flat-square&labelColor=0c0e14" alt="8 languages" />
 </p>
 
-<br />
-
-<img src="docs/screenshots/gorunum.gif" alt="Sophy Studio Dynamic Themes" width="100%" />
-
-<sub>One unified suite. 9 dynamic colour palettes, custom hex wheels, and the new translucent <b>Liquid Glass</b> theme.</sub>
-
 </div>
 
 <br />
 
 ---
 
-## 📱 What's New in v1.4.0 — Sophy Studio Mobile is Here!
+## 🖥️ Desktop Experience (Windows)
 
-Sophy Studio is now fully multi-platform! Alongside the **v1.4.0** desktop release, we are officially introducing **Sophy Studio Mobile for Android**:
-
-<table>
-  <tr>
-    <td width="50%"><img src="docs/m-screenshots/m-share.gif" alt="System Share to Download on Android" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-homepage.jpg" alt="Sophy Studio Mobile Home" /></td>
-  </tr>
-  <tr>
-    <td><sub><b>System-Wide Share to Download:</b> Share any reel, short, or video from Instagram, TikTok, YouTube, or X straight to Sophy Studio to start downloading instantly.</sub></td>
-    <td><sub><b>Mobile Home:</b> Complete feature parity with desktop, optimized for touch gestures and handheld workflow.</sub></td>
-  </tr>
-</table>
-
-- **Android Share-to-Download:** Tap *Share* on any video inside Instagram, TikTok, YouTube, X (Twitter), Reddit or your browser, select **Sophy Studio**, and the app will parse and start the download automatically!
-- **Liquid Glass Aesthetic:** Exclusive fluid translucent glassmorphism with subtle glow backdrops and responsive haptics.
-- **Smart Instrumental Prompter Engine:** Natural language prompt compiler now skips redundant `Instrumental` tags in Style prompts, shows clear instrumental toggle guidance, and restricts negation verbs (`without`, `olmasın`, `ohne`) strictly to the nearest keyword (`opFor`).
+The desktop edition provides a distraction-free, sidebar-driven studio environment engineered with **Tauri 2, Rust, and React 19**. Every process runs directly on your PC with zero accounts, zero cloud delays, and zero audio quality loss.
 
 <br />
 
----
-
-## 🎛️ Complete Studio Toolkit
-
-Everything runs locally on your machine with **zero accounts, zero subscriptions, and zero tracking queues**.
+### 1. Home Dashboard
+All studio tools grouped into a logical workflow: **Download**, **Create**, and **Edit & Analyze**, accompanied by quick tips and a version changelog carousel.
 
 <p align="center">
-  <img src="docs/screenshots/ana-sayfa.png" alt="Sophy Studio Desktop Home Screen" width="100%" /><br />
-  <sub><b>Desktop Dashboard:</b> All media download, creation, and audio analysis tools organized into a focused sidebar workflow.</sub>
+  <img src="docs/screenshots/ana-sayfa.png" alt="Sophy Studio Desktop Home Screen" width="100%" />
 </p>
 
 <br />
 
-### 01 &nbsp;/&nbsp; Download Tools
+### 2. Suno Downloader 2.0
+Paste any Suno song link to fetch studio 320 kbps MP3, lossless uncompressed WAV, or the raw source stream. High-res album artwork and synchronized lyrics (`.lrc` / `.txt`) are automatically extracted and embedded into the file. Includes a slide-over search history drawer with instant track reload.
+
+<p align="center">
+  <img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader Desktop" width="100%" />
+</p>
+
+<br />
+
+### 3. Universal Media Downloader
+Grab video or audio from YouTube, Instagram, TikTok, Facebook, X (Twitter), Reddit, SoundCloud, Pinterest and hundreds of other platforms. Download as **MP4 video** or **320k MP3 audio** with a single click. Keep track of all queries in a sortable, platform-filtered history.
+
+<p align="center">
+  <img src="docs/screenshots/universal-downloader.png" alt="Universal Media Downloader Desktop" width="100%" />
+</p>
+
+<br />
+
+### 4. Suno Style Prompter
+Describe your song in natural language, in any of 8 supported languages, and get ready-to-paste **Style of Music** tags (up to 1,000 characters) and structured arrangement sections (up to 5,000 characters) formatted with `[Intro]`, `[Verse]`, `[Chorus]`, and `[Outro]`. Runs entirely offline with a multilingual rule engine and an integrated local `llama.cpp` AI model.
+
+<p align="center">
+  <img src="docs/screenshots/prompter.png" alt="Suno Style Prompter Desktop" width="100%" />
+</p>
+
+<br />
+
+### 5. Sample Cutter (8s Waveform Slicer)
+Load any audio track, slide an exact 8.0-second interactive loop window across the waveform, audition your slice with real-time playback, and export directly as 320k MP3 or lossless WAV. Specifically calibrated for Suno AI audio continuation uploads.
+
+<p align="center">
+  <img src="docs/screenshots/sample-cutter.png" alt="Sample Cutter Desktop" width="100%" />
+</p>
+
+<br />
+
+### 6. Audio Metadata Editor
+View and edit track title, artist, album, year, genre, track number, and comments for MP3, WAV, FLAC, and M4A files. Writes native ID3v2.3 tags with embedded cover artwork that displays immediately in Windows Explorer, DJ software, and digital audio workstations.
+
+<p align="center">
+  <img src="docs/screenshots/metadata-editor.png" alt="Audio Metadata Editor Desktop" width="100%" />
+</p>
+
+<br />
+
+### 7. Musical Key &amp; BPM Detection
+Drop any audio file to identify its root musical key, Camelot Wheel position (e.g., `8B / C Major`), compatible harmonic mixing keys for DJs, and exact tempo with precision nudge adjustments (`-1`, `+1`, `/2`, `*2`). Powered offline by Essentia.js WebAssembly.
+
+<p align="center">
+  <img src="docs/screenshots/bpm-detect.png" alt="Key and BPM Detection Desktop" width="100%" />
+</p>
+
+<br />
+
+### 8. Desktop Settings &amp; Personalization
+Tailor Sophy Studio to your creative setup:
+- **Dynamic Themes:** 9 curated presets (*Ocean, Lagoon, Forest, Amber, Ember, Crimson, Orchid, Violet, Graphite*) plus an interactive 360° hex colour wheel that tints backgrounds, sidebars, borders, and active selections.
+- **Accessibility:** Scale text size from Small to Extra Large without breaking layouts, zoom display scale from 90% to 150%, and reduce motion toggles.
+- **Dedicated Folders:** Choose independent destination directories for audio, media, covers, lyrics, and zip archives.
+- **Full 8-Language Localization:** English, Türkçe, Deutsch, Français, Español, Português, Русский, and 日本語.
+
+<p align="center">
+  <img src="docs/screenshots/gorunum.gif" alt="Dynamic Themes Switching" width="100%" />
+</p>
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/sophy-downloader.png" alt="Suno Downloader Desktop" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-sunodownloader.jpg" alt="Suno Downloader Mobile" /></td>
+    <td width="50%"><img src="docs/screenshots/lang.png" alt="Language Settings Desktop" /></td>
+    <td width="50%"><img src="docs/screenshots/erisilebilirlik.png" alt="Accessibility Settings Desktop" /></td>
   </tr>
   <tr>
-    <td colspan="2">
-      <b>Suno Downloader 2.0</b><br />
-      Paste any Suno link and grab studio-quality <b>320 kbps MP3</b>, uncompressed <b>WAV</b>, or the original source stream. Automatically extracts and embeds high-resolution cover artwork and synchronized lyrics (<code>.lrc</code> / <code>.txt</code>). Includes a slide-over search history drawer with instant track reload.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/universal-downloader.png" alt="Universal Downloader Desktop" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-univdownloader.jpg" alt="Universal Downloader Mobile" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Universal Media Downloader</b><br />
-      Download video or audio from YouTube, Instagram, TikTok, Facebook, X (Twitter), Reddit, SoundCloud, Pinterest and hundreds more. Choose between <b>MP4 video</b> or <b>320k MP3 audio</b> with a single click. Download history stays searchable, filterable by platform, and sortable.
-    </td>
+    <td width="50%"><img src="docs/screenshots/output-folders.png" alt="Output Folders Settings Desktop" /></td>
+    <td width="50%"><img src="docs/screenshots/about.png" alt="About Section Desktop" /></td>
   </tr>
 </table>
 
 <br />
 
-### 02 &nbsp;/&nbsp; Creation &amp; AI Tools
-
-<table>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/prompter.png" alt="Suno Style Prompter Desktop" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-sunoprompter.jpg" alt="Suno Style Prompter Mobile" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Suno Style Prompter</b><br />
-      Describe a musical vision in your own words, in any language, and instantly get ready-to-paste <b>Style of Music</b> tags and structured <b>[Intro] / [Verse] / [Chorus] / [Drop] / [Outro]</b> arrangement brackets for Suno AI. It never writes lyrics—your creative voice remains yours. Supported by a lightning-fast offline rule engine in 8 languages, plus a local offline AI assistant powered by <code>llama.cpp</code>.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/sample-cutter.png" alt="Sample Cutter Desktop" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-samplecutter.jpg" alt="Sample Cutter Mobile" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Sample Cutter (8-Second Waveform Slicer)</b><br />
-      Load any song, slide an exact 8.0-second interactive loop window across the audio waveform, audition in real-time, and export as 320k MP3 or lossless WAV. Specifically calibrated for Suno's audio continuation upload feature.
-    </td>
-  </tr>
-</table>
-
-<br />
-
-### 03 &nbsp;/&nbsp; Edit &amp; Analyze
-
-<table>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/metadata-editor.png" alt="Metadata Editor Desktop" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-metadata.jpg" alt="Metadata Editor Mobile" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Audio Metadata Editor &amp; Cover Inserter</b><br />
-      View and edit track title, artist, album, year, genre, track number, and comments for MP3, WAV, FLAC, and M4A audio. Embeds front album artwork directly into audio files with full ID3v2.3 compatibility so your art appears immediately in Windows Explorer, DJ software, and mobile music players.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/bpm-detect.png" alt="Key and BPM Detect Desktop" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-keybpm.jpg" alt="Key and BPM Detect Mobile" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Musical Key &amp; BPM Detection</b><br />
-      Drop any audio file to analyze its root musical key, Camelot Wheel position (e.g. <code>8B / C Major</code>), compatible harmonic mixing pairs, and exact BPM beat-tracking with fine-tuning adjustments (<code>-1</code>, <code>+1</code>, <code>/2</code>, <code>*2</code>). Powered completely offline by Essentia.js WebAssembly.
-    </td>
-  </tr>
-</table>
-
-<br />
-
----
-
-## 🎨 Personalization &amp; Accessibility
-
-<table>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/lang.png" alt="Language Settings" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-lang.jpg" alt="Mobile Language Settings" /></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/erisilebilirlik.png" alt="Accessibility Settings" /></td>
-    <td width="50%"><img src="docs/m-screenshots/m-erisilebilirlik.jpg" alt="Mobile Accessibility Settings" /></td>
-  </tr>
-</table>
-
-- **Full 8-Language UI:** Native support for English, Türkçe, Deutsch, Français, Español, Português, Русский, and 日本語.
-- **Dynamic Themes:** 9 curated presets (*Ocean, Lagoon, Forest, Amber, Ember, Crimson, Orchid, Violet, Graphite*), mobile **Liquid Glass**, plus an interactive 360° hex colour wheel.
-- **Accessibility:** Scale text size from Small to Extra Large without breaking layouts, zoom display scaling from 90% to 150%, and reduce motion toggles.
-- **Custom Output Routing:** Independently route downloaded audio, videos, covers, lyrics, and zip archives to any folder on your storage.
-
-<br />
-
----
-
-## 📥 Installation
-
-### Windows Desktop (Recommended)
+#### 📥 Download Sophy Studio for Windows
 1. Download **`Sophy_Studio_Setup.exe`** from the [Latest Release](https://github.com/umwt26/Sophy-Studio/releases/latest).
-2. Run the installer. No administrative privileges required; installs cleanly for the current user and automatically cleans up legacy versions without touching your library data.
-3. Launch **Sophy Studio** from the Start Menu or Desktop shortcut.
+2. Run the installer. No administrative rights needed; installs for the current user and automatically cleans up legacy versions while preserving all user data and settings.
+3. Launch from the Start menu or Desktop shortcut.
 
-> **System Requirements:** 64-bit Windows 10 or 11. Offline AI features automatically adapt to your CPU capabilities with silent rule engine fallback on legacy machines.
+<br />
 
-### Android Mobile
+---
+
+## 📱 Mobile Experience (Android)
+
+**Sophy Studio Mobile** brings the complete desktop production suite to your smartphone, optimized for touch gestures, handheld ergonomics, and mobile workflows.
+
+<br />
+
+### ⚡ Mobile Highlight: System-Wide Share-to-Download
+No need to manually copy and paste links. Whenever you encounter a video or track on Instagram, TikTok, YouTube, or X (Twitter), simply tap **Share**, choose **Sophy Studio**, and the download begins immediately!
+
+<p align="center">
+  <img src="docs/m-screenshots/m-share.gif" alt="System Share to Download on Android" width="45%" /><br />
+  <sub><b>Share Target Integration:</b> Share reels and videos directly to Sophy Studio to download with 1 tap.</sub>
+</p>
+
+<br />
+
+### 💧 Mobile Highlight: Liquid Glass Aesthetic
+An exclusive mobile theme featuring fluid translucent glassmorphism, responsive ambient glows, and dark mode contrast tailored for OLED and AMOLED displays.
+
+<p align="center">
+  <img src="docs/m-screenshots/m-gorunum.gif" alt="Liquid Glass Theme on Mobile" width="45%" /><br />
+  <sub><b>Liquid Glass:</b> Translucent materials, glowing accents, and fluid mobile transitions.</sub>
+</p>
+
+<br />
+
+### Mobile Tool Flow (Home to Settings)
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-homepage.jpg" alt="Mobile Home" width="90%" /><br />
+      <sub><b>1. Mobile Home Dashboard</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-sunodownloader.jpg" alt="Mobile Suno Downloader" width="90%" /><br />
+      <sub><b>2. Suno Downloader (MP3/WAV/Cover/Lyrics)</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-univdownloader.jpg" alt="Mobile Universal Downloader" width="90%" /><br />
+      <sub><b>3. Universal Media Downloader (Video & Audio)</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-sunoprompter.jpg" alt="Mobile Style Prompter" width="90%" /><br />
+      <sub><b>4. Suno Style Prompter (Style & Structure)</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-samplecutter.jpg" alt="Mobile Sample Cutter" width="90%" /><br />
+      <sub><b>5. Sample Cutter (8s Waveform Slicer)</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-metadata.jpg" alt="Mobile Metadata Editor" width="90%" /><br />
+      <sub><b>6. Audio Metadata Editor & Cover Embedder</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-keybpm.jpg" alt="Mobile Key and BPM Detect" width="90%" /><br />
+      <sub><b>7. Musical Key & BPM Detection</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-lang.jpg" alt="Mobile Language Settings" width="90%" /><br />
+      <sub><b>8. Language & Region Settings</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-erisilebilirlik.jpg" alt="Mobile Accessibility Settings" width="90%" /><br />
+      <sub><b>9. Mobile Accessibility (Text & Display Zoom)</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/m-screenshots/m-about.jpg" alt="Mobile About Section" width="90%" /><br />
+      <sub><b>10. Mobile About & Artist Profile</b></sub>
+    </td>
+  </tr>
+</table>
+
+<br />
+
+#### 📥 Download Sophy Studio for Android
 1. Download **`Sophy_Studio_Mobile_v1.4.0.apk`** from the [Latest Release](https://github.com/umwt26/Sophy-Studio/releases/latest).
 2. Open the `.apk` on your Android device and confirm installation.
-3. Open Sophy Studio, or simply tap **Share** on any video in Instagram, TikTok, or YouTube and select **Sophy Studio**!
+3. Open the app, or share any video link directly to Sophy Studio!
 
 <br />
 
@@ -200,14 +231,14 @@ Everything runs locally on your machine with **zero accounts, zero subscriptions
 
 ## 🛠️ Technology Stack
 
-| Component | Desktop Implementation | Mobile Implementation |
+| Component | Desktop (Windows) | Mobile (Android) |
 |---|---|---|
-| **App Shell** | Tauri 2 · Rust | Capacitor / Tauri Android |
-| **Frontend UI** | React 19 · TypeScript · Tailwind CSS · Vanilla CSS | React 19 · TypeScript · Touch Gestures |
+| **Shell & Runtime** | Tauri 2 · Rust | Capacitor / Tauri Android |
+| **Frontend UI** | React 19 · TypeScript · Tailwind CSS 4 · Vanilla CSS | React 19 · TypeScript · Touch Gestures |
 | **Audio Processing** | FFmpeg · lofty / id3 · Essentia.js (WASM) | Web Audio API · Essentia.js (WASM) |
-| **Download Engines** | Native Suno Client · yt-dlp binary | Suno API Client · Extractor Service |
-| **Offline AI Model** | llama.cpp · Qwen2.5-1.5B-Instruct (Q4_K_M) | Rule-based Multilingual NLP Engine |
-| **Installer / Dist** | NSIS Per-User Installer | Android APK Package |
+| **Download Engine** | Native Suno Client · yt-dlp binary | Suno API Client · Extractor Service |
+| **Offline AI Model** | llama.cpp · Qwen2.5-1.5B-Instruct (Q4_K_M) | Multilingual Natural Language Rule Engine |
+| **Packaging** | NSIS Per-User Installer (`.exe`) | Android Package (`.apk`) |
 
 <br />
 
@@ -250,6 +281,6 @@ Proudly supported by [Filerawave](https://www.filerawave.com), music & video dis
 
 ## 📄 License &amp; Disclaimer
 
-This project is licensed under the **MIT License**.
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 *Disclaimer:* Sophy Studio is an independent open-source project and is not affiliated with, sponsored by, or endorsed by Suno AI, YouTube, Instagram, TikTok, or any mentioned platforms. Users are responsible for complying with the terms of service of each platform and respecting content creators' rights.

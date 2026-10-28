@@ -48,18 +48,26 @@ async function applyDisplayScale(scale: number): Promise<void> {
       const { getCurrentWebview } = await import("@tauri-apps/api/webview");
       await getCurrentWebview().setZoom(scale);
       root.style.removeProperty("zoom");
+      root.style.removeProperty("--page-zoom");
       return;
     } catch (e) {
       console.warn("Display zoom failed:", e);
     }
   }
-  if (scale === 1) root.style.removeProperty("zoom");
-  else root.style.setProperty("zoom", String(scale));
+  // CSS zoom also scales 100vh, so the shell divides it back out (index.css .app-shell)
+  if (scale === 1) {
+    root.style.removeProperty("zoom");
+    root.style.removeProperty("--page-zoom");
+  } else {
+    root.style.setProperty("zoom", String(scale));
+    root.style.setProperty("--page-zoom", String(scale));
+  }
 }
 
-export function applyAccessibility(config: AccessibilityConfig): void {
+/** Resolves once the display zoom is in place (startup waits for it before showing the window). */
+export function applyAccessibility(config: AccessibilityConfig): Promise<void> {
   const root = document.documentElement;
   root.style.setProperty("--text-scale", String(config.textScale));
   root.classList.toggle("reduce-motion", config.reduceMotion);
-  void applyDisplayScale(config.displayScale);
+  return applyDisplayScale(config.displayScale);
 }

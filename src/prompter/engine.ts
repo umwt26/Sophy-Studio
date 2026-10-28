@@ -346,6 +346,13 @@ interface Span {
 
 const CLAUSE_BREAKS = [",", ".", ";", " ve ", " ama ", " fakat ", " and ", " but ", " und ", " aber ", " et ", " mais ", " y ", " pero ", " e ", " mas ", " и ", " но "];
 
+/** Start and end of the clause around `pos..end` (split at commas, "and", "ama", ...). */
+function clauseOf(text: string, pos: number, end: number): [number, number] {
+  const start = Math.max(0, ...CLAUSE_BREAKS.map((s) => text.lastIndexOf(s, pos)).filter((n) => n >= 0));
+  const next = CLAUSE_BREAKS.map((s) => text.indexOf(s, end)).filter((n) => n >= 0);
+  return [start, next.length ? Math.min(...next) : text.length];
+}
+
 /**
  * Decide the edit operation for the entity at `pos..end`. A remove/less/more verb only
  * applies to the entity closest to it in the same clause, so "trap olsun ama vokal
@@ -353,9 +360,7 @@ const CLAUSE_BREAKS = [",", ".", ";", " ve ", " ama ", " fakat ", " and ", " but
  * "sözü olmasın") belong to that entity and never count as verbs.
  */
 function opFor(text: string, pos: number, end: number, spans: Span[]): Op {
-  const clauseStart = Math.max(0, ...CLAUSE_BREAKS.map((s) => text.lastIndexOf(s, pos)).filter((n) => n >= 0));
-  const nextBreak = CLAUSE_BREAKS.map((s) => text.indexOf(s, end)).filter((n) => n >= 0);
-  const clauseEnd = nextBreak.length ? Math.min(...nextBreak) : text.length;
+  const [clauseStart, clauseEnd] = clauseOf(text, pos, end);
   const inClause = spans.filter((s) => s.pos >= clauseStart && s.end <= clauseEnd);
   const inside = (i: number) => inClause.some((s) => i >= s.pos && i < s.end);
   const distance = (s: Span, i: number) => (i < s.pos ? s.pos - i : i >= s.end ? i - s.end + 1 : 0);
@@ -405,11 +410,46 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
     state.tags = state.tags.filter((t) => !(t.cat === "genre" && (t.auto || !combine)) && !(t.auto && t.cat !== "genre"));
   }
 
-  const sectionTargets = new Set<SectionKind>();
+  // Sections that are the target of an edit ("add a sax to the intro", "make the hook more
+  // energetic") are not a new song structure; only bare lists ("intro, verse, hook") are.
+  const sectionTargets = new Set<Hit<(typeof SECTIONS)[number]>>();
+  const sectionsInClause = (pos: number, end: number) => {
+    const [cs, ce] = clauseOf(text, pos, end);
+    return sectionHits.filter((s) => s.pos >= cs && s.end <= ce);
+  };
   for (const h of hits) {
     const e: LexEntry = h.item;
     const op = opFor(text, h.pos, h.end, spans);
     understood = true;
+
+    // An edit aimed at one section: becomes that section's directive
+    if (!isFirst && e.cat !== "genre" && op !== "remove") {
+      let secs = sectionsInClause(h.pos, h.end);
+      // "add a guitar solo": the only section in the message, even in another clause
+      if (!secs.length && e.cat === "instrument" && op === "add" && sectionHits.length === 1) secs = sectionHits;
+      if (secs.length === 1) {
+        let kind = secs[0].item.kind;
+        // rap songs have a hook where pop has a chorus: "nakarat" / "chorus" means the hook there
+        const twin: Partial<Record<SectionKind, SectionKind>> = { chorus: "hook", hook: "chorus" };
+        const alt = twin[kind];
+        if (alt && !state.sections.some((x) => x.kind === kind) && state.sections.some((x) => x.kind === alt)) kind = alt;
+        sectionTargets.add(secs[0]);
+        let targets = state.sections.filter((x) => x.kind === kind);
+        if (!targets.length) {
+          const sec: Section = { kind, directives: [] };
+          const outroAt = state.sections.findIndex((x) => x.kind === "outro");
+          if (outroAt >= 0) state.sections.splice(outroAt, 0, sec);
+          else state.sections.push(sec);
+          targets = [sec];
+          state.customSections = true;
+        }
+        const directive = op === "more" ? e.up ?? e.label : op === "less" ? e.down ?? e.label : e.label;
+        for (const sec of targets) if (!sec.directives.includes(directive)) sec.directives.push(directive);
+        // a mood or vocal style for one section stays in that section, not the whole song
+        if (e.cat !== "instrument") continue;
+      }
+    }
+
     if (op === "remove") {
       state.tags = state.tags.filter((t) => t.id !== e.id);
       for (const s of state.sections) s.directives = s.directives.filter((d) => d !== e.label && d !== e.up && d !== e.down);
@@ -430,26 +470,23 @@ export function applyInput(prev: PrompterState, input: string, lang = "en"): App
       const t = state.tags.find((x) => x.id === e.id);
       if (t) t.level = level;
     }
+  }
 
-    // "girişe saksafon ekle" / "add a guitar solo": exactly one section named -> target it.
-    if (e.cat === "instrument" && op === "add" && sectionHits.length === 1 && !isFirst) {
-      const kind = sectionHits[0].item.kind;
-      sectionTargets.add(kind);
-      let targets = state.sections.filter((x) => x.kind === kind);
-      if (!targets.length) {
-        const sec: Section = { kind, directives: [] };
-        const outroAt = state.sections.findIndex((x) => x.kind === "outro");
-        if (outroAt >= 0) state.sections.splice(outroAt, 0, sec);
-        else state.sections.push(sec);
-        targets = [sec];
-        state.customSections = true;
-      }
-      for (const sec of targets) if (!sec.directives.includes(e.label)) sec.directives.push(e.label);
+  // "remove the bridge", "köprüyü çıkar": a section with its own verb is an edit too
+  if (!isFirst) {
+    for (const h of sectionHits) {
+      if (sectionTargets.has(h)) continue;
+      const op = opFor(text, h.pos, h.end, spans);
+      if (op === "add") continue;
+      sectionTargets.add(h);
+      understood = true;
+      if (op === "remove") state.sections = state.sections.filter((s) => s.kind !== h.item.kind);
+      state.customSections = true;
     }
   }
 
-  // --- explicit structure: 2+ distinct sections named in order (and not just a targeted edit)
-  const structureHits = sectionHits.filter((h) => !sectionTargets.has(h.item.kind));
+  // --- explicit structure: 2+ sections named that are not edit targets
+  const structureHits = sectionHits.filter((h) => !sectionTargets.has(h));
   if (structureHits.length >= 2) {
     understood = true;
     const sections: Section[] = [];

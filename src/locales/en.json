@@ -71,7 +71,10 @@
       "mp3": "Download as MP3 (320k)",
       "wav": "Download Lossless WAV",
       "original": "Download Original Audio"
-    }
+    },
+    "historyCount": "saved songs",
+    "searchHistory": "Search history...",
+    "noSearchResults": "No matching songs."
   },
   "nav": {
     "home": "Home",
@@ -128,55 +131,25 @@
     "whatsNew": {
       "title": "What's new in {{version}}",
       "subtitle": "Everything that changed in this update.",
-      "layout": {
-        "title": "A new, clearer layout",
-        "desc": "The menu button is gone: every tool now sits in a fixed sidebar, grouped into Download, Create and Edit & Analyze. Collapse it to icons with one click; on narrow windows it collapses by itself. Every page has the same title row with its actions on the right."
+      "glass": {
+        "title": "Liquid glass",
+        "desc": "Cards, buttons, fields and panels now have a see-through glass look with soft highlights and rounder corners. Pop-ups and notices blur what is behind them. Settings > Appearance has a Liquid glass switch for the flat look."
       },
-      "themes": {
-        "title": "Colour themes that change the whole app",
-        "desc": "Pick one of 9 themes (Ocean, Lagoon, Forest, Amber, Ember, Crimson, Orchid, Violet, Graphite) or any colour on the colour picker. The theme now tints backgrounds, the sidebar, borders, the active page and selections. Background tone (Neutral, Subtle, Rich) sets how strong it is; light mode uses deeper shades so text stays readable."
+      "sidebar": {
+        "title": "A floating sidebar",
+        "desc": "The sidebar now floats as a rounded glass panel beside the page. The page you are on is marked by a glass pill that settles in place, also in the Settings list."
       },
-      "accessibility": {
-        "title": "New Accessibility settings",
-        "desc": "Text size (Small to Extra large) enlarges all text without breaking the layout, Display size zooms the whole interface from 90% to 150%, and Reduce motion turns animations off."
-      },
-      "settings": {
-        "title": "Redesigned Settings",
-        "desc": "New order: Language, Appearance, Accessibility, Folders, About. Language cards show each language in its own name and in yours; Appearance has preview cards for Light, Dark and System, the colour picker and preset colours below it."
-      },
-      "font": {
-        "title": "New typeface: Coolvetica",
-        "desc": "The whole interface uses Coolvetica, including Turkish and Cyrillic letters. Japanese uses the system font."
-      },
-      "installer": {
-        "title": "Smoother updates and installs",
-        "desc": "Setup no longer asks you to uninstall the old version first. It removes the previous Sophy Studio silently and installs the new one on top. Your history, settings, downloads and shortcuts are kept."
-      },
-      "performance": {
-        "title": "Lighter on older PCs",
-        "desc": "Blur and glow effects were removed and animations use only light, GPU-friendly motion, so the app stays smooth on low-end computers."
+      "prompter": {
+        "title": "Smarter Suno Prompter",
+        "desc": "\"Add a piano to the intro and make the hook more energetic\" now changes only those sections instead of throwing away your verses. \"Chorus\" means the hook in rap songs, and \"remove the bridge\" removes just the bridge."
       },
       "fixes": {
         "title": "Fixes",
-        "desc": "Hover colours in light mode, missing icon backgrounds on several pages, leftover untranslated texts and an unnecessary online font request at start-up were fixed. The Studio Folder button was removed from the home page."
-      },
-      "feedback": {
-        "title": "Feedback has its own page",
-        "desc": "Send Feedback is now a full page in the sidebar instead of a pop-up: pick Bug, Idea or Other, write as much as you need, and see tips on what to include. The app version is attached automatically."
-      },
-      "motion": {
-        "title": "Smooth animations",
-        "desc": "Pages, cards and settings fade in gently, buttons react when pressed, theme changes blend smoothly, and the History and Chats panels now slide in cleanly from the right."
-      },
-      "sponsors": {
-        "title": "Sponsors before every big action",
-        "desc": "A short sponsor card now appears before downloads, sample exports, saving tags and showing analysis results. A bar fills up while it is shown and the button unlocks after a few seconds. Sponsors keep Sophy Studio free."
-      },
-      "icons": {
-        "title": "New Suno icons",
-        "desc": "Suno Downloader and Suno Style Prompter have their own new icons, which follow the colour theme like every other icon. Home page cards now light up in the theme colour when you point at them."
+        "desc": "About has the Sophy icon. Texts that showed up in Turkish in other languages (Key & BPM results, Sample Cutter, Suno history) are translated, and the selected item in Settings is no longer cut off at the edge."
       }
-    }
+    },
+    "showAll": "Show all",
+    "showLess": "Show less"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -283,7 +256,9 @@
     "stageResampling": "Resampling to 44.1kHz studio frequency...",
     "stageChroma": "Extracting harmonic 12-Chroma HPCP & pitch profile...",
     "stageRhythm": "Scanning rhythm patterns & beat intervals...",
-    "stageComplete": "Camelot wheel & tempo detection complete!"
+    "stageComplete": "Camelot wheel & tempo detection complete!",
+    "showResults": "Show Results",
+    "readyResults": "Your Key & BPM results are ready."
   },
   "settings": {
     "title": "Settings",
@@ -400,7 +375,9 @@
       "pt": "Portuguese",
       "ru": "Russian",
       "ja": "Japanese"
-    }
+    },
+    "glassTitle": "Liquid glass",
+    "glassHint": "See-through, softly blurred menu bar and panels. Turn off for a flat look."
   },
   "suno": {
     "emptyTitle": "Download Suno Track",
@@ -442,7 +419,9 @@
     "exportSuccess": "Sample cut & saved successfully!",
     "exportError": "Failed to cut sample: {{error}}",
     "tooShort": "File duration is shorter than 8 seconds, cannot cut sample.",
-    "sponsorAction": "Save 8s sample ({{format}})"
+    "sponsorAction": "Save 8s sample ({{format}})",
+    "loaded": "Audio file loaded!",
+    "loadError": "Could not open file"
   },
   "feedback": {
     "title": "Send Feedback",
@@ -484,7 +463,8 @@
     "delete": "Remove",
     "cancel": "Cancel",
     "save": "Save",
-    "retry": "Retry"
+    "retry": "Retry",
+    "error": "Error"
   },
   "prompter": {
     "title": "Suno Style Prompter",

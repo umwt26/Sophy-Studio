@@ -108,7 +108,7 @@ Ziehe eine Audiodatei hinein, um die Tonart, die Position im Camelot-Rad (z. B. 
 Passe Sophy Studio an: 9 Farbthemen, dynamischer 360°-Farbwähler, barrierefreie Schrift- und Oberflächenskalierung (90% - 150%) und 8 Sprachen.
 
 <p align="center">
-  <img src="docs/screenshots/gorunum.gif" alt="Desktop-Einstellungen & Personalisierung" width="100%" />
+  <img src="docs/screenshots/appearance.png" alt="Desktop-Einstellungen & Personalisierung" width="100%" />
 </p>
 
 <table>

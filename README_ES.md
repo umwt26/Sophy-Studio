@@ -108,7 +108,7 @@ Arrastra cualquier archivo para identificar su tonalidad musical, posición en l
 Personaliza Sophy Studio con 9 temas, rueda de color hex de 360°, escalado de texto y pantalla accesible (90% a 150%) y 8 idiomas nativos.
 
 <p align="center">
-  <img src="docs/screenshots/gorunum.gif" alt="Ajustes y Personalización de Escritorio" width="100%" />
+  <img src="docs/screenshots/appearance.png" alt="Ajustes y Personalización de Escritorio" width="100%" />
 </p>
 
 <table>

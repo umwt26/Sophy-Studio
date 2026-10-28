@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Sophy Studio",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "identifier": "com.sophystudio.desktop",
   "build": {
     "frontendDist": "../dist",
@@ -19,7 +19,9 @@
         "minHeight": 560,
         "resizable": true,
         "fullscreen": false,
-        "maximized": true
+        "maximized": true,
+        "visible": false,
+        "backgroundColor": "#0f1013"
       }
     ],
     "security": {
@@ -28,7 +30,9 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["nsis"],
+    "targets": [
+      "nsis"
+    ],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

@@ -6,7 +6,7 @@ import {
   TranslateIcon,
   PaletteIcon,
   RefreshIcon,
-  SparklesIcon,
+  SophyIcon,
   CheckIcon,
   InstagramIcon,
   TikTokIcon,
@@ -31,9 +31,11 @@ import {
 } from "../utils/accessibility";
 import type { AppThemeConfig, FolderSettings, ThemeMode, ThemeTint } from "../types";
 import { ColorWheelPicker } from "./ColorWheelPicker";
+import { ReleaseNotesCard } from "./ReleaseNotesCard";
 import { LanguageFlag } from "./Flags";
 import logoImg from "../assets/logo.png";
 import { APP_VERSION_LABEL } from "../version";
+import { loadGlass, saveGlass } from "../utils/ui";
 
 interface SettingsPageProps {
   onShowToast: (msg: string) => void;
@@ -96,6 +98,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
   const [folderSettings, setFolderSettings] = useState<FolderSettings>({});
   const [themeConfig, setThemeConfig] = useState<AppThemeConfig>(loadSavedTheme);
   const [a11y, setA11y] = useState<AccessibilityConfig>(loadAccessibility);
+  const [glass, setGlass] = useState(loadGlass);
 
   useEffect(() => {
     loadFolders();
@@ -175,7 +178,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
     { id: "appearance", label: t("settings.tabAppearance", "Appearance"), Icon: PaletteIcon },
     { id: "accessibility", label: t("settings.tabAccessibility", "Accessibility"), Icon: UserIcon },
     { id: "folders", label: t("settings.tabFolders", "Folders"), Icon: FolderIcon },
-    { id: "about", label: t("settings.tabAbout", "About"), Icon: SparklesIcon },
+    { id: "about", label: t("settings.tabAbout", "About"), Icon: SophyIcon },
   ];
 
   const modes: { id: ThemeMode; label: string; Icon: React.ComponentType<{ className?: string }> }[] = [
@@ -255,7 +258,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
       </div>
 
       <div className="flex flex-col md:flex-row items-start gap-6">
-        <nav className="w-full md:w-52 shrink-0 flex md:flex-col gap-0.5 overflow-x-auto">
+        <nav className="w-full md:w-52 shrink-0 flex md:flex-col gap-1 overflow-x-auto md:overflow-visible -m-1 p-1">
           {categories.map(({ id, label, Icon }) => (
             <button
               key={id}
@@ -351,6 +354,26 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                       );
                     })}
                   </div>
+                </div>
+
+                <div className="setting-row">
+                  {rowText(
+                    t("settings.glassTitle", "Liquid glass"),
+                    t("settings.glassHint", "See-through, softly blurred menu bar and panels. Turn off for a flat look.")
+                  )}
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={glass}
+                    className="switch"
+                    data-on={glass}
+                    onClick={() => {
+                      saveGlass(!glass);
+                      setGlass(!glass);
+                    }}
+                  >
+                    <span />
+                  </button>
                 </div>
 
                 <div className="setting-row flex-wrap">
@@ -549,6 +572,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                   </div>
                 </div>
               </div>
+
+              <ReleaseNotesCard />
             </>
           )}
         </section>

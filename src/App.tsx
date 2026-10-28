@@ -19,7 +19,6 @@ import { UpdateModal } from "./components/UpdateModal";
 import { clearUpdateAttempt, readUpdateAttempt } from "./utils/updateAttempt";
 import { Toast, type ToastKind } from "./components/Toast";
 import { applyTheme, loadSavedTheme } from "./utils/theme";
-import { applyAccessibility, loadAccessibility } from "./utils/accessibility";
 import type { AppTab, AudioFormat, SongClip, SongData, UpdateInfo } from "./types";
 
 const HISTORY_STORAGE_KEY = "sophy_search_history";
@@ -55,8 +54,7 @@ export default function App() {
 
   // Initialize theme on app mount
   useEffect(() => {
-    applyTheme(loadSavedTheme());
-    applyAccessibility(loadAccessibility());
+    // theme, zoom and glass are already applied in main.tsx before the first paint
     // "Follow Windows" mode reacts to OS theme changes while the app is open
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = () => {

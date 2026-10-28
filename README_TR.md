@@ -108,7 +108,7 @@ Herhangi bir ses dosyasını sürükleyip bırakarak parça tonunu, Camelot çar
 Sophy Studio'yu yaratıcı çalışma ortamınıza uyarlayın: 9 dinamik renk teması, 360° renk tekerleği, düzeni bozmadan Küçük'ten Çok Büyük'e metin/ekran ölçekleme (%90 - %150), her medya türü için ayrı çıktı klasörleri ve 8 dil desteği.
 
 <p align="center">
-  <img src="docs/screenshots/gorunum.gif" alt="Masaüstü Ayarları & Kişiselleştirme" width="100%" />
+  <img src="docs/screenshots/appearance.png" alt="Masaüstü Ayarları & Kişiselleştirme" width="100%" />
 </p>
 
 <table>

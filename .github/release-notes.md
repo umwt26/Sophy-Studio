@@ -1,80 +1,44 @@
-# ✨ Sophy Studio v1.3
+# ✨ Sophy Studio v1.4.1
 
-The biggest update so far: a brand-new look, colour themes that change the whole app, accessibility options and a much smoother update experience. 🎉
+Liquid glass and a floating sidebar on desktop, a faster and more native Android app, and a smarter Suno Prompter on both. 🎉
 
 💾 **Your history, settings and downloaded files are kept.** Just install and keep going.
 
----
-
-## 🧭 A new, clearer layout
-
-- 📌 **Fixed sidebar** – every tool is always one click away, grouped into **Download**, **Create** and **Edit & Analyze**.
-- ↔️ Collapse it to icons with one click; on narrow windows it collapses by itself.
-- 🗂️ Every page now has the same clean title row, with its actions on the right.
-
-## 🎨 Colour themes that change everything
-
-- 🌈 **9 themes**: Ocean, Lagoon, Forest, Amber, Ember, Crimson, Orchid, Violet and Graphite – or pick **any colour** on the colour picker.
-- 🖌️ The theme now tints backgrounds, the sidebar, borders, the active page and selections, not just buttons.
-- 🌗 **Background tone** (Neutral, Subtle, Rich) sets how strong it is. Light mode uses deeper shades so text always stays readable.
-
-## ♿ New: Accessibility
-
-- 🔠 **Text size** – Small, Default, Large, Extra large. Bigger text, same layout.
-- 🔍 **Display size** – zoom the whole interface from 90% to 150%.
-- 🧘 **Reduce motion** – turns animations off.
-
-## ⚙️ Redesigned Settings
-
-- 📋 New order: **Language → Appearance → Accessibility → Folders → About**.
-- 🏳️ Language cards with **flags** that light up in colour when you point at them.
-- 🖼️ Appearance has preview cards for Light, Dark and System, the colour picker and preset colours.
-
-## 💬 Feedback has its own page
-
-- 📝 No more pop-up: pick **Bug**, **Idea** or **Other**, write as much as you need and see tips on what to include.
-- 🏷️ The app version is attached automatically.
-
-## 🤝 Sponsors before big actions
-
-- 📣 A short sponsor card appears before downloads, sample exports, saving tags and showing analysis results.
-- ⏳ A bar fills up while it is shown and the button unlocks after a few seconds.
-- ❤️ Sponsors keep Sophy Studio **free**.
-
-## 🎵 New Suno icons
-
-- 🆕 Suno Downloader and Suno Style Prompter have their own icons that follow your colour theme.
-- 🃏 Home page cards light up in the theme colour when you point at them.
-
-## 🎬 Smooth animations
-
-- 🌊 Pages, cards and settings fade in gently, buttons react when pressed and theme changes blend smoothly.
-- 📂 The History and Chats panels now slide in cleanly from the right.
-
-## 🔤 New typeface: Coolvetica
-
-- 🌍 Used across the whole interface, including Turkish and Cyrillic letters. Japanese uses the system font.
-
-## 🚀 Smoother updates and installs
-
-- 🔒 History, settings, downloads and shortcuts are kept.
-
-## ⚡ Lighter on older PCs
-
-- 🪶 Blur and glow effects were removed; animations only use light, GPU-friendly motion.
-
-## 🛠️ Fixes
-
-- 🌞 Hover colours in light mode
-- 🧩 Missing icon backgrounds on several pages
-- 🌐 Leftover untranslated texts
-- 📡 An unnecessary online font request at start-up
-- 🧹 The Studio Folder button was removed from the home page
+📦 **Which file?** Windows: `Sophy_Studio_Portable_v1.4.1.exe` · Android: `Sophy_Studio_Mobile_v1.4.1.apk` (the app also offers it as an update by itself).
 
 ---
 
-## 📥 Download
+## 🖥️ Desktop
 
-- 🪟 **`Sophy_Studio_Setup.exe`** – Windows installer. Already installed? The app updates itself.
+### 🫧 Liquid glass
+- 🪟 Cards, buttons, fields, switches and panels now have a **see-through glass look** with soft highlights and rounder corners.
+- 🔘 Switches turn into a little glass lens while you press them.
+- 🌫️ Pop-ups and notices blur what is behind them.
+- 🎚️ Prefer the flat look? **Settings → Appearance → Liquid glass** turns it off.
 
-Thanks for using Sophy Studio! 💜 Questions or ideas? Use **Send Feedback** in the app.
+### 🧭 A floating sidebar
+- 📌 The sidebar floats as a **rounded glass panel** beside the page.
+- 💊 The page you are on is marked by a glass pill that settles in place, in the Settings list too.
+
+### 🚀 Clean start-up
+- ⚫ No more white box or jumping layout when the app opens: the window appears once everything is ready, already in your theme.
+
+### 🛠️ Fixes
+- 🌍 Texts that showed up in Turkish in other languages (Key & BPM results, Sample Cutter, Suno history) are translated.
+- 📐 The selected item in Settings is no longer cut off at the edge.
+
+## 📱 Android
+
+- ⚡ **Much faster link info**: YouTube, TikTok, SoundCloud and Vimeo titles and covers now show up in about a second, in the app and in the Share panel.
+- ✋ **Cancel downloads** from the notification, the Share panel or the progress bar in the app.
+- 🔔 **Better notifications**: the Sophy icon in the status bar. Finished downloads and new versions pop up from the top with sound (also on Samsung). Download progress stays silent.
+- ⬆️ **Updates** open on a full screen showing the size and a large progress bar.
+- 🔷 About in Settings now has the Sophy icon.
+
+## 🧠 Both
+
+- 🎹 **Smarter Suno Prompter**:
+  - "Add a piano to the intro and make the hook more energetic" now changes **only those sections**; your verses stay.
+  - In rap songs, "chorus" / "nakarat" means the hook.
+  - "Remove the bridge" removes just the bridge.
+- 📰 **What's new** now lives in **Settings → About** and comes straight from these release notes.

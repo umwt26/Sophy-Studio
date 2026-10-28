@@ -108,7 +108,7 @@ Glissez un fichier audio pour identifier sa tonalité musicale, sa position sur 
 Personnalisez Sophy Studio avec 9 thèmes couleur, sélecteur hexadécimal à 360°, mise à l'échelle accessible (texte et affichage 90% à 150%) et 8 langues.
 
 <p align="center">
-  <img src="docs/screenshots/gorunum.gif" alt="Paramètres et Personnalisation Bureau" width="100%" />
+  <img src="docs/screenshots/appearance.png" alt="Paramètres et Personnalisation Bureau" width="100%" />
 </p>
 
 <table>

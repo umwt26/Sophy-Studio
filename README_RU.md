@@ -108,7 +108,7 @@
 Настройте Sophy Studio: 9 цветовых тем, палитра 360°, масштабирование текста и интерфейса (90%–150%) и поддержка 8 языков.
 
 <p align="center">
-  <img src="docs/screenshots/gorunum.gif" alt="Настройки и персонализация ПК" width="100%" />
+  <img src="docs/screenshots/appearance.png" alt="Настройки и персонализация ПК" width="100%" />
 </p>
 
 <table>

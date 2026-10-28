@@ -71,7 +71,10 @@
       "mp3": "MP3 Olarak İndir (320k)",
       "wav": "Kayıpsız WAV İndir",
       "original": "Orijinal Sesi İndir"
-    }
+    },
+    "historyCount": "kayıtlı şarkı",
+    "searchHistory": "Geçmişte ara...",
+    "noSearchResults": "Eşleşen şarkı bulunamadı."
   },
   "nav": {
     "home": "Ana Sayfa",
@@ -128,55 +131,25 @@
     "whatsNew": {
       "title": "{{version}} ile gelen yenilikler",
       "subtitle": "Bu güncellemede değişen her şey.",
-      "layout": {
-        "title": "Yeni ve daha anlaşılır düzen",
-        "desc": "Menü butonu kalktı: tüm araçlar artık sabit bir kenar çubuğunda, İndir, Üret ve Düzenle ve Analiz gruplarına ayrılmış halde duruyor. Tek tıkla ikonlara küçültebilirsin; dar pencerelerde kendiliğinden küçülür. Her sayfanın başlığı ve butonları aynı düzende."
+      "glass": {
+        "title": "Liquid glass",
+        "desc": "Kartlar, butonlar, giriş kutuları ve paneller artık yumuşak parlamalı, arkası görünen cam görünümünde ve köşeleri daha yuvarlak. Açılır pencereler ve bildirimler arkalarını bulanıklaştırıyor. Düz görünüm için Ayarlar > Görünüm'de Liquid glass anahtarı var."
       },
-      "themes": {
-        "title": "Tüm uygulamayı değiştiren renk temaları",
-        "desc": "9 temadan birini (Okyanus, Lagün, Orman, Kehribar, Kor, Kızıl, Orkide, Menekşe, Grafit) ya da renk seçiciden istediğin rengi seç. Tema artık arka planları, kenar çubuğunu, kenarlıkları, açık sayfayı ve seçimleri de renklendiriyor. Arka plan tonu (Nötr, Hafif, Belirgin) ne kadar baskın olacağını belirler; açık modda yazılar okunur kalsın diye daha koyu tonlar kullanılır."
+      "sidebar": {
+        "title": "Yüzen kenar menü",
+        "desc": "Kenar menü artık sayfanın yanında yüzen, yuvarlak bir cam panel. Bulunduğun sayfa, yerine oturan cam bir hapla işaretleniyor; Ayarlar listesinde de öyle."
       },
-      "accessibility": {
-        "title": "Yeni Erişilebilirlik ayarları",
-        "desc": "Yazı boyutu (Küçük'ten Çok büyük'e) düzeni bozmadan tüm yazıları büyütür, Görüntü boyutu tüm arayüzü %90 ile %150 arasında yakınlaştırır, Hareketi azalt ise animasyonları kapatır."
-      },
-      "settings": {
-        "title": "Yenilenen Ayarlar",
-        "desc": "Yeni sıra: Dil, Görünüm, Erişilebilirlik, Klasörler, Hakkında. Dil kartları her dili kendi adıyla ve senin dilinde gösterir; Görünüm'de Açık, Koyu ve Sistem için önizleme kartları, renk seçici ve altında hazır renkler var."
-      },
-      "font": {
-        "title": "Yeni yazı tipi: Coolvetica",
-        "desc": "Tüm arayüz artık Türkçe ve Kiril harfleri dahil Coolvetica kullanıyor. Japonca için sistem yazı tipi kullanılır."
-      },
-      "installer": {
-        "title": "Daha zahmetsiz güncelleme ve kurulum",
-        "desc": "Kurulum artık önce eski sürümü kaldırmanı istemiyor. Önceki Sophy Studio'yu sessizce kaldırıp yenisini üstüne kuruyor. Geçmişin, ayarların, indirdiklerin ve kısayolların korunur."
-      },
-      "performance": {
-        "title": "Eski bilgisayarlarda daha hafif",
-        "desc": "Bulanıklık ve parlama efektleri kaldırıldı, animasyonlar sadece hafif ve ekran kartını yormayan hareketler kullanıyor; uygulama düşük donanımlı bilgisayarlarda da akıcı kalıyor."
+      "prompter": {
+        "title": "Daha akıllı Suno Prompter",
+        "desc": "\"Intro'ya piyano ekle, hook'u daha enerjik yap\" artık verse'leri silmeden sadece o bölümleri değiştiriyor. Rap şarkılarında \"nakarat\" hook'a uygulanıyor, \"bridge'i çıkar\" sadece bridge'i siliyor."
       },
       "fixes": {
         "title": "Düzeltmeler",
-        "desc": "Açık moddaki hover renkleri, birkaç sayfada eksik görünen ikon arka planları, çevrilmeden kalmış metinler ve açılışta yapılan gereksiz internet font isteği düzeltildi. Ana sayfadaki Stüdyo Klasörü butonu kaldırıldı."
-      },
-      "feedback": {
-        "title": "Geri bildirimin kendi sayfası var",
-        "desc": "Geri Bildirim artık açılır pencere değil, kenar çubuğunda ayrı bir sayfa: Hata, Öneri ya da Diğer'i seç, istediğin kadar yaz ve neleri eklemenin işe yarayacağını gör. Uygulama sürümü otomatik eklenir."
-      },
-      "motion": {
-        "title": "Akıcı animasyonlar",
-        "desc": "Sayfalar, kartlar ve ayarlar yumuşakça beliriyor, butonlar basınca tepki veriyor, tema değişimleri yumuşak geçiyor; Geçmiş ve Sohbetler panelleri artık sağdan düzgünce kayarak açılıyor."
-      },
-      "sponsors": {
-        "title": "Her büyük işlemden önce sponsorlar",
-        "desc": "İndirmelerden, sample dışa aktarmadan, etiket kaydetmeden ve analiz sonuçlarını göstermeden önce kısa bir sponsor kartı çıkıyor. Kart gösterilirken bir çubuk doluyor ve buton birkaç saniye sonra açılıyor. Sponsorlar Sophy Studio'nun ücretsiz kalmasını sağlıyor."
-      },
-      "icons": {
-        "title": "Yeni Suno ikonları",
-        "desc": "Suno Downloader ve Suno Style Prompter'ın kendine ait yeni ikonları var; diğer ikonlar gibi renk temasına uyuyorlar. Ana sayfadaki kartlar da üzerine gelince tema rengiyle belirginleşiyor."
+        "desc": "Hakkında bölümünde artık Sophy ikonu var. Diğer dillerde Türkçe görünen metinler (Key & BPM sonuçları, Sample Cutter, Suno geçmişi) çevrildi ve Ayarlar'da seçili satır artık kenardan kesilmiyor."
       }
-    }
+    },
+    "showAll": "Tümünü göster",
+    "showLess": "Daha az göster"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -283,7 +256,9 @@
     "stageResampling": "44.1kHz stüdyo frekansına dönüştürülüyor...",
     "stageChroma": "Harmonik 12-Chroma HPCP & Ton profili çıkarılıyor...",
     "stageRhythm": "Ritim örüntüsü & vuruş aralıkları taranıyor...",
-    "stageComplete": "Tunebat Camelot & tempo tespiti tamamlandı!"
+    "stageComplete": "Tunebat Camelot & tempo tespiti tamamlandı!",
+    "showResults": "Sonuçları Göster",
+    "readyResults": "Key & BPM analiz sonuçları hazır."
   },
   "settings": {
     "title": "Ayarlar",
@@ -400,7 +375,9 @@
       "pt": "Portekizce",
       "ru": "Rusça",
       "ja": "Japonca"
-    }
+    },
+    "glassTitle": "Liquid glass",
+    "glassHint": "Arkası görünen, hafif bulanık kenar menü ve paneller. Kapatınca düz görünüme geçer."
   },
   "suno": {
     "emptyTitle": "Suno Parçası İndir",
@@ -442,7 +419,9 @@
     "exportSuccess": "Sample başarıyla kesildi ve kaydedildi!",
     "exportError": "Sample kesilirken hata oluştu: {{error}}",
     "tooShort": "Dosya süresi 8 saniyeden kısa, sample kesilemez.",
-    "sponsorAction": "8 sn'lik sample'ı kaydet ({{format}})"
+    "sponsorAction": "8 sn'lik sample'ı kaydet ({{format}})",
+    "loaded": "Ses dosyası başarıyla yüklendi!",
+    "loadError": "Dosya açılamadı"
   },
   "feedback": {
     "title": "Geri Bildirim Gönder",
@@ -484,7 +463,8 @@
     "delete": "Kaldır",
     "cancel": "İptal",
     "save": "Kaydet",
-    "retry": "Yeniden Dene"
+    "retry": "Yeniden Dene",
+    "error": "Hata"
   },
   "prompter": {
     "title": "Suno Style Prompter",

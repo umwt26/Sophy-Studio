@@ -13,7 +13,7 @@ export function Toast({ message, kind = "success" }: ToastProps) {
     <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 animate-fade-in max-w-[min(640px,calc(100vw-32px))]">
       <div
         role={isError ? "alert" : "status"}
-        className={`flex items-start gap-2.5 rounded-md border bg-[var(--color-app-surface)] px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.35)] ${
+        className={`toast flex items-start gap-2.5 rounded-md border bg-[var(--color-app-surface)] px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.35)] ${
           isError ? "border-[var(--color-danger)]/40" : "border-[var(--color-app-border)]"
         }`}
       >

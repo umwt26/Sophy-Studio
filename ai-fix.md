@@ -66,6 +66,13 @@ Copy from: `Sophy Studio Mobile/src/prompter/engine.ts` and `lexicon.ts`. The on
   3. Run `node test.ts`.
 - Custom cases: pass them as a JSON argument, for example `node test.ts '[["trap olcak"]]'`.
 
+### Bug found while taking screenshots (desktop AND mobile, not fixed yet)
+
+- Input: `Dark UK drill…`, then `add a piano to the intro and make the hook more energetic`.
+- Result: the structure turns into only `[Intro] [Hook] [End]` and every verse disappears.
+- Cause: in `applyInput`, two or more section names in one message count as "the user gave an explicit structure", so `state.sections` is replaced. That is wrong when the sections are only targets of edits ("add X to the intro", "make the hook …").
+- Fix idea: treat the message as a new structure only when it lists sections without an edit verb or instrument next to them, for example "intro, verse, hook, verse, outro". Otherwise apply the edits to the existing sections.
+
 ### Still worth doing later
 
 - More colloquial forms (for example "vokalsiz olsun ama koro olsun").

@@ -7,9 +7,7 @@ import {
   SunoDownloaderIcon,
   TagIcon,
   ChevronRightIcon,
-  SparklesIcon,
   SunoPrompterIcon,
-  ArrowDownTrayIcon,
   InstagramIcon,
   TikTokIcon,
   TwitterXIcon,
@@ -17,37 +15,12 @@ import {
   SpotifyIcon,
   GitHubIcon,
   DiscordIcon,
-  SidebarIcon,
-  PaletteIcon,
-  UserIcon,
-  SettingsIcon,
-  DocumentTextIcon,
-  BoltIcon,
-  CheckCircleIcon,
-  ChatBubbleIcon,
 } from "./icons";
 import type { AppTab } from "../types";
-import { APP_VERSION_LABEL } from "../version";
 
 interface HomePageProps {
   onNavigate: (tab: AppTab) => void;
 }
-
-// "What's new" entries for the current version; texts live in home.whatsNew.<key>.
-// Rewrite these (all 8 locales + .github/release-notes.md) with every release.
-const RELEASE_ITEMS: { key: string; Icon: React.ComponentType<{ className?: string }> }[] = [
-  { key: "layout", Icon: SidebarIcon },
-  { key: "themes", Icon: PaletteIcon },
-  { key: "accessibility", Icon: UserIcon },
-  { key: "settings", Icon: SettingsIcon },
-  { key: "feedback", Icon: ChatBubbleIcon },
-  { key: "motion", Icon: SparklesIcon },
-  { key: "sponsors", Icon: ArrowDownTrayIcon },
-  { key: "icons", Icon: SunoDownloaderIcon },
-  { key: "font", Icon: DocumentTextIcon },
-  { key: "performance", Icon: BoltIcon },
-  { key: "fixes", Icon: CheckCircleIcon },
-];
 
 type Tool = {
   id: AppTab;
@@ -179,31 +152,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
         </div>
       ))}
-
-      <div className="section section-pad flex flex-col gap-4">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div>
-            <p className="section-title">
-              {t("home.whatsNew.title", { version: APP_VERSION_LABEL, defaultValue: "What's new in {{version}}" })}
-            </p>
-            <p className="section-desc">{t("home.whatsNew.subtitle", "Everything that changed in this update.")}</p>
-          </div>
-          <span className="chip">{t("home.releaseMonth", "October 2026")}</span>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4">
-          {RELEASE_ITEMS.map(({ key, Icon }) => (
-            <div key={key} className="flex gap-3">
-              <span className="icon-tile !h-8 !w-8 !rounded-lg">
-                <Icon className="!h-4 !w-4" />
-              </span>
-              <div className="min-w-0">
-                <p className="text-[0.8438rem] font-semibold text-[var(--color-text-primary)]">{t(`home.whatsNew.${key}.title`)}</p>
-                <p className="mt-0.5 text-[0.7812rem] leading-relaxed text-[var(--color-text-secondary)]">{t(`home.whatsNew.${key}.desc`)}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
 
       <div className="flex flex-col gap-3">
         <div className="section section-pad flex flex-col gap-3">

@@ -151,7 +151,8 @@ textarea {
 
 .app-shell {
   display: flex;
-  height: 100vh;
+  /* --page-zoom is only set by the browser-preview zoom fallback, which also shrinks vh */
+  height: calc(100vh / var(--page-zoom, 1));
   width: 100%;
   overflow: hidden;
   background: var(--color-app-bg);
@@ -1119,4 +1120,254 @@ textarea.input {
 html.theme-transition *,
 html.theme-transition *::before {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, fill 0.3s ease !important;
+}
+
+/* =====================================================================
+   Floating sidebar + liquid glass (Settings > Appearance > Liquid glass).
+   The sidebar floats in every mode; html.glass only changes the material.
+   ===================================================================== */
+.sidebar {
+  position: relative;
+  margin: 12px 0 12px 12px;
+  height: calc(100% - 24px);
+  border: 1px solid var(--color-app-border-soft);
+  border-radius: 26px;
+  box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  transition: width 0.22s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+.sidebar[data-collapsed="true"] {
+  width: 68px;
+}
+
+.sidebar-brand {
+  padding: 0 14px 0 16px;
+}
+
+.sidebar nav {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.nav-item {
+  height: 40px;
+  border-radius: 999px;
+  padding: 0 14px;
+}
+
+.nav-item:hover {
+  background: color-mix(in srgb, var(--color-text-primary) 6%, transparent);
+}
+
+/* Active page: its own glass pill that settles in place (no sliding on desktop) */
+.nav-item[data-active="true"],
+.nav-item[data-active="true"]:hover {
+  background: var(--color-accent-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-accent) 28%, transparent);
+  animation: nav-settle 0.24s ease-out;
+}
+
+.nav-item[data-active="true"]::before {
+  display: none;
+}
+
+@keyframes nav-settle {
+  from {
+    opacity: 0.55;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sidebar .border-t {
+  margin: 0 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ---------- Liquid glass material ---------- */
+html.glass {
+  --glass-bg: color-mix(in srgb, var(--color-app-surface) 62%, transparent);
+  --glass-bg-strong: color-mix(in srgb, var(--color-app-surface) 78%, transparent);
+  --glass-border: color-mix(in srgb, #fff 13%, transparent);
+  --glass-blur: blur(22px) saturate(180%);
+  --glass-rim:
+    inset 0 1.5px 0 color-mix(in srgb, #fff 26%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, #fff 6%, transparent),
+    inset 1px 0 0 color-mix(in srgb, #fff 7%, transparent),
+    inset -1px 0 0 color-mix(in srgb, #fff 4%, transparent);
+  --glass-drop: 0 14px 34px -20px rgba(0, 0, 0, 0.65);
+  --radius-card: 22px;
+  --radius-control: 999px;
+}
+
+html.glass.light-mode {
+  --glass-bg: color-mix(in srgb, #fff 62%, transparent);
+  --glass-bg-strong: color-mix(in srgb, #fff 80%, transparent);
+  --glass-border: color-mix(in srgb, #fff 80%, transparent);
+  --glass-drop: 0 14px 30px -20px rgba(30, 40, 60, 0.35);
+}
+
+html.glass .sidebar {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  box-shadow: var(--glass-rim), 0 22px 46px -24px rgba(0, 0, 0, 0.7);
+}
+
+html.glass .nav-item[data-active="true"] {
+  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  box-shadow:
+    inset 0 1.5px 0 color-mix(in srgb, #fff 36%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, #fff 8%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--color-accent) 36%, transparent),
+    0 8px 20px -10px color-mix(in srgb, var(--color-accent) 70%, transparent);
+}
+
+html.glass .section,
+html.glass .card {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  box-shadow: var(--glass-rim), var(--glass-drop);
+}
+
+html.glass .btn-secondary {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  box-shadow: var(--glass-rim);
+}
+
+html.glass .btn-primary {
+  box-shadow:
+    inset 0 1.5px 0 color-mix(in srgb, #fff 42%, transparent),
+    inset 0 -2px 0 color-mix(in srgb, #000 14%, transparent),
+    0 10px 22px -12px var(--color-accent);
+}
+
+html.glass .input {
+  background: color-mix(in srgb, var(--color-app-bg) 55%, transparent);
+  border-color: var(--glass-border);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.18);
+  padding-left: 18px;
+}
+
+html.glass textarea.input {
+  border-radius: 20px;
+}
+
+html.glass .icon-btn {
+  border-radius: 999px;
+}
+
+html.glass .icon-tile {
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 20%, transparent);
+}
+
+/* Floating layers (modals, drawers, toasts) blur what is behind them */
+html.glass .drawer-panel,
+html.glass .modal-panel,
+html.glass .toast {
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+html.glass .segmented {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-app-bg) 55%, transparent);
+  border-color: var(--glass-border);
+}
+
+html.glass .segmented button {
+  border-radius: 999px;
+}
+
+html.glass .segmented button[data-active="true"] {
+  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 30%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--color-accent) 36%, transparent);
+}
+
+html.glass .mode-card {
+  border-radius: 18px;
+}
+
+html.glass .toast {
+  border-radius: 22px;
+  border-color: var(--glass-border);
+  box-shadow: var(--glass-rim), 0 12px 30px -12px rgba(0, 0, 0, 0.55);
+}
+
+/* Home "What's new": GitHub release notes, folded until "Show all" */
+.release-body {
+  position: relative;
+  max-height: 230px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+
+.release-body[data-open="true"] {
+  max-height: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* Liquid glass switch: a wider track, a pill knob that turns into a glass lens while pressed */
+html.glass .switch {
+  width: 50px;
+  height: 28px;
+  background: color-mix(in srgb, var(--color-accent) 22%, color-mix(in srgb, var(--color-text-primary) 12%, transparent));
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.28),
+    inset 0 -1px 0 color-mix(in srgb, #fff 10%, transparent);
+}
+
+html.glass .switch[data-on="true"] {
+  background: var(--color-accent);
+}
+
+html.glass .switch span {
+  top: 4px;
+  left: 4px;
+  width: 26px;
+  height: 20px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.38s cubic-bezier(0.34, 1.4, 0.64, 1),
+    width 0.22s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    scale 0.22s ease;
+}
+
+html.glass .switch[data-on="true"] span {
+  transform: translateX(16px);
+}
+
+html.glass .switch:hover span {
+  scale: 1.06;
+}
+
+html.glass .switch:active span {
+  width: 32px;
+  scale: 1.22;
+  background: color-mix(in srgb, #fff 32%, transparent);
+  backdrop-filter: blur(3px) saturate(220%);
+  -webkit-backdrop-filter: blur(3px) saturate(220%);
+  box-shadow:
+    inset 0 1.5px 0 color-mix(in srgb, #fff 85%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, #fff 40%, transparent),
+    0 0 0 1px color-mix(in srgb, #fff 55%, transparent),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.glass .switch[data-on="true"]:active span {
+  transform: translateX(10px);
 }

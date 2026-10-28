@@ -108,7 +108,7 @@ MP3、WAV、FLAC、M4Aのタイトル、アーティスト、アルバム、年�
 9つのカラーテーマ、360°カラーピッカー、文字・表示サイズ拡大（90%〜150%）、8言語対応を搭載。
 
 <p align="center">
-  <img src="docs/screenshots/gorunum.gif" alt="デスクトップ設定 ＆ カスタマイズ" width="100%" />
+  <img src="docs/screenshots/appearance.png" alt="デスクトップ設定 ＆ カスタマイズ" width="100%" />
 </p>
 
 <table>

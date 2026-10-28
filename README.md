@@ -108,7 +108,7 @@ Drop any audio file to identify its root musical key, Camelot Wheel position (e.
 Tailor Sophy Studio to your creative setup: 9 curated colour presets (Ocean, Lagoon, Forest, Amber, Ember, Crimson, Orchid, Violet, Graphite), an interactive 360° hex colour wheel, accessible text and display zoom scaling (90% to 150%), customizable output directories for each media type, and full 8-language localization.
 
 <p align="center">
-  <img src="docs/screenshots/gorunum.gif" alt="Desktop Settings & Personalization" width="100%" />
+  <img src="docs/screenshots/appearance.png" alt="Desktop Settings & Personalization" width="100%" />
 </p>
 
 <table>

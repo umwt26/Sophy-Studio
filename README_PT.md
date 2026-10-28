@@ -108,7 +108,7 @@ Arraste qualquer arquivo para identificar o tom musical, a posição na roda Cam
 Personalize o Sophy Studio com 9 temas de cores, seletor de cores em 360°, zoom acessível de texto e interface (90% a 150%) e 8 idiomas nativos.
 
 <p align="center">
-  <img src="docs/screenshots/gorunum.gif" alt="Configurações e Personalização Desktop" width="100%" />
+  <img src="docs/screenshots/appearance.png" alt="Configurações e Personalização Desktop" width="100%" />
 </p>
 
 <table>

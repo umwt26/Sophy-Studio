@@ -71,7 +71,10 @@
       "mp3": "Descargar en MP3 (320k)",
       "wav": "Descargar WAV sin pérdida",
       "original": "Descargar audio original"
-    }
+    },
+    "historyCount": "canciones guardadas",
+    "searchHistory": "Buscar en el historial...",
+    "noSearchResults": "No hay canciones que coincidan."
   },
   "nav": {
     "home": "Inicio",
@@ -128,55 +131,25 @@
     "whatsNew": {
       "title": "Novedades de la {{version}}",
       "subtitle": "Todo lo que cambió en esta actualización.",
-      "layout": {
-        "title": "Un diseño nuevo y más claro",
-        "desc": "El botón de menú desapareció: todas las herramientas están ahora en una barra lateral fija, agrupadas en Descargar, Crear y Editar y analizar. Contráela a iconos con un clic; en ventanas estrechas se contrae sola. Cada página tiene la misma fila de título con sus acciones a la derecha."
+      "glass": {
+        "title": "Liquid glass",
+        "desc": "Tarjetas, botones, campos y paneles tienen ahora un aspecto de cristal translúcido con brillos suaves y esquinas más redondeadas. Las ventanas y avisos desenfocan lo que hay detrás. En Ajustes > Apariencia hay un interruptor Liquid glass para volver al estilo plano."
       },
-      "themes": {
-        "title": "Temas de color para toda la app",
-        "desc": "Elige uno de los 9 temas (Océano, Laguna, Bosque, Ámbar, Brasa, Carmesí, Orquídea, Violeta, Grafito) o cualquier color del selector. El tema ahora tiñe fondos, la barra lateral, bordes, la página activa y las selecciones. El tono de fondo (Neutro, Suave, Intenso) define su intensidad; el modo claro usa tonos más oscuros para que el texto siga legible."
+      "sidebar": {
+        "title": "Barra lateral flotante",
+        "desc": "La barra lateral flota ahora como un panel de cristal redondeado junto a la página. La página actual se marca con una píldora de cristal que aparece en su sitio, también en la lista de ajustes."
       },
-      "accessibility": {
-        "title": "Nuevos ajustes de accesibilidad",
-        "desc": "El tamaño del texto (de Pequeño a Muy grande) agranda todo el texto sin romper el diseño, el tamaño de pantalla amplía toda la interfaz del 90 % al 150 %, y Reducir movimiento desactiva las animaciones."
-      },
-      "settings": {
-        "title": "Ajustes rediseñados",
-        "desc": "Nuevo orden: Idioma, Apariencia, Accesibilidad, Carpetas, Acerca de. Las tarjetas de idioma muestran cada idioma con su propio nombre y en el tuyo; Apariencia tiene vistas previas para Claro, Oscuro y Sistema, el selector de color y colores predefinidos debajo."
-      },
-      "font": {
-        "title": "Nueva tipografía: Coolvetica",
-        "desc": "Toda la interfaz usa Coolvetica, incluidas las letras turcas y cirílicas. El japonés usa la fuente del sistema."
-      },
-      "installer": {
-        "title": "Actualizaciones e instalación más sencillas",
-        "desc": "El instalador ya no te pide desinstalar primero la versión anterior. Elimina en silencio el Sophy Studio previo e instala el nuevo encima. Tu historial, ajustes, descargas y accesos directos se conservan."
-      },
-      "performance": {
-        "title": "Más ligero en PCs antiguos",
-        "desc": "Se eliminaron los efectos de desenfoque y brillo, y las animaciones solo usan movimientos ligeros y amables con la GPU, para que la app siga fluida en equipos modestos."
+      "prompter": {
+        "title": "Suno Prompter más listo",
+        "desc": "«Añade un piano a la intro y haz el hook más enérgico» ahora cambia solo esas partes en lugar de borrar tus estrofas. «Estribillo» significa el hook en el rap, y «quita el puente» quita solo el puente."
       },
       "fixes": {
         "title": "Correcciones",
-        "desc": "Se corrigieron los colores al pasar el ratón en modo claro, los fondos de iconos que faltaban en varias páginas, textos sin traducir y una solicitud de fuente en línea innecesaria al iniciar. Se quitó el botón Carpeta del estudio de la página de inicio."
-      },
-      "feedback": {
-        "title": "Los comentarios tienen su propia página",
-        "desc": "Enviar comentarios ahora es una página completa en la barra lateral en lugar de una ventana emergente: elige Error, Idea u Otro, escribe todo lo que necesites y mira consejos sobre qué incluir. La versión de la app se adjunta automáticamente."
-      },
-      "motion": {
-        "title": "Animaciones fluidas",
-        "desc": "Las páginas, tarjetas y ajustes aparecen suavemente, los botones reaccionan al pulsarlos, los cambios de tema se funden, y los paneles de Historial y Chats ahora se deslizan limpiamente desde la derecha."
-      },
-      "sponsors": {
-        "title": "Patrocinadores antes de cada acción importante",
-        "desc": "Ahora aparece una breve tarjeta de patrocinador antes de las descargas, la exportación de muestras, el guardado de etiquetas y los resultados de análisis. Una barra se llena y el botón se desbloquea tras unos segundos. Los patrocinadores mantienen Sophy Studio gratis."
-      },
-      "icons": {
-        "title": "Nuevos iconos de Suno",
-        "desc": "Suno Downloader y Suno Style Prompter tienen sus propios iconos nuevos, que siguen el tema de color como los demás. Las tarjetas de inicio se iluminan con el color del tema al pasar el ratón."
+        "desc": "Acerca de muestra el icono de Sophy. Los textos que salían en turco en otros idiomas (resultados de Key y BPM, Sample Cutter, historial de Suno) están traducidos, y el elemento elegido en Ajustes ya no se corta en el borde."
       }
-    }
+    },
+    "showAll": "Ver todo",
+    "showLess": "Ver menos"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -283,7 +256,9 @@
     "stageResampling": "Resampling to 44.1kHz studio frequency...",
     "stageChroma": "Extracting harmonic 12-Chroma HPCP & pitch profile...",
     "stageRhythm": "Scanning rhythm patterns & beat intervals...",
-    "stageComplete": "Camelot wheel & tempo detection complete!"
+    "stageComplete": "Camelot wheel & tempo detection complete!",
+    "showResults": "Mostrar resultados",
+    "readyResults": "Tus resultados de Key y BPM están listos."
   },
   "settings": {
     "title": "Ajustes",
@@ -400,7 +375,9 @@
       "pt": "Portugués",
       "ru": "Ruso",
       "ja": "Japonés"
-    }
+    },
+    "glassTitle": "Liquid glass",
+    "glassHint": "Barra de menú y paneles translúcidos y ligeramente desenfocados. Desactívalo para un estilo plano."
   },
   "suno": {
     "emptyTitle": "Descargar Pista de Suno",
@@ -424,7 +401,8 @@
     "delete": "Eliminar",
     "cancel": "Cancelar",
     "save": "Guardar",
-    "retry": "Retry"
+    "retry": "Retry",
+    "error": "Error"
   },
   "cutter": {
     "title": "Sample Cutter (8s Waveform Slicer)",
@@ -449,7 +427,9 @@
     "exportSuccess": "Sample cut & saved successfully!",
     "exportError": "Failed to cut sample: {{error}}",
     "tooShort": "File duration is shorter than 8 seconds, cannot cut sample.",
-    "sponsorAction": "Guardar muestra de 8 s ({{format}})"
+    "sponsorAction": "Guardar muestra de 8 s ({{format}})",
+    "loaded": "¡Archivo de audio cargado!",
+    "loadError": "No se pudo abrir el archivo"
   },
   "feedback": {
     "title": "Send Feedback",

@@ -135,18 +135,6 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
     };
   }, []);
 
-  const handleHalfBpm = () => {
-    if (currentBpm) setCurrentBpm(Math.round(currentBpm / 2));
-  };
-
-  const handleDoubleBpm = () => {
-    if (currentBpm) setCurrentBpm(Math.round(currentBpm * 2));
-  };
-
-  const handleNudgeBpm = (delta: number) => {
-    if (currentBpm) setCurrentBpm(Math.max(1, currentBpm + delta));
-  };
-
   return (
     <div className="page">
       <PageHeader
@@ -303,42 +291,6 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
                 <p className="text-xs text-[var(--color-text-tertiary)] mt-1">
                   {t("detector.bpmDescription", "Doğruluk oranı yüksek vuruş ve ritim tespiti.")}
                 </p>
-              </div>
-
-              <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-[var(--color-app-border)] pt-4">
-                <span className="eyebrow">
-                  {t("detector.tempoCorrection", "Tempo Düzelt")}
-                </span>
-                <div className="flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => handleNudgeBpm(-1)}
-                    className="btn btn-secondary px-2 py-1 text-xs font-mono"
-                  >
-                    -1
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleNudgeBpm(1)}
-                    className="btn btn-secondary px-2 py-1 text-xs font-mono"
-                  >
-                    +1
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleHalfBpm}
-                    className="btn btn-secondary px-2.5 py-1 text-xs"
-                  >
-                    /2
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleDoubleBpm}
-                    className="btn btn-secondary px-2.5 py-1 text-xs"
-                  >
-                    x2
-                  </button>
-                </div>
               </div>
             </div>
           </div>

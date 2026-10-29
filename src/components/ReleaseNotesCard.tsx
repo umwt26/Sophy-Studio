@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MarkdownRenderer } from "./MarkdownRenderer";
-import { CheckCircleIcon, SidebarIcon, SparklesIcon, SunoPrompterIcon } from "./icons";
+import { CheckCircleIcon, GlobeIcon, PhoneIcon, RefreshIcon } from "./icons";
 import { cachedReleaseNotes, fetchReleaseNotes, type ReleaseNotes } from "../utils/releaseNotes";
 import { APP_VERSION, APP_VERSION_LABEL } from "../version";
 
 // Built-in summary, only shown until the GitHub notes have been loaded once (offline first start).
 const FALLBACK_ITEMS: { key: string; Icon: React.ComponentType<{ className?: string }> }[] = [
-  { key: "glass", Icon: SparklesIcon },
-  { key: "sidebar", Icon: SidebarIcon },
-  { key: "prompter", Icon: SunoPrompterIcon },
+  { key: "mobile", Icon: PhoneIcon },
+  { key: "notify", Icon: RefreshIcon },
+  { key: "website", Icon: GlobeIcon },
   { key: "fixes", Icon: CheckCircleIcon },
 ];
 

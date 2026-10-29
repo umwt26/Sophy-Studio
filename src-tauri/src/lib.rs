@@ -1,5 +1,8 @@
 mod commands;
 mod prompter_ai;
+mod update_notify;
+
+pub use update_notify::background_check as background_update_check;
 
 use commands::*;
 use prompter_ai::*;
@@ -34,7 +37,8 @@ pub fn run() {
       prompter_ai_status,
       prompter_ai_download,
       prompter_ai_delete,
-      prompter_ai_understand
+      prompter_ai_understand,
+      update_notify::save_notify_texts
     ])
     .setup(|app| {
       if let Some(window) = app.get_webview_window("main") {
@@ -44,6 +48,9 @@ pub fn run() {
 
       // Automatically clean up legacy machine-wide v0.1.0 duplicate installations & shortcuts
       cleanup_legacy_installations();
+
+      // Update notifications while the app is closed (scheduled task + Windows toast)
+      update_notify::register();
 
       // Suno Style Prompter AI model: downloaded silently on first run (only on CPUs that can run it)
       prompter_ai::spawn_auto_download(app.handle().clone());

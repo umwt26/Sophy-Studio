@@ -20,7 +20,9 @@ import {
   MonitorIcon,
   ExternalLinkIcon,
   UserIcon,
+  GlobeIcon,
 } from "./icons";
+import { siteUrl } from "../utils/sendLink";
 import { THEME_PRESETS, isCustomColor, loadSavedTheme, pickedAccent, resolveIsDark, saveTheme } from "../utils/theme";
 import {
   DISPLAY_SCALES,
@@ -258,7 +260,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
       </div>
 
       <div className="flex flex-col md:flex-row items-start gap-6">
-        <nav className="w-full md:w-52 shrink-0 flex md:flex-col gap-1 overflow-x-auto md:overflow-visible -m-1 p-1">
+        {/* Stays in view while the settings on the right scroll */}
+        <nav className="w-full md:w-52 shrink-0 flex md:flex-col gap-1 overflow-x-auto md:overflow-visible -m-1 p-1 md:sticky md:top-6 md:z-10">
           {categories.map(({ id, label, Icon }) => (
             <button
               key={id}
@@ -557,6 +560,22 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onShowToast }) => {
                   </div>
                   <span className="chip chip-accent font-mono">{APP_VERSION_LABEL}</span>
                 </div>
+
+                <a href={siteUrl(i18n.language)} target="_blank" rel="noopener noreferrer" className="setting-row group">
+                  <div className="flex items-center gap-3.5 min-w-0">
+                    <span className="icon-tile shrink-0">
+                      <GlobeIcon />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="setting-label">{t("website.title", "Sophy Studio on the web")}</p>
+                      <p className="setting-hint">{t("website.desc", "Downloads, release notes and the blog live on sophy.beli26.xyz.")}</p>
+                    </div>
+                  </div>
+                  <span className="flex items-center gap-1.5 text-[0.8125rem] font-semibold text-[var(--color-accent)]">
+                    sophy.beli26.xyz
+                    <ExternalLinkIcon className="h-3.5 w-3.5" />
+                  </span>
+                </a>
 
                 <div className="setting-row setting-row-stack">
                   <p className="setting-label">{t("settings.socialMedia", "Social Media")}</p>

@@ -129,7 +129,30 @@ const SPONSORS: Sponsor[] = [
   },
 ];
 
-export function AdModal({
+/**
+ * Demo recordings (localStorage "sophy_demo" = "1", set only by the demo scripts) skip the
+ * sponsor and run the action straight away, so product videos don't show an ad.
+ */
+function isDemo(): boolean {
+  try {
+    return localStorage.getItem("sophy_demo") === "1";
+  } catch {
+    return false;
+  }
+}
+
+export function AdModal(props: AdModalProps) {
+  const demo = isDemo();
+  useEffect(() => {
+    if (!demo) return;
+    props.onConfirm();
+    props.onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return demo ? null : <SponsorModal {...props} />;
+}
+
+function SponsorModal({
   onClose,
   onConfirm,
   actionTitle,

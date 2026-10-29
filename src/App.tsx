@@ -13,6 +13,7 @@ import { SampleCutterPage } from "./components/SampleCutterPage";
 import { SettingsPage } from "./components/SettingsPage";
 import { AudioFormatModal } from "./components/AudioFormatModal";
 import { FeedbackPage } from "./components/FeedbackPage";
+import { MobileAppPage } from "./components/MobileAppPage";
 import { SunoHistoryDrawer } from "./components/SunoHistoryDrawer";
 import { AdModal } from "./components/AdModal";
 import { UpdateModal } from "./components/UpdateModal";
@@ -30,8 +31,16 @@ function formatDuration(sec?: number): string {
 }
 
 export default function App() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState<AppTab>("home");
+
+  // Texts for the update toast that the background check shows while the app is closed
+  useEffect(() => {
+    invoke("save_notify_texts", {
+      title: t("notify.updateTitle", { version: "{version}", defaultValue: "Sophy Studio {{version}} is out" }),
+      body: t("notify.updateBodyDesktop", "Click to see what's new and update."),
+    }).catch(() => {});
+  }, [i18n.language, t]);
   const [song, setSong] = useState<SongData | null>(null);
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -310,6 +319,7 @@ export default function App() {
 
           {activeTab === "prompter" && <SunoPrompterPage onShowToast={showToast} />}
 
+          {activeTab === "mobile-app" && <MobileAppPage onShowToast={showToast} />}
           {activeTab === "feedback" && <FeedbackPage onShowToast={showToast} />}
 
           {activeTab === "settings" && (

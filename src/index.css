@@ -1371,3 +1371,17 @@ html.glass .switch:active span {
 html.glass .switch[data-on="true"]:active span {
   transform: translateX(10px);
 }
+
+/* Phone screenshot in a slim device frame (Mobile app page) */
+.phone-frame {
+  width: 100%;
+  max-width: 220px;
+  padding: 6px;
+  border-radius: 30px;
+  background: #0b0c0e;
+  border: 1px solid var(--color-app-border);
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.45);
+}
+.phone-frame img {
+  border-radius: 24px;
+}

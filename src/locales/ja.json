@@ -118,7 +118,7 @@
     "tipOffline": "すべての解析と変換は外部サーバーに送信されず、端末内で完結します。",
     "cutterTitle": "Sample Cutter (8s)",
     "cutterDesc": "Trim seamless 8-second audio samples from your tracks for Suno and music production.",
-    "releaseMonth": "October 2026",
+    "releaseMonth": "2026年10月",
     "tagCoverArt": "Cover Art",
     "tagTagEditor": "Tag Editor",
     "tagRhythmAnalysis": "Rhythm Analysis",
@@ -131,21 +131,21 @@
     "whatsNew": {
       "title": "{{version}} の新機能",
       "subtitle": "今回のアップデートで変わったことのすべて。",
-      "glass": {
-        "title": "Liquid glass",
-        "desc": "カード、ボタン、入力欄、パネルが、やわらかな光沢と丸みのある角を持つ半透明のガラス調になりました。ポップアップや通知は背後をぼかします。設定 > 外観の Liquid glass スイッチでフラットな見た目に戻せます。"
+      "mobile": {
+        "title": "サイドバーに Android アプリ",
+        "desc": "「フィードバックを送信」の上に新しい「モバイルアプリ」ページ。Android 版を紹介し、sophy@beli26.xyz からダウンロードリンクをメールで送ります。"
       },
-      "sidebar": {
-        "title": "浮かぶサイドバー",
-        "desc": "サイドバーはページの横に浮かぶ角丸のガラスパネルになりました。表示中のページはその場に現れるガラスの印で示され、設定の一覧でも同じです。"
+      "notify": {
+        "title": "アップデート通知",
+        "desc": "Sophy Studio を閉じていても、新しいバージョンが出ると Windows の通知でお知らせします。クリックでアップデートを開きます。"
       },
-      "prompter": {
-        "title": "賢くなった Suno Prompter",
-        "desc": "「イントロにピアノを足してフックをもっとエネルギッシュに」と入力すると、ヴァースを消さずにその部分だけを変更します。ラップ曲では「サビ」がフックを指し、「ブリッジを消して」はブリッジだけを消します。"
+      "website": {
+        "title": "Sophy Studio のウェブサイト",
+        "desc": "sophy.beli26.xyz にダウンロード、リリースノート、ブログがあります。設定 > 情報 とホームから開けます。"
       },
       "fixes": {
-        "title": "修正",
-        "desc": "「このアプリについて」に Sophy のアイコンが付きました。他の言語でトルコ語のまま表示されていた文言（キーと BPM の結果、Sample Cutter、Suno の履歴）を翻訳し、設定で選択中の項目が端で切れる問題を直しました。"
+        "title": "すっきりした設定と BPM",
+        "desc": "設定メニューはスクロールしても固定され、Key & BPM は検出したテンポだけを表示します（×2 / ÷2 ボタンを削除）。"
       }
     },
     "showAll": "すべて表示",
@@ -523,5 +523,55 @@
     "collapse": "サイドバーを折りたたむ",
     "expand": "サイドバーを広げる",
     "updateAvailable": "v{{version}} に更新"
+  },
+  "website": {
+    "title": "Sophy Studio のウェブサイト",
+    "desc": "ダウンロード、リリースノート、ブログは sophy.beli26.xyz にあります。",
+    "open": "サイトを開く"
+  },
+  "sendLink": {
+    "formTitle": "どこに送りますか？",
+    "formDescAndroid": "お名前とメールアドレスを入力してください。sophy@beli26.xyz から Android 版のリンクをお送りします。",
+    "formDescWindows": "お名前とメールアドレスを入力してください。sophy@beli26.xyz から Windows 版のリンクをお送りします。",
+    "name": "氏名",
+    "namePh": "例: 山田 太郎",
+    "email": "メールアドレス",
+    "emailPh": "name@example.com",
+    "send": "リンクを送信",
+    "sending": "送信中…",
+    "sentTitle": "受信トレイを確認してください",
+    "sentBody": "{{email}} にリンクを送信しました。1 分ほどで届かない場合は迷惑メールフォルダをご確認ください。",
+    "again": "別のアドレスに送る",
+    "back": "戻る",
+    "privacy": "アドレスはこのメールの送信にのみ使用します。",
+    "errName": "お名前を入力してください。",
+    "errEmail": "メールアドレスが正しくないようです。",
+    "errTooMany": "リクエストが多すぎます。しばらくしてからお試しください。",
+    "errFailed": "メールを送信できませんでした。少し時間をおいて再度お試しください。",
+    "errOffline": "接続がありません。インターネットを確認して再度お試しください。"
+  },
+  "mobileApp": {
+    "nav": "モバイルアプリ",
+    "title": "Android 版 Sophy Studio",
+    "subtitle": "ツールキットをポケットに。無料、このアプリと同じバージョン。",
+    "lead": "YouTube、TikTok、Instagram の動画を Sophy Studio に共有するだけで、見ているアプリを離れずにその場でダウンロードできます。",
+    "f1t": "共有してダウンロード",
+    "f1d": "今のアプリの上に透明なパネルが開き、ワンタップで MP4、MP3、WAV。",
+    "f2t": "Suno と Prompter",
+    "f2d": "Suno の曲をダウンロードし、チャット感覚でスタイルプロンプトを作成。",
+    "f3t": "カット、タグ、解析",
+    "f3d": "Sample Cutter、メタデータエディター、Key & BPM もスマホで。",
+    "f4t": "一緒にアップデート",
+    "f4d": "デスクトップ版と Android 版は同じバージョンで同時に公開されます。",
+    "req": "Android 8.0 以降 · 無料",
+    "sendTitle": "メールで送る",
+    "sendDesc": "ダウンロードリンクをメールでお送りします。スマートフォンで開いてインストールしてください。",
+    "sendBtn": "リンクをメールで受け取る",
+    "openPage": "ダウンロードページを開く"
+  },
+  "notify": {
+    "updateTitle": "Sophy Studio {{version}} が公開されました",
+    "updateBody": "タップして新機能を確認し、アップデートします。",
+    "updateBodyDesktop": "クリックして新機能を確認し、アップデートします。"
   }
 }

@@ -1,44 +1,44 @@
-# ✨ Sophy Studio v1.4.1
+# ✨ Sophy Studio v1.5
 
-Liquid glass and a floating sidebar on desktop, a faster and more native Android app, and a smarter Suno Prompter on both. 🎉
+Both apps now know about each other, tell you about updates even when they're closed, and point to the new website. 🎉
 
-💾 **Your history, settings and downloaded files are kept.** Just install and keep going.
+## 📦 Downloads
 
-📦 **Which file?** Windows: `Sophy_Studio_Portable_v1.4.1.exe` · Android: `Sophy_Studio_Mobile_v1.4.1.apk` (the app also offers it as an update by itself).
+Both files are attached below, under **Assets**.
+
+- 🖥️ **Windows**: `Sophy_Studio_Setup_v1.5.0.exe`
+- 📱 **Android**: `Sophy_Studio_Mobile_v1.5.0.apk`
+
+💾 Your history, settings and downloads are kept. Already on v1.4? Both apps offer this update by themselves.
 
 ---
 
 ## 🖥️ Desktop
 
-### 🫧 Liquid glass
-- 🪟 Cards, buttons, fields, switches and panels now have a **see-through glass look** with soft highlights and rounder corners.
-- 🔘 Switches turn into a little glass lens while you press them.
-- 🌫️ Pop-ups and notices blur what is behind them.
-- 🎚️ Prefer the flat look? **Settings → Appearance → Liquid glass** turns it off.
+**📱 Mobile app page**
+- New **Mobile app** item above **Send Feedback** in the sidebar.
+- Shows what the Android app does: share a video from any app to download it, Suno and the Prompter, Sample Cutter, Metadata and Key & BPM.
+- **Email me the link**: enter your name and email, and the Android download link arrives from **sophy@beli26.xyz** in a short, clean mail.
 
-### 🧭 A floating sidebar
-- 📌 The sidebar floats as a **rounded glass panel** beside the page.
-- 💊 The page you are on is marked by a glass pill that settles in place, in the Settings list too.
+**🔔 Update notifications**
+- Sophy Studio now checks for a new version every 6 hours, **even while the app is closed**, and shows a Windows notification.
+- Click the notification to open the app and update. Each version is announced at most once a day.
 
-### 🚀 Clean start-up
-- ⚫ No more white box or jumping layout when the app opens: the window appears once everything is ready, already in your theme.
-
-### 🛠️ Fixes
-- 🌍 Texts that showed up in Turkish in other languages (Key & BPM results, Sample Cutter, Suno history) are translated.
-- 📐 The selected item in Settings is no longer cut off at the edge.
+**🧭 Settings**
+- The menu on the left (Language, Appearance, Accessibility, Folders, About) stays in place while you scroll the settings on the right.
 
 ## 📱 Android
 
-- ⚡ **Much faster link info**: YouTube, TikTok, SoundCloud and Vimeo titles and covers now show up in about a second, in the app and in the Share panel.
-- ✋ **Cancel downloads** from the notification, the Share panel or the progress bar in the app.
-- 🔔 **Better notifications**: the Sophy icon in the status bar. Finished downloads and new versions pop up from the top with sound (also on Samsung). Download progress stays silent.
-- ⬆️ **Updates** open on a full screen showing the size and a large progress bar.
-- 🔷 About in Settings now has the Sophy icon.
+**🖥️ Desktop app page**
+- New **Desktop app** item under **Send Feedback** in Settings.
+- Shows what the Windows version adds: bulk downloads, on-device AI Prompter, tags for WAV, FLAC and M4A.
+- **Email me the link** sends the Windows download link to your inbox.
+
+**🔔 Update notifications without opening the app**
+- New versions are checked every 6 hours in the background, also after a restart, so the notification arrives without opening Sophy Studio first.
+- Tap it to open the update screen.
 
 ## 🧠 Both
 
-- 🎹 **Smarter Suno Prompter**:
-  - "Add a piano to the intro and make the hook more energetic" now changes **only those sections**; your verses stay.
-  - In rap songs, "chorus" / "nakarat" means the hook.
-  - "Remove the bridge" removes just the bridge.
-- 📰 **What's new** now lives in **Settings → About** and comes straight from these release notes.
+- 🌐 **Website**: downloads, release notes and the blog are on **[sophy.beli26.xyz](https://sophy.beli26.xyz)**. Find it in **Settings → About** (and on the desktop Home page).
+- 🎹 **Key & BPM**: just the detected tempo, without the ×2 / ÷2 and ±1 buttons.

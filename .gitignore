@@ -55,3 +55,6 @@ dist-portable/
 # Local working notes / handover documents
 AGENT_HANDOVER*.md
 CHAT_HISTORY*.md
+
+# demo recorder
+demo/node_modules/

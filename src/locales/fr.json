@@ -118,7 +118,7 @@
     "tipOffline": "Toutes les analyses et conversions s'exécutent localement sur votre appareil sans envoi vers Internet.",
     "cutterTitle": "Sample Cutter (8s)",
     "cutterDesc": "Trim seamless 8-second audio samples from your tracks for Suno and music production.",
-    "releaseMonth": "October 2026",
+    "releaseMonth": "Octobre 2026",
     "tagCoverArt": "Cover Art",
     "tagTagEditor": "Tag Editor",
     "tagRhythmAnalysis": "Rhythm Analysis",
@@ -131,21 +131,21 @@
     "whatsNew": {
       "title": "Nouveautés de la {{version}}",
       "subtitle": "Tout ce qui a changé dans cette mise à jour.",
-      "glass": {
-        "title": "Liquid glass",
-        "desc": "Cartes, boutons, champs et panneaux ont maintenant un aspect de verre translucide avec de doux reflets et des coins plus arrondis. Les fenêtres et notifications floutent ce qu'il y a derrière. Réglages > Apparence propose un interrupteur Liquid glass pour revenir au style plat."
+      "mobile": {
+        "title": "L’appli Android dans la barre latérale",
+        "desc": "Une nouvelle page Appli mobile au-dessus d’Envoyer un avis présente la version Android et t’envoie son lien depuis sophy@beli26.xyz."
       },
-      "sidebar": {
-        "title": "Une barre latérale flottante",
-        "desc": "La barre latérale flotte désormais comme un panneau de verre arrondi à côté de la page. La page active est marquée par une pastille de verre qui apparaît sur place, aussi dans la liste des réglages."
+      "notify": {
+        "title": "Notifications de mise à jour",
+        "desc": "Windows t’annonce désormais une nouvelle version par une notification, même quand Sophy Studio est fermé. Un clic ouvre la mise à jour."
       },
-      "prompter": {
-        "title": "Suno Prompter plus malin",
-        "desc": "« Ajoute un piano à l'intro et rends le hook plus énergique » ne modifie plus que ces parties au lieu d'effacer tes couplets. « Refrain » désigne le hook dans le rap, et « enlève le pont » n'enlève que le pont."
+      "website": {
+        "title": "Sophy Studio sur le web",
+        "desc": "Téléchargements, notes de version et blog sur sophy.beli26.xyz. À retrouver dans Réglages > À propos et sur l’Accueil."
       },
       "fixes": {
-        "title": "Corrections",
-        "desc": "À propos affiche l'icône Sophy. Les textes qui apparaissaient en turc dans d'autres langues (résultats Key & BPM, Sample Cutter, historique Suno) sont traduits, et l'élément sélectionné dans les réglages n'est plus coupé au bord."
+        "title": "Réglages et BPM plus nets",
+        "desc": "Le menu des Réglages reste en place pendant le défilement, et Key & BPM affiche seulement le tempo détecté, sans ×2 / ÷2."
       }
     },
     "showAll": "Tout afficher",
@@ -523,5 +523,55 @@
     "collapse": "Réduire la barre latérale",
     "expand": "Développer la barre latérale",
     "updateAvailable": "Mettre à jour vers v{{version}}"
+  },
+  "website": {
+    "title": "Sophy Studio sur le web",
+    "desc": "Téléchargements, notes de version et blog sur sophy.beli26.xyz.",
+    "open": "Ouvrir le site"
+  },
+  "sendLink": {
+    "formTitle": "Où devons-nous l'envoyer ?",
+    "formDescAndroid": "Saisis ton nom et ton e-mail. Nous enverrons le lien Android depuis sophy@beli26.xyz.",
+    "formDescWindows": "Saisis ton nom et ton e-mail. Nous enverrons le lien Windows depuis sophy@beli26.xyz.",
+    "name": "Prénom et nom",
+    "namePh": "ex. Marie Dupont",
+    "email": "Adresse e-mail",
+    "emailPh": "nom@exemple.fr",
+    "send": "Envoyer le lien",
+    "sending": "Envoi…",
+    "sentTitle": "Regarde ta boîte de réception",
+    "sentBody": "Le lien part vers {{email}}. Si tu ne le vois pas d'ici une minute, regarde dans les spams.",
+    "again": "Envoyer à une autre adresse",
+    "back": "Retour",
+    "privacy": "Ton adresse sert uniquement à envoyer ce mail.",
+    "errName": "Écris ton nom.",
+    "errEmail": "Cette adresse e-mail ne semble pas correcte.",
+    "errTooMany": "Trop de demandes. Réessaie plus tard.",
+    "errFailed": "Le mail n'a pas pu être envoyé. Réessaie dans un instant.",
+    "errOffline": "Pas de connexion. Vérifie ton internet et réessaie."
+  },
+  "mobileApp": {
+    "nav": "Appli mobile",
+    "title": "Sophy Studio pour Android",
+    "subtitle": "Ta boîte à outils dans la poche. Gratuite, même version que cette appli.",
+    "lead": "Partage une vidéo de YouTube, TikTok ou Instagram vers Sophy Studio et elle se télécharge sur place, sans quitter l'appli où tu es.",
+    "f1t": "Partager pour télécharger",
+    "f1d": "Un panneau transparent s'ouvre sur l'appli en cours : MP4, MP3 ou WAV en un geste.",
+    "f2t": "Suno et le Prompter",
+    "f2d": "Télécharge des chansons Suno et compose des prompts de style comme dans un chat.",
+    "f3t": "Couper, taguer, analyser",
+    "f3d": "Sample Cutter, éditeur de métadonnées et Key & BPM, aussi sur le téléphone.",
+    "f4t": "Mises à jour communes",
+    "f4d": "Bureau et Android sortent avec la même version dans la même publication.",
+    "req": "Android 8.0 ou plus récent · Gratuit",
+    "sendTitle": "Envoyer à mon e-mail",
+    "sendDesc": "On t'envoie le lien de téléchargement. Ouvre-le sur ton téléphone et installe.",
+    "sendBtn": "M'envoyer le lien",
+    "openPage": "Ouvrir la page de téléchargement"
+  },
+  "notify": {
+    "updateTitle": "Sophy Studio {{version}} est disponible",
+    "updateBody": "Touche pour voir les nouveautés et mettre à jour.",
+    "updateBodyDesktop": "Clique pour voir les nouveautés et mettre à jour."
   }
 }

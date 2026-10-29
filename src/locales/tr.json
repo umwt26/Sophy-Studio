@@ -131,21 +131,21 @@
     "whatsNew": {
       "title": "{{version}} ile gelen yenilikler",
       "subtitle": "Bu güncellemede değişen her şey.",
-      "glass": {
-        "title": "Liquid glass",
-        "desc": "Kartlar, butonlar, giriş kutuları ve paneller artık yumuşak parlamalı, arkası görünen cam görünümünde ve köşeleri daha yuvarlak. Açılır pencereler ve bildirimler arkalarını bulanıklaştırıyor. Düz görünüm için Ayarlar > Görünüm'de Liquid glass anahtarı var."
+      "mobile": {
+        "title": "Kenar çubuğunda Android uygulaması",
+        "desc": "Geri bildirim gönderin üstündeki yeni Mobil uygulama sayfası Android sürümünü tanıtır ve indirme bağlantısını sophy@beli26.xyz adresinden mailine gönderir."
       },
-      "sidebar": {
-        "title": "Yüzen kenar menü",
-        "desc": "Kenar menü artık sayfanın yanında yüzen, yuvarlak bir cam panel. Bulunduğun sayfa, yerine oturan cam bir hapla işaretleniyor; Ayarlar listesinde de öyle."
+      "notify": {
+        "title": "Güncelleme bildirimleri",
+        "desc": "Windows artık yeni bir sürüm çıkınca, Sophy Studio kapalıyken bile bildirim gösterir. Tıklayınca güncelleme açılır."
       },
-      "prompter": {
-        "title": "Daha akıllı Suno Prompter",
-        "desc": "\"Intro'ya piyano ekle, hook'u daha enerjik yap\" artık verse'leri silmeden sadece o bölümleri değiştiriyor. Rap şarkılarında \"nakarat\" hook'a uygulanıyor, \"bridge'i çıkar\" sadece bridge'i siliyor."
+      "website": {
+        "title": "Sophy Studio web sitesi",
+        "desc": "sophy.beli26.xyz adresinde indirmeler, sürüm notları ve blog var. Ayarlar > Hakkında ve Ana sayfada bulabilirsin."
       },
       "fixes": {
-        "title": "Düzeltmeler",
-        "desc": "Hakkında bölümünde artık Sophy ikonu var. Diğer dillerde Türkçe görünen metinler (Key & BPM sonuçları, Sample Cutter, Suno geçmişi) çevrildi ve Ayarlar'da seçili satır artık kenardan kesilmiyor."
+        "title": "Daha derli toplu Ayarlar ve BPM",
+        "desc": "Ayarlar menüsü kaydırırken yerinde kalır; Key & BPM sadece bulunan tempoyu gösterir, ×2 / ÷2 düğmeleri kalktı."
       }
     },
     "showAll": "Tümünü göster",
@@ -523,5 +523,55 @@
     "collapse": "Kenar çubuğunu daralt",
     "expand": "Kenar çubuğunu genişlet",
     "updateAvailable": "v{{version}} sürümüne güncelle"
+  },
+  "website": {
+    "title": "Sophy Studio web sitesi",
+    "desc": "İndirmeler, sürüm notları ve blog sophy.beli26.xyz adresinde.",
+    "open": "Siteyi aç"
+  },
+  "sendLink": {
+    "formTitle": "Nereye gönderelim?",
+    "formDescAndroid": "Adını ve e-postanı yaz. Android indirme bağlantısını sophy@beli26.xyz adresinden gönderelim.",
+    "formDescWindows": "Adını ve e-postanı yaz. Windows indirme bağlantısını sophy@beli26.xyz adresinden gönderelim.",
+    "name": "Ad soyad",
+    "namePh": "ör. Ahmet Yılmaz",
+    "email": "E-posta adresi",
+    "emailPh": "ad@ornek.com",
+    "send": "Bağlantıyı gönder",
+    "sending": "Gönderiliyor…",
+    "sentTitle": "Gelen kutuna bak",
+    "sentBody": "Bağlantı {{email}} adresine yola çıktı. Bir dakika içinde görmezsen spam klasörüne bak.",
+    "again": "Başka bir adrese gönder",
+    "back": "Geri",
+    "privacy": "Adresin sadece bu tek maili göndermek için kullanılır.",
+    "errName": "Lütfen adını yaz.",
+    "errEmail": "Bu e-posta adresi doğru görünmüyor.",
+    "errTooMany": "Çok fazla istek geldi. Biraz sonra tekrar dene.",
+    "errFailed": "Mail gönderilemedi. Birazdan tekrar dene.",
+    "errOffline": "Bağlantı yok. İnternetini kontrol edip tekrar dene."
+  },
+  "mobileApp": {
+    "nav": "Mobil uygulama",
+    "title": "Android için Sophy Studio",
+    "subtitle": "Araç kutun cebinde. Ücretsiz, bu uygulamayla aynı sürüm.",
+    "lead": "YouTube, TikTok ya da Instagram'daki bir videoyu doğrudan Sophy Studio'ya paylaş; izlediğin uygulamadan çıkmadan orada iner.",
+    "f1t": "Paylaş, insin",
+    "f1d": "Bulunduğun uygulamanın üstünde şeffaf bir panel açılır: tek dokunuşla MP4, MP3 ya da WAV.",
+    "f2t": "Suno ve Prompter",
+    "f2d": "Suno şarkılarını indir, stil promptlarını sohbet eder gibi yaz.",
+    "f3t": "Kes, etiketle, analiz et",
+    "f3d": "Sample Cutter, Metadata Editör ve Key & BPM telefonda da var.",
+    "f4t": "Birlikte güncellenir",
+    "f4d": "Masaüstü ve Android aynı sürümle, aynı anda çıkar.",
+    "req": "Android 8.0 ve üzeri · Ücretsiz",
+    "sendTitle": "Mailime gönder",
+    "sendDesc": "İndirme bağlantısını mail atarız. Telefonunda açıp kurman yeterli.",
+    "sendBtn": "Bağlantıyı mailime gönder",
+    "openPage": "İndirme sayfasını aç"
+  },
+  "notify": {
+    "updateTitle": "Sophy Studio {{version}} çıktı",
+    "updateBody": "Yenilikleri görmek ve güncellemek için dokun.",
+    "updateBodyDesktop": "Yenilikleri görmek ve güncellemek için tıkla."
   }
 }

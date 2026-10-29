@@ -15,7 +15,9 @@ import {
   SpotifyIcon,
   GitHubIcon,
   DiscordIcon,
+  GlobeIcon,
 } from "./icons";
+import { siteUrl } from "../utils/sendLink";
 import type { AppTab } from "../types";
 
 interface HomePageProps {
@@ -31,7 +33,7 @@ type Tool = {
 };
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const groups: { label: string; tools: Tool[] }[] = [
     {
@@ -94,6 +96,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   ];
 
   const socialLinks = [
+    { label: "sophy.beli26.xyz", href: siteUrl(i18n.language), Icon: GlobeIcon },
     { label: "Instagram (@umw26t)", href: "https://www.instagram.com/umw26t/", Icon: InstagramIcon },
     { label: "Instagram (@_beli26)", href: "https://www.instagram.com/_beli26/", Icon: InstagramIcon },
     { label: "TikTok (@belionthebeat)", href: "https://www.tiktok.com/@belionthebeat", Icon: TikTokIcon },

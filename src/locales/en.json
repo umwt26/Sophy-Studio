@@ -131,21 +131,21 @@
     "whatsNew": {
       "title": "What's new in {{version}}",
       "subtitle": "Everything that changed in this update.",
-      "glass": {
-        "title": "Liquid glass",
-        "desc": "Cards, buttons, fields and panels now have a see-through glass look with soft highlights and rounder corners. Pop-ups and notices blur what is behind them. Settings > Appearance has a Liquid glass switch for the flat look."
+      "mobile": {
+        "title": "Android app in the sidebar",
+        "desc": "A new Mobile app page above Send Feedback shows what the Android version does and emails you its download link from sophy@beli26.xyz."
       },
-      "sidebar": {
-        "title": "A floating sidebar",
-        "desc": "The sidebar now floats as a rounded glass panel beside the page. The page you are on is marked by a glass pill that settles in place, also in the Settings list."
+      "notify": {
+        "title": "Update notifications",
+        "desc": "Windows now tells you about a new version with a notification, even while Sophy Studio is closed. Click it to open the update."
       },
-      "prompter": {
-        "title": "Smarter Suno Prompter",
-        "desc": "\"Add a piano to the intro and make the hook more energetic\" now changes only those sections instead of throwing away your verses. \"Chorus\" means the hook in rap songs, and \"remove the bridge\" removes just the bridge."
+      "website": {
+        "title": "Sophy Studio on the web",
+        "desc": "The website sophy.beli26.xyz has downloads, release notes and the blog. Find it in Settings > About and on the Home page."
       },
       "fixes": {
-        "title": "Fixes",
-        "desc": "About has the Sophy icon. Texts that showed up in Turkish in other languages (Key & BPM results, Sample Cutter, Suno history) are translated, and the selected item in Settings is no longer cut off at the edge."
+        "title": "Cleaner Settings and BPM",
+        "desc": "The Settings menu stays in place while you scroll, and Key & BPM shows just the detected tempo, without the ×2 / ÷2 buttons."
       }
     },
     "showAll": "Show all",
@@ -523,5 +523,55 @@
     "collapse": "Collapse sidebar",
     "expand": "Expand sidebar",
     "updateAvailable": "Update to v{{version}}"
+  },
+  "website": {
+    "title": "Sophy Studio on the web",
+    "desc": "Downloads, release notes and the blog live on sophy.beli26.xyz.",
+    "open": "Open website"
+  },
+  "sendLink": {
+    "formTitle": "Where should we send it?",
+    "formDescAndroid": "Enter your name and email. We'll send the Android download link from sophy@beli26.xyz.",
+    "formDescWindows": "Enter your name and email. We'll send the Windows download link from sophy@beli26.xyz.",
+    "name": "Name and surname",
+    "namePh": "e.g. Jack Smith",
+    "email": "Email address",
+    "emailPh": "name@example.com",
+    "send": "Send the link",
+    "sending": "Sending…",
+    "sentTitle": "Check your inbox",
+    "sentBody": "The link is on its way to {{email}}. If you don't see it in a minute, look in spam.",
+    "again": "Send to another address",
+    "back": "Back",
+    "privacy": "Your address is only used to send this one mail.",
+    "errName": "Please write your name.",
+    "errEmail": "That email address doesn't look right.",
+    "errTooMany": "Too many requests. Try again later.",
+    "errFailed": "The mail couldn't be sent. Try again in a moment.",
+    "errOffline": "No connection. Check your internet and try again."
+  },
+  "mobileApp": {
+    "nav": "Mobile app",
+    "title": "Sophy Studio for Android",
+    "subtitle": "Your toolkit in your pocket. Free, same version as this app.",
+    "lead": "Share a video from YouTube, TikTok or Instagram straight to Sophy Studio and it downloads right there, without leaving the app you're watching in.",
+    "f1t": "Share to download",
+    "f1d": "A see-through panel opens over the app you're in: MP4, MP3 or WAV in one tap.",
+    "f2t": "Suno and the Prompter",
+    "f2d": "Download Suno songs and build style prompts like a chat.",
+    "f3t": "Cut, tag, analyse",
+    "f3d": "Sample Cutter, Metadata Editor and Key & BPM, all on the phone.",
+    "f4t": "Updates together",
+    "f4d": "Desktop and Android ship the same version in the same release.",
+    "req": "Android 8.0 or newer · Free",
+    "sendTitle": "Send it to my email",
+    "sendDesc": "We'll email you the download link. Open it on your phone and install.",
+    "sendBtn": "Email me the link",
+    "openPage": "Open the download page"
+  },
+  "notify": {
+    "updateTitle": "Sophy Studio {{version}} is out",
+    "updateBody": "Tap to see what's new and update.",
+    "updateBodyDesktop": "Click to see what’s new and update."
   }
 }

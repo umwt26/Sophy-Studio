@@ -67,6 +67,8 @@
 !macroend
 
 !macro NSIS_HOOK_PREUNINSTALL
+  ; the app's own update-check task (created by the app, see src/update_notify.rs)
+  nsExec::Exec 'schtasks /Delete /F /TN "Sophy Studio Update Check"'
 !macroend
 
 !macro NSIS_HOOK_POSTUNINSTALL

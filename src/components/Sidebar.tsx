@@ -4,6 +4,7 @@ import {
   ChatBubbleIcon,
   GlobeDownloadIcon,
   HomeIcon,
+  PhoneIcon,
   PianoIcon,
   ScissorsIcon,
   SettingsIcon,
@@ -175,6 +176,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </span>
           </button>
         )}
+        {navButton("mobile-app", t("mobileApp.nav", "Mobile app"), PhoneIcon)}
         {navButton("feedback", t("feedback.drawerButton", "Send Feedback"), ChatBubbleIcon)}
         {navButton("settings", t("nav.settings", "Settings"), SettingsIcon)}
       </div>

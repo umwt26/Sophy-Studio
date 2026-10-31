@@ -89,7 +89,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         {
           id: "detector",
           title: t("home.detectorTitle", "Key & BPM Detect"),
-          desc: t("home.detectorDesc", "Harmonic analysis to accurately detect musical key (Camelot wheel) and tempo (BPM) in seconds."),
+          desc: t("home.detectorDesc", "Analyses a song to find its musical key and tempo (BPM) in seconds."),
           Icon: PianoIcon,
           tags: [t("home.tagKey", "Key"), "BPM"],
         },

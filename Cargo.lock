@@ -4273,7 +4273,7 @@ dependencies = [
 
 [[package]]
 name = "sophy"
-version = "2.0.0"
+version = "2.0.1"
 dependencies = [
  "base64 0.22.1",
  "log",
@@ -4294,7 +4294,7 @@ dependencies = [
 
 [[package]]
 name = "sophy-core"
-version = "2.0.0"
+version = "2.0.1"
 dependencies = [
  "aes",
  "aes-gcm",

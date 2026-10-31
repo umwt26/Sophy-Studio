@@ -8,6 +8,9 @@ import { PageHeader } from "./PageHeader";
 import { AdModal } from "./AdModal";
 import type { KeyBpmResult } from "../types";
 
+/** "F Major (7B)" → "F Major": the page shows plain key names, no Camelot codes. */
+const withoutCamelot = (key: string) => key.replace(/\s*\(\d+[AB]\)\s*$/, "");
+
 interface KeyBpmDetectPageProps {
   onShowToast: (msg: string) => void;
 }
@@ -37,7 +40,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
         resampling: t("detector.stageResampling", "44.1kHz stüdyo frekansına dönüştürülüyor..."),
         chroma: t("detector.stageChroma", "Harmonik 12-Chroma HPCP & Ton profili çıkarılıyor..."),
         rhythm: t("detector.stageRhythm", "Ritim örüntüsü & vuruş aralıkları taranıyor..."),
-        complete: t("detector.stageComplete", "Tunebat Camelot & tempo tespiti tamamlandı!"),
+        complete: t("detector.stageComplete", "Key & tempo detection complete!"),
       };
 
       const res = await analyzeAudio(buffer, (stage) => {
@@ -140,7 +143,7 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
       <PageHeader
         Icon={PianoIcon}
         title={t("detector.title", "Key & BPM Detect")}
-        desc={t("detector.subtitle", "Harmonic key, Camelot code and tempo analysis.")}
+        desc={t("detector.subtitle", "Musical key and precise BPM tempo detector.")}
         actions={
           <button type="button" onClick={handleSelectFile} disabled={analyzing || selecting} className="btn btn-secondary">
             <FolderIcon className="h-4 w-4" />
@@ -234,21 +237,8 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
                   </h3>
                   <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                     {t("detector.relativeKey", "Göreceli:")}{" "}
-                    <strong className="text-[var(--color-text-primary)] font-medium">{result.relativeKey}</strong>
+                    <strong className="text-[var(--color-text-primary)] font-medium">{withoutCamelot(result.relativeKey)}</strong>
                   </p>
-                </div>
-              </div>
-
-              <div className="mt-6 border-t border-[var(--color-app-border)] pt-4">
-                <p className="eyebrow mb-2">
-                  {t("detector.compatibleKeys", "Harmonik Uyumlu Tonlar (DJ Mixing)")}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {result.compatibleKeys.map((k) => (
-                    <span key={k} className="chip font-mono font-medium">
-                      {k}
-                    </span>
-                  ))}
                 </div>
               </div>
             </div>

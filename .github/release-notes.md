@@ -1,17 +1,32 @@
-# ✨ Sophy Studio v2.0
+# ✨ Sophy Studio v2.0.1
 
-Two new tools, File Converter and Compressor, a built-in media player for every file, and smarter downloads. 🎉
+A fix update: Suno downloads on Android work again and Instagram carousels show every photo. Everything new in v2.0 is listed below. 🛠️
 
 ## 📦 Downloads
 
 Both files are attached below, under **Assets**.
 
-- 🖥️ **Windows**: `Sophy_Studio_Setup_v2.0.0.exe`
-- 📱 **Android**: `Sophy_Studio_Mobile_v2.0.0.apk`
+- 🖥️ **Windows**: `Sophy_Studio_Setup_v2.0.1.exe`
+- 📱 **Android**: `Sophy_Studio_Mobile_v2.0.1.apk`
 
-💾 Your history, settings and downloads are kept. Already on v1.x? Both apps offer this update by themselves.
+💾 Your history, settings and downloads are kept. Both apps offer this update by themselves.
 
 ---
+
+## 🛠️ Fixed in v2.0.1
+
+- 📱 **Suno downloads on Android work again.** Suno now sends many songs encrypted; the app failed with *"CONVERT_FAILED … moov atom not found"*. Sophy Studio now unlocks these songs on the phone, exactly like the Windows app does, and saves them as 320k MP3, WAV or the original file.
+- 📱 **Edit tab:** the sliding highlight now sits exactly on the selected tool (Metadata, Key & BPM, Convert, Compress). It used to drift to the side.
+- 📱 The selected tool's name fits on narrow phones in every language instead of being cut off.
+- 📸 **Instagram carousels show every photo and video again** (Windows and Android). Instagram had started refusing the old request, so a post with 6 photos showed only the cover. Sophy now reads the post the way embedded Instagram posts on websites do.
+- 📱 **Instagram post picker on Android:** paste a post link in Universal to see every photo and video numbered, pick the ones you want and download only those (saved to `Download/Sophy Studio/Universal Media`).
+- 🎹 **Key & BPM:** the Camelot badge and the "Harmonic Compatible Keys" list (8A, 6A …) are gone on both apps. You see the key, its relative key and the tempo.
+
+---
+
+# ✨ Everything new in v2.0
+
+Two new tools, File Converter and Compressor, a built-in media player for every file, and smarter downloads. 🎉
 
 ## 🔄 File Converter (new)
 

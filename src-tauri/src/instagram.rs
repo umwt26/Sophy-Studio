@@ -1,14 +1,15 @@
 //! Instagram posts in the Universal downloader: every photo and video of a post (also
 //! carousels), so the user can pick numbers and download just those.
 //!
-//! Uses the same public query Instagram's own logged-out web page makes (page cookies + LSD
-//! token → graphql/query). Instagram limits it per IP and sometimes asks for a login; then
-//! the post page's preview image is offered instead (IG_LIMITED tells the UI).
+//! Reads the post's embed page first, then the public query Instagram's own logged-out web page
+//! makes (page cookies + LSD token → graphql/query), which Instagram limits per IP. If both fail,
+//! the post page's preview image is offered instead (`limited` tells the UI).
 
 use serde::{Deserialize, Serialize};
 use sophy_core::SophyPaths;
 
 const UA: &str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36";
+const EMBED_UA: &str = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1";
 const APP_ID: &str = "936619743392459";
 const DOC_ID: &str = "8845758582119845";
 
@@ -63,11 +64,67 @@ fn unescape(s: &str) -> String {
     s.replace("&quot;", "\"").replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
 }
 
+/// A post's media node (the GraphQL answer and the embed page share this shape) → its items.
+fn post_from_media(code: &str, m: &serde_json::Value) -> Option<IgPost> {
+    let nodes: Vec<&serde_json::Value> = match m["edge_sidecar_to_children"]["edges"].as_array() {
+        Some(edges) => edges.iter().map(|e| &e["node"]).collect(),
+        None => vec![m],
+    };
+    let items = nodes
+        .iter()
+        .enumerate()
+        .filter_map(|(i, n)| {
+            let thumb = n["display_url"].as_str()?.to_string();
+            let video = n["is_video"].as_bool().unwrap_or(false);
+            let url = if video { n["video_url"].as_str().map(|s| s.to_string()).unwrap_or_else(|| thumb.clone()) } else { thumb.clone() };
+            Some(IgItem { index: i + 1, video, url, thumb })
+        })
+        .collect::<Vec<_>>();
+    if items.is_empty() {
+        return None;
+    }
+    Some(IgPost {
+        shortcode: code.to_string(),
+        owner: m["owner"]["username"].as_str().unwrap_or("instagram").to_string(),
+        caption: m["edge_media_to_caption"]["edges"][0]["node"]["text"].as_str().unwrap_or("").to_string(),
+        items,
+        limited: false,
+    })
+}
+
+/// The post's embed page (what sites showing an Instagram post load). It carries the whole post,
+/// carousels included, and isn't held back by the limit that blocks the GraphQL query. Instagram
+/// sends the data only to browsers other than desktop Chrome, hence the phone user agent.
+async fn from_embed(client: &reqwest::Client, code: &str) -> Option<IgPost> {
+    let html = client
+        .get(format!("https://www.instagram.com/p/{code}/embed/captioned/"))
+        .header(reqwest::header::USER_AGENT, EMBED_UA)
+        .send()
+        .await
+        .ok()?
+        .text()
+        .await
+        .ok()?;
+    let re = regex::Regex::new(r#""contextJSON":"((?:\\.|[^"\\])*)""#).ok()?;
+    let raw = re.captures(&html)?.get(1)?.as_str().to_string();
+    let text: String = serde_json::from_str(&format!("\"{raw}\"")).ok()?;
+    let json: serde_json::Value = serde_json::from_str(&text).ok()?;
+    let media = &json["gql_data"]["shortcode_media"];
+    if !media.is_object() {
+        return None;
+    }
+    post_from_media(code, media)
+}
+
 #[tauri::command]
 pub async fn instagram_post(url: String) -> Result<IgPost, String> {
     let code = shortcode(&url).ok_or("IG_NOT_A_POST")?;
     let client = client()?;
     let page_url = format!("https://www.instagram.com/p/{code}/");
+
+    if let Some(post) = from_embed(&client, &code).await {
+        return Ok(post);
+    }
 
     let page = client.get(&page_url).send().await.map_err(|e| format!("IG_NETWORK: {e}"))?;
     let cookies: Vec<String> = page
@@ -116,30 +173,8 @@ pub async fn instagram_post(url: String) -> Result<IgPost, String> {
         None => None,
     };
 
-    if let Some(m) = json.as_ref().map(|j| &j["data"]["xdt_shortcode_media"]).filter(|m| m.is_object()) {
-        let nodes: Vec<&serde_json::Value> = match m["edge_sidecar_to_children"]["edges"].as_array() {
-            Some(edges) => edges.iter().map(|e| &e["node"]).collect(),
-            None => vec![m],
-        };
-        let items = nodes
-            .iter()
-            .enumerate()
-            .filter_map(|(i, n)| {
-                let thumb = n["display_url"].as_str()?.to_string();
-                let video = n["is_video"].as_bool().unwrap_or(false);
-                let url = if video { n["video_url"].as_str().map(|s| s.to_string()).unwrap_or_else(|| thumb.clone()) } else { thumb.clone() };
-                Some(IgItem { index: i + 1, video, url, thumb })
-            })
-            .collect::<Vec<_>>();
-        if !items.is_empty() {
-            return Ok(IgPost {
-                shortcode: code,
-                owner: m["owner"]["username"].as_str().unwrap_or("instagram").to_string(),
-                caption: m["edge_media_to_caption"]["edges"][0]["node"]["text"].as_str().unwrap_or("").to_string(),
-                items,
-                limited: false,
-            });
-        }
+    if let Some(post) = json.as_ref().map(|j| &j["data"]["xdt_shortcode_media"]).filter(|m| m.is_object()).and_then(|m| post_from_media(&code, m)) {
+        return Ok(post);
     }
 
     // Instagram refused (rate limit / login wall). Link previews (the user agent chat apps use)

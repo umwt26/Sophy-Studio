@@ -84,7 +84,9 @@
     "detector": "Key & BPM Detect",
     "cutter": "Sample Kesici",
     "settings": "Ayarlar",
-    "prompter": "Suno Style Prompter"
+    "prompter": "Suno Style Prompter",
+    "converter": "Dosya Dönüştürücü",
+    "compressor": "Sıkıştırıcı"
   },
   "header": {
     "openMenu": "Menüyü Aç"
@@ -131,25 +133,30 @@
     "whatsNew": {
       "title": "{{version}} ile gelen yenilikler",
       "subtitle": "Bu güncellemede değişen her şey.",
-      "mobile": {
-        "title": "Kenar çubuğunda Android uygulaması",
-        "desc": "Geri bildirim gönderin üstündeki yeni Mobil uygulama sayfası Android sürümünü tanıtır ve indirme bağlantısını sophy@beli26.xyz adresinden mailine gönderir."
+      "converter": {
+        "title": "Dosya Dönüştürücü",
+        "desc": "Ses, video ve görselleri MP3, WAV, MP4, GIF, PNG, WebP ve daha fazlasına çevir; boyutlandır ya da döndür. Gezgin'de dosyaya sağ tıklayıp uygulamayı açmadan dönüştür."
       },
-      "notify": {
-        "title": "Güncelleme bildirimleri",
-        "desc": "Windows artık yeni bir sürüm çıkınca, Sophy Studio kapalıyken bile bildirim gösterir. Tıklayınca güncelleme açılır."
+      "compressor": {
+        "title": "Sıkıştırıcı",
+        "desc": "Fotoğraf, müzik, video, PDF ve her türlü dosyayı küçültür; tek seferde 10 dosyaya kadar, ne kadar kazandığını gösterir. Sağ tık menüsünden de olur."
       },
-      "website": {
-        "title": "Sophy Studio web sitesi",
-        "desc": "sophy.beli26.xyz adresinde indirmeler, sürüm notları ve blog var. Ayarlar > Hakkında ve Ana sayfada bulabilirsin."
+      "player": {
+        "title": "Yerleşik oynatıcı",
+        "desc": "Her dosyayı önizle: fotoğraf, video, canlı spektrumlu müzik, PDF. Hız, tekrar, ±10 sn ve Sophy ikonlu akıcı ilerleme çubuğu."
       },
-      "fixes": {
-        "title": "Daha derli toplu Ayarlar ve BPM",
-        "desc": "Ayarlar menüsü kaydırırken yerinde kalır; Key & BPM sadece bulunan tempoyu gösterir, ×2 / ÷2 düğmeleri kalktı."
+      "downloads": {
+        "title": "Daha akıllı indirmeler",
+        "desc": "Dosyalar artık birbirinin üstüne yazılmıyor, her birine Sophy kimliği ekleniyor ve Instagram postları tek tek fotoğraf seçilerek indirilebiliyor."
       }
     },
     "showAll": "Tümünü göster",
-    "showLess": "Daha az göster"
+    "showLess": "Daha az göster",
+    "converterTitle": "Dosya Dönüştürücü",
+    "converterDesc": "Ses, video ve görselleri başka biçimlere çevir, boyutlandır ya da döndür. Gezgin'deki sağ tık menüsünden de olur.",
+    "tagKey": "Ton",
+    "compressorTitle": "Sıkıştırıcı",
+    "compressorDesc": "Fotoğraf, müzik, video ve PDF'leri küçült; tek seferde 10 dosyaya kadar. Gezgin'deki sağ tık menüsünden de olur."
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -184,7 +191,15 @@
     "readyToDownload": "Medya indirme işlemi hazır",
     "errNoFormats": "Bu bağlantıda indirilebilir video ya da ses yok. Sadece görsel içeren bir gönderi olabilir.",
     "errUnsupported": "Bu site ya da bağlantı türü desteklenmiyor.",
-    "errPrivate": "Bu içerik gizli, yaş kısıtlamalı ya da giriş gerektiriyor."
+    "errPrivate": "Bu içerik gizli, yaş kısıtlamalı ya da giriş gerektiriyor.",
+    "igCount": "{{count}} öğe",
+    "igLimited": "Instagram şu an sadece kapağı veriyor (istekleri sınırlıyor). Tüm fotoğrafları görmek için birkaç dakika sonra tekrar dene.",
+    "igAll": "Hepsini seç",
+    "igNone": "Temizle",
+    "igDownload": "Seçilenleri indir ({{count}})",
+    "igDownloadOne": "Postu indir",
+    "igDone": "{{count}} dosya kaydedildi",
+    "igError": "Instagram bu postu vermedi. Gizli olabilir; değilse birkaç dakika sonra tekrar dene."
   },
   "metadata": {
     "title": "Audio Metadata Editor",
@@ -548,7 +563,13 @@
     "errEmail": "Bu e-posta adresi doğru görünmüyor.",
     "errTooMany": "Çok fazla istek geldi. Biraz sonra tekrar dene.",
     "errFailed": "Mail gönderilemedi. Birazdan tekrar dene.",
-    "errOffline": "Bağlantı yok. İnternetini kontrol edip tekrar dene."
+    "errOffline": "Bağlantı yok. İnternetini kontrol edip tekrar dene.",
+    "previewTitle": "Gelen kutun",
+    "previewNow": "şimdi",
+    "previewSubject": "Sophy Studio Android: indirme bağlantın",
+    "previewHi": "Merhaba {{name}},",
+    "previewBody": "Telefonun için Sophy Studio burada. Bu maili Android telefonunda aç ve düğmeye dokun.",
+    "previewButton": "Android için indir"
   },
   "mobileApp": {
     "nav": "Mobil uygulama",
@@ -573,5 +594,89 @@
     "updateTitle": "Sophy Studio {{version}} çıktı",
     "updateBody": "Yenilikleri görmek ve güncellemek için dokun.",
     "updateBodyDesktop": "Yenilikleri görmek ve güncellemek için tıkla."
+  },
+  "converter": {
+    "title": "Dosya Dönüştürücü",
+    "subtitle": "Ses, video ve görselleri başka biçimlere çevir. Orijinal dosyanın yanına kaydedilir.",
+    "addFiles": "Dosya ekle",
+    "dropNow": "Dosyaları buraya bırak",
+    "dropPrompt": "Dosyaları buraya sürükle ya da tıklayıp seç",
+    "dropFormats": "MP3, WAV, FLAC, MP4, MKV, MOV, PNG, JPG, WEBP, GIF ve daha fazlası • Birden fazla dosya olur",
+    "convertTo": "Şuna dönüştür",
+    "selected": "{{count}} dosya seçili",
+    "savedNext": "her biri orijinalinin yanına kaydedilir",
+    "noCommon": "Bu dosyaların ortak bir biçimi yok. Ses, video ve görselleri ayrı ayrı dönüştür.",
+    "files": "Dosyalar",
+    "clear": "Temizle",
+    "remove": "Kaldır",
+    "conversions": "Dönüştürmeler",
+    "clearFinished": "Bitenleri temizle",
+    "menuTitle": "Gezgin'de sağ tık menüsü",
+    "menuHint": "Bir dosyaya sağ tıkla → Sophy Studio Converter; uygulamayı açmana gerek yok. Windows 11'de \"Diğer seçenekleri göster\" altında.",
+    "menuOnToast": "Sağ tık menüsüne eklendi.",
+    "menuOffToast": "Sağ tık menüsünden kaldırıldı.",
+    "menuFailed": "Sağ tık menüsü değiştirilemedi.",
+    "someSkipped": "Bazı dosyalar atlandı: bu tür dönüştürülemiyor.",
+    "pickTitle": "Dönüştürülecek dosyaları seç",
+    "to": "{{format}} olarak",
+    "toLow": "{{format}} olarak (düşük kalite)",
+    "scale": "%{{pct}} ölçekle",
+    "resize": "{{size}} boyutuna getir",
+    "rotateLeft": "Sola döndür",
+    "rotateRight": "Sağa döndür",
+    "queued": "Sırada",
+    "done": "Bitti",
+    "cancelled": "İptal edildi",
+    "failed": "Başarısız",
+    "errUnsupported": "Bu dosya türü bu şekilde dönüştürülemiyor.",
+    "errNotFound": "Dosya artık yok.",
+    "errFailed": "Dönüştürme başarısız oldu.",
+    "showInFolder": "Klasörde göster",
+    "cancel": "İptal",
+    "summaryFailed": "{{done}} bitti, {{failed}} başarısız",
+    "summaryDone": "{{count}} dosya dönüştürüldü",
+    "summaryRunning": "{{total}} dosyadan {{current}}. dönüştürülüyor",
+    "closingIn": "{{seconds}} sn içinde kapanıyor",
+    "savedNextShort": "Orijinal dosyaların yanına kaydedildi",
+    "close": "Kapat",
+    "stop": "Durdur ve kapat"
+  },
+  "preview": {
+    "open": "Önizle",
+    "openDefault": "Varsayılan uygulamayla aç",
+    "unsupported": "Bu biçim burada önizlenemiyor.",
+    "unsupportedHint": "Yine de dönüştürebilir ya da varsayılan uygulamayla açabilirsin.",
+    "clickFit": "Sığdırmak için tıkla",
+    "clickZoom": "Gerçek boyut için tıkla",
+    "seek": "Konum",
+    "back10": "10 sn geri",
+    "forward10": "10 sn ileri",
+    "play": "Oynat",
+    "pause": "Duraklat",
+    "loop": "Tekrarla",
+    "speed": "Hız",
+    "mute": "Sesi kapat",
+    "unmute": "Sesi aç",
+    "volume": "Ses",
+    "fullscreen": "Tam ekran",
+    "preparing": "Önizleme hazırlanıyor…"
+  },
+  "compressor": {
+    "compress": "Sıkıştır",
+    "alreadySmall": "Zaten olabildiğince küçük: yeni dosya yazılmadı.",
+    "encrypted": "Bu PDF şifreli.",
+    "small": "Zaten küçük",
+    "title": "Sıkıştırıcı",
+    "subtitle": "Fotoğraf, müzik, video, PDF ve her türlü dosyayı küçült. Orijinalin yanına kaydedilir.",
+    "tooMany": "Tek seferde en fazla {{max}} dosya.",
+    "pickTitle": "Sıkıştırılacak dosyaları seç",
+    "dropFormats": "JPG, PNG, MP3, WAV, MP4, PDF ve her türlü dosya • Tek seferde en fazla {{max}}",
+    "ready": "{{count}} / {{max}} dosya",
+    "readyHint": "Sıkıştır'a basana kadar hiçbir şey değişmez. Orijinallere dokunulmaz.",
+    "compressN": "{{count}} dosyayı sıkıştır",
+    "results": "Sonuçlar",
+    "saved": "Toplam {{size}} kazanıldı",
+    "summaryRunning": "{{total}} dosyadan {{current}}. sıkıştırılıyor",
+    "summaryDone": "{{count}} dosya sıkıştırıldı"
   }
 }

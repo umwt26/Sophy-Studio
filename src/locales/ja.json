@@ -84,7 +84,9 @@
     "detector": "Key & BPM 検出",
     "settings": "設定",
     "cutter": "Sample Cutter",
-    "prompter": "Suno Style Prompter"
+    "prompter": "Suno Style Prompter",
+    "converter": "ファイル変換",
+    "compressor": "圧縮"
   },
   "header": {
     "openMenu": "メニューを開く"
@@ -131,25 +133,30 @@
     "whatsNew": {
       "title": "{{version}} の新機能",
       "subtitle": "今回のアップデートで変わったことのすべて。",
-      "mobile": {
-        "title": "サイドバーに Android アプリ",
-        "desc": "「フィードバックを送信」の上に新しい「モバイルアプリ」ページ。Android 版を紹介し、sophy@beli26.xyz からダウンロードリンクをメールで送ります。"
+      "converter": {
+        "title": "ファイル変換",
+        "desc": "音声・動画・画像を MP3、WAV、MP4、GIF、PNG、WebP などに変換。サイズ変更や回転も可能。エクスプローラーで右クリックすればアプリを開かずに変換できます。"
       },
-      "notify": {
-        "title": "アップデート通知",
-        "desc": "Sophy Studio を閉じていても、新しいバージョンが出ると Windows の通知でお知らせします。クリックでアップデートを開きます。"
+      "compressor": {
+        "title": "ファイル圧縮",
+        "desc": "写真・音楽・動画・PDF などあらゆるファイルを一度に 10 個まで小さくし、削減量を表示します。右クリックメニューからも使えます。"
       },
-      "website": {
-        "title": "Sophy Studio のウェブサイト",
-        "desc": "sophy.beli26.xyz にダウンロード、リリースノート、ブログがあります。設定 > 情報 とホームから開けます。"
+      "player": {
+        "title": "内蔵プレーヤー",
+        "desc": "あらゆるファイルをプレビュー：写真、動画、ライブスペクトラム付きの音楽、PDF。速度、リピート、±10 秒、Sophy マーク付きのなめらかなシークバー。"
       },
-      "fixes": {
-        "title": "すっきりした設定と BPM",
-        "desc": "設定メニューはスクロールしても固定され、Key & BPM は検出したテンポだけを表示します（×2 / ÷2 ボタンを削除）。"
+      "downloads": {
+        "title": "賢くなったダウンロード",
+        "desc": "同名ファイルを上書きしなくなり、各ファイルに Sophy ID が付きます。Instagram の投稿は写真ごとに選んでダウンロードできます。"
       }
     },
     "showAll": "すべて表示",
-    "showLess": "閉じる"
+    "showLess": "閉じる",
+    "converterTitle": "ファイル変換",
+    "converterDesc": "音声・動画・画像を別の形式に変換し、サイズ変更や回転もできます。エクスプローラーの右クリックメニューからも使えます。",
+    "tagKey": "キー",
+    "compressorTitle": "ファイル圧縮",
+    "compressorDesc": "写真・音楽・動画・PDF を一度に 10 個まで小さくします。エクスプローラーの右クリックメニューからも使えます。"
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -184,7 +191,15 @@
     "readyToDownload": "Media ready to download",
     "errNoFormats": "このリンクにはダウンロードできる動画や音声がありません。画像のみの投稿の可能性があります。",
     "errUnsupported": "このサイトまたはリンクの種類には対応していません。",
-    "errPrivate": "このコンテンツは非公開、年齢制限付き、またはログインが必要です。"
+    "errPrivate": "このコンテンツは非公開、年齢制限付き、またはログインが必要です。",
+    "igCount": "{{count}} 件",
+    "igLimited": "Instagram は現在カバー画像のみ返しています（リクエスト制限中）。すべての写真を見るには数分後に再試行してください。",
+    "igAll": "すべて選択",
+    "igNone": "クリア",
+    "igDownload": "選択したものをダウンロード（{{count}}）",
+    "igDownloadOne": "投稿をダウンロード",
+    "igDone": "{{count}} 個のファイルを保存しました",
+    "igError": "Instagram がこの投稿を返しませんでした。非公開の可能性があります。そうでなければ数分後に再試行してください。"
   },
   "metadata": {
     "title": "メタデータ編集",
@@ -548,7 +563,13 @@
     "errEmail": "メールアドレスが正しくないようです。",
     "errTooMany": "リクエストが多すぎます。しばらくしてからお試しください。",
     "errFailed": "メールを送信できませんでした。少し時間をおいて再度お試しください。",
-    "errOffline": "接続がありません。インターネットを確認して再度お試しください。"
+    "errOffline": "接続がありません。インターネットを確認して再度お試しください。",
+    "previewTitle": "受信トレイ",
+    "previewNow": "今",
+    "previewSubject": "Sophy Studio Android 版のダウンロードリンク",
+    "previewHi": "{{name}} さん、こんにちは。",
+    "previewBody": "スマートフォン用の Sophy Studio です。このメールを Android スマートフォンで開き、ボタンをタップしてください。",
+    "previewButton": "Android 版をダウンロード"
   },
   "mobileApp": {
     "nav": "モバイルアプリ",
@@ -573,5 +594,89 @@
     "updateTitle": "Sophy Studio {{version}} が公開されました",
     "updateBody": "タップして新機能を確認し、アップデートします。",
     "updateBodyDesktop": "クリックして新機能を確認し、アップデートします。"
+  },
+  "converter": {
+    "title": "ファイル変換",
+    "subtitle": "音声・動画・画像を別の形式へ。元のファイルと同じ場所に保存されます。",
+    "addFiles": "ファイルを追加",
+    "dropNow": "ここにファイルをドロップ",
+    "dropPrompt": "ファイルをドラッグするか、クリックして選択",
+    "dropFormats": "MP3、WAV、FLAC、MP4、MKV、MOV、PNG、JPG、WEBP、GIF など • 複数まとめて可",
+    "convertTo": "変換先",
+    "selected": "{{count}} 個のファイルを選択中",
+    "savedNext": "それぞれ元のファイルの横に保存",
+    "noCommon": "これらのファイルに共通の形式はありません。音声・動画・画像は別々に変換してください。",
+    "files": "ファイル",
+    "clear": "クリア",
+    "remove": "削除",
+    "conversions": "変換",
+    "clearFinished": "完了したものを消去",
+    "menuTitle": "エクスプローラーの右クリックメニュー",
+    "menuHint": "ファイルを右クリック → Sophy Studio Converter。アプリを開く必要はありません。Windows 11 では「その他のオプションを確認」の中にあります。",
+    "menuOnToast": "右クリックメニューに追加しました。",
+    "menuOffToast": "右クリックメニューから削除しました。",
+    "menuFailed": "右クリックメニューを変更できませんでした。",
+    "someSkipped": "一部のファイルをスキップしました：この形式は変換できません。",
+    "pickTitle": "変換するファイルを選択",
+    "to": "{{format}} に変換",
+    "toLow": "{{format}} に変換（低画質）",
+    "scale": "{{pct}}% に縮小",
+    "resize": "{{size}} にリサイズ",
+    "rotateLeft": "左に回転",
+    "rotateRight": "右に回転",
+    "queued": "待機中",
+    "done": "完了",
+    "cancelled": "キャンセル済み",
+    "failed": "失敗",
+    "errUnsupported": "このファイル形式はこの方法では変換できません。",
+    "errNotFound": "ファイルが見つかりません。",
+    "errFailed": "変換に失敗しました。",
+    "showInFolder": "フォルダーで表示",
+    "cancel": "キャンセル",
+    "summaryFailed": "完了 {{done}}、失敗 {{failed}}",
+    "summaryDone": "{{count}} 個のファイルを変換しました",
+    "summaryRunning": "{{total}} 個中 {{current}} 個目を変換中",
+    "closingIn": "{{seconds}} 秒後に閉じます",
+    "savedNextShort": "元のファイルの横に保存しました",
+    "close": "閉じる",
+    "stop": "停止して閉じる"
+  },
+  "preview": {
+    "open": "プレビュー",
+    "openDefault": "既定のアプリで開く",
+    "unsupported": "この形式はここではプレビューできません。",
+    "unsupportedHint": "変換はできます。既定のアプリで開くこともできます。",
+    "clickFit": "クリックで全体表示",
+    "clickZoom": "クリックで実寸表示",
+    "seek": "再生位置",
+    "back10": "10 秒戻る",
+    "forward10": "10 秒進む",
+    "play": "再生",
+    "pause": "一時停止",
+    "loop": "リピート",
+    "speed": "速度",
+    "mute": "ミュート",
+    "unmute": "ミュート解除",
+    "volume": "音量",
+    "fullscreen": "全画面",
+    "preparing": "プレビューを準備中…"
+  },
+  "compressor": {
+    "compress": "圧縮",
+    "alreadySmall": "これ以上小さくなりません：ファイルは作成されませんでした。",
+    "encrypted": "この PDF はパスワードで保護されています。",
+    "small": "既に小さい",
+    "title": "ファイル圧縮",
+    "subtitle": "写真・音楽・動画・PDF などあらゆるファイルを小さくします。元のファイルの横に保存されます。",
+    "tooMany": "一度に最大 {{max}} ファイルまでです。",
+    "pickTitle": "圧縮するファイルを選択",
+    "dropFormats": "JPG、PNG、MP3、WAV、MP4、PDF などあらゆるファイル • 一度に最大 {{max}} 個",
+    "ready": "{{count}} / {{max}} ファイル",
+    "readyHint": "「圧縮」を押すまで何も変わりません。元のファイルはそのままです。",
+    "compressN": "{{count}} 個のファイルを圧縮",
+    "results": "結果",
+    "saved": "合計 {{size}} 削減",
+    "summaryRunning": "{{total}} 個中 {{current}} 個目を圧縮中",
+    "summaryDone": "{{count}} 個のファイルを圧縮しました"
   }
 }

@@ -117,9 +117,10 @@ textarea {
   color: var(--color-text-muted);
 }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-app-border) transparent;
+/* Scrollbars: the ::-webkit-scrollbar rules below. Do not set scrollbar-width / scrollbar-color
+   here: WebView2 then ignores these rules and draws the Windows bar with arrow buttons. */
+*::-webkit-scrollbar-button {
+  display: none;
 }
 
 *::-webkit-scrollbar {
@@ -1384,4 +1385,82 @@ html.glass .switch[data-on="true"]:active span {
 }
 .phone-frame img {
   border-radius: 24px;
+}
+
+/* Media preview (File Converter): thin seek/volume sliders in the theme colour */
+.media-range {
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-app-surface-2);
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+.media-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2px solid var(--color-app-surface);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+/* Transparent images show on a checkerboard */
+.checker {
+  background-color: var(--color-app-surface-2);
+  background-image:
+    linear-gradient(45deg, rgb(127 127 127 / 0.12) 25%, transparent 25%),
+    linear-gradient(-45deg, rgb(127 127 127 / 0.12) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgb(127 127 127 / 0.12) 75%),
+    linear-gradient(-45deg, transparent 75%, rgb(127 127 127 / 0.12) 75%);
+  background-size: 18px 18px;
+  background-position: 0 0, 0 9px, 9px -9px, -9px 0;
+}
+
+/* Sidebar list: no scrollbar; the edges fade when there is more above or below */
+.sidebar-nav {
+  scrollbar-width: none;
+}
+.sidebar-nav::-webkit-scrollbar {
+  display: none;
+}
+.sidebar-nav[data-fade="top"] {
+  mask-image: linear-gradient(to bottom, transparent, #000 28px);
+}
+.sidebar-nav[data-fade="bottom"] {
+  mask-image: linear-gradient(to top, transparent, #000 28px);
+}
+.sidebar-nav[data-fade="both"] {
+  mask-image: linear-gradient(to bottom, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+}
+
+/* Media preview position bar: track as tall as the Sophy mark, the mark is the handle */
+.seekbar {
+  position: relative;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--color-app-surface-2);
+  cursor: pointer;
+  touch-action: none;
+}
+.seekbar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-accent) 38%, transparent);
+}
+.seekbar-thumb {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  transform: translateX(-50%);
+  color: var(--color-accent);
+  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.35));
+  pointer-events: none;
+}
+.seekbar:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }

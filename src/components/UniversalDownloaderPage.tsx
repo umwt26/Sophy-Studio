@@ -11,6 +11,7 @@ import {
 import { AdModal } from "./AdModal";
 import { PageHeader } from "./PageHeader";
 import { UniversalHistoryDrawer } from "./UniversalHistoryDrawer";
+import { InstagramPostPicker, isInstagramPost, type IgPost } from "./InstagramPostPicker";
 import type { UniversalHistoryItem, UniversalMediaInfo } from "../types";
 
 const UNIVERSAL_HISTORY_KEY = "sophy_universal_history";
@@ -39,6 +40,10 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [mediaInfo, setMediaInfo] = useState<UniversalMediaInfo | null>(null);
+  // Instagram post links: every photo/video, picked by number
+  const [igPost, setIgPost] = useState<IgPost | null>(null);
+  const [igSelected, setIgSelected] = useState<number[]>([]);
+  const [igAdOpen, setIgAdOpen] = useState(false);
 
   // History & Drawer state
   const [history, setHistory] = useState<UniversalHistoryItem[]>([]);
@@ -112,15 +117,52 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
     try {
       setLoading(true);
       setMediaInfo(null);
+      setIgPost(null);
+      if (isInstagramPost(targetUrl)) {
+        const post = await invoke<IgPost>("instagram_post", { url: targetUrl });
+        setIgPost(post);
+        setIgSelected(post.items.map((i) => i.index));
+        return;
+      }
       const info = await invoke<UniversalMediaInfo>("fetch_universal_media_info", {
         url: targetUrl,
       });
       setMediaInfo(info);
       onShowToast(t("universal.infoLoaded", "Medya bilgisi başarıyla alındı!"));
     } catch (err: any) {
-      onShowToast(describeMediaError(err, t("universal.fetchError", "Could not load media info")), "error");
+      const raw = String(err ?? "");
+      onShowToast(
+        raw.startsWith("IG_")
+          ? t("universal.igError", "Instagram didn't return this post. It may be private; otherwise try again in a few minutes.")
+          : describeMediaError(err, t("universal.fetchError", "Could not load media info")),
+        "error"
+      );
     } finally {
       setLoading(false);
+    }
+  };
+
+  const executeIgDownload = async () => {
+    if (!igPost) return;
+    const items = igPost.items.filter((i) => igSelected.includes(i.index));
+    try {
+      setDownloading(true);
+      const saved = await invoke<string[]>("instagram_download", { owner: igPost.owner, shortcode: igPost.shortcode, items });
+      addToHistory({
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        url: url.trim(),
+        title: `@${igPost.owner} · ${igPost.shortcode}`,
+        thumbnail: items[0]?.thumb,
+        format: "mp4",
+        platform: "Instagram",
+        timestamp: Date.now(),
+        filePath: saved[0],
+      });
+      onShowToast(t("universal.igDone", { count: saved.length, defaultValue: "{{count}} file(s) saved" }));
+    } catch (err) {
+      onShowToast(`${t("universal.downloadError", "Download failed")}: ${String(err).replace(/^IG_[A-Z_]+:\s*/, "")}`, "error");
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -357,6 +399,27 @@ export const UniversalDownloaderPage: React.FC<UniversalDownloaderPageProps> = (
             </div>
           </div>
         </div>
+      )}
+
+      {igPost && (
+        <InstagramPostPicker
+          post={igPost}
+          selected={igSelected}
+          downloading={downloading}
+          onToggle={(i) => setIgSelected((cur) => (cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i].sort((a, b) => a - b)))}
+          onSelectAll={(all) => setIgSelected(all ? igPost.items.map((i) => i.index) : [])}
+          onDownload={() => setIgAdOpen(true)}
+        />
+      )}
+
+      {igAdOpen && igPost && (
+        <AdModal
+          actionTitle={t("universal.igDownloadOne", "Download post")}
+          actionDesc={`@${igPost.owner} · ${igSelected.length}`}
+          lockSeconds={5}
+          onClose={() => setIgAdOpen(false)}
+          onConfirm={() => void executeIgDownload()}
+        />
       )}
 
       {/* Universal History Drawer (1/4 screen slide-over from left) */}

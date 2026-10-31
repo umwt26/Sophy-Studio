@@ -84,7 +84,9 @@
     "detector": "Key & BPM Detect",
     "cutter": "Sample Cutter",
     "settings": "Settings",
-    "prompter": "Suno Style Prompter"
+    "prompter": "Suno Style Prompter",
+    "converter": "File Converter",
+    "compressor": "Compressor"
   },
   "header": {
     "openMenu": "Open Menu"
@@ -131,25 +133,30 @@
     "whatsNew": {
       "title": "What's new in {{version}}",
       "subtitle": "Everything that changed in this update.",
-      "mobile": {
-        "title": "Android app in the sidebar",
-        "desc": "A new Mobile app page above Send Feedback shows what the Android version does and emails you its download link from sophy@beli26.xyz."
+      "converter": {
+        "title": "File Converter",
+        "desc": "Audio, video and images to MP3, WAV, MP4, GIF, PNG, WebP and more, also resized or rotated. Right-click a file in Explorer to convert it without opening the app."
       },
-      "notify": {
-        "title": "Update notifications",
-        "desc": "Windows now tells you about a new version with a notification, even while Sophy Studio is closed. Click it to open the update."
+      "compressor": {
+        "title": "Compressor",
+        "desc": "Makes photos, music, videos, PDFs and any other file smaller, up to 10 at a time, and shows how much it saved. Also from the right-click menu."
       },
-      "website": {
-        "title": "Sophy Studio on the web",
-        "desc": "The website sophy.beli26.xyz has downloads, release notes and the blog. Find it in Settings > About and on the Home page."
+      "player": {
+        "title": "Built-in player",
+        "desc": "Preview any file: photos, videos, music with a live spectrum, PDFs. Speed, loop, ±10 s and a smooth seek bar with the Sophy mark."
       },
-      "fixes": {
-        "title": "Cleaner Settings and BPM",
-        "desc": "The Settings menu stays in place while you scroll, and Key & BPM shows just the detected tempo, without the ×2 / ÷2 buttons."
+      "downloads": {
+        "title": "Smarter downloads",
+        "desc": "Files never overwrite each other anymore, each gets a Sophy ID, and Instagram posts can be downloaded photo by photo."
       }
     },
     "showAll": "Show all",
-    "showLess": "Show less"
+    "showLess": "Show less",
+    "converterTitle": "File Converter",
+    "converterDesc": "Turn audio, video and images into other formats, resize or rotate them. Also from Explorer's right-click menu.",
+    "tagKey": "Key",
+    "compressorTitle": "Compressor",
+    "compressorDesc": "Shrink photos, music, videos and PDFs, up to 10 at a time. Also from Explorer's right-click menu."
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -184,7 +191,15 @@
     "readyToDownload": "Media ready to download",
     "errNoFormats": "This link has no downloadable video or audio. It may be an image-only post.",
     "errUnsupported": "This website or link type is not supported.",
-    "errPrivate": "This content is private, age-restricted or requires login."
+    "errPrivate": "This content is private, age-restricted or requires login.",
+    "igCount": "{{count}} item(s)",
+    "igLimited": "Instagram is only giving the cover right now (it limits requests). Try again in a few minutes to see every photo.",
+    "igAll": "Select all",
+    "igNone": "Clear",
+    "igDownload": "Download selected ({{count}})",
+    "igDownloadOne": "Download post",
+    "igDone": "{{count}} file(s) saved",
+    "igError": "Instagram didn't return this post. It may be private; otherwise try again in a few minutes."
   },
   "metadata": {
     "title": "Audio Metadata Editor",
@@ -548,7 +563,13 @@
     "errEmail": "That email address doesn't look right.",
     "errTooMany": "Too many requests. Try again later.",
     "errFailed": "The mail couldn't be sent. Try again in a moment.",
-    "errOffline": "No connection. Check your internet and try again."
+    "errOffline": "No connection. Check your internet and try again.",
+    "previewTitle": "Your inbox",
+    "previewNow": "now",
+    "previewSubject": "Sophy Studio for Android: your download link",
+    "previewHi": "Hi {{name}},",
+    "previewBody": "Here is Sophy Studio for your phone. Open this mail on your Android phone and tap the button.",
+    "previewButton": "Download for Android"
   },
   "mobileApp": {
     "nav": "Mobile app",
@@ -573,5 +594,89 @@
     "updateTitle": "Sophy Studio {{version}} is out",
     "updateBody": "Tap to see what's new and update.",
     "updateBodyDesktop": "Click to see what’s new and update."
+  },
+  "converter": {
+    "title": "File Converter",
+    "subtitle": "Audio, video and images to other formats. Saved next to the original file.",
+    "addFiles": "Add files",
+    "dropNow": "Drop the files here",
+    "dropPrompt": "Drag files here or click to choose",
+    "dropFormats": "MP3, WAV, FLAC, MP4, MKV, MOV, PNG, JPG, WEBP, GIF and more • Several at once",
+    "convertTo": "Convert to",
+    "selected": "{{count}} file(s) selected",
+    "savedNext": "saved next to each original",
+    "noCommon": "These files have no format in common. Convert audio, video and images separately.",
+    "files": "Files",
+    "clear": "Clear",
+    "remove": "Remove",
+    "conversions": "Conversions",
+    "clearFinished": "Clear finished",
+    "menuTitle": "Right-click menu in Explorer",
+    "menuHint": "Right-click a file → Sophy Studio Converter, without opening the app. On Windows 11 it is under \"Show more options\".",
+    "menuOnToast": "Added to the right-click menu.",
+    "menuOffToast": "Removed from the right-click menu.",
+    "menuFailed": "The right-click menu could not be changed.",
+    "someSkipped": "Some files were skipped: this type can't be converted.",
+    "pickTitle": "Choose files to convert",
+    "to": "To {{format}}",
+    "toLow": "To {{format}} (low quality)",
+    "scale": "Scale {{pct}}%",
+    "resize": "Resize to {{size}}",
+    "rotateLeft": "Rotate left",
+    "rotateRight": "Rotate right",
+    "queued": "Waiting",
+    "done": "Done",
+    "cancelled": "Cancelled",
+    "failed": "Failed",
+    "errUnsupported": "This file type can't be converted this way.",
+    "errNotFound": "The file no longer exists.",
+    "errFailed": "The conversion failed.",
+    "showInFolder": "Show in folder",
+    "cancel": "Cancel",
+    "summaryFailed": "{{done}} done, {{failed}} failed",
+    "summaryDone": "{{count}} file(s) converted",
+    "summaryRunning": "Converting {{current}} of {{total}}",
+    "closingIn": "Closing in {{seconds}} s",
+    "savedNextShort": "Saved next to the original files",
+    "close": "Close",
+    "stop": "Stop and close"
+  },
+  "preview": {
+    "open": "Preview",
+    "openDefault": "Open with default app",
+    "unsupported": "This format can't be previewed here.",
+    "unsupportedHint": "You can still convert it, or open it with your default app.",
+    "clickFit": "Click to fit",
+    "clickZoom": "Click for actual size",
+    "seek": "Position",
+    "back10": "Back 10 s",
+    "forward10": "Forward 10 s",
+    "play": "Play",
+    "pause": "Pause",
+    "loop": "Loop",
+    "speed": "Speed",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "volume": "Volume",
+    "fullscreen": "Full screen",
+    "preparing": "Preparing the preview…"
+  },
+  "compressor": {
+    "compress": "Compress",
+    "alreadySmall": "Already as small as it gets: nothing was written.",
+    "encrypted": "This PDF is password protected.",
+    "small": "Already small",
+    "title": "Compressor",
+    "subtitle": "Make photos, music, videos, PDFs and any other file smaller. Saved next to the original.",
+    "tooMany": "Up to {{max}} files at a time.",
+    "pickTitle": "Choose files to compress",
+    "dropFormats": "JPG, PNG, MP3, WAV, MP4, PDF and any other file • Up to {{max}} at once",
+    "ready": "{{count}} / {{max}} files",
+    "readyHint": "Nothing changes until you press Compress. Originals are never touched.",
+    "compressN": "Compress {{count}} file(s)",
+    "results": "Results",
+    "saved": "{{size}} saved in total",
+    "summaryRunning": "Compressing {{current}} of {{total}}",
+    "summaryDone": "{{count}} file(s) compressed"
   }
 }

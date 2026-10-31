@@ -3,11 +3,14 @@
   "identifier": "default",
   "description": "enables the default permissions",
   "windows": [
-    "main"
+    "main",
+    "converter"
   ],
   "permissions": [
     "core:default",
     "core:webview:allow-set-webview-zoom",
-    "core:window:allow-show"
+    "core:window:allow-show",
+    "core:window:allow-close",
+    "core:window:allow-set-focus"
   ]
 }

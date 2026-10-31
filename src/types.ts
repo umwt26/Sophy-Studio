@@ -39,7 +39,7 @@ export interface UpdateInfo {
   download_sha256?: string | null;
 }
 
-export type AppTab = "home" | "suno" | "universal" | "metadata" | "detector" | "sample-cutter" | "prompter" | "mobile-app" | "feedback" | "settings";
+export type AppTab = "home" | "suno" | "universal" | "metadata" | "detector" | "sample-cutter" | "prompter" | "converter" | "compressor" | "mobile-app" | "feedback" | "settings";
 
 export type ThemeMode = "dark" | "light" | "system";
 /** A preset id from THEME_PRESETS, or a "#rrggbb" custom colour */

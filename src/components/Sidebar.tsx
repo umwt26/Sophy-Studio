@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ChatBubbleIcon,
+  CompressIcon,
+  ConvertIcon,
   GlobeDownloadIcon,
   HomeIcon,
   PhoneIcon,
@@ -47,6 +49,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { t } = useTranslation();
   const [collapsed, setCollapsed] = useState(readCollapsed);
+  const navRef = useRef<HTMLElement>(null);
+  const [fade, setFade] = useState<"none" | "top" | "bottom" | "both">("none");
+
+  // which edges of the tool list hide more items (shown as a soft fade instead of a scrollbar)
+  useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+    const update = () => {
+      const up = el.scrollTop > 2;
+      const down = el.scrollTop + el.clientHeight < el.scrollHeight - 2;
+      setFade(up && down ? "both" : up ? "top" : down ? "bottom" : "none");
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      ro.disconnect();
+    };
+  }, [collapsed]);
 
   // Follow the window size until the user picks a state themselves
   useEffect(() => {
@@ -94,6 +117,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
       items: [
         { id: "metadata", label: t("nav.metadata", "Metadata Editor"), Icon: TagIcon },
         { id: "detector", label: t("nav.detector", "Key & BPM Detect"), Icon: PianoIcon },
+        { id: "converter", label: t("nav.converter", "File Converter"), Icon: ConvertIcon },
+        { id: "compressor", label: t("nav.compressor", "Compressor"), Icon: CompressIcon },
       ],
     },
   ];
@@ -137,7 +162,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto overflow-x-hidden px-3 pb-3">
+      <nav ref={navRef} data-fade={fade} className="sidebar-nav flex-1 overflow-y-auto overflow-x-hidden px-3 pb-3">
         {collapsed && (
           <button
             type="button"

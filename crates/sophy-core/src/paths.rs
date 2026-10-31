@@ -108,6 +108,24 @@ impl SophyPaths {
         })
     }
 
+    /// " -- sophy.beli26.xyz - ID 4F7K2Q": appended to every downloaded file. Windows file names
+    /// can't hold ":" or "/", so the link is written without "https://" and the ID without ":".
+    pub fn download_tag() -> String {
+        const CHARS: &[u8] = b"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        let id: String = uuid::Uuid::new_v4().as_bytes().iter().take(6).map(|b| CHARS[*b as usize % CHARS.len()] as char).collect();
+        format!(" -- sophy.beli26.xyz - ID {id}")
+    }
+
+    /// "<dir>/<stem>.<ext>", or "<stem> (1).<ext>", "(2)" … when that name is taken: never overwrites.
+    pub fn unique_path(dir: &std::path::Path, stem: &str, ext: &str) -> PathBuf {
+        let dot = if ext.is_empty() { String::new() } else { format!(".{ext}") };
+        let first = dir.join(format!("{stem}{dot}"));
+        if !first.exists() {
+            return first;
+        }
+        (1..).map(|n| dir.join(format!("{stem} ({n}){dot}"))).find(|p| !p.exists()).unwrap()
+    }
+
     pub fn sanitize_filename(name: &str) -> String {
         let cleaned = sanitize_filename::sanitize(name);
         if cleaned.trim().is_empty() {

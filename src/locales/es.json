@@ -84,7 +84,9 @@
     "detector": "Detector de Clave y BPM",
     "settings": "Ajustes",
     "cutter": "Sample Cutter",
-    "prompter": "Suno Style Prompter"
+    "prompter": "Suno Style Prompter",
+    "converter": "Conversor de archivos",
+    "compressor": "Compresor"
   },
   "header": {
     "openMenu": "Abrir Menú"
@@ -131,25 +133,30 @@
     "whatsNew": {
       "title": "Novedades de la {{version}}",
       "subtitle": "Todo lo que cambió en esta actualización.",
-      "mobile": {
-        "title": "App de Android en la barra lateral",
-        "desc": "Una nueva página App móvil sobre Enviar comentarios muestra lo que hace la versión de Android y te envía su enlace desde sophy@beli26.xyz."
+      "converter": {
+        "title": "Conversor de archivos",
+        "desc": "Audio, vídeo e imágenes a MP3, WAV, MP4, GIF, PNG, WebP y más, también redimensionados o girados. Clic derecho en un archivo del Explorador para convertirlo sin abrir la app."
       },
-      "notify": {
-        "title": "Avisos de actualización",
-        "desc": "Windows ahora te avisa de una versión nueva con una notificación, incluso con Sophy Studio cerrado. Haz clic para abrir la actualización."
+      "compressor": {
+        "title": "Compresor",
+        "desc": "Reduce fotos, música, vídeos, PDF y cualquier otro archivo, hasta 10 a la vez, y muestra cuánto ahorró. También desde el menú contextual."
       },
-      "website": {
-        "title": "Sophy Studio en la web",
-        "desc": "En sophy.beli26.xyz están las descargas, las notas de versión y el blog. Está en Ajustes > Acerca de y en Inicio."
+      "player": {
+        "title": "Reproductor integrado",
+        "desc": "Previsualiza cualquier archivo: fotos, vídeos, música con espectro en vivo, PDF. Velocidad, repetición, ±10 s y una barra fluida con el logo de Sophy."
       },
-      "fixes": {
-        "title": "Ajustes y BPM más limpios",
-        "desc": "El menú de Ajustes se queda fijo al desplazarte y Key & BPM muestra solo el tempo detectado, sin ×2 / ÷2."
+      "downloads": {
+        "title": "Descargas más listas",
+        "desc": "Los archivos ya no se sobrescriben, cada uno lleva un ID de Sophy y las publicaciones de Instagram se descargan foto a foto."
       }
     },
     "showAll": "Ver todo",
-    "showLess": "Ver menos"
+    "showLess": "Ver menos",
+    "converterTitle": "Conversor de archivos",
+    "converterDesc": "Convierte audio, vídeo e imágenes a otros formatos, cambia su tamaño o gíralos. También desde el menú contextual del Explorador.",
+    "tagKey": "Tonalidad",
+    "compressorTitle": "Compresor",
+    "compressorDesc": "Reduce fotos, música, vídeos y PDF, hasta 10 a la vez. También desde el menú contextual del Explorador."
   },
   "universal": {
     "title": "Universal Media Downloader",
@@ -184,7 +191,15 @@
     "readyToDownload": "Media ready to download",
     "errNoFormats": "Este enlace no tiene vídeo ni audio descargable. Puede que sea una publicación solo de imagen.",
     "errUnsupported": "Este sitio web o tipo de enlace no es compatible.",
-    "errPrivate": "Este contenido es privado, tiene restricción de edad o requiere iniciar sesión."
+    "errPrivate": "Este contenido es privado, tiene restricción de edad o requiere iniciar sesión.",
+    "igCount": "{{count}} elemento(s)",
+    "igLimited": "Instagram solo da la portada ahora mismo (limita las solicitudes). Vuelve a intentarlo en unos minutos para ver todas las fotos.",
+    "igAll": "Seleccionar todo",
+    "igNone": "Vaciar",
+    "igDownload": "Descargar selección ({{count}})",
+    "igDownloadOne": "Descargar publicación",
+    "igDone": "{{count}} archivo(s) guardado(s)",
+    "igError": "Instagram no devolvió esta publicación. Puede ser privada; si no, inténtalo en unos minutos."
   },
   "metadata": {
     "title": "Editor de Metadatos",
@@ -548,7 +563,13 @@
     "errEmail": "Ese correo no parece correcto.",
     "errTooMany": "Demasiadas solicitudes. Inténtalo más tarde.",
     "errFailed": "No se pudo enviar el correo. Inténtalo de nuevo en un momento.",
-    "errOffline": "Sin conexión. Revisa tu internet e inténtalo de nuevo."
+    "errOffline": "Sin conexión. Revisa tu internet e inténtalo de nuevo.",
+    "previewTitle": "Tu bandeja de entrada",
+    "previewNow": "ahora",
+    "previewSubject": "Sophy Studio para Android: tu enlace de descarga",
+    "previewHi": "Hola, {{name}}:",
+    "previewBody": "Aquí tienes Sophy Studio para tu móvil. Abre este correo en tu teléfono Android y toca el botón.",
+    "previewButton": "Descargar para Android"
   },
   "mobileApp": {
     "nav": "App móvil",
@@ -573,5 +594,89 @@
     "updateTitle": "Ya está aquí Sophy Studio {{version}}",
     "updateBody": "Toca para ver las novedades y actualizar.",
     "updateBodyDesktop": "Haz clic para ver las novedades y actualizar."
+  },
+  "converter": {
+    "title": "Conversor de archivos",
+    "subtitle": "Audio, vídeo e imágenes a otros formatos. Se guarda junto al archivo original.",
+    "addFiles": "Añadir archivos",
+    "dropNow": "Suelta los archivos aquí",
+    "dropPrompt": "Arrastra archivos aquí o haz clic para elegir",
+    "dropFormats": "MP3, WAV, FLAC, MP4, MKV, MOV, PNG, JPG, WEBP, GIF y más • Varios a la vez",
+    "convertTo": "Convertir a",
+    "selected": "{{count}} archivo(s) seleccionado(s)",
+    "savedNext": "se guarda junto a cada original",
+    "noCommon": "Estos archivos no comparten ningún formato. Convierte audio, vídeo e imágenes por separado.",
+    "files": "Archivos",
+    "clear": "Vaciar",
+    "remove": "Quitar",
+    "conversions": "Conversiones",
+    "clearFinished": "Quitar terminadas",
+    "menuTitle": "Menú contextual del Explorador",
+    "menuHint": "Clic derecho en un archivo → Sophy Studio Converter, sin abrir la app. En Windows 11 está en \"Mostrar más opciones\".",
+    "menuOnToast": "Añadido al menú contextual.",
+    "menuOffToast": "Quitado del menú contextual.",
+    "menuFailed": "No se pudo cambiar el menú contextual.",
+    "someSkipped": "Se omitieron algunos archivos: este tipo no se puede convertir.",
+    "pickTitle": "Elige archivos para convertir",
+    "to": "A {{format}}",
+    "toLow": "A {{format}} (baja calidad)",
+    "scale": "Escalar al {{pct}}%",
+    "resize": "Redimensionar a {{size}}",
+    "rotateLeft": "Girar a la izquierda",
+    "rotateRight": "Girar a la derecha",
+    "queued": "En espera",
+    "done": "Listo",
+    "cancelled": "Cancelado",
+    "failed": "Error",
+    "errUnsupported": "Este tipo de archivo no se puede convertir así.",
+    "errNotFound": "El archivo ya no existe.",
+    "errFailed": "La conversión falló.",
+    "showInFolder": "Mostrar en la carpeta",
+    "cancel": "Cancelar",
+    "summaryFailed": "{{done}} listos, {{failed}} con error",
+    "summaryDone": "{{count}} archivo(s) convertido(s)",
+    "summaryRunning": "Convirtiendo {{current}} de {{total}}",
+    "closingIn": "Se cierra en {{seconds}} s",
+    "savedNextShort": "Guardado junto a los archivos originales",
+    "close": "Cerrar",
+    "stop": "Detener y cerrar"
+  },
+  "preview": {
+    "open": "Vista previa",
+    "openDefault": "Abrir con la app predeterminada",
+    "unsupported": "Este formato no se puede previsualizar aquí.",
+    "unsupportedHint": "Aun así puedes convertirlo o abrirlo con la app predeterminada.",
+    "clickFit": "Clic para ajustar",
+    "clickZoom": "Clic para tamaño real",
+    "seek": "Posición",
+    "back10": "Atrás 10 s",
+    "forward10": "Adelante 10 s",
+    "play": "Reproducir",
+    "pause": "Pausa",
+    "loop": "Repetir",
+    "speed": "Velocidad",
+    "mute": "Silenciar",
+    "unmute": "Activar sonido",
+    "volume": "Volumen",
+    "fullscreen": "Pantalla completa",
+    "preparing": "Preparando la vista previa…"
+  },
+  "compressor": {
+    "compress": "Comprimir",
+    "alreadySmall": "Ya es lo más pequeño posible: no se escribió nada.",
+    "encrypted": "Este PDF está protegido con contraseña.",
+    "small": "Ya es pequeño",
+    "title": "Compresor",
+    "subtitle": "Reduce fotos, música, vídeos, PDF y cualquier otro archivo. Se guarda junto al original.",
+    "tooMany": "Hasta {{max}} archivos a la vez.",
+    "pickTitle": "Elige archivos para comprimir",
+    "dropFormats": "JPG, PNG, MP3, WAV, MP4, PDF y cualquier otro archivo • Hasta {{max}} a la vez",
+    "ready": "{{count}} / {{max}} archivos",
+    "readyHint": "Nada cambia hasta que pulses Comprimir. Los originales no se tocan.",
+    "compressN": "Comprimir {{count}} archivo(s)",
+    "results": "Resultados",
+    "saved": "{{size}} ahorrados en total",
+    "summaryRunning": "Comprimiendo {{current}} de {{total}}",
+    "summaryDone": "{{count}} archivo(s) comprimido(s)"
   }
 }

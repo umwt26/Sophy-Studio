@@ -1,12 +1,14 @@
 mod commands;
+mod converter;
+mod instagram;
 mod prompter_ai;
 mod update_notify;
 
+pub use converter::run_from_explorer as run_converter;
 pub use update_notify::background_check as background_update_check;
 
 use commands::*;
 use prompter_ai::*;
-use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -38,12 +40,24 @@ pub fn run() {
       prompter_ai_download,
       prompter_ai_delete,
       prompter_ai_understand,
-      update_notify::save_notify_texts
+      update_notify::save_notify_texts,
+      converter::converter_presets,
+      converter::converter_pick_files,
+      converter::converter_start,
+      converter::converter_cancel,
+      converter::converter_context_menu,
+      converter::show_in_folder,
+      converter::converter_allow_preview,
+      converter::preview_prepare,
+      instagram::instagram_post,
+      instagram::instagram_download
     ])
     .setup(|app| {
-      if let Some(window) = app.get_webview_window("main") {
-        let icon = tauri::include_image!("icons/icon.png");
-        let _ = window.set_icon(icon);
+      // the main window is built here, not from tauri.conf.json ("create": false), so the
+      // right-click converter (a separate process) can start with only its own small window
+      if let Some(cfg) = app.config().app.windows.iter().find(|w| w.label == "main") {
+        let window = tauri::WebviewWindowBuilder::from_config(app.handle(), cfg)?.build()?;
+        let _ = window.set_icon(tauri::include_image!("icons/icon.png"));
       }
 
       // Automatically clean up legacy machine-wide v0.1.0 duplicate installations & shortcuts

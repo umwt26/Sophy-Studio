@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { PageHeader } from "./PageHeader";
 import {
   AlertCircleIcon,
-  ArrowDownTrayIcon,
   CheckCircleIcon,
   ChevronLeftIcon,
   ExternalLinkIcon,
@@ -17,6 +16,7 @@ import {
   SunoPrompterIcon,
 } from "./icons";
 import phoneShot from "../assets/m-home.webp";
+import logoImg from "../assets/logo.png";
 import { sendDownloadLink, siteUrl, type SendLinkError } from "../utils/sendLink";
 
 interface MobileAppPageProps {
@@ -72,9 +72,10 @@ export const MobileAppPage: React.FC<MobileAppPageProps> = ({ onShowToast }) => 
     <div className="page pb-10">
       <PageHeader Icon={PhoneIcon} title={t("mobileApp.title", "Sophy Studio for Android")} desc={t("mobileApp.subtitle", "")} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4 items-start">
+      {/* both cards share the row height: the text card and the phone card line up */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4 items-stretch">
         {view === "intro" && (
-          <section key="intro" className="section stagger flex flex-col gap-5 p-5">
+          <section key="intro" className="section stagger flex h-full flex-col gap-5 p-5">
             <p className="text-[0.9375rem] leading-relaxed text-[var(--color-text-primary)] max-w-[60ch]">{t("mobileApp.lead", "")}</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -91,7 +92,7 @@ export const MobileAppPage: React.FC<MobileAppPageProps> = ({ onShowToast }) => 
               ))}
             </div>
 
-            <div className="divider" />
+            <div className="divider mt-auto" />
 
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="min-w-0">
@@ -99,10 +100,6 @@ export const MobileAppPage: React.FC<MobileAppPageProps> = ({ onShowToast }) => 
                 <p className="setting-hint">{t("mobileApp.sendDesc", "")}</p>
               </div>
               <div className="flex flex-wrap gap-2">
-                <button type="button" className="btn btn-secondary" onClick={() => openUrl(siteUrl(i18n.language, "download/"))}>
-                  <ArrowDownTrayIcon />
-                  <span>{t("mobileApp.openPage", "Open the download page")}</span>
-                </button>
                 <button type="button" className="btn btn-primary" onClick={() => setView("form")}>
                   <MailIcon />
                   <span>{t("mobileApp.sendBtn", "Email me the link")}</span>
@@ -113,7 +110,7 @@ export const MobileAppPage: React.FC<MobileAppPageProps> = ({ onShowToast }) => 
         )}
 
         {view === "form" && (
-          <form key="form" onSubmit={submit} className="section stagger flex flex-col gap-5 p-5" noValidate>
+          <form key="form" onSubmit={submit} className="section stagger flex h-full flex-col gap-5 p-5" noValidate>
             <div className="flex items-start gap-3">
               <button type="button" className="icon-btn shrink-0" onClick={() => setView("intro")} aria-label={t("sendLink.back", "Back")}>
                 <ChevronLeftIcon />
@@ -142,7 +139,9 @@ export const MobileAppPage: React.FC<MobileAppPageProps> = ({ onShowToast }) => 
               </div>
             )}
 
-            <div className="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-3">
+            <MailPreview name={name} email={email} />
+
+            <div className="mt-auto flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-3">
               <p className="text-[0.75rem] text-[var(--color-text-muted)]">{t("sendLink.privacy", "")}</p>
               <button type="submit" disabled={sending} className="btn btn-primary px-6">
                 {sending ? <span className="spinner !h-4 !w-4 !border-[var(--color-accent-fg)] !border-t-transparent" /> : <SendIcon />}
@@ -153,7 +152,7 @@ export const MobileAppPage: React.FC<MobileAppPageProps> = ({ onShowToast }) => 
         )}
 
         {view === "sent" && (
-          <section key="sent" className="section section-pad flex flex-col items-center gap-3 py-14 text-center animate-fade-up">
+          <section key="sent" className="section section-pad flex h-full flex-col items-center justify-center gap-3 py-14 text-center animate-fade-up">
             <span className="icon-tile !h-14 !w-14 !rounded-2xl">
               <CheckCircleIcon className="!h-7 !w-7" />
             </span>
@@ -165,7 +164,7 @@ export const MobileAppPage: React.FC<MobileAppPageProps> = ({ onShowToast }) => 
           </section>
         )}
 
-        <aside className="section flex flex-col items-center gap-3 p-4">
+        <aside className="section flex h-full flex-col items-center justify-center gap-3 p-4">
           <div className="phone-frame">
             <img src={phoneShot} alt="" className="block h-auto w-full" />
           </div>
@@ -198,6 +197,36 @@ export const WebsiteCard: React.FC = () => {
         <ExternalLinkIcon />
       </button>
       </div>
+    </div>
+  );
+};
+
+/** What arrives in the inbox: a small copy of the real mail, greeting the name being typed. */
+const MailPreview: React.FC<{ name: string; email: string }> = ({ name, email }) => {
+  const { t } = useTranslation();
+  // the name fills in as it is typed; "…" until then (works in every language)
+  const first = name.trim().split(/\s+/)[0] || "…";
+  return (
+    <div className="rounded-[16px] border border-[var(--color-app-border-soft)] bg-[var(--color-app-surface-2)] p-4">
+      <p className="eyebrow mb-3">{t("sendLink.previewTitle", "Your inbox")}</p>
+      <div className="flex items-center gap-3 border-b border-[var(--color-app-border-soft)] pb-3">
+        <img src={logoImg} alt="" className="h-9 w-9 shrink-0 rounded-[10px] object-contain" />
+        <div className="min-w-0 flex-1">
+          <p className="flex items-baseline justify-between gap-2 text-[0.8125rem]">
+            <span className="font-semibold text-[var(--color-text-primary)]">Sophy Studio</span>
+            <span className="shrink-0 text-[0.6875rem] text-[var(--color-text-muted)]">{t("sendLink.previewNow", "now")}</span>
+          </p>
+          <p className="truncate text-[0.75rem] text-[var(--color-text-secondary)]">
+            sophy@beli26.xyz → {email.trim() || "name@example.com"}
+          </p>
+        </div>
+      </div>
+      <p className="mt-3 text-[0.8125rem] font-semibold text-[var(--color-text-primary)]">{t("sendLink.previewSubject", "Sophy Studio for Android: your download link")}</p>
+      <p className="mt-2 text-[0.8125rem] text-[var(--color-text-primary)]">{t("sendLink.previewHi", { name: first, defaultValue: "Hi {{name}}," })}</p>
+      <p className="mt-1 text-[0.78rem] leading-relaxed text-[var(--color-text-secondary)]">{t("sendLink.previewBody", "Here is Sophy Studio for your phone. Open this mail on your Android phone and tap the button.")}</p>
+      <span className="mt-3 inline-flex items-center rounded-[12px] bg-[var(--color-accent)] px-4 py-2 text-[0.78rem] font-semibold text-[var(--color-accent-fg)]">
+        {t("sendLink.previewButton", "Download for Android")}
+      </span>
     </div>
   );
 };

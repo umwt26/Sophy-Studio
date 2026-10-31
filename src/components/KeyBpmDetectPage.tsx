@@ -224,18 +224,9 @@ export const KeyBpmDetectPage: React.FC<KeyBpmDetectPageProps> = ({ onShowToast 
             {/* 1. Key Card */}
             <div className="section section-pad flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between">
-                  <span className="eyebrow">
-                    {t("detector.musicalKey", "Müzikal Ton (Key)")}
-                  </span>
-                  <div
-                    className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold text-[var(--color-accent-fg)]"
-                    style={{ backgroundColor: result.camelotColor }}
-                  >
-                    <span>CAMELOT</span>
-                    <span>{result.camelot}</span>
-                  </div>
-                </div>
+                <span className="eyebrow">
+                  {t("detector.musicalKey", "Müzikal Ton (Key)")}
+                </span>
 
                 <div className="mt-4 flex flex-col">
                   <h3 className="text-3xl font-bold tracking-tight text-[var(--color-text-primary)]">

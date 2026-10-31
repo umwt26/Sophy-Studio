@@ -161,7 +161,11 @@ impl UniversalDownloader {
         // Ensure ffmpeg is also available so yt-dlp doesn't fail on conversion or merge
         let ffmpeg_res = crate::converter::MediaConverter::ensure_ffmpeg_binary().await;
 
-        let output_template = out_dir.join("%(title)s.%(ext)s");
+        // yt-dlp writes into a private temp folder; the finished file is then moved next to the
+        // others with the Sophy tag and " (1)" style numbering, so nothing is ever overwritten
+        let work = out_dir.join(format!(".sophy-{}", uuid::Uuid::new_v4().simple()));
+        std::fs::create_dir_all(&work).map_err(|e| format!("İndirme klasörü oluşturulamadı: {}", e))?;
+        let output_template = work.join("%(title).150B.%(ext)s");
         let template_str = output_template.to_string_lossy().to_string();
 
         let mut cmd = create_silent_command(&ytdlp_path);
@@ -208,10 +212,28 @@ impl UniversalDownloader {
 
         let output = cmd.output().map_err(|e| format!("İndirme başlatılamadı: {}", e))?;
 
-        if output.status.success() {
-            Ok(out_dir.to_string_lossy().to_string())
-        } else {
-            Err(classify_ytdlp_error(&String::from_utf8_lossy(&output.stderr)))
+        if !output.status.success() {
+            let _ = std::fs::remove_dir_all(&work);
+            return Err(classify_ytdlp_error(&String::from_utf8_lossy(&output.stderr)));
+        }
+        let tag = crate::paths::SophyPaths::download_tag();
+        let mut last = None;
+        for f in std::fs::read_dir(&work).map(|r| r.flatten().map(|e| e.path()).collect::<Vec<_>>()).unwrap_or_default() {
+            if !f.is_file() || f.extension().is_some_and(|e| e == "part" || e == "ytdl") {
+                continue;
+            }
+            let stem = f.file_stem().map(|s| s.to_string_lossy().to_string()).unwrap_or_else(|| "media".into());
+            let ext = f.extension().map(|s| s.to_string_lossy().to_string()).unwrap_or_default();
+            let dest = crate::paths::SophyPaths::unique_path(out_dir, &format!("{stem}{tag}"), &ext);
+            if std::fs::rename(&f, &dest).is_err() {
+                std::fs::copy(&f, &dest).map_err(|e| format!("Dosya taşınamadı: {}", e))?;
+            }
+            last = Some(dest);
+        }
+        let _ = std::fs::remove_dir_all(&work);
+        match last {
+            Some(p) => Ok(p.to_string_lossy().to_string()),
+            None => Err("MEDIA_FAILED: no file was written".into()),
         }
     }
 }

@@ -596,3 +596,77 @@ export function MailIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function ConvertIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M11 21H6.5A2.5 2.5 0 0 1 4 18.5v-13A2.5 2.5 0 0 1 6.5 3H13l5 5v2.5" />
+      <path d="M13 3v3.5A1.5 1.5 0 0 0 14.5 8H18" />
+      <path d="M14.5 16.5a3.5 3.5 0 0 1 6.1-2" />
+      <path d="M21 12.5v2.4h-2.4" />
+      <path d="M21 18.5a3.5 3.5 0 0 1-6.1 2" />
+      <path d="M14.5 22.5v-2.4h2.4" />
+    </svg>
+  );
+}
+
+export function EyeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+export function VolumeIcon({ muted, ...props }: SVGProps<SVGSVGElement> & { muted?: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M11 5 6.5 9H3.5v6h3L11 19z" />
+      {muted ? (
+        <>
+          <path d="m16 9.5 5 5" />
+          <path d="m21 9.5-5 5" />
+        </>
+      ) : (
+        <>
+          <path d="M15.5 9a4 4 0 0 1 0 6" />
+          <path d="M18.5 6.5a7.5 7.5 0 0 1 0 11" />
+        </>
+      )}
+    </svg>
+  );
+}
+
+export function SkipIcon({ back, ...props }: SVGProps<SVGSVGElement> & { back?: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props} style={{ transform: back ? "scaleX(-1)" : undefined, ...props.style }}>
+      <path d="M20 12a8 8 0 1 1-2.3-5.6" />
+      <path d="M20 4v4h-4" />
+      <text x="12" y="15.5" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="currentColor" stroke="none" style={{ transform: back ? "scaleX(-1)" : undefined, transformOrigin: "12px 12px" }}>10</text>
+    </svg>
+  );
+}
+
+export function ExpandIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M4 9V4h5" />
+      <path d="M20 9V4h-5" />
+      <path d="M4 15v5h5" />
+      <path d="M20 15v5h-5" />
+    </svg>
+  );
+}
+
+export function CompressIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M12 2.5v6.5" />
+      <path d="m8.5 6 3.5 3.5L15.5 6" />
+      <path d="M12 21.5V15" />
+      <path d="m8.5 18 3.5-3.5 3.5 3.5" />
+      <path d="M4 12h16" />
+    </svg>
+  );
+}

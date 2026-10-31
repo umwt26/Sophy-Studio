@@ -16,6 +16,8 @@ import {
   GitHubIcon,
   DiscordIcon,
   GlobeIcon,
+  ConvertIcon,
+  CompressIcon,
 } from "./icons";
 import { siteUrl } from "../utils/sendLink";
 import type { AppTab } from "../types";
@@ -89,7 +91,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           title: t("home.detectorTitle", "Key & BPM Detect"),
           desc: t("home.detectorDesc", "Harmonic analysis to accurately detect musical key (Camelot wheel) and tempo (BPM) in seconds."),
           Icon: PianoIcon,
-          tags: ["Camelot", "BPM"],
+          tags: [t("home.tagKey", "Key"), "BPM"],
+        },
+        {
+          id: "converter",
+          title: t("home.converterTitle", "File Converter"),
+          desc: t("home.converterDesc", "Turn audio, video and images into other formats, resize or rotate them. Also from Explorer's right-click menu."),
+          Icon: ConvertIcon,
+          tags: ["MP3 → WAV", "MP4 → GIF", "PNG → WEBP"],
+        },
+        {
+          id: "compressor",
+          title: t("home.compressorTitle", "Compressor"),
+          desc: t("home.compressorDesc", "Shrink photos, music, videos and PDFs, up to 10 at a time. Also from Explorer's right-click menu."),
+          Icon: CompressIcon,
+          tags: ["JPG", "MP4", "PDF"],
         },
       ],
     },

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import './i18n'
 import App from './App.tsx'
+import { ConverterWindow } from './components/ConverterWindow.tsx'
 import { ErrorBoundary } from './components/ErrorBoundary.tsx'
 import { applyTheme, loadSavedTheme } from './utils/theme'
 import { applyAccessibility, loadAccessibility } from './utils/accessibility'
@@ -32,7 +33,8 @@ void zoomReady.finally(() => requestAnimationFrame(() => requestAnimationFrame((
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
-      <App />
+      {/* Explorer's right-click menu opens the converter window in its own process */}
+      {(window as { __SOPHY_CONVERTER__?: boolean }).__SOPHY_CONVERTER__ ? <ConverterWindow /> : <App />}
     </ErrorBoundary>
   </StrictMode>,
 )

@@ -14,6 +14,9 @@ import { SettingsPage } from "./components/SettingsPage";
 import { AudioFormatModal } from "./components/AudioFormatModal";
 import { FeedbackPage } from "./components/FeedbackPage";
 import { MobileAppPage } from "./components/MobileAppPage";
+import { ConverterPage } from "./components/ConverterPage";
+import { CompressorPage } from "./components/CompressorPage";
+import { syncContextMenu } from "./utils/converter";
 import { SunoHistoryDrawer } from "./components/SunoHistoryDrawer";
 import { AdModal } from "./components/AdModal";
 import { UpdateModal } from "./components/UpdateModal";
@@ -40,6 +43,11 @@ export default function App() {
       title: t("notify.updateTitle", { version: "{version}", defaultValue: "Sophy Studio {{version}} is out" }),
       body: t("notify.updateBodyDesktop", "Click to see what's new and update."),
     }).catch(() => {});
+  }, [i18n.language, t]);
+
+  // Explorer right-click menu: always there, on this exe and in the UI language (no-op when unchanged)
+  useEffect(() => {
+    void syncContextMenu(t).catch(() => {});
   }, [i18n.language, t]);
   const [song, setSong] = useState<SongData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -319,6 +327,8 @@ export default function App() {
 
           {activeTab === "prompter" && <SunoPrompterPage onShowToast={showToast} />}
 
+          {activeTab === "converter" && <ConverterPage onShowToast={showToast} />}
+          {activeTab === "compressor" && <CompressorPage onShowToast={showToast} />}
           {activeTab === "mobile-app" && <MobileAppPage onShowToast={showToast} />}
           {activeTab === "feedback" && <FeedbackPage onShowToast={showToast} />}
 

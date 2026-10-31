@@ -116,6 +116,8 @@ pub async fn download_media(
     let safe_title = SophyPaths::sanitize_filename(&clip.title);
     let safe_artist = SophyPaths::sanitize_filename(&clip.display_name);
     let base_name = format!("{} - {}", safe_title, safe_artist);
+    // saved files: "<title> - <artist> -- sophy.beli26.xyz - ID XXXXXX.<ext>", never over an old one
+    let file_stem = format!("{}{}", base_name, SophyPaths::download_tag());
 
     match target_format.as_str() {
         "mp3" | "wav" | "m4a" | "original" => {
@@ -123,7 +125,7 @@ pub async fn download_media(
             let clean_bytes = obtain_clean_audio_bytes(&client, &clip).await?;
 
             if target_format == "m4a" || target_format == "original" {
-                let out_file = paths.audio.join(format!("{}.m4a", base_name));
+                let out_file = SophyPaths::unique_path(&paths.audio, &file_stem, "m4a");
                 std::fs::write(&out_file, clean_bytes)
                     .map_err(|e| format!("Failed to save audio file: {}", e))?;
                 return Ok(out_file.to_string_lossy().to_string());
@@ -135,14 +137,14 @@ pub async fn download_media(
 
             if target_format == "mp3" {
                 let _ = app.emit("download-status", "Converting to high quality MP3 (320kbps)...");
-                let out_file = paths.audio.join(format!("{}.mp3", base_name));
+                let out_file = SophyPaths::unique_path(&paths.audio, &file_stem, "mp3");
                 let res = MediaConverter::convert_to_mp3(&temp_input, &out_file).await;
                 let _ = std::fs::remove_file(&temp_input);
                 res?;
                 Ok(out_file.to_string_lossy().to_string())
             } else {
                 let _ = app.emit("download-status", "Converting to lossless WAV...");
-                let out_file = paths.audio.join(format!("{}.wav", base_name));
+                let out_file = SophyPaths::unique_path(&paths.audio, &file_stem, "wav");
                 let res = MediaConverter::convert_to_wav(&temp_input, &out_file).await;
                 let _ = std::fs::remove_file(&temp_input);
                 res?;
@@ -172,7 +174,7 @@ pub async fn download_media(
                 .await
                 .map_err(|e| format!("Failed to read cover bytes: {}", e))?;
 
-            let out_file = paths.cover_art.join(format!("{}.jpg", base_name));
+            let out_file = SophyPaths::unique_path(&paths.cover_art, &file_stem, "jpg");
             std::fs::write(&out_file, bytes)
                 .map_err(|e| format!("Failed to write cover art: {}", e))?;
             Ok(out_file.to_string_lossy().to_string())
@@ -183,7 +185,7 @@ pub async fn download_media(
                 "Title: {}\nArtist: {}\nModel: {}\nTags: {}\n\nLyrics / Prompt:\n{}\n",
                 clip.title, clip.display_name, clip.major_model_version, clip.tags, clip.prompt
             );
-            let out_file = paths.lyrics.join(format!("{}.txt", base_name));
+            let out_file = SophyPaths::unique_path(&paths.lyrics, &file_stem, "txt");
             std::fs::write(&out_file, content)
                 .map_err(|e| format!("Failed to write lyrics: {}", e))?;
             Ok(out_file.to_string_lossy().to_string())
@@ -225,7 +227,7 @@ pub async fn download_media(
             let lyrics_file = paths.all.join(format!("{}.txt", base_name));
             std::fs::write(&lyrics_file, lyrics_content).map_err(|e| e.to_string())?;
 
-            let zip_file = paths.all.join(format!("{}.zip", base_name));
+            let zip_file = SophyPaths::unique_path(&paths.all, &file_stem, "zip");
             let mp3_name = format!("{}.mp3", base_name);
             let cover_name = format!("{}.jpg", base_name);
             let lyrics_name = format!("{}.txt", base_name);

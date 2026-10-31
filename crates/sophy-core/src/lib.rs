@@ -1,6 +1,8 @@
 pub mod api;
+pub mod compressor;
 pub mod converter;
 pub mod drm;
+pub mod file_converter;
 pub mod link;
 pub mod model;
 pub mod metadata;

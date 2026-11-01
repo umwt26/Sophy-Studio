@@ -241,7 +241,8 @@
     "errVerify": "Die Tags wurden geschrieben, konnten aber nicht bestätigt werden. Die Datei ist eventuell schreibgeschützt oder wird von einem anderen Programm verwendet.",
     "errWrite": "In die Datei konnte nicht geschrieben werden. Schließe Programme, die sie verwenden (Player, DAW), und versuche es erneut.",
     "errRead": "Diese Audiodatei konnte nicht gelesen werden.",
-    "sponsorAction": "Tags in Datei speichern"
+    "sponsorAction": "Tags in Datei speichern",
+    "wavNote": "WAV-Dateien speichern das Cover in sich, und Player wie FL Studio, VLC und foobar2000 zeigen es an, aber der Windows-Explorer zeigt bei WAV nie Cover oder Albuminterpret. Wandle in FLAC (verlustfrei) oder MP3 um, um sie auch im Explorer zu sehen."
   },
   "detector": {
     "title": "Key & BPM Erkennung",

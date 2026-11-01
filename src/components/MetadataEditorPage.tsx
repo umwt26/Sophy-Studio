@@ -298,6 +298,12 @@ export const MetadataEditorPage: React.FC<MetadataEditorPageProps> = ({ onShowTo
               )}
             </div>
 
+            {metadata.format === "WAV" && (
+              <p className="rounded-[10px] border border-[var(--color-app-border-soft)] bg-[var(--color-app-surface-2)] px-3 py-2 text-[0.6875rem] leading-relaxed text-[var(--color-text-secondary)]">
+                {t("metadata.wavNote", "WAV files keep the cover inside them and players like FL Studio, VLC and foobar2000 show it, but Windows Explorer never shows covers or the album artist for WAV. Convert to FLAC (lossless) or MP3 to see them in Explorer too.")}
+              </p>
+            )}
+
             <div className="mt-2 space-y-1.5 border-t border-[var(--color-app-border)] pt-3 text-[0.6875rem] text-[var(--color-text-secondary)]">
               <p className="truncate">
                 <span className="text-[var(--color-text-tertiary)]">{t("metadata.infoFile", "Dosya:")}</span>{" "}

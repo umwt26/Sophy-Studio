@@ -241,7 +241,8 @@
     "errVerify": "The tags were written but could not be confirmed. The file may be read-only or in use by another program.",
     "errWrite": "Could not write to the file. Close any program using it (player, DAW) and try again.",
     "errRead": "This audio file could not be read.",
-    "sponsorAction": "Save tags to file"
+    "sponsorAction": "Save tags to file",
+    "wavNote": "WAV files keep the cover inside them and players like FL Studio, VLC and foobar2000 show it, but Windows Explorer never shows covers or the album artist for WAV. Convert to FLAC (lossless) or MP3 to see them in Explorer too."
   },
   "detector": {
     "title": "Key & BPM Detect",

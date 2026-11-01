@@ -241,7 +241,8 @@
     "errVerify": "Les tags ont été écrits mais n'ont pas pu être confirmés. Le fichier est peut-être en lecture seule ou utilisé par un autre programme.",
     "errWrite": "Impossible d'écrire dans le fichier. Fermez les programmes qui l'utilisent (lecteur, DAW) et réessayez.",
     "errRead": "Impossible de lire ce fichier audio.",
-    "sponsorAction": "Enregistrer les tags dans le fichier"
+    "sponsorAction": "Enregistrer les tags dans le fichier",
+    "wavNote": "Les fichiers WAV gardent la pochette à l'intérieur et des lecteurs comme FL Studio, VLC et foobar2000 l'affichent, mais l'Explorateur Windows n'affiche jamais la pochette ni l'artiste de l'album pour les WAV. Convertissez en FLAC (sans perte) ou MP3 pour les voir aussi dans l'Explorateur."
   },
   "detector": {
     "title": "Détection Clé & BPM",

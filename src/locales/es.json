@@ -241,7 +241,8 @@
     "errVerify": "Las etiquetas se escribieron pero no se pudieron confirmar. Puede que el archivo sea de solo lectura o que otro programa lo esté usando.",
     "errWrite": "No se pudo escribir en el archivo. Cierra cualquier programa que lo esté usando (reproductor, DAW) e inténtalo de nuevo.",
     "errRead": "No se pudo leer este archivo de audio.",
-    "sponsorAction": "Guardar etiquetas en el archivo"
+    "sponsorAction": "Guardar etiquetas en el archivo",
+    "wavNote": "Los archivos WAV guardan la portada dentro y reproductores como FL Studio, VLC y foobar2000 la muestran, pero el Explorador de Windows nunca muestra portadas ni el artista del álbum en WAV. Convierte a FLAC (sin pérdida) o MP3 para verlos también en el Explorador."
   },
   "detector": {
     "title": "Detector de Clave y BPM",

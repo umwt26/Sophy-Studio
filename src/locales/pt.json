@@ -241,7 +241,8 @@
     "errVerify": "As tags foram gravadas, mas não puderam ser confirmadas. O arquivo pode ser somente leitura ou estar em uso por outro programa.",
     "errWrite": "Não foi possível gravar no arquivo. Feche os programas que o estão usando (player, DAW) e tente novamente.",
     "errRead": "Não foi possível ler este arquivo de áudio.",
-    "sponsorAction": "Salvar tags no arquivo"
+    "sponsorAction": "Salvar tags no arquivo",
+    "wavNote": "Arquivos WAV guardam a capa dentro deles e players como FL Studio, VLC e foobar2000 a mostram, mas o Explorador do Windows nunca mostra capas nem o artista do álbum em WAV. Converta para FLAC (sem perdas) ou MP3 para vê-los também no Explorador."
   },
   "detector": {
     "title": "Detector de Tom e BPM",

@@ -216,7 +216,9 @@ impl MetadataManager {
                 id3_tag.set_title(title.clone());
             }
             if let Some(ref artist) = input.artist {
+                // Windows lists TPE1 as "Contributing artists"; the main artist is TPE2 ("Album artist")
                 id3_tag.set_artist(artist.clone());
+                id3_tag.set_album_artist(artist.clone());
             }
             if let Some(ref album) = input.album {
                 id3_tag.set_album(album.clone());
@@ -315,6 +317,7 @@ impl MetadataManager {
         }
         if let Some(ref artist) = input.artist {
             tag.set_artist(artist.clone());
+            tag.insert_text(lofty::prelude::ItemKey::AlbumArtist, artist.clone());
         }
         if let Some(ref album) = input.album {
             tag.set_album(album.clone());

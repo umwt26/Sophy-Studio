@@ -241,7 +241,8 @@
     "errVerify": "Etiketler yazıldı ama doğrulanamadı. Dosya salt okunur olabilir ya da başka bir program tarafından kullanılıyor olabilir.",
     "errWrite": "Dosyaya yazılamadı. Dosyayı kullanan programı (oynatıcı, DAW) kapatıp tekrar dene.",
     "errRead": "Bu ses dosyası okunamadı.",
-    "sponsorAction": "Etiketleri dosyaya kaydet"
+    "sponsorAction": "Etiketleri dosyaya kaydet",
+    "wavNote": "WAV dosyaları kapağı içinde saklar ve FL Studio, VLC, foobar2000 gibi oynatıcılar gösterir; ama Windows Gezgini WAV için kapağı ve albüm sanatçısını hiç göstermez. Gezgin'de de görmek için FLAC (kayıpsız) ya da MP3'e dönüştür."
   },
   "detector": {
     "title": "Key & BPM Detect",
